@@ -1,0 +1,108 @@
+<div class="card border-0 shadow mb-4">
+    <div class="card-body">
+        <button (click)="showAnonymous()" class="btn {{activeAnonymous}} m-2 mb-4">Anonyme</button>
+        <button (click)="showNoAnonymous()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
+        <fieldset *ngIf="!isAnonymous">
+            <legend class="h6"></legend>
+            <div class="form-check">
+                <input #personal (change)="togglePersonal(personal.checked)" class="form-check-input" type="radio" name="choix" id="personnel" value="personnel" checked="">
+                <label class="form-check-label" for="personnel">
+                  Afficher les dons faits à titre personnel
+                </label>
+              </div>
+              <div class="form-check">
+                <input #organization (change)="togglePersonal(personal.checked)" class="form-check-input" type="radio" name="choix" id="organisation" value="organisation">
+                <label class="form-check-label" for="organisation">
+                  Afficher les dons faits par des organisations
+                </label>
+              </div>
+        </fieldset>
+    <div class="table-responsive">
+        <table class="table table-centered table-nowrap mb-0 rounded">
+        <thead class="thead-light">
+            <tr>
+            <th class="border-0 rounded-start">N°</th>
+            <th class="border-0">Montant</th>
+            <th class="border-0">Type</th>
+            <th *ngIf="!isAnonymous && !isPersonal" class="border-0">Organisation</th>
+            <th *ngIf="!isAnonymous" class="border-0">Nom</th>
+            <th *ngIf="!isAnonymous" class="border-0">Prénom</th>
+            <th *ngIf="!isAnonymous" class="border-0 rounded-end">Contact</th>
+            <th *ngIf="!isAnonymous" class="border-0 rounded-end">Civilité</th>
+            <th *ngIf="!isAnonymous" class="border-0 rounded-end">Ville</th>
+            <th *ngIf="!isAnonymous" class="border-0 rounded-end">Pays</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Item -->
+        <tr>
+            <td><a href="#" class="text-primary fw-bold">1</a> </td>
+            <td class="fw-bold d-flex align-items-center">
+                50000
+            </td>
+            <td>
+                Caritas
+            </td>
+            <td *ngIf="!isAnonymous && !isPersonal">
+                CinetPay
+            </td>
+        <td *ngIf="!isAnonymous">
+            Fofanar
+        </td>
+        <td *ngIf="!isAnonymous">
+            Omar
+        </td>
+        <td *ngIf="!isAnonymous">
+            0722336644
+        </td>
+        <td *ngIf="!isAnonymous">
+            M
+        </td>
+        <td *ngIf="!isAnonymous">
+            Abidjan
+        </td>
+        <td *ngIf="!isAnonymous">
+            Côte d'Ivoire
+        </td>
+        </tr>
+<!-- End of Item -->
+
+<!-- Item -->
+        <tr>
+            <td><a href="#" class="text-primary fw-bold">2</a> </td>
+            <td class="fw-bold d-flex align-items-center">
+                50000
+            </td>
+            <td>
+                Caritas
+            </td>
+            <td *ngIf="!isAnonymous && !isPersonal">
+                CinetPay
+            </td>
+        <td *ngIf="!isAnonymous">
+            Fofanar
+        </td>
+        <td *ngIf="!isAnonymous">
+            Omar
+        </td>
+        <td *ngIf="!isAnonymous">
+            0722336644
+        </td>
+        <td *ngIf="!isAnonymous">
+            M
+        </td>
+        <td *ngIf="!isAnonymous">
+            Abidjan
+        </td>
+        <td *ngIf="!isAnonymous">
+            Côte d'Ivoire
+        </td>
+        </tr>
+<!-- End of Item -->
+
+
+</tbody>
+</table>
+</div>
+</div>
+</div>
