@@ -7,7 +7,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h3">Connectez vous à GestCath</h1>
                     </div>
-                    <form action="#" class="mt-4">
+                    <form (ngSubmit)="onSubmit()" #logina="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="form-group mb-4">
                             <label for="contact">Numéros mobile</label>
@@ -15,7 +15,12 @@
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class="fa fa-phone"></i>
                                 </span>
-                                <input type="number" class="form-control" placeholder="072233..." id="contact" name="contact" autofocus required>
+                                <input 
+                                type="number" class="form-control" placeholder="072233..." 
+                                id="contact" name="contact" 
+                                pattern="^[0-9]{1,25}$"
+                                
+                                autofocus required>
                             </div>  
                         </div>
                         <!-- End of Form -->

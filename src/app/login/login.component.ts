@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -8,6 +9,10 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   constructor(private router: Router){}
+
+  onSubmit(){
+    
+  }
 
   goToForgotPassowrd(){
     this.router.navigate(['/mot-de-passe-oublie']);

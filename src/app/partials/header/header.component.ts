@@ -20,7 +20,7 @@ export class HeaderComponent {
 
   isListe(){
     if (this.router.url.includes('liste')) {
-      return true
+      return true;
     }
     return false;
   }

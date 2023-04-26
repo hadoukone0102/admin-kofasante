@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AdminModule } from './admin/admin.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AdminModule } from './admin/admin.module';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     DonationModule,
     PartialsModule,
     AdminModule,
