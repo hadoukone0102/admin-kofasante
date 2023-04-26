@@ -6,7 +6,7 @@ import { PartialsModule } from '../partials/partials.module';
 import { DonationTableComponent } from './donation-table/donation-table.component';
 
 const donationRoutes: Routes = [
-  {path: 'dons', component: DonationListComponent}, 
+  {path: 'dons/liste', component: DonationListComponent}, 
 ];
 
 

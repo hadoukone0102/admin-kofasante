@@ -14,7 +14,7 @@ export class SidebarComponent {
   }
 
   goToDonation(){
-    this.router.navigate(['/dons']);
+    this.router.navigate(['/dons/liste']);
   }
 
   goToProfile(){
@@ -27,6 +27,10 @@ export class SidebarComponent {
 
   goToAddAdmin(){
     this.router.navigate(['/admin/ajouter']);
+  }
+
+  goToLogin(){
+    this.router.navigate(['/login']);
   }
 
 }
