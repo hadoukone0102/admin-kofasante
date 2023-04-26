@@ -30,5 +30,5 @@ export class PartialsService {
 
   goToLogin(){
     this.router.navigate(['/login']);
-  }
+  } 
 }
