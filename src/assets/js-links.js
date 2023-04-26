@@ -6,7 +6,7 @@ document.write('<script src="assets/vendor/bootstrap/dist/js/bootstrap.min.js"><
 document.write('<script src="assets/vendor/onscreen/dist/on-screen.umd.min.js"></script>')
 
 // <!-- Slider -->
-document.write('<script src="assets/vendor/nouislider/distribute/nouislider.min.js"></script>')
+// document.write('<script src="assets/vendor/nouislider/distribute/nouislider.min.js"></script>')
 
 // <!-- Smooth scroll -->
 document.write('<script src="assets/vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>')
