@@ -5,6 +5,8 @@ import { FooterComponent } from './footer/footer.component';
 import {  HeaderToggleComponent } from './header-toggle/header-toggle.component';
 import { PageTitleComponent } from './page-title/page-title.component';
 import { HeaderComponent } from './header/header.component';
+import { ModalSetInfoComponent } from './modal-set-info/modal-set-info.component';
+import { ModalSetPasswordComponent } from './modal-set-password/modal-set-password.component';
 
 
 
@@ -14,7 +16,9 @@ import { HeaderComponent } from './header/header.component';
     FooterComponent,
     HeaderComponent,
     HeaderToggleComponent,
-    PageTitleComponent
+    PageTitleComponent,
+    ModalSetInfoComponent,
+    ModalSetPasswordComponent,
   ],
   imports: [
     CommonModule
@@ -24,7 +28,9 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent,
     HeaderToggleComponent,
     SidebarComponent,
-    PageTitleComponent
+    PageTitleComponent,
+    ModalSetInfoComponent,
+    ModalSetPasswordComponent,
   ]
 
 })

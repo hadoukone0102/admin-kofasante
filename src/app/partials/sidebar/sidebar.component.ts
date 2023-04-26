@@ -17,4 +17,16 @@ export class SidebarComponent {
     this.router.navigate(['/dons']);
   }
 
+  goToProfile(){
+    this.router.navigate(['/profile']);
+  }
+
+  goToAdmin(){
+    this.router.navigate(['/admin/liste']);
+  }
+
+  goToAddAdmin(){
+    this.router.navigate(['/admin/ajouter']);
+  }
+
 }
