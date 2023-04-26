@@ -8,20 +8,17 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   isActive!: string;
   
-  constructor(private router: Router){}
+  constructor(private router: Router,){}
 
   ngOnInit(){
     this.isActive = '';
-  }
+    }
 
   isListe(){
     if (this.router.url.includes('liste')) {
-      console.log('is Liste ok');
-      this.isActive = 'disabled';
-    }else{
-      this.isActive = ''
+      return true
     }
-    
+    return false;
   }
 
   goToProfile(){
