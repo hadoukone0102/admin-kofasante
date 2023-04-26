@@ -7,11 +7,13 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html'
 })
 export class LoginComponent {
+  contact!: string;
+  password!: string;
 
   constructor(private router: Router){}
 
   onSubmit(){
-    
+
   }
 
   goToForgotPassowrd(){

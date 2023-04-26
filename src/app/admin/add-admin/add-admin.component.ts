@@ -5,5 +5,13 @@ import { Component } from '@angular/core';
   templateUrl: './add-admin.component.html'
 })
 export class AddAdminComponent {
+  firstName!: string;
+  lastName!: string;
+  contact!: string;
+  password!: string;
+  confirmPassword!: string;
 
+  onSubmit(){
+
+  }
 }
