@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddAdminComponent } from './add-admin/add-admin.component';
-import { AdminListComponent } from './admin-list/admin-list.component';
+import { AddAdminComponent } from './components/add-admin/add-admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PartialsModule } from '../partials/partials.module';
-import { AdminFormComponent } from './admin-form/admin-form.component';
+import { AdminFormComponent } from './components/admin-form/admin-form.component';
 import { FormsModule } from '@angular/forms';
+import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { LoginComponent } from './components/login/login.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const adminRoutes: Routes = [
   {path: 'admin/liste', component: AdminListComponent}, 
@@ -16,7 +18,9 @@ const adminRoutes: Routes = [
   declarations: [
     AdminListComponent,
     AddAdminComponent,
-    AdminFormComponent
+    AdminFormComponent,
+    LoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

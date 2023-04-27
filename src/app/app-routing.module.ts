@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { LoginComponent } from './admin/components/login/login.component';
+import { ForgotPasswordComponent } from './admin/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent}, 

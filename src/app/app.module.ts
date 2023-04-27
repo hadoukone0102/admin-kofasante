@@ -7,8 +7,6 @@ import { DonationModule } from './donation/donation.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PartialsModule } from './partials/partials.module';
 import { ProfileComponent } from './profile/profile.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
 
@@ -17,8 +15,6 @@ import { FormsModule } from '@angular/forms';
     AppComponent,
     DashboardComponent,
     ProfileComponent,
-    LoginComponent,
-    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
