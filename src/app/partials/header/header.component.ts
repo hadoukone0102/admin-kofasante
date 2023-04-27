@@ -16,7 +16,7 @@ export class HeaderComponent {
 
   ngOnInit(){
     this.isActive = '';
-    }
+  }
 
   isListe(){
     if (this.router.url.includes('liste')) {
