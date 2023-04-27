@@ -11,4 +11,8 @@ export class ForgotPasswordComponent {
   goToLogin(){
     this.router.navigate(['/login']);
   }  
+
+  sendSMS(contact: string){
+    
+  }
 }

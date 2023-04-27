@@ -26,12 +26,14 @@
             <th class="border-0">Montant</th>
             <th class="border-0">Type</th>
             <th *ngIf="!isAnonymous && !isPersonal" class="border-0">Organisation</th>
+            <th class="border-0">Date</th>
             <th *ngIf="!isAnonymous" class="border-0">Nom</th>
             <th *ngIf="!isAnonymous" class="border-0">Prénom</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Contact</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Civilité</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Ville</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Pays</th>
+            <th *ngIf="!isAnonymous" class="border-0 rounded-end">Indicatif</th>
         </tr>
     </thead>
     <tbody>
@@ -46,6 +48,9 @@
             </td>
             <td *ngIf="!isAnonymous && !isPersonal">
                 CinetPay
+            </td>
+            <td>
+                22/06/2023
             </td>
         <td *ngIf="!isAnonymous">
             Fofanar
@@ -64,6 +69,9 @@
         </td>
         <td *ngIf="!isAnonymous">
             Côte d'Ivoire
+        </td>
+        <td *ngIf="!isAnonymous">
+            +225
         </td>
         </tr>
 <!-- End of Item -->
@@ -80,6 +88,9 @@
             <td *ngIf="!isAnonymous && !isPersonal">
                 CinetPay
             </td>
+            <td>
+                26/06/2023
+            </td>
         <td *ngIf="!isAnonymous">
             Fofanar
         </td>
@@ -97,6 +108,9 @@
         </td>
         <td *ngIf="!isAnonymous">
             Côte d'Ivoire
+        </td>
+        <td *ngIf="!isAnonymous">
+            +225
         </td>
         </tr>
 <!-- End of Item -->
