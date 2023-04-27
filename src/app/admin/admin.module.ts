@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { SharedModule } from '../shared/shared.module';
 
 const adminRoutes: Routes = [
   {path: 'admin/liste', component: AdminListComponent}, 
@@ -25,7 +26,7 @@ const adminRoutes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    PartialsModule,
+    SharedModule,
     RouterModule.forChild(adminRoutes)  
 
   ]

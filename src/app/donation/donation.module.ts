@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DonationListComponent } from './donation-list/donation-list.component';
+import { DonationListComponent } from './components/donation-list/donation-list.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PartialsModule } from '../partials/partials.module';
-import { DonationTableComponent } from './donation-table/donation-table.component';
+import { DonationTableComponent } from './components/donation-table/donation-table.component';
+import { SharedModule } from '../shared/shared.module';
 
 const donationRoutes: Routes = [
   {path: 'dons/liste', component: DonationListComponent}, 
@@ -17,7 +17,7 @@ const donationRoutes: Routes = [
   ],
   imports: [
     CommonModule,
-    PartialsModule,
+    SharedModule,
     RouterModule.forChild(donationRoutes)  
   ]
 })
