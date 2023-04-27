@@ -9,6 +9,7 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const adminRoutes: Routes = [
   {path: 'admin/liste', component: AdminListComponent}, 
@@ -21,7 +22,8 @@ const adminRoutes: Routes = [
     AddAdminComponent,
     AdminFormComponent,
     LoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,

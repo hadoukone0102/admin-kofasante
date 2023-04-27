@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialsService } from '../partials.service';
+import { PartialsService } from '../../partials.service';
 
 @Component({
   selector: 'app-header',

@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { DonationModule } from './donation/donation.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PartialsModule } from './partials/partials.module';
-import { ProfileComponent } from './profile/profile.component';
 import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +13,6 @@ import { FormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     DashboardComponent,
-    ProfileComponent,
   ],
   imports: [
     BrowserModule,
