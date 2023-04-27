@@ -7,6 +7,7 @@ import { HeaderToggleComponent } from './components/header-toggle/header-toggle.
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -21,7 +22,8 @@ import { ModalSetPasswordComponent } from './components/modal-set-password/modal
     ModalSetPasswordComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   exports: [
     FooterComponent,

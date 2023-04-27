@@ -4,9 +4,11 @@ import { DonationListComponent } from './components/donation-list/donation-list.
 import { RouterModule, Routes } from '@angular/router';
 import { DonationTableComponent } from './components/donation-table/donation-table.component';
 import { SharedModule } from '../shared/shared.module';
+import { DonationService } from './services/donation.service';
+import { DonationsResolver } from './resolvers/donations.resolver';
 
 const donationRoutes: Routes = [
-  {path: 'dons/liste', component: DonationListComponent}, 
+  {path: 'liste', component: DonationListComponent, resolve: { donations: DonationsResolver}}, 
 ];
 
 
@@ -19,6 +21,10 @@ const donationRoutes: Routes = [
     CommonModule,
     SharedModule,
     RouterModule.forChild(donationRoutes)  
+  ],
+  providers:[
+    DonationService, //Est en lazy load, sera chargé que si le module don est chargé
+    DonationsResolver
   ]
 })
 export class DonationModule { }

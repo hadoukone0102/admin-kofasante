@@ -1,5 +1,6 @@
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
+        
         <button (click)="showAnonymous()" class="btn {{activeAnonymous}} m-2 mb-4">Anonyme</button>
         <button (click)="showNoAnonymous()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
         <fieldset *ngIf="!isAnonymous">

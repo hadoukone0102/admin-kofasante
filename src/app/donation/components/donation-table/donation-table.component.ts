@@ -1,10 +1,14 @@
-import { Component, ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DataDon } from '../../models/don.model';
 
 @Component({
   selector: 'app-donation-table',
   templateUrl: './donation-table.component.html'
 })
 export class DonationTableComponent {
+  @Input() donations !: DataDon;
+
   isAnonymous!: boolean;
   isPersonal!: boolean;
   title!: string;

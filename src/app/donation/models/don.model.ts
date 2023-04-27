@@ -14,4 +14,13 @@ export class Don {
     created_at!: string
     updated_at!: string
 }
+
+export class DataDon {
+    status!: string
+    status_code!: number
+    status_message!: string
+    current_page!: string
+    last_page!: number
+    dons!: Don[]
+  }
   
