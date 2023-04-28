@@ -16,6 +16,14 @@ export class LoginComponent {
 
   }
 
+  login(){
+
+  }
+
+  logout(){
+    
+  }
+
   goToForgotPassowrd(){
     this.router.navigate(['/mot-de-passe-oublie']);
   }  

@@ -6,13 +6,13 @@
         <fieldset *ngIf="!isAnonymous">
             <legend class="h6"></legend>
             <div class="form-check">
-                <input #personal (change)="togglePersonal(personal.checked)" class="form-check-input" type="radio" name="choix" id="personnel" value="personnel" checked="">
+                <input #personal (change)="togglePersonal(organization.checked)" class="form-check-input" type="radio" name="choix" id="personnel" value="personnel" checked>
                 <label class="form-check-label" for="personnel">
                   Afficher les dons faits à titre personnel
                 </label>
               </div>
               <div class="form-check">
-                <input #organization (change)="togglePersonal(personal.checked)" class="form-check-input" type="radio" name="choix" id="organisation" value="organisation">
+                <input #organization (change)="togglePersonal(organization.checked)" class="form-check-input" type="radio" name="choix" id="organisation" value="organisation">
                 <label class="form-check-label" for="organisation">
                   Afficher les dons faits par des organisations
                 </label>
@@ -25,7 +25,7 @@
             <th class="border-0 rounded-start">N°</th>
             <th class="border-0">Montant</th>
             <th class="border-0">Type</th>
-            <th *ngIf="!isAnonymous && !isPersonal" class="border-0">Organisation</th>
+            <th *ngIf="!isAnonymous && isOrganization" class="border-0">Organisation</th>
             <th class="border-0">Date</th>
             <th *ngIf="!isAnonymous" class="border-0">Nom</th>
             <th *ngIf="!isAnonymous" class="border-0">Prénom</th>
@@ -38,19 +38,20 @@
     </thead>
     <tbody  *ngIf="donations.status == 'success'">
         <!-- Item -->
-            <tr *ngFor="let donation of donations.dons">
-                <td><a href="#" class="text-primary fw-bold">1</a> </td>
+            <tr *ngFor="let donation of donations.dons; let a = index">
+                <!-- {{incrementI()}} -->
+                <td><a class="text-primary fw-bold">{{ a +1}}</a> </td>
                 <td class="fw-bold d-flex align-items-center">
                     {{donation.montantDon}}
                 </td>
                 <td>
                     {{donation.typeDon}}
                 </td>
-                <td *ngIf="!isAnonymous && !isPersonal">
+                <td *ngIf="!isAnonymous && isOrganization ">
                     {{donation.organisationDon}}
                 </td>
                 <td>
-                    {{donation.created_at}}
+                    {{donation.created_at | date:"dd/MM/yyyy"}}
                 </td>
             <td *ngIf="!isAnonymous">
                 {{donation.nomDon}}
@@ -83,7 +84,7 @@
             <td>
                 Caritas
             </td>
-            <td *ngIf="!isAnonymous && !isPersonal">
+            <td *ngIf="!isAnonymous && isOrganization">
                 CinetPay
             </td>
             <td>
@@ -122,7 +123,7 @@
             <td>
                 Caritas
             </td>
-            <td *ngIf="!isAnonymous && !isPersonal">
+            <td *ngIf="!isAnonymous && isOrganization">
                 CinetPay
             </td>
             <td>
