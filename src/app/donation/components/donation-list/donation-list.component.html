@@ -9,8 +9,15 @@
     </app-page-title>
     <!-- Content -->
     <div *ngIf="donations$ | async as donations">
+        <div *ngIf="donationsNoAnoPerso$ | async as donationNoAnoPerso">
+            <div *ngIf="donationsNoAnoOrga$ | async as donationNoAnoOrga">
+                <app-donation-table [donations]="donations" 
+                    [donationNoAnoPerso]="donationNoAnoPerso"
+                    [donationNoAnoOrga]="donationNoAnoOrga">
+                </app-donation-table>
+            </div>
+        </div>
         
-        <app-donation-table [donations]="donations"></app-donation-table>
     </div>
     <!-- End content -->
 

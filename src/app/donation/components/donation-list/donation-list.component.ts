@@ -9,6 +9,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DonationListComponent {
   donations$!: Observable<DataDon>;
+  donationsNoAnoPerso$!: Observable<DataDon>;
+  donationsNoAnoOrga$!: Observable<DataDon>;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -16,7 +18,17 @@ export class DonationListComponent {
     this.donations$ = this.route.data.pipe(
       map(data => data['donations'])
     );
-    console.log(this.donations$);
+    this.donationsNoAnoPerso$ = this.route.data.pipe(
+      map(data => data['donationNoAnonymousPerso'])
+    );
+    this.donationsNoAnoOrga$ = this.route.data.pipe(
+      map(data => data['donationNoAnonymousOrga'])
+    );
+    console.log("Ma liste Orga");
+    this.donationsNoAnoOrga$.subscribe(data => console.log(data));
+    
+    console.log(this.donationsNoAnoOrga$);
+    console.log("Ma liste Orga final");
     
   }
 }

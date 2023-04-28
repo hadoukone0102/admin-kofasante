@@ -10,6 +10,12 @@ export class DonationService {
   constructor(private http: HttpClient) { }
 
   getDonations(): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons`);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes`);
+  }
+  getDonationsNoAnonymousPerso(): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso`);
+  }
+  getDonationsNoAnonymousOrga(): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga`);
   }
 }

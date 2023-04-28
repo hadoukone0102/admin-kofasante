@@ -6,9 +6,15 @@ import { DonationTableComponent } from './components/donation-table/donation-tab
 import { SharedModule } from '../shared/shared.module';
 import { DonationService } from './services/donation.service';
 import { DonationsResolver } from './resolvers/donations.resolver';
+import { DonationNoAnonymousPersoResolver } from './resolvers/donation-no-anonymous-perso.resolver';
+import { DonationNoAnonymousOrgaResolver } from './resolvers/donation-no-anonymous-orga.resolver';
 
 const donationRoutes: Routes = [
-  {path: 'liste', component: DonationListComponent, resolve: { donations: DonationsResolver}}, 
+  {path: 'liste', component: DonationListComponent, resolve: { 
+    donations: DonationsResolver, 
+    donationNoAnonymousPerso: DonationNoAnonymousPersoResolver,
+    donationNoAnonymousOrga: DonationNoAnonymousOrgaResolver
+  }}, 
 ];
 
 
@@ -24,7 +30,9 @@ const donationRoutes: Routes = [
   ],
   providers:[
     DonationService, //Est en lazy load, sera chargé que si le module don est chargé
-    DonationsResolver
+    DonationsResolver,
+    DonationNoAnonymousPersoResolver,
+    DonationNoAnonymousOrgaResolver
   ]
 })
 export class DonationModule { }

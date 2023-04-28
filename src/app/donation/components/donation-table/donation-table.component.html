@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <button (click)="showAnonymous()" class="btn {{activeAnonymous}} m-2 mb-4">Anonyme</button>
-        <button (click)="showNoAnonymous()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
+        <button (click)="showNoAnonymousPerso()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
         <fieldset *ngIf="!isAnonymous">
             <legend class="h6"></legend>
             <div class="form-check">
@@ -38,25 +38,25 @@
     </thead>
     <tbody  *ngIf="donations.status == 'success'">
         <!-- Item -->
-            <tr *ngFor="let donation of donations.dons; let a = index">
+            <tr *ngFor="let donation of donationList; let a = index">
                 <!-- {{incrementI()}} -->
-                <td><a class="text-primary fw-bold">{{ a +1}}</a> </td>
-                <td class="fw-bold d-flex align-items-center">
+                <td><a class="text-primary fw-bold">{{a+1}}</a> </td>
+                <td  class="fw-bold d-flex align-items-center">
                     {{donation.montantDon}}
                 </td>
-                <td>
+                <td >
                     {{donation.typeDon}}
                 </td>
-                <td *ngIf="!isAnonymous && isOrganization ">
+                <td *ngIf="!isAnonymous && isOrganization">
                     {{donation.organisationDon}}
                 </td>
-                <td>
+                <td >
                     {{donation.created_at | date:"dd/MM/yyyy"}}
                 </td>
-            <td *ngIf="!isAnonymous">
+            <td *ngIf="!isAnonymous" >
                 {{donation.nomDon}}
             </td>
-            <td *ngIf="!isAnonymous">
+            <td *ngIf="!isAnonymous" >
                 {{donation.prenomDon}}
             </td>
             <td *ngIf="!isAnonymous">
