@@ -7,7 +7,7 @@ import { DataDon } from '../../models/don.model';
   templateUrl: './donation-table.component.html'
 })
 export class DonationTableComponent {
-  @Input() donations !: DataDon;
+  @Input() donations!: DataDon;
 
   isAnonymous!: boolean;
   isPersonal!: boolean;

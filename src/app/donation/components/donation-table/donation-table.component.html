@@ -1,6 +1,6 @@
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
-        
+
         <button (click)="showAnonymous()" class="btn {{activeAnonymous}} m-2 mb-4">Anonyme</button>
         <button (click)="showNoAnonymous()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
         <fieldset *ngIf="!isAnonymous">
@@ -36,9 +36,46 @@
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Indicatif</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody  *ngIf="donations.status == 'success'">
         <!-- Item -->
-        <tr>
+            <tr *ngFor="let donation of donations.dons">
+                <td><a href="#" class="text-primary fw-bold">1</a> </td>
+                <td class="fw-bold d-flex align-items-center">
+                    {{donation.montantDon}}
+                </td>
+                <td>
+                    {{donation.typeDon}}
+                </td>
+                <td *ngIf="!isAnonymous && !isPersonal">
+                    {{donation.organisationDon}}
+                </td>
+                <td>
+                    {{donation.created_at}}
+                </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.nomDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.prenomDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.contactDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.civiliteDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.villeDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.paysDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.indicatifPaysDon}}
+            </td>
+            </tr>
+        
+        <!-- <tr>
             <td><a href="#" class="text-primary fw-bold">1</a> </td>
             <td class="fw-bold d-flex align-items-center">
                 50000
@@ -73,11 +110,11 @@
         <td *ngIf="!isAnonymous">
             +225
         </td>
-        </tr>
+        </tr> -->
 <!-- End of Item -->
 
 <!-- Item -->
-        <tr>
+        <!-- <tr>
             <td><a href="#" class="text-primary fw-bold">2</a> </td>
             <td class="fw-bold d-flex align-items-center">
                 50000
@@ -112,7 +149,7 @@
         <td *ngIf="!isAnonymous">
             +225
         </td>
-        </tr>
+        </tr> -->
 <!-- End of Item -->
 
 

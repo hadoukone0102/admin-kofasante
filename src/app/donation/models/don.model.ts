@@ -5,12 +5,14 @@ export class Don {
     civiliteDon!: string
     nomDon!: string
     prenomDon!: string
+    indicatifPaysDon!: string
     contactDon!: string
     paysDon!: string
     villeDon!: string
     organisationDon!: string
     estAnonyme!: number
     estOrganisation!: number
+    idEglise!: number
     created_at!: string
     updated_at!: string
 }

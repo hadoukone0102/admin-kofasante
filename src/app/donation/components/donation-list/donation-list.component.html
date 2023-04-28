@@ -9,15 +9,9 @@
     </app-page-title>
     <!-- Content -->
     <div *ngIf="donations$ | async as donations">
-        <div *ngIf="donations.status == 'success'">
-            {{donations.status}}
-            <div *ngFor="let donation of donations.dons" class="row">
-                {{donation.estOrganisation}}
-            </div>
-        </div>
-
+        
+        <app-donation-table [donations]="donations"></app-donation-table>
     </div>
-    <app-donation-table ></app-donation-table>
     <!-- End content -->
 
     <app-footer></app-footer>
