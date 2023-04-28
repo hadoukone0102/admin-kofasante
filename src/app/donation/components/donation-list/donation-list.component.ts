@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { DataDon } from '../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DonationListComponent {
   donations$!: Observable<DataDon>;
-  donations!: Observable<DataDon>|any;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -18,7 +17,6 @@ export class DonationListComponent {
       map(data => data['donations'])
     );
     console.log(this.donations$);
-    this.donations = this.donations$;
     
   }
 }

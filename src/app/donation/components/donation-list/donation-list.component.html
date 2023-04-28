@@ -8,8 +8,14 @@
         theContent="Consultez la liste des dons anonyme et des dons non anonyme">
     </app-page-title>
     <!-- Content -->
-    <div *ngFor="let donation of donations | async" class="row">
-        cool
+    <div *ngIf="donations$ | async as donations">
+        <div *ngIf="donations.status == 'success'">
+            {{donations.status}}
+            <div *ngFor="let donation of donations.dons" class="row">
+                {{donation.estOrganisation}}
+            </div>
+        </div>
+
     </div>
     <app-donation-table ></app-donation-table>
     <!-- End content -->
