@@ -31,4 +31,8 @@ export class PartialsService {
   goToLogin(){
     this.router.navigate(['/login']);
   } 
+  
+  goToPageError(){
+    this.router.navigate(['/erreur']);
+  } 
 }

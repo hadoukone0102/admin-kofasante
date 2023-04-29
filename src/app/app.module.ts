@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { PartialsModule } from './partials/partials.module';
 import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
+import { PagesModule } from './pages/pages.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     DonationModule,
     PartialsModule,
     AdminModule,
+    PagesModule,
     AppRoutingModule
   ],
   providers: [],
