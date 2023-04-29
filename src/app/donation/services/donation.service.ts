@@ -44,7 +44,34 @@ export class DonationService {
     );
   }
 
-  searchDonationList(term: String): Observable<Don[]>{
+ 
+  searchDonationListAno(term: String): Observable<Don[]>{
+    if(term.length < 2){
+      return of([]);
+    }
+  
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes/?noma=${term}`).pipe(
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données');
+      }),
+      map(dataDon => dataDon.dons)
+    );
+  }
+  searchDonationListNoAnoPerso(term: String): Observable<Don[]>{
+    if(term.length < 2){
+      return of([]);
+    }
+  
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso/?noma=${term}`).pipe(
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données');
+      }),
+      map(dataDon => dataDon.dons)
+    );
+  }
+  searchDonationListNoAnoOrga(term: String): Observable<Don[]>{
     if(term.length < 2){
       return of([]);
     }
