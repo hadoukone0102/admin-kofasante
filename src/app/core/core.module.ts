@@ -5,8 +5,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderToggleComponent } from './components/header-toggle/header-toggle.component';
 import { PageTitleComponent } from './components/page-title/page-title.component';
-import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
-import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -18,8 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderComponent,
     HeaderToggleComponent,
     PageTitleComponent,
-    ModalSetInfoComponent,
-    ModalSetPasswordComponent,
   ],
   imports: [
     CommonModule,
@@ -31,8 +27,6 @@ import { HttpClientModule } from '@angular/common/http';
     HeaderToggleComponent,
     SidebarComponent,
     PageTitleComponent,
-    ModalSetInfoComponent,
-    ModalSetPasswordComponent,
   ]
 
 })

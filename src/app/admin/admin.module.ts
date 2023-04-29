@@ -12,6 +12,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { AdminService } from './services/admin.service';
 import { AdminsResolver } from './resolvers/admins.resolver';
 import { AuthService } from './services/auth.service';
+import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
+import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 
 const adminRoutes: Routes = [
   {path: 'admin/liste', component: AdminListComponent}, 
@@ -25,7 +27,9 @@ const adminRoutes: Routes = [
     AdminFormComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    ProfileComponent
+    ProfileComponent,
+    ModalSetInfoComponent,
+    ModalSetPasswordComponent
   ],
   imports: [
     CommonModule,
