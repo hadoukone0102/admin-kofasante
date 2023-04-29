@@ -24,11 +24,8 @@ export class DonationListComponent {
     this.donationsNoAnoOrga$ = this.route.data.pipe(
       map(data => data['donationNoAnonymousOrga'])
     );
-    console.log("Ma liste Orga");
-    this.donationsNoAnoOrga$.subscribe(data => console.log(data));
-    
-    console.log(this.donationsNoAnoOrga$);
-    console.log("Ma liste Orga final");
-    
+    // console.log("Ma liste Orga");
+    // this.donationsNoAnoOrga$.subscribe(data => console.log(data));
   }
+
 }

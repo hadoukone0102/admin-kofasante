@@ -7,7 +7,6 @@ import { CoreService } from '../../core.service';
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
-  
   isActive!: string;
   
   constructor(

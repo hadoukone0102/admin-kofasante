@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon } from '../models/don.model';
+import { DataDon, Don } from '../models/don.model';
 import { CoreService } from 'src/app/core/core.service';
 
 @Injectable()
@@ -43,4 +43,19 @@ export class DonationService {
       })
     );
   }
+
+  searchDonationList(term: String): Observable<Don[]>{
+    if(term.length < 2){
+      return of([]);
+    }
+  
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga/?noma=${term}`).pipe(
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données');
+      }),
+      map(dataDon => dataDon.dons)
+    );
+  }
+  
 }

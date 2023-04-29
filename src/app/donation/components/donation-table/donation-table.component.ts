@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
@@ -12,9 +12,10 @@ export class DonationTableComponent {
   @Input() donations!: DataDon;
   @Input() donationNoAnoPerso!: DataDon;
   @Input() donationNoAnoOrga!: DataDon;
+  searchTerms =  new Subject<String>();
 
   monDon: DataDon = new DataDon();
-  donations$!: Observable<DataDon>;
+  donations$!: Observable<Don[]>;
 
   isAnonymous!: boolean;
   isOrganization!: boolean;
@@ -43,11 +44,26 @@ export class DonationTableComponent {
     console.table(this.donationList);
     console.log("NO ANO ORA DANS INIT");
     console.table(this.donationNoAnoOrga.dons);
+  }
 
+  /**
+   * 
+   * @param term zezgegzgzt
+   * @param { Number } age Age of the user as an integer
+   */
 
+  search(term: String){
+    this.searchTerms.next(term);
 
-    
-    
+    this.donations$ = this.searchTerms.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((term) => this.donationService.searchDonationList(term))
+    );
+  
+    this.donations$.subscribe((donations) => {
+      this.donationList = donations;
+    });
   }
 
   showAnonymous(){
