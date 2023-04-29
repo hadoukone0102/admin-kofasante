@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DonationModule } from './donation/donation.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { PartialsModule } from './partials/partials.module';
+import { CoreModule } from './core/core.module';
 import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
@@ -19,7 +19,7 @@ import { PagesModule } from './pages/pages.module';
     BrowserModule,
     FormsModule,
     DonationModule,
-    PartialsModule,
+    CoreModule,
     AdminModule,
     PagesModule,
     AppRoutingModule

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { PartialsService } from './partials.service';
+import { PartialsService } from './core.service';
 
 describe('PartialsService', () => {
   let service: PartialsService;

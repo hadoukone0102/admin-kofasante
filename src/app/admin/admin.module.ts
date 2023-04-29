@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AddAdminComponent } from './components/add-admin/add-admin.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PartialsModule } from '../partials/partials.module';
 import { AdminFormComponent } from './components/admin-form/admin-form.component';
 import { FormsModule } from '@angular/forms';
 import { AdminListComponent } from './components/admin-list/admin-list.component';

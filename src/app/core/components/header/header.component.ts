@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialsService } from '../../partials.service';
+import { CoreService } from '../../core.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
+  
   isActive!: string;
   
   constructor(
     private router: Router,
-    private partialsService: PartialsService
+    private coreService: CoreService
     ){}
 
   ngOnInit(){
@@ -26,10 +27,10 @@ export class HeaderComponent {
   }
 
   goToProfile(){
-    this.partialsService.goToProfile();
+    this.coreService.goToProfile();
   }
 
   goToLogin(){
-    this.partialsService.goToLogin();
+    this.coreService.goToLogin();
   }
 }

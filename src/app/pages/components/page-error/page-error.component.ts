@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { PartialsService } from 'src/app/partials/partials.service';
+import { CoreService } from 'src/app/core/core.service';
 
 @Component({
   selector: 'app-page-error',
   templateUrl: './page-error.component.html'
 })
 export class PageErrorComponent {
-  constructor(private partialsService: PartialsService){}
+  constructor(private coreService: CoreService){}
 
   goToDashboard(){
-    this.partialsService.goToDashboard();
+    this.coreService.goToDashboard();
   }
 }

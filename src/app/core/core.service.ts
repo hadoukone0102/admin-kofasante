@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class PartialsService {
+export class CoreService {
 
   constructor(private router: Router){}
 
@@ -30,6 +30,10 @@ export class PartialsService {
 
   goToLogin(){
     this.router.navigate(['/login']);
+  } 
+
+  goToForgotPassowrd(){
+    this.router.navigate(['/mot-de-passe-oublie']);
   } 
   
   goToPageError(){

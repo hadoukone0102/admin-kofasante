@@ -1,6 +1,6 @@
 import { Component, ContentChild, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { PartialsService } from '../../partials.service';
+import { CoreService } from '../../core.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,31 +10,31 @@ export class SidebarComponent {
 
   constructor(
     private router: Router, 
-    private partialsService: PartialsService
+    private coreService: CoreService
     ){}
 
   goToDashboard(){
-    this.partialsService.goToDashboard();
+    this.coreService.goToDashboard();
   }
 
   goToDonation(){
-    this.partialsService.goToDonation();
+    this.coreService.goToDonation();
   }
 
   goToProfile(){
-    this.partialsService.goToProfile();
+    this.coreService.goToProfile();
   }
 
   goToAdmin(){
-    this.partialsService.goToAdmin();
+    this.coreService.goToAdmin();
   }
 
   goToAddAdmin(){
-    this.partialsService.goToAddAdmin();
+    this.coreService.goToAddAdmin();
   }
 
   goToLogin(){
-    this.partialsService.goToLogin();
+    this.coreService.goToLogin();
   }
 
 }

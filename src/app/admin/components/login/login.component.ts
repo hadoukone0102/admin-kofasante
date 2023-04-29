@@ -1,6 +1,7 @@
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CoreService } from 'src/app/core/core.service';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +11,7 @@ export class LoginComponent {
   contact!: string;
   password!: string;
 
-  constructor(private router: Router){}
+  constructor(private coreService: CoreService){}
 
   onSubmit(){
 
@@ -25,7 +26,7 @@ export class LoginComponent {
   }
 
   goToForgotPassowrd(){
-    this.router.navigate(['/mot-de-passe-oublie']);
+    this.coreService.goToForgotPassowrd();
   }  
 
 }

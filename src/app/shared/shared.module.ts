@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PartialsModule } from '../partials/partials.module';
+import { CoreModule } from '../core/core.module';
 
 
 
@@ -10,7 +10,7 @@ import { PartialsModule } from '../partials/partials.module';
     CommonModule
   ],
   exports:[
-    PartialsModule
+    CoreModule
   ]
 })
 export class SharedModule { }

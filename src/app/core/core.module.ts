@@ -36,4 +36,4 @@ import { HttpClientModule } from '@angular/common/http';
   ]
 
 })
-export class PartialsModule { }
+export class CoreModule { }
