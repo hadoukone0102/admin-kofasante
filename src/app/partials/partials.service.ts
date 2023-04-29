@@ -34,5 +34,9 @@ export class PartialsService {
   
   goToPageError(){
     this.router.navigate(['/erreur']);
+  }
+
+  goToPageNotFound(){
+    this.router.navigate(['/page-introuvable']);
   } 
 }

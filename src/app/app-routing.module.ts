@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent}, 
   {path: 'login', component: LoginComponent}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
-  {path:'**', redirectTo:'dons'},
+  {path:'**', redirectTo:'/page-introuvable'},
 ];
 
 @NgModule({

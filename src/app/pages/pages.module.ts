@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const pageRoutes: Routes = [
   {path: 'erreur', component: PageErrorComponent}, 
+  {path: 'page-introuvable', component: PageNotFoundComponent}, 
 ];
 
 @NgModule({
