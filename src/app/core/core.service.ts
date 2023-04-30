@@ -15,6 +15,15 @@ export class CoreService {
   goToDonation(){
     this.router.navigate(['/dons/liste']);
   }
+  goToDonationAnonymous(){
+    this.router.navigate(['/dons/anonyme']);
+  }
+  goToDonationNoAnonymousPerso(){
+    this.router.navigate(['/dons/non-anonyme/personel']);
+  }
+  goToDonationNoAnonymousOrga(){
+    this.router.navigate(['/dons/non-anonyme/organisation']);
+  }
 
   goToProfile(){
     this.router.navigate(['/profile']);

@@ -21,6 +21,18 @@ export class SidebarComponent {
     this.coreService.goToDonation();
   }
 
+  goToDonationAnonymous(){
+    this.coreService.goToDonationAnonymous();
+  }
+
+  goToDonationNoAnonymousPerso(){
+    this.coreService.goToDonationNoAnonymousPerso();
+  }
+  
+  goToDonationNoAnonymousOrga(){
+    this.coreService.goToDonationNoAnonymousOrga();
+  }
+
   goToProfile(){
     this.coreService.goToProfile();
   }

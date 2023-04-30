@@ -8,6 +8,9 @@ import { DonationService } from './services/donation.service';
 import { DonationsResolver } from './resolvers/donations.resolver';
 import { DonationNoAnonymousPersoResolver } from './resolvers/donation-no-anonymous-perso.resolver';
 import { DonationNoAnonymousOrgaResolver } from './resolvers/donation-no-anonymous-orga.resolver';
+import { ListAnonymousComponent } from './components/list-anonymous/list-anonymous.component';
+import { ListNoAnonymousPersoComponent } from './components/list-no-anonymous-perso/list-no-anonymous-perso.component';
+import { ListNoAnonymousOrgaComponent } from './components/list-no-anonymous-orga/list-no-anonymous-orga.component';
 
 const donationRoutes: Routes = [
   {path: 'liste', component: DonationListComponent, resolve: { 
@@ -15,12 +18,18 @@ const donationRoutes: Routes = [
     donationNoAnonymousPerso: DonationNoAnonymousPersoResolver,
     donationNoAnonymousOrga: DonationNoAnonymousOrgaResolver
   }}, 
+  {path: 'anonyme', component: ListAnonymousComponent},
+  {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent},
+  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent},
 ];
 
 
 @NgModule({
   declarations: [
     DonationListComponent,
+    ListAnonymousComponent,
+    ListNoAnonymousPersoComponent,
+    ListNoAnonymousOrgaComponent,
     DonationTableComponent
   ],
   imports: [
