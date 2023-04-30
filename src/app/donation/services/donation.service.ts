@@ -6,6 +6,9 @@ import { environment } from 'src/environments/environment';
 import { DataDon, Don } from '../models/don.model';
 import { CoreService } from 'src/app/core/core.service';
 
+/**
+ * Service permettant de récupérer les données de dons depuis l'API
+ */
 @Injectable()
 export class DonationService {
 
@@ -13,7 +16,10 @@ export class DonationService {
     private http: HttpClient,
     private coreService: CoreService
     ) { }
-
+  /**
+   * Récupère tous les dons, anonymes et non anonymes
+   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons
+   */
   getDonations(): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes`).pipe(
       catchError((error: any) => {
@@ -23,6 +29,11 @@ export class DonationService {
       })
     );
   }
+
+  /**
+   * Récupère tous les dons anonymes
+   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons anonymes
+   */
   getDonationsAnonymous(): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes`).pipe(
       catchError((error: any) => {
@@ -33,6 +44,10 @@ export class DonationService {
     );
   }
 
+  /**
+   * Récupère tous les dons non anonymes faits à titre personnel 
+   * @returns {Observable<DataDon>} 
+   */
   getDonationsNoAnonymousPerso(): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso`).pipe(
       catchError((error: any) => {
@@ -43,6 +58,10 @@ export class DonationService {
     );
   }
 
+  /**
+   * Récupère tous les dons non anonymes pour les organisations
+   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons non anonymes des organisations
+   */
   getDonationsNoAnonymousOrga(): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga`).pipe(
       catchError((error: any) => {
@@ -54,6 +73,12 @@ export class DonationService {
   }
 
  
+  /**
+   * Renvoie la liste des dons anonymes dont le nom de l'expéditeur
+   * contient les lettres fournies par la barre de recherche
+   * @param {String} term
+   * @returns {Observable<Don[]>}
+   */
   searchDonationListAno(term: String): Observable<Don[]>{
     if(term.length < 2){
       return of([]);
@@ -67,6 +92,14 @@ export class DonationService {
       map(dataDon => dataDon.dons)
     );
   }
+
+  /**
+   * Renvoie la liste des dons non anonymes faits à titre personnel
+   * dont le nom de l'expéditeur contient les lettres fournies
+   * par la barre de recherche
+   * @param {String} term
+   * @returns {Observable<Don[]>}
+   */
   searchDonationListNoAnoPerso(term: String): Observable<Don[]>{
     if(term.length < 2){
       return of([]);
@@ -80,6 +113,14 @@ export class DonationService {
       map(dataDon => dataDon.dons)
     );
   }
+
+  /**
+   * Renvoie la liste des dons non anonymes faits par des organisations
+   * dont le nom de l'expéditeur ou de l'organisation contient 
+   * les lettres fournies par la barre de recherche
+   * @param {String} term
+   * @returns {Observable<Don[]>}
+   */
   searchDonationListNoAnoOrga(term: String): Observable<Don[]>{
     if(term.length < 2){
       return of([]);
