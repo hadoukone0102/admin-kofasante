@@ -23,6 +23,15 @@ export class DonationService {
       })
     );
   }
+  getDonationsAnonymous(): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes`).pipe(
+      catchError((error: any) => {
+        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+      })
+    );
+  }
 
   getDonationsNoAnonymousPerso(): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso`).pipe(
