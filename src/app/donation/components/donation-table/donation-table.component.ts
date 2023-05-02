@@ -9,20 +9,24 @@ import { DonationService } from '../../services/donation.service';
   templateUrl: './donation-table.component.html'
 })
 export class DonationTableComponent {
-  @Input() donations!: DataDon;
-  @Input() donationNoAnoPerso!: DataDon;
-  @Input() donationNoAnoOrga!: DataDon;
+  // @Input() donations!: DataDon;
+  // @Input() donationNoAnoPerso!: DataDon;
+  // @Input() donationNoAnoOrga!: DataDon;
+  //New
+  @Input() donationListParent!: DataDon;
+  @Input() listType!: string;
   searchTerms =  new Subject<String>();
   searchBarValue!: string;
+  
 
   monDon: DataDon = new DataDon();
   donations$!: Observable<Don[]>;
 
   isAnonymous!: boolean;
   isOrganisation!: boolean;
-  title!: string;
-  activeAnonymous!: string;
-  activeNoAnonymous!: string;
+  // title!: string;
+  // activeAnonymous!: string;
+  // activeNoAnonymous!: string;
   donationList!: Array<Don>;
 
   constructor(
@@ -32,19 +36,20 @@ export class DonationTableComponent {
     ) {}
 
   ngOnInit(): void {
-    this.isAnonymous = false;
-    this.title = "Dons non anonyme";
-    this.activeAnonymous= "";
-    this.activeNoAnonymous= "btn-primary";
-    this.isOrganisation = false;
+    this.showTableOfType(this.listType);
+    // this.showAnonymous();
+    // this.title = "Dons non anonyme";
+    // this.activeAnonymous= "";
+    // this.activeNoAnonymous= "btn-primary";
+    // this.isOrganisation = false;
     // this.togglePersonal(this.isOrganisation);
-    console.table(this.donations.dons);
+    // console.table(this.donations.dons);
     
     console.log("Boommmmdata fin");
-    this.donationList = this.donationNoAnoPerso.dons;
+    this.donationList = this.donationListParent.dons;
     console.table(this.donationList);
     console.log("NO ANO ORA DANS INIT");
-    console.table(this.donationNoAnoOrga.dons);
+    // console.table(this.donationNoAnoOrga.dons);
   }
 
   /**
@@ -58,9 +63,6 @@ export class DonationTableComponent {
    * Fait la rechercher en fonction du tableau des dons
    * @param term 
    */
-
-  
-
   search(term: String){
     if (this.isAnonymous) {
       this.searchTerms.next(term);
@@ -106,52 +108,41 @@ export class DonationTableComponent {
     }
   }
 
+  showTableOfType(type: string){
+    if(type === "anonymous"){
+      this.showAnonymous();
+    }
+    else{
+      if(type === "noAnonymousPerso"){
+        this.showNoAnonymousPerso();
+      }else{ 
+        this.showNoAnonymousOrga();
+      }
+    }
+  }
+
   showAnonymous(){
     this.isAnonymous = true;
-    this.title = "Dons anonyme";
-    this.activeAnonymous= "btn-primary";
-    this.activeNoAnonymous= "";
-    this.searchBarValue = "";
-    
-    this.donationList = this.donations.dons;
-    console.log("liste anon !!!");
-    console.table(this.donationList);
   }
 
   showNoAnonymousPerso(){
     this.isAnonymous = false;
-    this.title = "Dons non anonyme";
-    this.activeAnonymous= "";
-    this.activeNoAnonymous= "btn-primary";
     this.isOrganisation = false;
-    this.searchBarValue = "";
-    
-    this.donationList = this.donationNoAnoPerso.dons;
-    console.log("liste no anon Perso");
-    console.table(this.donationList);
   }
 
   showNoAnonymousOrga(){
     this.isAnonymous = false;
-    this.title = "Dons non anonyme";
-    this.activeAnonymous= "";
-    this.activeNoAnonymous= "btn-primary";
-    this.isOrganisation = false;
-    this.searchBarValue = "";
-    
-    this.donationList = this.donationNoAnoOrga.dons;
-    console.log("liste no anon Orga");
-    console.table(this.donationList);
+    this.isOrganisation = true;
   }
 
-  togglePersonal(isOrga: boolean): boolean{
-    if(isOrga){
-      this.showNoAnonymousOrga();
-    }else{
-      this.showNoAnonymousPerso();
-    }
-    return this.isOrganisation = isOrga;
+  // togglePersonal(isOrga: boolean): boolean{
+  //   if(isOrga){
+  //     this.showNoAnonymousOrga();
+  //   }else{
+  //     this.showNoAnonymousPerso();
+  //   }
+  //   return this.isOrganisation = isOrga;
 
-  }
+  // }
 
 }

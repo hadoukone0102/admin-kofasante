@@ -1,23 +1,7 @@
 <div class="card border-0 shadow mb-4">
     <div class="card-body">
 
-        <button (click)="showAnonymous()" class="btn {{activeAnonymous}} m-2 mb-4">Anonyme</button>
-        <button (click)="showNoAnonymousPerso()" class="btn {{activeNoAnonymous}} m-2 mb-4">Non anonyme</button>
-        <fieldset *ngIf="!isAnonymous">
-            <legend class="h6"></legend>
-            <div class="form-check">
-                <input #personal (change)="togglePersonal(organization.checked)" class="form-check-input" type="radio" name="choix" id="personnel" value="personnel" checked>
-                <label class="form-check-label" for="personnel">
-                  Afficher les dons faits à titre personnel
-                </label>
-              </div>
-              <div class="form-check">
-                <input #organization (change)="togglePersonal(organization.checked)" class="form-check-input" type="radio" name="choix" id="organisation" value="organisation">
-                <label class="form-check-label" for="organisation">
-                  Afficher les dons faits par des organisations
-                </label>
-              </div>
-        </fieldset>
+        
         <!-- Search form -->
         <form  class="navbar-search form-inline m-2 col-md-6" id="navbar-search-main">
             <div class="input-group input-group-merge search-bar">
@@ -26,7 +10,10 @@
                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                     </svg>
                 </span>
-                <input #searchBar [(ngModel)]="searchBarValue" (keyup)="search(searchBar.value)" type="text" class="form-control" id="topbarInputIconLeft" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">
+                <input #searchBar [(ngModel)]="searchBarValue" 
+                    (keyup)="search(searchBar.value)" 
+                    name="searcheBarValue"
+                    type="text" class="form-control" id="topbarInputIconLeft" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">
             </div>
         </form>
         <!-- / Search form -->
@@ -48,7 +35,7 @@
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Indicatif</th>
         </tr>
     </thead>
-    <tbody  *ngIf="donations.status == 'success'">
+    <tbody  *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
             <tr *ngFor="let donation of donationList; let a = index">
                 <!-- {{incrementI()}} -->

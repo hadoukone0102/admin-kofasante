@@ -5,12 +5,14 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { DonationService } from '../services/donation.service';
+import { DataDon } from '../models/don.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ListAnonymousResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+@Injectable()
+export class ListAnonymousResolver implements Resolve<DataDon> {
+  constructor(private donationService: DonationService){}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDon> {
+    return this.donationService.getDonationsAnonymous();
   }
 }

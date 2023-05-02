@@ -11,6 +11,9 @@ import { DonationNoAnonymousOrgaResolver } from './resolvers/donation-no-anonymo
 import { ListAnonymousComponent } from './components/list-anonymous/list-anonymous.component';
 import { ListNoAnonymousPersoComponent } from './components/list-no-anonymous-perso/list-no-anonymous-perso.component';
 import { ListNoAnonymousOrgaComponent } from './components/list-no-anonymous-orga/list-no-anonymous-orga.component';
+import { ListAnonymousResolver } from './resolvers/list-anonymous.resolver';
+import { ListNoAnonymousPersoResolver } from './resolvers/list-no-anonymous-perso.resolver';
+import { ListNoAnonymousOrgaResolver } from './resolvers/list-no-anonymous-orga.resolver';
 
 const donationRoutes: Routes = [
   {path: 'liste', component: DonationListComponent, resolve: { 
@@ -18,7 +21,7 @@ const donationRoutes: Routes = [
     donationNoAnonymousPerso: DonationNoAnonymousPersoResolver,
     donationNoAnonymousOrga: DonationNoAnonymousOrgaResolver
   }}, 
-  {path: 'anonyme', component: ListAnonymousComponent},
+  {path: 'anonyme', component: ListAnonymousComponent, resolve:{ listAnonymous: ListAnonymousResolver}},
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent},
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent},
 ];
@@ -41,7 +44,10 @@ const donationRoutes: Routes = [
     DonationService, //Est en lazy load, sera chargé que si le module don est chargé
     DonationsResolver,
     DonationNoAnonymousPersoResolver,
-    DonationNoAnonymousOrgaResolver
+    DonationNoAnonymousOrgaResolver,
+    ListAnonymousResolver,
+    ListNoAnonymousPersoResolver,
+    ListNoAnonymousOrgaResolver
   ]
 })
 export class DonationModule { }

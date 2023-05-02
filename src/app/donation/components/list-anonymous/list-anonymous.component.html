@@ -4,11 +4,16 @@
     <app-header></app-header>
     <app-page-title
         theModule="Dons"
-        theTitle="Liste des dons"
-        theContent="Consultez la liste des dons anonyme et des dons non anonyme">
+        theTitle="Liste des dons anonymes"
+        theContent="Consultez la liste des dons anonyme">
     </app-page-title>
     <!-- Content -->
-    anonymous
+    <div *ngIf="donations$ | async as donations">
+        <app-donation-table listType="anonymous"
+            [donationListParent]="donations">
+    
+        </app-donation-table>
+    </div>
     <!-- End content -->
 
     <app-footer></app-footer>
