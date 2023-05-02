@@ -16,8 +16,5 @@ export class ListAnonymousComponent implements OnInit{
     this.donations$ = this.route.data.pipe(
       map(data => data['listAnonymous'])
     );
-      console.log('mameee');
-      
-    console.log(this.donations$);
   }
 }
