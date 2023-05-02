@@ -8,7 +8,12 @@
         theContent="Consultez la liste des dons anonyme et des dons non anonyme">
     </app-page-title>
     <!-- Content -->
-    anonymous orga
+    <div *ngIf="donations$ | async as donations">
+        <app-donation-table listType="noAnonymousOrga"
+            [donationListParent]="donations">
+    
+        </app-donation-table>
+    </div>
     <!-- End content -->
 
     <app-footer></app-footer>

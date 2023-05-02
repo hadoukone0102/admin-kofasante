@@ -23,7 +23,7 @@ const donationRoutes: Routes = [
   }}, 
   {path: 'anonyme', component: ListAnonymousComponent, resolve:{ listAnonymous: ListAnonymousResolver}},
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve:{ listNoAnonymousPerso: ListNoAnonymousPersoResolver}},
-  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent},
+  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:{ listNoAnonymousOrga: ListNoAnonymousOrgaResolver}},
 ];
 
 
