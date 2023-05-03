@@ -21,6 +21,7 @@
                                 pattern="^[0-9]+$"
                                 [(ngModel)]="contact"
                                 #theContact="ngModel"
+                                onkeypress="return event.charCode >= 48 && event.charCode<= 57"
                                 autofocus required>
                             </div> 
                             <div class="text-danger"
@@ -31,7 +32,7 @@
                         <!-- End of Form -->
                         <div class="form-group">
                             <!-- Form -->
-                            <div class="form-group mb-4">
+                            <div class="    form-group mb-4">
                                 <label for="password">Your Password</label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon2">

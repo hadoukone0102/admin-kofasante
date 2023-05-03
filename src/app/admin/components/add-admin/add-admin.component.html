@@ -47,6 +47,7 @@
                             pattern="^[0-9]+$"
                             [(ngModel)]="contact"
                             #theContact="ngModel"
+                            onkeypress="return event.charCode >= 48 && event.charCode<= 57"
                             required="">
                         </div>
                         <div class="text-danger"
