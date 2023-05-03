@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { compileNgModule } from '@angular/compiler';
   selector: 'app-donation-table',
   templateUrl: './donation-table.component.html'
 })
-export class DonationTableComponent {
+export class DonationTableComponent implements OnInit{
   // @Input() donations!: DataDon;
   // @Input() donationNoAnoPerso!: DataDon;
   // @Input() donationNoAnoOrga!: DataDon;
@@ -19,7 +19,7 @@ export class DonationTableComponent {
   @Input() donationListParent!: DataDon;
   @Input() listType!: string;
   searchTerms =  new Subject<String>();
-  searchBarValue!: string;
+  searchBarValue: string = "";
   
 
   donations$!: Observable<DataDon>;
@@ -28,6 +28,7 @@ export class DonationTableComponent {
 
   isAnonymous!: boolean;
   isOrganisation!: boolean;
+  noData!: boolean;
 
   donationList!: Array<Don>;
 
@@ -44,18 +45,11 @@ export class DonationTableComponent {
 
   ngOnInit(): void {
     this.showTableOfType(this.listType);
-    // this.showAnonymous();
-    // this.title = "Dons non anonyme";
-    // this.activeAnonymous= "";
-    // this.activeNoAnonymous= "btn-primary";
-    // this.isOrganisation = false;
-    // this.togglePersonal(this.isOrganisation);
-    // console.table(this.donations.dons);
-    
     this.donationList = this.donationListParent.dons;
-    console.log("donation table ok");
     this.checkAndApplyDisabled(this.donationListParent);
   }
+
+  
 
   /**
    * Nouvel algo !!!
@@ -81,6 +75,7 @@ export class DonationTableComponent {
       this.donations$.subscribe((donations) => {
         this.donationList = donations.dons;
         this.donationListParent = donations;
+        this.checkAndApplyDisabled(donations)
       });
     }
     else
@@ -98,6 +93,8 @@ export class DonationTableComponent {
       
         this.donations$.subscribe((donations) => {
           this.donationList = donations.dons;
+          this.donationListParent = donations;
+          this.checkAndApplyDisabled(donations);
       });
       }
       else{
@@ -111,6 +108,8 @@ export class DonationTableComponent {
       
         this.donations$.subscribe((donations) => {
           this.donationList = donations.dons;
+          this.donationListParent = donations;
+          this.checkAndApplyDisabled(donations);
         });
       }
     }
@@ -131,24 +130,40 @@ export class DonationTableComponent {
   
   
   goToPrevious(){
-    this.showPage(-1);
+    // t:his.showPage(-1);
+    if(this.searchBarValue === ""){
+      console.log("the first");
+      
+      this.showPage(-1);
+      
+    }
+    else{
+      console.log("the last: "+this.searchBarValue);
+
+      this.showPageWhere(-1);
+    }
   }
   
   goToNext(){
-    this.showPage(1);
-    // if(this.searchBarValue === ""){
-    //   this.showPage(1);
-    // }
-    // else{
-    //   this.showPageWhere(1);
-    // }
+    // this.showPage(1);
+    if(this.searchBarValue === ""){
+      console.log("the first");
+      
+      this.showPage(1);
+      
+    }
+    else{
+      console.log("the last: "+this.searchBarValue);
+
+      this.showPageWhere(1);
+    }
   }
 
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
     if(this.listType == "anonymous"){
-      // this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), )
+      this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue)
     }else{
       if(this.listType == "noAnonymousPerso"){
         this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())

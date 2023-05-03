@@ -82,11 +82,11 @@
 </div>
 </div>
 
-<div class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+<div *ngIf="donationListParent.last_page != 0" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
     <p>
         Affichage de {{donationListParent.current_page}}/{{donationListParent.last_page}} pages
     </p>
-    <nav aria-label="Page navigation example">
+    <nav  aria-label="Page navigation example">
         <ul class="pagination">
             <li class="page-item {{isFirstPage}}">
             <a (click)="goToPrevious()" class="page-link" aria-label="Previous">
