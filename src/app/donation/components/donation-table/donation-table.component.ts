@@ -166,9 +166,9 @@ export class DonationTableComponent implements OnInit{
       this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue)
     }else{
       if(this.listType == "noAnonymousPerso"){
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue)
       }else{ 
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue)
       }
     }
     

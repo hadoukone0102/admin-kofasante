@@ -71,6 +71,15 @@ export class DonationService {
       })
     );
   }
+  getDonationsNoAnonymousPersoWhere(page: string = '1', search: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?search=${search}&page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
+      })
+    );
+  }
 
   /**
    * Récupère tous les dons non anonymes pour les organisations
@@ -78,6 +87,15 @@ export class DonationService {
    */
   getDonationsNoAnonymousOrga(page: string = '1'): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
+      })
+    );
+  }
+  getDonationsNoAnonymousOrgaWhere(page: string = '1', search: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
