@@ -51,8 +51,8 @@ export class DonationService {
    * Récupère tous les dons non anonymes faits à titre personnel 
    * @returns {Observable<DataDon>} 
    */
-  getDonationsNoAnonymousPerso(): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso`).pipe(
+  getDonationsNoAnonymousPerso(page: string = '1'): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -65,8 +65,8 @@ export class DonationService {
    * Récupère tous les dons non anonymes pour les organisations
    * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons non anonymes des organisations
    */
-  getDonationsNoAnonymousOrga(): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga`).pipe(
+  getDonationsNoAnonymousOrga(page: string = '1'): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();

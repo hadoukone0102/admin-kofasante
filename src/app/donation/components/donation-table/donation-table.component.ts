@@ -135,28 +135,23 @@ export class DonationTableComponent {
   }
 
   showPage(pageIndex: number){
-    
-    
     this.newPage= this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
-    // this.donationService.setPageDonationAnonymous(this.newPage.toString());
-    this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
+    if(this.listType == "anonymous"){
+      this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
+    }else{
+      if(this.listType == "noAnonymousPerso"){
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
+      }else{ 
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
+      }
+    }
     
     this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
-
-  });
-    
-    if(this.donationListTest){
-      console.table(this.donationListTest);
-    }
-    else{
-      console.log('nada dabord');
-    }
-
-    // this.checkAndApplyDisabled();
+    });
   }
 
   showAnonymous(){
