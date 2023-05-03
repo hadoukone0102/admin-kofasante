@@ -2,11 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DashboardResolver } from './resolvers/dashboard.resolver';
+import { DashboardService } from './services/dashboard.service';
 
-const donationRoutes: Routes = [
-  {path: '', component: DashboardComponent, resolve:{ dashboard: DashboardResolver}},
+const globalRoutes: Routes = [
+  {path: '', component: DashboardComponent, resolve: {dashboard: DashboardResolver}},
 ];
 
 @NgModule({
@@ -16,8 +17,10 @@ const donationRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    RouterModule.forChild(globalRoutes)
   ],
   providers:[
+    DashboardService,
     DashboardResolver
   ]
 })

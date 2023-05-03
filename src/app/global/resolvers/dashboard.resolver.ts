@@ -4,11 +4,15 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { DashboardService } from '../services/dashboard.service';
+import { DataDonationInfo } from '../models/donationInfo.model';
 
 @Injectable()
-export class DashboardResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+export class DashboardResolver implements Resolve<DataDonationInfo> {
+  constructor(private dashboardService: DashboardService){}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDonationInfo> {
+    return this.dashboardService.getDonationInfo();
   }
 }

@@ -16,19 +16,6 @@ export class DonationService {
     private http: HttpClient,
     private coreService: CoreService
     ) { }
-  /**
-   * Récupère tous les dons, anonymes et non anonymes
-   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons
-   */
-  getDonations(): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes`).pipe(
-      catchError((error: any) => {
-        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
-    );
-  }
 
   /**
    * Récupère tous les dons anonymes
