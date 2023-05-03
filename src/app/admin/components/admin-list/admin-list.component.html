@@ -26,8 +26,8 @@
             </div>
         </form>
         <!-- / Search form -->
-        <div class="table-responsive">
-            <table class="table table-centered table-nowrap mb-0 rounded">
+        <div *ngIf="admins$ | async as adminList" class="table-responsive">
+            <table  class="table table-centered table-nowrap mb-0 rounded">
             <thead class="thead-light">
                 <tr>
                 <th class="border-0 rounded-start">N°</th>
@@ -38,8 +38,9 @@
             </tr>
         </thead>
         <tbody>
+
             <!-- Item -->
-            <tr>
+            <tr >
                 <td><a href="#" class="text-primary fw-bold">1</a> </td>
             <td >
                 Fofanar

@@ -10,13 +10,13 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { SharedModule } from '../shared/shared.module';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AdminService } from './services/admin.service';
-import { AdminsResolver } from './resolvers/admins.resolver';
+import { ListAdminsResolver } from './resolvers/list-admins.resolver';
 import { AuthService } from './services/auth.service';
 import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 
 const adminRoutes: Routes = [
-  {path: 'admin/liste', component: AdminListComponent}, 
+  {path: 'admin/liste', component: AdminListComponent, resolve: { listAdmins: ListAdminsResolver}}, 
   {path: 'admin/ajouter', component: AddAdminComponent}, 
 ];
 
@@ -40,7 +40,7 @@ const adminRoutes: Routes = [
   ],
   providers:[
     AdminService,
-    AdminsResolver,
+    ListAdminsResolver,
     AuthService
   ]
 })

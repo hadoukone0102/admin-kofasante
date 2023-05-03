@@ -1,8 +1,10 @@
 import { Component, ElementRef, Input } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
+import { CoreService } from 'src/app/core/core.service';
+import { AdminService } from 'src/app/admin/services/admin.service';
 
 @Component({
   selector: 'app-donation-table',
@@ -19,20 +21,24 @@ export class DonationTableComponent {
   searchBarValue!: string;
   
 
-  monDon: DataDon = new DataDon();
   donations$!: Observable<Don[]>;
+  donationTest$!: Observable<DataDon>;
+  donationListTest!: Array<Don>;
 
   isAnonymous!: boolean;
   isOrganisation!: boolean;
-  // title!: string;
-  // activeAnonymous!: string;
-  // activeNoAnonymous!: string;
+
   donationList!: Array<Don>;
 
+  isFirstPage!: boolean;
+  isLastPage!: boolean;
+  newPage!: number;
+
   constructor(
-    private element: ElementRef, 
+    private router: Router,
+    private donationService: DonationService,
+    private coreService :  CoreService,
     private route: ActivatedRoute,
-    private donationService: DonationService
     ) {}
 
   ngOnInit(): void {
@@ -45,11 +51,8 @@ export class DonationTableComponent {
     // this.togglePersonal(this.isOrganisation);
     // console.table(this.donations.dons);
     
-    console.log("Boommmmdata fin");
     this.donationList = this.donationListParent.dons;
-    console.table(this.donationList);
-    console.log("NO ANO ORA DANS INIT");
-    // console.table(this.donationNoAnoOrga.dons);
+    console.log("donation table ok");
   }
 
   /**
@@ -121,6 +124,62 @@ export class DonationTableComponent {
     }
   }
 
+  
+  
+  goToPrevious(){
+    this.checkAndApplyDisabled();
+    // this.router.navigate(['/dons/anonyme', page = +this.donationListParent.current_page - 1]);
+  }
+  
+  goToNext(){
+    // this.checkAndApplyDisabled();
+    
+    this.newPage= +this.donationListParent.current_page +1;
+    console.log("je suis: "+ this.newPage);
+    this.donationService.setPageDonationAnonymous(this.newPage.toString());
+    this.donationTest$ =  this.donationService.getDonationsAnonymous()
+    
+    // this.router.navigate(['/dons/anonyme']);
+
+    // this.donationList = this.donationListParent.dons;
+    console.log("The received list");
+    
+    // console.table(this.donationList);
+
+    this.donationTest$.subscribe((data) => {
+      this.donationList = data.dons;
+      this.donationListParent =  data;
+  });
+    
+    if(this.donationListTest){
+      console.table(this.donationListTest);
+    }
+    else{
+      console.log('nada dabord');
+    }
+    
+
+    // this.donations$ = this.route.data.pipe(
+    //   map(data => data['listAnonymous'])
+    // );
+    // this.coreService.goToDonationAnonymous();
+  }
+
+  refreshData(): void {
+    this.router.navigate(['/dons/anonyme'], { relativeTo: this.route });
+  }
+
+  rechargeResolver() {
+    if (this.router.navigated) {
+      // Naviguer vers la même URL avec un objet de navigation vide pour recharger le résolveur
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {},
+        queryParamsHandling: 'merge'
+      });
+    }
+  }
+
   showAnonymous(){
     this.isAnonymous = true;
   }
@@ -135,14 +194,19 @@ export class DonationTableComponent {
     this.isOrganisation = true;
   }
 
-  // togglePersonal(isOrga: boolean): boolean{
-  //   if(isOrga){
-  //     this.showNoAnonymousOrga();
-  //   }else{
-  //     this.showNoAnonymousPerso();
-  //   }
-  //   return this.isOrganisation = isOrga;
-
-  // }
-
+  checkAndApplyDisabled(){
+    if(this.donationListParent.current_page === '1'){
+      this.isFirstPage = true;
+      this.isLastPage = false;
+    }else{
+      if(+this.donationListParent.current_page === this.donationListParent.last_page){
+        this.isFirstPage = false;
+        this.isLastPage = true;
+      }
+      else{
+        this.isFirstPage  = false;
+        this.isLastPage = false;
+      }
+    }
+  }
 }

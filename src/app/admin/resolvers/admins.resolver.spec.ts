@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { ListAdminsResolver } from './list-admins.resolver';
 
-import { AdminsResolver } from './admins.resolver';
 
-describe('AdminsResolver', () => {
-  let resolver: AdminsResolver;
+describe('ListAdminsResolver', () => {
+  let resolver: ListAdminsResolver;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    resolver = TestBed.inject(AdminsResolver);
+    resolver = TestBed.inject(ListAdminsResolver);
   });
 
   it('should be created', () => {

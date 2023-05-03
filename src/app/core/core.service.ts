@@ -17,6 +17,7 @@ export class CoreService {
   }
   goToDonationAnonymous(){
     this.router.navigate(['/dons/anonyme']);
+    console.log("mami please bas");
   }
   goToDonationNoAnonymousPerso(){
     this.router.navigate(['/dons/non-anonyme/personel']);

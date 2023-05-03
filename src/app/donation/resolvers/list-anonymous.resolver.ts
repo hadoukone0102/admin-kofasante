@@ -13,6 +13,8 @@ export class ListAnonymousResolver implements Resolve<DataDon> {
   constructor(private donationService: DonationService){}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDon> {
+    console.log("Je resous");
+    
     return this.donationService.getDonationsAnonymous();
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
 @Component({
   selector: 'app-list-anonymous',
@@ -13,8 +13,15 @@ export class ListAnonymousComponent implements OnInit{
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    console.log("liste anonymou ok")
     this.donations$ = this.route.data.pipe(
-      map(data => data['listAnonymous'])
+      map(data => data['listAnonymous']),
+      tap((response) => console.log("dans le map")
+      ),
     );
+
+    console.log(this.donations$);
   }
+
+  
 }
