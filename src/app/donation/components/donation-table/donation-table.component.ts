@@ -30,8 +30,8 @@ export class DonationTableComponent {
 
   donationList!: Array<Don>;
 
-  isFirstPage!: boolean;
-  isLastPage!: boolean;
+  isFirstPage!: string;
+  isLastPage!: string;
   newPage!: number;
 
   constructor(
@@ -53,6 +53,7 @@ export class DonationTableComponent {
     
     this.donationList = this.donationListParent.dons;
     console.log("donation table ok");
+    this.checkAndApplyDisabled(this.donationListParent);
   }
 
   /**
@@ -126,18 +127,17 @@ export class DonationTableComponent {
   
   
   goToPrevious(){
-    this.checkAndApplyDisabled();
-    // this.router.navigate(['/dons/anonyme', page = +this.donationListParent.current_page - 1]);
+    this.showPage(-1);
   }
   
   goToNext(){
-    this.showPage();
+    this.showPage(1);
   }
 
-  showPage(){
-    this.checkAndApplyDisabled();
+  showPage(pageIndex: number){
     
-    this.newPage= +this.donationListParent.current_page +1;
+    
+    this.newPage= +this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
     // this.donationService.setPageDonationAnonymous(this.newPage.toString());
     this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
@@ -145,6 +145,8 @@ export class DonationTableComponent {
     this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
+      this.checkAndApplyDisabled(data);
+
   });
     
     if(this.donationListTest){
@@ -153,21 +155,8 @@ export class DonationTableComponent {
     else{
       console.log('nada dabord');
     }
-  }
 
-  refreshData(): void {
-    this.router.navigate(['/dons/anonyme'], { relativeTo: this.route });
-  }
-
-  rechargeResolver() {
-    if (this.router.navigated) {
-      // Naviguer vers la même URL avec un objet de navigation vide pour recharger le résolveur
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: {},
-        queryParamsHandling: 'merge'
-      });
-    }
+    // this.checkAndApplyDisabled();
   }
 
   showAnonymous(){
@@ -184,18 +173,29 @@ export class DonationTableComponent {
     this.isOrganisation = true;
   }
 
-  checkAndApplyDisabled(){
-    if(this.donationListParent.current_page === '1'){
-      this.isFirstPage = true;
-      this.isLastPage = false;
+  checkAndApplyDisabled(donationListParenta: DataDon){
+    if((donationListParenta.current_page === '1') && (+donationListParenta.current_page != donationListParenta.last_page)){
+      console.log('1/...');
+      
+      this.isFirstPage = "disabled";
+      this.isLastPage = "";
     }else{
-      if(+this.donationListParent.current_page === this.donationListParent.last_page){
-        this.isFirstPage = false;
-        this.isLastPage = true;
+      if((donationListParenta.current_page === '1') && (+donationListParenta.current_page === donationListParenta.last_page)){
+        console.log('1/1');
+        this.isFirstPage = "disabled";
+        this.isLastPage = "disabled";
       }
       else{
-        this.isFirstPage  = false;
-        this.isLastPage = false;
+        if((donationListParenta.current_page != '1') && (+donationListParenta.current_page != donationListParenta.last_page)){
+          console.log('.../...');
+          this.isFirstPage  = "";
+          this.isLastPage = "";
+        }
+        else{
+          console.log('.../1');
+          this.isFirstPage  = "";
+          this.isLastPage = "disabled";
+        }
       }
     }
   }

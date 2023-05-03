@@ -87,9 +87,24 @@
         Affichage de {{donationListParent.current_page}}/{{donationListParent.last_page}} pages
     </p>
     <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item {{isFirstPage}}">
+            <a (click)="goToPrevious()" class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+            </li>
+            <li class="page-item"><a class="page-link">{{donationListParent.current_page}}</a></li>
+            <li  class="page-item {{isLastPage}}">
+            <a (click)="goToNext()" class="page-link"  aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+        </ul>
+    </nav>
+    <!-- <nav aria-label="Page navigation example">
         <ul class="pagination mb-0">
-            <li class="page-item" >
-                <button class="page-link" disabled (click)="goToPrevious()" >Précédent</button>
+            <li class="page-item disabled" >
+                <button class="page-link" (click)="goToPrevious()">Précédent</button>
             </li>
             <li class="page-item">
                 <a class="page-link" >{{donationListParent.current_page}}</a>
@@ -98,7 +113,7 @@
                 <a class="page-link" (click)="goToNext()" >Suivant</a>
             </li>
         </ul>
-    </nav>
+    </nav> -->
 
    
 </div>
