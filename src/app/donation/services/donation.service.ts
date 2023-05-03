@@ -47,6 +47,17 @@ export class DonationService {
     );
   }
 
+  getDonationsAnonymousWhere(page: string = '1', search: string): Observable<DataDon>{
+    console.log("Je passe dans le boom: " + search);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}?`).pipe(
+      catchError((error: any) => {
+        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+      })
+    );
+  }
+
   /**
    * Récupère tous les dons non anonymes faits à titre personnel 
    * @returns {Observable<DataDon>} 
@@ -82,17 +93,17 @@ export class DonationService {
    * @param {String} term
    * @returns {Observable<Don[]>}
    */
-  searchDonationListAno(term: String): Observable<Don[]>{
-    if(term.length < 2){
-      return of([]);
+  searchDonationListAno(term: String): Observable<DataDon>{
+    if(term.length === 2){
+      return of();
     }
   
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes/?noma=${term}`).pipe(
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${term}`).pipe(
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données');
       }),
-      map(dataDon => dataDon.dons)
+      map(dataDon => dataDon)
     );
   }
 
@@ -103,17 +114,17 @@ export class DonationService {
    * @param {String} term
    * @returns {Observable<Don[]>}
    */
-  searchDonationListNoAnoPerso(term: String): Observable<Don[]>{
-    if(term.length < 2){
-      return of([]);
+  searchDonationListNoAnoPerso(term: String): Observable<DataDon>{
+    if(term.length === 1){
+      return of();
     }
   
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso/?noma=${term}`).pipe(
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso/?search=${term}`).pipe(
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données');
       }),
-      map(dataDon => dataDon.dons)
+      map(dataDon => dataDon)
     );
   }
 
@@ -124,17 +135,17 @@ export class DonationService {
    * @param {String} term
    * @returns {Observable<Don[]>}
    */
-  searchDonationListNoAnoOrga(term: String): Observable<Don[]>{
-    if(term.length < 2){
-      return of([]);
+  searchDonationListNoAnoOrga(term: String): Observable<DataDon>{
+    if(term.length === 2){
+      return of();
     }
   
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga/?noma=${term}`).pipe(
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga/?search=${term}`).pipe(
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données');
       }),
-      map(dataDon => dataDon.dons)
+      map(dataDon => dataDon)
     );
   }
   

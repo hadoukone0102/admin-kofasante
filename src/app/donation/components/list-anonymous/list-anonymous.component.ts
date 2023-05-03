@@ -19,9 +19,7 @@ export class ListAnonymousComponent implements OnInit{
       tap((response) => console.log("dans le map")
       ),
     );
-
-    console.log(this.donations$);
   }
 
-  
+
 }

@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
 import { CoreService } from 'src/app/core/core.service';
 import { AdminService } from 'src/app/admin/services/admin.service';
+import { compileNgModule } from '@angular/compiler';
 
 @Component({
   selector: 'app-donation-table',
@@ -21,7 +22,7 @@ export class DonationTableComponent {
   searchBarValue!: string;
   
 
-  donations$!: Observable<Don[]>;
+  donations$!: Observable<DataDon>;
   donationTest$!: Observable<DataDon>;
   donationListTest!: Array<Don>;
 
@@ -78,14 +79,17 @@ export class DonationTableComponent {
       );
     
       this.donations$.subscribe((donations) => {
-        this.donationList = donations;
+        this.donationList = donations.dons;
+        this.donationListParent = donations;
       });
     }
     else
     {
+      
+      
       if(!this.isAnonymous && !this.isOrganisation){
         this.searchTerms.next(term);
-  
+        console.log("non anonme personally");
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
           distinctUntilChanged(),
@@ -93,7 +97,7 @@ export class DonationTableComponent {
         );
       
         this.donations$.subscribe((donations) => {
-          this.donationList = donations;
+          this.donationList = donations.dons;
       });
       }
       else{
@@ -106,7 +110,7 @@ export class DonationTableComponent {
         );
       
         this.donations$.subscribe((donations) => {
-          this.donationList = donations;
+          this.donationList = donations.dons;
         });
       }
     }
@@ -132,6 +136,32 @@ export class DonationTableComponent {
   
   goToNext(){
     this.showPage(1);
+    // if(this.searchBarValue === ""){
+    //   this.showPage(1);
+    // }
+    // else{
+    //   this.showPageWhere(1);
+    // }
+  }
+
+  showPageWhere(pageIndex: number){
+    this.newPage= this.donationListParent.current_page + pageIndex;
+    console.log("je suis: "+ this.newPage);
+    if(this.listType == "anonymous"){
+      // this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), )
+    }else{
+      if(this.listType == "noAnonymousPerso"){
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
+      }else{ 
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
+      }
+    }
+    
+    this.donationTest$.subscribe((data) => {
+      this.donationList = data.dons;
+      this.donationListParent =  data;
+      this.checkAndApplyDisabled(data);
+    });
   }
 
   showPage(pageIndex: number){
