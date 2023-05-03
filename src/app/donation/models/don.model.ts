@@ -21,7 +21,7 @@ export class DataDon {
     status!: string
     status_code!: number
     status_message!: string
-    current_page!: string
+    current_page!: number
     last_page!: number
     dons!: Don[]
   }

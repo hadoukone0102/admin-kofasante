@@ -137,7 +137,7 @@ export class DonationTableComponent {
   showPage(pageIndex: number){
     
     
-    this.newPage= +this.donationListParent.current_page + pageIndex;
+    this.newPage= this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
     // this.donationService.setPageDonationAnonymous(this.newPage.toString());
     this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
@@ -174,27 +174,27 @@ export class DonationTableComponent {
   }
 
   checkAndApplyDisabled(donationListParenta: DataDon){
-    if((donationListParenta.current_page === '1') && (+donationListParenta.current_page != donationListParenta.last_page)){
-      console.log('1/...');
+    if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
+      console.log("1/...");
       
       this.isFirstPage = "disabled";
       this.isLastPage = "";
     }else{
-      if((donationListParenta.current_page === '1') && (+donationListParenta.current_page === donationListParenta.last_page)){
-        console.log('1/1');
+      if((donationListParenta.current_page === 1) && (donationListParenta.current_page === donationListParenta.last_page)){
+        console.log("1/1");
         this.isFirstPage = "disabled";
         this.isLastPage = "disabled";
       }
       else{
-        if((donationListParenta.current_page != '1') && (+donationListParenta.current_page != donationListParenta.last_page)){
-          console.log('.../...');
+        if((donationListParenta.current_page != 1) && (donationListParenta.current_page != donationListParenta.last_page)){
+          console.log(".../...");
           this.isFirstPage  = "";
           this.isLastPage = "";
         }
         else{
-          console.log('.../1');
-          this.isFirstPage  = "";
-          this.isLastPage = "disabled";
+            console.log(".../1");
+            this.isFirstPage  = "";
+            this.isLastPage = "disabled";
         }
       }
     }
