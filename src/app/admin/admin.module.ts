@@ -16,7 +16,7 @@ import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-inf
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 
 const adminRoutes: Routes = [
-  {path: 'admin/liste', component: AdminListComponent, resolve: { listAdmins: ListAdminsResolver}}, 
+  {path: 'liste', component: AdminListComponent, resolve: { listAdmins: ListAdminsResolver}}, 
   {path: 'admin/ajouter', component: AddAdminComponent}, 
 ];
 

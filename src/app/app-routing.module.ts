@@ -8,6 +8,7 @@ const routes: Routes = [
   {path: 'dashboard', loadChildren: () => import('./global/global.module').then(m => m.GlobalModule)}, 
   {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule)}, 
   {path: 'profile', component: ProfileComponent}, 
+  {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)}, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent}, 
   {path: 'login', component: LoginComponent}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
