@@ -123,7 +123,6 @@ export class DonationTableComponent {
       }
     }
   }
-
   
   
   goToPrevious(){
@@ -132,20 +131,17 @@ export class DonationTableComponent {
   }
   
   goToNext(){
-    // this.checkAndApplyDisabled();
+    this.showPage();
+  }
+
+  showPage(){
+    this.checkAndApplyDisabled();
     
     this.newPage= +this.donationListParent.current_page +1;
     console.log("je suis: "+ this.newPage);
-    this.donationService.setPageDonationAnonymous(this.newPage.toString());
-    this.donationTest$ =  this.donationService.getDonationsAnonymous()
+    // this.donationService.setPageDonationAnonymous(this.newPage.toString());
+    this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
     
-    // this.router.navigate(['/dons/anonyme']);
-
-    // this.donationList = this.donationListParent.dons;
-    console.log("The received list");
-    
-    // console.table(this.donationList);
-
     this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
@@ -157,12 +153,6 @@ export class DonationTableComponent {
     else{
       console.log('nada dabord');
     }
-    
-
-    // this.donations$ = this.route.data.pipe(
-    //   map(data => data['listAnonymous'])
-    // );
-    // this.coreService.goToDonationAnonymous();
   }
 
   refreshData(): void {

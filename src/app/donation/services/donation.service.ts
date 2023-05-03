@@ -11,7 +11,6 @@ import { CoreService } from 'src/app/core/core.service';
  */
 @Injectable()
 export class DonationService {
-  pageDonationAnonymous: string = '1';
 
   constructor(
     private http: HttpClient,
@@ -37,9 +36,9 @@ export class DonationService {
    */
   //  SOIT JE RECUPERE LA DONNEE DE L'URL
   // SOIT JE CREE UNE VARIABLE ICI QUE J'INCREMENTE
-  getDonationsAnonymous(): Observable<DataDon>{
-    console.log("Je passe dans le meta: " + this.pageDonationAnonymous);
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?page=${this.pageDonationAnonymous}`).pipe(
+  getDonationsAnonymous(page: string = '1'): Observable<DataDon>{
+    console.log("Je passe dans le meta: " + page);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -60,9 +59,6 @@ export class DonationService {
         return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
       })
     );
-  }
-  setPageDonationAnonymous(newPage: string){
-    this.pageDonationAnonymous = newPage;
   }
 
   /**
