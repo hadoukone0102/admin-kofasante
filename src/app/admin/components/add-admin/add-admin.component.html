@@ -51,7 +51,7 @@
                             required="">
                         </div>
                         <div class="text-danger"
-                        [hidden]="theContact.valid || theContact.pristine">
+                            [hidden]="theContact.valid || theContact.pristine">
                             Entrez des chiffres
                         </div> 
                     </div>
@@ -76,11 +76,11 @@
                             pattern="^.{5,}$"
                             [(ngModel)]="confirmPassword"
                             #theConfirmPassword="ngModel"
+                            (keyup)="onClickConfirmPassword()"
                             required="">
                         </div>
-                        <div class="text-danger"
-                        [hidden]="theConfirmPassword.valid || theConfirmPassword.pristine">
-                            Entrez au moins 5 caractère
+                        <div *ngIf="!pwdIsConfirmed" class="text-danger">
+                            Les deux mots de passe ne correspondent pas
                         </div> 
                     </div>
                     <div class="col-12 mb-3">
