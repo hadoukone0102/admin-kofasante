@@ -6,12 +6,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardResolver } from './resolvers/dashboard.resolver';
 import { DashboardService } from './services/dashboard.service';
 import { DonationNotifResolver } from '../core/resolvers/donation-notif.resolver';
+import { AdminInfoResolver } from './resolvers/admin-info.resolver';
 
 const globalRoutes: Routes = [
   {path: '', component: DashboardComponent, 
-    resolve: {dashboard: DashboardResolver,
-      notification: DonationNotifResolver
-    }},
+    resolve: {
+      dashboard: DashboardResolver,
+      adminInfo: AdminInfoResolver,
+      donationNotif: DonationNotifResolver
+  }},
 ];
 
 @NgModule({
@@ -25,7 +28,7 @@ const globalRoutes: Routes = [
   ],
   providers:[
     DashboardService,
-    DashboardResolver
+    DashboardResolver,
   ]
 })
 export class GlobalModule { }

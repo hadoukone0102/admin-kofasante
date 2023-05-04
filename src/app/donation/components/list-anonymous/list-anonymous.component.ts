@@ -13,11 +13,8 @@ export class ListAnonymousComponent implements OnInit{
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log("liste anonymou ok")
     this.donations$ = this.route.data.pipe(
       map(data => data['listAnonymous']),
-      tap((response) => console.log("dans le map")
-      ),
     );
   }
 

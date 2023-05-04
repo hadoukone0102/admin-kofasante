@@ -26,4 +26,13 @@ export class DashboardService {
       })
     );
   }
+  getAdminInfo(): Observable<DataDonationInfo>{
+    return this.http.get<DataDonationInfo>(`${environment.apiUrlAdmin}/total`).pipe(
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+      })
+    );
+  }
 }

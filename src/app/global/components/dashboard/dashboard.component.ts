@@ -8,20 +8,23 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent implements OnInit{
-  donations$!: Observable<DataDonationInfo>;
+  donationInfo$!: Observable<DataDonationInfo>;
   donationInfo!: DataDonationInfo;
+
+  
+
   
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     console.log("dahs")
-    this.donations$ = this.route.data.pipe(
+    this.donationInfo$ = this.route.data.pipe(
       map(data => data['dashboard']),
-      tap((response) => console.log("mapi dzsh")
-      ),
     );
+    
+    this.donationInfo$.subscribe((data) => this.donationInfo = data);
 
-    this.donations$.subscribe((data) => this.donationInfo = data);
-    console.log(this.donationInfo);
+    
+
   }
 }
