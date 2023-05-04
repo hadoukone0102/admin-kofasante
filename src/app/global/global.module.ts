@@ -7,14 +7,16 @@ import { DashboardResolver } from './resolvers/dashboard.resolver';
 import { DashboardService } from './services/dashboard.service';
 import { DonationNotifResolver } from '../core/resolvers/donation-notif.resolver';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
+import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+
+const listDashboardResolvers = {...{
+  dashboard: DashboardResolver,
+  adminInfo: AdminInfoResolver,
+  }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
   {path: '', component: DashboardComponent, 
-    resolve: {
-      dashboard: DashboardResolver,
-      adminInfo: AdminInfoResolver,
-      donationNotif: DonationNotifResolver
-  }},
+    resolve: listDashboardResolvers},
 ];
 
 @NgModule({

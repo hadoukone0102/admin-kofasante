@@ -10,11 +10,16 @@ import { ListNoAnonymousOrgaComponent } from './components/list-no-anonymous-org
 import { ListAnonymousResolver } from './resolvers/list-anonymous.resolver';
 import { ListNoAnonymousPersoResolver } from './resolvers/list-no-anonymous-perso.resolver';
 import { ListNoAnonymousOrgaResolver } from './resolvers/list-no-anonymous-orga.resolver';
+import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+
+const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
+const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
+const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
 
 const donationRoutes: Routes = [
-  {path: 'anonyme', component: ListAnonymousComponent, resolve:{ listAnonymous: ListAnonymousResolver}},
-  {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve:{ listNoAnonymousPerso: ListNoAnonymousPersoResolver}},
-  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:{ listNoAnonymousOrga: ListNoAnonymousOrgaResolver}},
+  {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
+  {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
+  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
 ];
 
 @NgModule({

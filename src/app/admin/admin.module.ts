@@ -14,10 +14,14 @@ import { ListAdminsResolver } from './resolvers/list-admins.resolver';
 import { AuthService } from './services/auth.service';
 import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
+import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+
+const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
+const listAddResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
-  {path: 'liste', component: AdminListComponent, resolve: { listAdmins: ListAdminsResolver}}, 
-  {path: 'admin/ajouter', component: AddAdminComponent}, 
+  {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
+  {path: 'admin/ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
 ];
 
 @NgModule({
