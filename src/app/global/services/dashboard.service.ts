@@ -4,6 +4,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DataDonationInfo } from '../models/donationInfo.model';
 import { CoreService } from 'src/app/core/services/core.service';
+import { DataAdminInfo } from '../models/admin-info.model';
 
 @Injectable()
 export class DashboardService {
@@ -26,12 +27,12 @@ export class DashboardService {
       })
     );
   }
-  getAdminInfo(): Observable<DataDonationInfo>{
-    return this.http.get<DataDonationInfo>(`${environment.apiUrlAdmin}/total`).pipe(
+  getAdminInfo(): Observable<DataAdminInfo>{
+    return this.http.get<DataAdminInfo>(`${environment.apiUrlAdmin}/total`).pipe(
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }

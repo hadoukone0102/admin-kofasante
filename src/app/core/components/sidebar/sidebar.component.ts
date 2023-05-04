@@ -11,9 +11,6 @@ import { DataDonationNotif } from '../../models/donation-notif.model';
 export class SidebarComponent implements OnInit{
   donationNotif$!: Observable<DataDonationNotif>;
   donationNotif!: DataDonationNotif;
-
-  // adminNotif$!: Observable<DataAdminNotif>;
-  // adminNotif!: DataAdminNotif;
   
   constructor(
     private route: ActivatedRoute,
@@ -26,10 +23,6 @@ export class SidebarComponent implements OnInit{
     );
     this.donationNotif$.subscribe((data) => this.donationNotif = data);
 
-    // this.adminNotif$ = this.route.data.pipe(
-    //   map(data => data['adminNotif']),
-    // );
-    // this.adminNotif$.subscribe((data) => this.adminNotif = data);
   }
 
   goToDashboard(){
