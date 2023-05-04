@@ -30,6 +30,7 @@ export class AdminListComponent {
         this.admins = data;
       }
     );
+    
     console.log(this.admins);
   }
 

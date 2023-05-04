@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Admin, DataAdmin } from '../models/admin.model';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { Admin, DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '../models/admin.model';
+import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 
@@ -41,11 +41,20 @@ export class AdminService {
     return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/${id}`);
   }
 
-  addAdmin(Admin: Admin): Observable<Admin>{
+  addAdmin(Admin: DataAdminAdd): Observable<DataAdminResultAdd|DataAmdinErrorAdd>{
+    console.log('dans add ok');
+    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-    return this.http.post<Admin>(`${environment.apiUrlAdmin}/Admins`, Admin, httpOptions);
+    return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdmin}/register`, Admin, httpOptions).pipe(
+      tap((response) => console.log("Donné ajouté avec sucre")),
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
+      }),
+      
+    );
   }
 
   // updateAdmin(Admin: Admin): Observable<Admin>{
