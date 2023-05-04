@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Admin, DataAdmin } from '../models/admin.model';
 import { Observable, catchError, map, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CoreService } from 'src/app/core/core.service';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Injectable()
 export class AdminService {

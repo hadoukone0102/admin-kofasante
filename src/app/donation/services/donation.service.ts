@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon, Don } from '../models/don.model';
-import { CoreService } from 'src/app/core/core.service';
+import { DataDon } from '../models/don.model';
+import { CoreService } from 'src/app/core/services/core.service';
 
 /**
  * Service permettant de récupérer les données de dons depuis l'API
