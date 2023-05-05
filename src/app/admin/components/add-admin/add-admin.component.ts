@@ -1,26 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
-import { DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '../../models/admin.model';
+import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '../../models/admin.model';
 import { CoreService } from 'src/app/core/services/core.service';
+import { Observable, map } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html'
-})
+})      
 export class AddAdminComponent implements OnInit {
   admin!: DataAdminAdd;
+
+  adminList$!: Observable<DataAdmin>;
+  adminList!: DataAdmin;
 
   password!: string;
   confirmPassword!: string;
 
   pwdIsConfirmed!: boolean;
-
+  contactExists!: boolean;
+  
+  resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd
   constructor(
     private adminService: AdminService,
-    private coreService: CoreService
+    private coreService: CoreService,
+    private route: ActivatedRoute,
     ){}
-
-  resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd
 
   ngOnInit(): void {
     this.admin = {
@@ -41,9 +47,17 @@ export class AddAdminComponent implements OnInit {
     console.log("mqmq");
     console.log(this.resultAdd);
     
-    
-    
     this.pwdIsConfirmed = true;
+
+    this.adminList$ = this.route.data.pipe(
+      map(data => data['listAdmins'])
+    );
+
+    this.adminList$.subscribe(
+      data => {
+        this.adminList = data;
+      }
+    );
   }
 
   onSubmit(){
@@ -61,13 +75,8 @@ export class AddAdminComponent implements OnInit {
       },
       (error)=> console.log("mon erreur: "+error)
       );
-  }
 
-
-  checkValidity() {
-    if(this.admin.nomAdmin === "" ) {
-      // this.ad  
-    }
+     
   }
 
   onClickConfirmPassword(){
@@ -77,5 +86,22 @@ export class AddAdminComponent implements OnInit {
     else{
       this.pwdIsConfirmed = true;
     }
+  }
+
+  onClickContact(){
+    console.log("dans le for");
+    
+    this.adminList.administrateurs.some(adminInDB => {
+      if (adminInDB.contactAdmin === this.admin.contactAdmin) {
+        this.contactExists = true;
+        console.log("dans le for TRUE");
+        return true;
+        // return ; // pour arreter la boucle
+      }else{
+        this.contactExists = false;
+        console.log("dans le for FALSE");
+        return false;
+      }
+    });
   }
 }
