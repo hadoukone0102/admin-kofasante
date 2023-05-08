@@ -2,8 +2,8 @@ import { DonationNotifResolver } from "src/app/core/resolvers/donation-notif.res
 
 export const  environment = {
     production: false,
-    apiUrlDon: 'http://192.168.1.9:8000/api',
-    apiUrlAdmin: 'http://192.168.1.9:4200/api'
+    apiUrlDon: 'http://192.168.1.23:8000/api',
+    apiUrlAdmin: 'http://192.168.1.23:4200/api'
 }
 
 //GLOBAL RESOLVERS

@@ -24,17 +24,19 @@ export class LoginComponent implements OnInit{
   }
   onSubmit(){
     console.log(this.contact);
+
+    this.coreService.goToDashboard();
     
-    if(this.contact === ""){
-      this.contactIsEmpty = true;
-    }else{
-      this.contactIsEmpty = false;
-    }
-    if(this.password === ""){
-      this.passwordIsEmpty = true;
-    }else{
-      this.passwordIsEmpty = false;
-    }
+    // if(this.contact === ""){
+    //   this.contactIsEmpty = true;
+    // }else{
+    //   this.contactIsEmpty = false;
+    // }
+    // if(this.password === ""){
+    //   this.passwordIsEmpty = true;
+    // }else{
+    //   this.passwordIsEmpty = false;
+    // }
   }
 
   login(){

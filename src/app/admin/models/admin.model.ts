@@ -58,6 +58,12 @@ export interface DataAdmin {
     contactAdmin: string[]
   }
   //FIN ERROR ADD
+
+  //DELETE ADMIN
+  export interface DataDeleteAdmin {
+    message: string
+  }
+  
   
   
   

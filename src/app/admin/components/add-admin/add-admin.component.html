@@ -21,7 +21,6 @@
                             #theFirstName="ngModel"
                             required>
                         </div>
-                        {{resultAdd.success}}
                         <div *ngIf="theFirstName.touched && theFirstName.invalid">
                             <small class="text-danger">Entrez un nom</small>
                         </div>
@@ -71,7 +70,7 @@
                     </div>
                     <div class="col-12 mb-3">
                         <div>
-                            <label for="password">Mot de asse</label>
+                            <label for="password">Mot de passe</label>
                             <input class="form-control" id="password"  name="password" type="password" placeholder="Entrez votre mot de passe" 
                             pattern="^.{5,}$"
                             [(ngModel)]="admin.mdpAdmin"

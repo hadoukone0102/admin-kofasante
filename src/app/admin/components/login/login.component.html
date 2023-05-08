@@ -17,7 +17,7 @@
                                 </span>
                                 <input 
                                 type="number" class="form-control" placeholder="072233..." 
-                                id="contact" name="contact" 
+                                id="phone" name="contact" 
                                 pattern="^[0-9]+$"
                                 [(ngModel)]="contact"
                                 #theContact="ngModel"
@@ -65,6 +65,47 @@
                             <button type="submit" class="btn btn-gray-800">Se connecter</button>
                         </div>
                     </form>
+
+                    <h1>Exemple de page avec int-tel-input</h1>
+
+                    <!-- Formulaire de saisie du numéro de téléphone avec int-tel-input -->
+                    <label for="phone">Numéro de téléphone :</label>
+                    <input type="tel" id="phone" name="phone" required>
+                    <button onclick="showPhoneNumber()">Afficher le numéro</button>
+                    <div>
+                        Contact : +<span id="country-code"></span><span id="phone-number"></span>
+                    </div>
+                    <!-- <div>
+                        Numéro de téléphone : <span id="phone-number"></span>
+                    </div> -->
+                
+                    <!-- Initialisation de la bibliothèque int-tel-input -->
+                    <script>
+                        // Récupération de l'élément input du numéro de téléphone
+                        var input = document.querySelector("#phone");
+                
+                        // Initialisation de la bibliothèque int-tel-input
+                        var iti = window.intlTelInput(input, {
+                            preferredCountries: ["ci"], // Pays préférés
+                            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/intlTelInput.min.js" // Script utils
+                        });
+                
+                        function showPhoneNumber() {
+                            // Récupération de l'indicatif du pays sélectionné et mise à jour de l'élément HTML correspondant
+                            var selectedCountryData = iti.getSelectedCountryData();
+                            var countryCode = selectedCountryData.dialCode;
+                            document.querySelector("#country-code").innerHTML = countryCode;
+                
+                            // Récupération du numéro de téléphone saisi et mise à jour de l'élément HTML correspondant
+                            // var phoneNumber = iti.getNumber();
+                            var phoneNumber = document.getElementById("phone").value;
+                            document.querySelector("#phone-number").innerHTML = phoneNumber;
+                
+                            var contact = '+' + countryCode + phoneNumber;
+                
+                            console.log(contact);
+                        }
+                    </script>
                     
                 </div>
             </div>

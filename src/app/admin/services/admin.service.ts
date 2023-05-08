@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Admin, DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '../models/admin.model';
+import { Admin, DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, DataDeleteAdmin } from '../models/admin.model';
 import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -48,7 +48,7 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdmin}/register`, Admin, httpOptions).pipe(
-      tap((response) => console.log("Donné ajouté avec sucre")),
+      tap((response) => this.coreService.goToAdmin()),
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
@@ -64,9 +64,15 @@ export class AdminService {
   //   return this.http.put('api/Admins', Admin, httpOptions);
   // }
 
-  // deleteAdmin(id: Number): Observable<DataAdmin>{
-  //   return this.http.delete(`${environment.apiUrlAdmin}/${id}`);
-  // }
-
-  
+  deleteAdmin(id: String): Observable<DataDeleteAdmin>{
+    console.log("dans le deletes");
+    
+    return this.http.delete<DataDeleteAdmin>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
+      tap((response) => console.log("cest dans la boite")
+      ),
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
+      }),)
+  }
 }

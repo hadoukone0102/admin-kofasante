@@ -38,3 +38,6 @@ document.write('<script async defer src="https://buttons.github.io/buttons.js"><
 
 // <!-- Volt JS -->
 document.write('<script src="assets/assets/js/volt.js"></script>')
+
+// Tel input
+// document.write('<script src="assets/js/tel-input.js"></script>')

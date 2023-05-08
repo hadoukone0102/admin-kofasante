@@ -47,4 +47,20 @@ export class AdminListComponent {
         this.admins = data;
       });
     }
+
+    deleteAdmin(id: string){
+        this.adminService.deleteAdmin(id).subscribe(data => console.log("Boombich")
+        );
+
+        this.admins$ = this.adminService.getAdmins();
+    
+        this.admins$.subscribe(
+          data => {
+            this.admins = data;
+            console.log("Mon admin: ");
+            console.table(this.admins.administrateurs);
+            
+          }
+        );
+    }
 }

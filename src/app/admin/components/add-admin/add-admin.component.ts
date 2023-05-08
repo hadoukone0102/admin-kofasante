@@ -61,8 +61,6 @@ export class AddAdminComponent implements OnInit {
   }
 
   onSubmit(){
-    console.log("Submit oki");
-    
     this.adminService.addAdmin(this.admin).subscribe(
       (admin) => {
         this.resultAdd = admin;
@@ -75,8 +73,6 @@ export class AddAdminComponent implements OnInit {
       },
       (error)=> console.log("mon erreur: "+error)
       );
-
-     
   }
 
   onClickConfirmPassword(){
