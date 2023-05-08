@@ -15,9 +15,9 @@ export interface DataCountry {
     Sub_Type: string
     Sovereignty: string
     Capital: string
-    "ISO_4217 Currency Code": string
-    "ISO_4217 Currency Name": string
-    "ITU-T_Telephone_Code": string
+    ISO_4217_Currency_Code: string
+    ISO_4217_Currency_Name: string
+    ITU_T_Telephone_Code: string
     ISO_3166_1_2_Letter_Code: string
     ISO_3166_1_3_Letter_Code: string
     ISO_3166_1_Number: string

@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit{
   passwordIsEmpty!: boolean;
 
   countries$!: Observable<DataCountry>;
+  countries!: DataCountry;
   
 
   constructor(
@@ -36,6 +37,9 @@ export class LoginComponent implements OnInit{
     console.log('djouma code contry');
       
     console.log(this.countries$);
+    this.countries$.subscribe(data => this.countries = data)
+    console.table(this.countries.pays);
+    
   }
   onSubmit(){
     console.log(this.contact);

@@ -14,10 +14,10 @@
                             <label for="role">Rôle</label>
                             <select  class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
                                 <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
-                                <option value="1" selected>Curé</option>
-                                <option value="2">Responsable de catéchèse</option>
-                                <option value="3">Responsable de niveau</option>
-                                <option value="4">Sécrétaire</option>
+                                <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
+                                  {{country.ITU_T_Telephone_Code}}
+                                </option>
+                                
                             </select>
                         </div>
                           <div class="col-sm-8  mb-4">
