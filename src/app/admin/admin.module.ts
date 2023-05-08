@@ -15,6 +15,7 @@ import { AuthService } from './services/auth.service';
 import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-info.component';
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+import { CountryCodeResolver } from './resolvers/country-code.resolver';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
@@ -45,6 +46,7 @@ const adminRoutes: Routes = [
   providers:[
     AdminService,
     ListAdminsResolver,
+    CountryCodeResolver,
     AuthService
   ]
 })

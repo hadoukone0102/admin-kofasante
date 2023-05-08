@@ -1,7 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CoreService } from 'src/app/core/services/core.service';
+import { DataCountry } from '../../models/country-code.model';
+import { Observable, map } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +17,25 @@ export class LoginComponent implements OnInit{
   contactIsEmpty!: boolean;
   passwordIsEmpty!: boolean;
 
-  constructor(private coreService: CoreService){}
+  countries$!: Observable<DataCountry>;
+  
+
+  constructor(
+    private route: ActivatedRoute,
+    private coreService: CoreService){}
 
   ngOnInit(): void {
     this.contact = '';
     this.password = '';
     this.contactIsEmpty = false;
     this.passwordIsEmpty = false;
+
+    this.countries$ = this.route.data.pipe(
+      map(data => data['countryCode'])
+    );
+    console.log('djouma code contry');
+      
+    console.log(this.countries$);
   }
   onSubmit(){
     console.log(this.contact);
@@ -50,5 +65,4 @@ export class LoginComponent implements OnInit{
   goToForgotPassowrd(){
     this.coreService.goToForgotPassowrd();
   }  
-
 }

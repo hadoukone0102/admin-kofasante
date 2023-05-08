@@ -5,6 +5,7 @@ import { LoginComponent } from './admin/components/login/login.component';
 import { ForgotPasswordComponent } from './admin/components/forgot-password/forgot-password.component';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { ListAnonymousResolver } from './donation/resolvers/list-anonymous.resolver';
+import { CountryCodeResolver } from './admin/resolvers/country-code.resolver';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
@@ -15,7 +16,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, resolve: listProfileResolvers}, 
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)}, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent}, 
-  {path: 'login', component: LoginComponent}, 
+  {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
   {path:'**', redirectTo:'/page-introuvable'},
 ];
