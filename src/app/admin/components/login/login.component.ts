@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit{
     this.password = '';
     this.contactIsEmpty = false;
     this.passwordIsEmpty = false;
+    this.countryCode = '+225';
 
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])

@@ -16,10 +16,10 @@
                                 name="state" aria-label="State select example"
                                 [(ngModel)]="countryCode"
                             >
-                                <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
-                                <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code.includes('+225')">
-                                  {{country.ITU_T_Telephone_Code}}
-                                </option>
+                                 <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
+                                 <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
+                                    {{country.ITU_T_Telephone_Code}}
+                                  </option>
                                 
                             </select>
                         </div>
