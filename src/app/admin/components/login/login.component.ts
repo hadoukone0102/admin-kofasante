@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Datalogin } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
+import { DataResultLogin } from '../../models/result-login.model';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit{
   countryCode!: string;
 
   dataLogin!: Datalogin;
+  credentials!: DataResultLogin;
 
   contactIsEmpty!: boolean;
   passwordIsEmpty!: boolean;
@@ -55,12 +57,22 @@ export class LoginComponent implements OnInit{
     
   }
   onSubmit(){
-    console.log("Le remem : "+this.dataLogin.remember);
+    this.dataLogin.contactAdmin =  this.countryCode + this.dataLogin.contactAdmin
+
     this.authService.login(this.dataLogin).subscribe(
-      (data) => console.log("C'est ok bro"),
+      (data) => {
+        console.log("Mon token: "+data.access_token);
+        if(data.access_token && data.auth){
+          // sessionStorage.setItem('Contact', );
+          // sessionStorage.setItem('Nom', credentials.firstName);
+          // sessionStorage.setItem('Prenom', credentials.firstName);
+          // sessionStorage.setItem('Type', credentials.firstName);
+          // sessionStorage.setItem('token', credentials.token);
+        }
+        
+      },
       (error) => console.log("Erreur: "+ error)
     );
-
 
     // this.coreService.goToDashboard();
 
