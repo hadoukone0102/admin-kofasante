@@ -14,9 +14,9 @@
                 <div class="profile-cover rounded-top" data-background="assets/images/fond.jpg" style="background: url(&quot;assets/images/fond.jpg&quot;);"></div>
                 <div class="card-body pb-5 bg-success">
                     <img src="assets/images/user.png" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Neil Portrait">
-                    <h4 class="h3">Bonniz green</h4>
-                    <h5 class="fw-normal">Sécrétaire</h5>
-                    <p class="text-gray mb-4">0555446633</p>
+                    <h4 class="h3">{{adminFirstName + " " + adminLastName}}</h4>
+                    <h5 class="fw-normal">{{adminType}}</h5>
+                    <p class="text-gray mb-4">{{adminContact}}</p>
                     <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#" title="Modifier mon mot de passe" data-bs-toggle="modal" data-bs-target="#modal-form-password">
                         Modifier mon mot de passe
                     </a>
@@ -24,7 +24,13 @@
                         Modifier mes informations personnelles
                     </a>
                     <app-modal-set-password></app-modal-set-password>
-                    <app-modal-set-info></app-modal-set-info>
+                    <app-modal-set-info
+                        [adminFirstName]= "adminFirstName"
+                        [adminLastName]="adminLastName"
+                        [adminContact]= "adminContact"
+                        [adminType]= "adminType"
+                    
+                    ></app-modal-set-info>
                 </div>
              </div>
         </div>
