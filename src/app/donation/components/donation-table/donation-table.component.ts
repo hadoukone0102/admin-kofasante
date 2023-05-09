@@ -18,6 +18,9 @@ export class DonationTableComponent implements OnInit{
   @Input() listType!: string;
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
+  dateStartValue: string = "";
+  dateEndValue: string = "";
+
   
 
   donations$!: Observable<DataDon>;
@@ -47,7 +50,9 @@ export class DonationTableComponent implements OnInit{
     this.checkAndApplyDisabled(this.donationListParent);
   }
 
-  
+  showConsole(){
+    console.log("ma date de début bro: "+this.dateStartValue);
+  }
 
   /**
    * Nouvel algo !!!
@@ -60,14 +65,14 @@ export class DonationTableComponent implements OnInit{
    * Fait la rechercher en fonction du tableau des dons
    * @param term 
    */
-  search(term: String){
+  search(){
     if (this.isAnonymous) {
-      this.searchTerms.next(term);
+      this.searchTerms.next(this.searchBarValue);
   
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
         distinctUntilChanged(),
-        switchMap((term) => this.donationService.searchDonationListAno(term))
+        switchMap((term) => this.donationService.searchDonationListAno(term, this.dateStartValue, this.dateEndValue))
       );
     
       this.donations$.subscribe((donations) => {
@@ -81,7 +86,7 @@ export class DonationTableComponent implements OnInit{
       
       
       if(!this.isAnonymous && !this.isOrganisation){
-        this.searchTerms.next(term);
+        this.searchTerms.next(this.searchBarValue);
         console.log("non anonme personally");
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
@@ -96,7 +101,7 @@ export class DonationTableComponent implements OnInit{
       });
       }
       else{
-        this.searchTerms.next(term);
+        this.searchTerms.next(this.searchBarValue);
     
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),

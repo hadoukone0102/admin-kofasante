@@ -98,12 +98,12 @@ export class DonationService {
    * @param {String} term
    * @returns {Observable<Don[]>}
    */
-  searchDonationListAno(term: String): Observable<DataDon>{
+  searchDonationListAno(term: String, dateStart: string, dateEnd: string): Observable<DataDon>{
     if(term.length === 1){
       return of();
     }
   
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${term}`).pipe(
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${term}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données: '+ error);

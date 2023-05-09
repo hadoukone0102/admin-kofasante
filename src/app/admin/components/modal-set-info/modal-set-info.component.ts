@@ -12,6 +12,5 @@ export class ModalSetInfoComponent implements OnInit{
 
   ngOnInit(): void {
     console.log("dans le moda! "+ this.adminContact);
-    
   }
 }
