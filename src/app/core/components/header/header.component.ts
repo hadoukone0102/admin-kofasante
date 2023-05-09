@@ -8,6 +8,9 @@ import { CoreService } from '../../services/core.service';
 })
 export class HeaderComponent {
   isActive!: string;
+
+  adminFirstName!: string|null;
+  adminLastName!: string|null;
   
   constructor(
     private router: Router,
@@ -16,6 +19,9 @@ export class HeaderComponent {
 
   ngOnInit(){
     this.isActive = '';
+
+    this.adminFirstName = sessionStorage.getItem('firstName');
+    this.adminLastName = sessionStorage.getItem('lastName');
   }
 
   isListe(){

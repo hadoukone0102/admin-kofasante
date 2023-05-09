@@ -12,6 +12,10 @@ import { NotificationService } from '../../services/notification.service';
 export class SidebarComponent implements OnInit{
   donationNotif$!: Observable<DataDonationNotif>;
   donationNotif!: DataDonationNotif;
+
+  adminFirstName!: string|null;
+  adminLastName!: string|null;
+
   
   constructor(
     private route: ActivatedRoute,
@@ -25,6 +29,9 @@ export class SidebarComponent implements OnInit{
     );
     // this.notifService.getNoSeenDonations().subscribe((data) => this.donationNotif = data); 
     this.donationNotif$.subscribe((data) => this.donationNotif = data);
+
+    this.adminFirstName = sessionStorage.getItem('firstName');
+    this.adminLastName = sessionStorage.getItem('lastName');
     
   }
 

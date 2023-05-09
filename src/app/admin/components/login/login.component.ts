@@ -57,20 +57,19 @@ export class LoginComponent implements OnInit{
     
   }
   onSubmit(){
-    this.dataLogin.contactAdmin =  this.countryCode + this.dataLogin.contactAdmin
+    this.dataLogin.contactAdmin =  this.countryCode + this.contact;
 
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         console.log("Mon token: "+data.access_token);
         if(data.access_token && data.auth){
           sessionStorage.setItem('contact', data.administrateur.contactAdmin);
-          sessionStorage.setItem('Nom', data.administrateur.contactAdmin);
-          sessionStorage.setItem('Prenom', data.administrateur.prenomAdmin);
-          sessionStorage.setItem('Type', data.administrateur.id_typeadmin);
+          sessionStorage.setItem('firstName', data.administrateur.nomAdmin);
+          sessionStorage.setItem('lastName', data.administrateur.prenomAdmin);
+          sessionStorage.setItem('type', data.administrateur.id_typeadmin);
           sessionStorage.setItem('token', data.access_token);
 
           this.coreService.goToDashboard();
-          
         }else{
           console.log("pas d'authentification réussi");
           
