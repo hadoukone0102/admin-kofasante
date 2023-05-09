@@ -37,6 +37,8 @@ export class DonationTableComponent implements OnInit{
   isLastPage!: string;
   newPage!: number;
 
+  todayDate!: string;
+
   constructor(
     private router: Router,
     private donationService: DonationService,
@@ -48,6 +50,13 @@ export class DonationTableComponent implements OnInit{
     this.showTableOfType(this.listType);
     this.donationList = this.donationListParent.dons;
     this.checkAndApplyDisabled(this.donationListParent);
+
+
+    const now = new Date();
+    this.todayDate = now.toISOString().substring(0, 10); // format AAAA-MM-JJ
+    this.dateEndValue = this.todayDate;
+    this.search(); //to make work (change) after loading page
+    
   }
 
   showConsole(){
@@ -71,7 +80,6 @@ export class DonationTableComponent implements OnInit{
   
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
-        distinctUntilChanged(),
         switchMap((term) => this.donationService.searchDonationListAno(term, this.dateStartValue, this.dateEndValue))
       );
     
@@ -84,14 +92,13 @@ export class DonationTableComponent implements OnInit{
     else
     {
       
-      
       if(!this.isAnonymous && !this.isOrganisation){
         this.searchTerms.next(this.searchBarValue);
         console.log("non anonme personally");
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
           distinctUntilChanged(),
-          switchMap((term) => this.donationService.searchDonationListNoAnoPerso(term))
+          switchMap((term) => this.donationService.searchDonationListNoAnoPerso(term, this.dateStartValue, this.dateEndValue))
         );
       
         this.donations$.subscribe((donations) => {
@@ -106,7 +113,7 @@ export class DonationTableComponent implements OnInit{
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
           distinctUntilChanged(),
-          switchMap((term) => this.donationService.searchDonationListNoAnoOrga(term))
+          switchMap((term) => this.donationService.searchDonationListNoAnoOrga(term, this.dateStartValue, this.dateEndValue))
         );
       
         this.donations$.subscribe((donations) => {
