@@ -6,15 +6,16 @@ import { ForgotPasswordComponent } from './admin/components/forgot-password/forg
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { ListAnonymousResolver } from './donation/resolvers/list-anonymous.resolver';
 import { CountryCodeResolver } from './admin/resolvers/country-code.resolver';
+import { AuthGuard } from './admin/guards/auth.guard';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 
 const routes: Routes = [
-  {path: 'dashboard', loadChildren: () => import('./global/global.module').then(m => m.GlobalModule)}, 
-  {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule)}, 
-  {path: 'profile', component: ProfileComponent, resolve: listProfileResolvers}, 
-  {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)}, 
+  {path: 'dashboard', loadChildren: () => import('./global/global.module').then(m => m.GlobalModule), canActivate: [AuthGuard]}, 
+  {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule), canActivate: [AuthGuard]}, 
+  {path: 'profile', component: ProfileComponent, resolve: listProfileResolvers, canActivate: [AuthGuard]}, 
+  {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard]}, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent}, 
   {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},

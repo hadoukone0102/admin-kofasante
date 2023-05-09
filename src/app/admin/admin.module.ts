@@ -22,7 +22,7 @@ const listAddResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVE
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
-  {path: 'admin/ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
+  {path: 'ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
 ];
 
 @NgModule({

@@ -5,10 +5,8 @@ import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardResolver } from './resolvers/dashboard.resolver';
 import { DashboardService } from './services/dashboard.service';
-import { DonationNotifResolver } from '../core/resolvers/donation-notif.resolver';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
-import { AuthGuard } from '../admin/guards/auth.guard';
 
 const listDashboardResolvers = {...{
   dashboard: DashboardResolver,
@@ -16,7 +14,7 @@ const listDashboardResolvers = {...{
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent, resolve: listDashboardResolvers, canActivate: [AuthGuard]},
+  {path: '', component: DashboardComponent, resolve: listDashboardResolvers},
 ];
 
 @NgModule({
