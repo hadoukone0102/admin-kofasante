@@ -42,6 +42,14 @@ export class CoreService {
     this.router.navigate(['/mot-de-passe-oublie']);
   } 
   
+  goToConfirmCodeSms(){
+    this.router.navigate(['/confirmer-code-sms']);
+  } 
+  
+  goToResetPassword(){
+    this.router.navigate(['/reinitialiser-mot-de-passe']);
+  } 
+  
   goToPageError(){
     this.router.navigate(['/erreur']);
   }

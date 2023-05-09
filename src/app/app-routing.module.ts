@@ -7,6 +7,8 @@ import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { ListAnonymousResolver } from './donation/resolvers/list-anonymous.resolver';
 import { CountryCodeResolver } from './admin/resolvers/country-code.resolver';
 import { AuthGuard } from './admin/guards/auth.guard';
+import { ConfirmCodeSmsComponent } from './admin/components/confirm-code-sms/confirm-code-sms.component';
+import { ResetPasswordComponent } from './admin/components/reset-password/reset-password.component';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
@@ -18,6 +20,8 @@ const routes: Routes = [
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard]}, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent}, 
   {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 
+  {path: 'confirmer-code-sms', component: ConfirmCodeSmsComponent, resolve: {countryCode: CountryCodeResolver}}, 
+  {path: 'reinitialiser-mot-de-passe', component: ResetPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
   {path:'**', redirectTo:'/page-introuvable'},
 ];

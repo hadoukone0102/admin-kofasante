@@ -16,6 +16,8 @@ import { ModalSetInfoComponent } from './components/modal-set-info/modal-set-inf
 import { ModalSetPasswordComponent } from './components/modal-set-password/modal-set-password.component';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { CountryCodeResolver } from './resolvers/country-code.resolver';
+import { ConfirmCodeSmsComponent } from './components/confirm-code-sms/confirm-code-sms.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
@@ -34,7 +36,9 @@ const adminRoutes: Routes = [
     ForgotPasswordComponent,
     ProfileComponent,
     ModalSetInfoComponent,
-    ModalSetPasswordComponent
+    ModalSetPasswordComponent,
+    ConfirmCodeSmsComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,
