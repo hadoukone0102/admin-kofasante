@@ -63,11 +63,17 @@ export class LoginComponent implements OnInit{
       (data) => {
         console.log("Mon token: "+data.access_token);
         if(data.access_token && data.auth){
-          // sessionStorage.setItem('Contact', );
-          // sessionStorage.setItem('Nom', credentials.firstName);
-          // sessionStorage.setItem('Prenom', credentials.firstName);
-          // sessionStorage.setItem('Type', credentials.firstName);
-          // sessionStorage.setItem('token', credentials.token);
+          sessionStorage.setItem('contact', data.administrateur.contactAdmin);
+          sessionStorage.setItem('Nom', data.administrateur.contactAdmin);
+          sessionStorage.setItem('Prenom', data.administrateur.prenomAdmin);
+          sessionStorage.setItem('Type', data.administrateur.id_typeadmin);
+          sessionStorage.setItem('token', data.access_token);
+
+          this.coreService.goToDashboard();
+          
+        }else{
+          console.log("pas d'authentification réussi");
+          
         }
         
       },

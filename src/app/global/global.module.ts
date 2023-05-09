@@ -8,6 +8,7 @@ import { DashboardService } from './services/dashboard.service';
 import { DonationNotifResolver } from '../core/resolvers/donation-notif.resolver';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+import { AuthGuard } from '../admin/guards/auth.guard';
 
 const listDashboardResolvers = {...{
   dashboard: DashboardResolver,
@@ -15,8 +16,7 @@ const listDashboardResolvers = {...{
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent, 
-    resolve: listDashboardResolvers},
+  {path: '', component: DashboardComponent, resolve: listDashboardResolvers, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
