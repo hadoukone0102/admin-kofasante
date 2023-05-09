@@ -5,6 +5,8 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { DataCountry } from '../../models/country-code.model';
 import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Datalogin } from '../../models/login.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +15,9 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginComponent implements OnInit{
   contact!: string;
   password!: string;
+  countryCode!: string;
+
+  dataLogin!: Datalogin;
 
   contactIsEmpty!: boolean;
   passwordIsEmpty!: boolean;
@@ -23,9 +28,16 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private coreService: CoreService){}
+    private coreService: CoreService,
+    private authService: AuthService
+    ){}
 
   ngOnInit(): void {
+    this.dataLogin={
+      contactAdmin:"",
+      mdpAdmin: "",
+      remember: false
+    }
     this.contact = '';
     this.password = '';
     this.contactIsEmpty = false;
@@ -42,9 +54,17 @@ export class LoginComponent implements OnInit{
     
   }
   onSubmit(){
-    console.log(this.contact);
+    console.log("Le remem : "+this.dataLogin.remember);
+    this.authService.login(this.dataLogin).subscribe(
+      (data) => console.log("C'est ok bro"),
+      (error) => console.log("Erreur: "+ error)
+    );
 
-    this.coreService.goToDashboard();
+
+    // this.coreService.goToDashboard();
+
+
+
     
     // if(this.contact === ""){
     //   this.contactIsEmpty = true;
