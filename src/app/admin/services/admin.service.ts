@@ -63,7 +63,7 @@ export class AdminService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-    return this.http.post<DataResultProfileInfo>(`${environment.apiUrlAdmin}/changerInfo`, Admin, httpOptions).pipe(
+    return this.http.put<DataResultProfileInfo>(`${environment.apiUrlAdmin}/changerInfo`, Admin, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.success )
       ),
       catchError((error: any) => {

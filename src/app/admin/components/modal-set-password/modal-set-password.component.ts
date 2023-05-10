@@ -16,20 +16,26 @@ export class ModalSetPasswordComponent implements OnInit{
 
   ngOnInit(): void {
     this.groupPasswords = {
-      contactAdmin: '',
+      contactAdmin: sessionStorage.getItem('contact') ?? '', //if null, take ''
       new_password: '',
       confirm_password: '',
       mdpAdmin: ''
     }  
-
-    this.pwdIsConfirmed = true
+    this.pwdIsConfirmed = true;
   }
-
   
   onSubmit(){
-    this.adminService.updatePassword(this.groupPasswords)
+    console.log("le num: "+this.groupPasswords.contactAdmin);
+    
+    this.adminService.updatePassword(this.groupPasswords).subscribe(
+      data => {
+        console.log("come back password => "+data.success);
+        console.log("come back password => "+data.message);
+      },
+      (error) => console.log("erreur: "+ error)
+    );
   }
-  
+
   onClickConfirmPassword(){
     if(this.groupPasswords.new_password != this.groupPasswords.confirm_password){
       this.pwdIsConfirmed = false;
