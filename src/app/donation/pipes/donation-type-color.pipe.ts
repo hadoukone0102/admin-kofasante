@@ -11,7 +11,7 @@ export class DonationTypeColorPipe implements PipeTransform {
       return "bg-secondary text-dark";
     }
     else if(isAnonymous === 0 && isOrganisation === 0) {//personal
-      return "bg-info text-white"
+      return "bg-tertiary text-white"
     }
     else if(isAnonymous === 0 && isOrganisation === 1)//organisation
     { 

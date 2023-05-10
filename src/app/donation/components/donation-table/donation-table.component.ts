@@ -76,11 +76,9 @@ export class DonationTableComponent implements OnInit{
         this.checkAndApplyDisabled(donations)
       });
     }
-    else
+    else if(!this.isAnonymous && !this.isOrganisation)
     {
-      
-      if(!this.isAnonymous && !this.isOrganisation){
-        this.searchTerms.next(this.searchBarValue);
+      this.searchTerms.next(this.searchBarValue);
         console.log("non anonme personally");
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
@@ -93,22 +91,25 @@ export class DonationTableComponent implements OnInit{
           this.donationListParent = donations;
           this.checkAndApplyDisabled(donations);
       });
-      }
-      else{
-        this.searchTerms.next(this.searchBarValue);
+    }
+    else if(!this.isAnonymous && this.isOrganisation)
+    {
+      this.searchTerms.next(this.searchBarValue);
     
-        this.donations$ = this.searchTerms.pipe(
-          debounceTime(300),
-          distinctUntilChanged(),
-          switchMap((term) => this.donationService.searchDonationListNoAnoOrga(term, this.dateStartValue, this.dateEndValue))
-        );
+      this.donations$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.donationService.searchDonationListNoAnoOrga(term, this.dateStartValue, this.dateEndValue))
+      );
+    
+      this.donations$.subscribe((donations) => {
+        this.donationList = donations.dons;
+        this.donationListParent = donations;
+        this.checkAndApplyDisabled(donations);
+      });
+    }
+    else{
       
-        this.donations$.subscribe((donations) => {
-          this.donationList = donations.dons;
-          this.donationListParent = donations;
-          this.checkAndApplyDisabled(donations);
-        });
-      }
     }
   }
 
@@ -192,7 +193,7 @@ export class DonationTableComponent implements OnInit{
       this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
     }
     else{// type = all
-      //do something
+      this.donationTest$ =  this.donationService.getDonations(this.newPage.toString())
     }
     
     this.donationTest$.subscribe((data) => {
