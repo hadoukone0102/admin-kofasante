@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
@@ -27,6 +27,7 @@ export class DonationTableComponent implements OnInit{
 
   isAnonymous!: boolean;
   isOrganisation!: boolean;
+  isAll!: boolean;
   noData!: boolean;
 
   donationList!: Array<Don>;
@@ -62,7 +63,8 @@ export class DonationTableComponent implements OnInit{
   }
 
   search(){
-    if (this.isAnonymous) {
+    if (this.isAnonymous && !this.isAll) {
+      console.log("anonm");
       this.searchTerms.next(this.searchBarValue);
   
       this.donations$ = this.searchTerms.pipe(
@@ -76,7 +78,7 @@ export class DonationTableComponent implements OnInit{
         this.checkAndApplyDisabled(donations)
       });
     }
-    else if(!this.isAnonymous && !this.isOrganisation)
+    else if(!this.isAnonymous && !this.isOrganisation && !this.isAll)
     {
       this.searchTerms.next(this.searchBarValue);
         console.log("non anonme personally");
@@ -92,8 +94,9 @@ export class DonationTableComponent implements OnInit{
           this.checkAndApplyDisabled(donations);
       });
     }
-    else if(!this.isAnonymous && this.isOrganisation)
+    else if(!this.isAnonymous && this.isOrganisation && !this.isAll)
     {
+      console.log("orga");
       this.searchTerms.next(this.searchBarValue);
     
       this.donations$ = this.searchTerms.pipe(
@@ -130,16 +133,17 @@ export class DonationTableComponent implements OnInit{
     if(type === "anonymous"){
       this.showAnonymous();
     }
-    else{
-      if(type === "noAnonymousPerso"){
-        this.showNoAnonymousPerso();
-      }else{ 
-        this.showNoAnonymousOrga();
-      }
+    else if(type === "noAnonymousPerso"){
+      this.showNoAnonymousPerso();
+    }
+    else if(type === "noAnonymousOrga"){
+      this.showNoAnonymousOrga();
+    }
+    else{// all
+      this.showAll();
     }
   }
-  
-  
+
   goToPrevious(){
     // t:his.showPage(-1);
     if(this.searchBarValue === "" && this.dateStartValue === ""){
@@ -189,13 +193,23 @@ export class DonationTableComponent implements OnInit{
       this.donationTest$ = this.donationService.getDonationsWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     
-    this.donationTest$.subscribe((data) => {
+    this.donationTest$.pipe(
+      takeWhile(data => !data, true)
+    )
+    .subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
       console.log("my last page: "+data.last_page);
       
     });
+    // this.donationTest$.subscribe((data) => {
+    //   this.donationList = data.dons;
+    //   this.donationListParent =  data;
+    //   this.checkAndApplyDisabled(data);
+    //   console.log("my last page: "+data.last_page);
+      
+    // });
   }
 
   showPage(pageIndex: number){
@@ -236,6 +250,12 @@ export class DonationTableComponent implements OnInit{
   showNoAnonymousOrga(){
     this.isAnonymous = false;
     this.isOrganisation = true;
+  }
+
+  showAll(){
+    this.isAnonymous = false;
+    this.isOrganisation = true;
+    this.isAll = true;
   }
 
   checkAndApplyDisabled(donationListParenta: DataDon){

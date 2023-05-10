@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -28,7 +28,7 @@ export class DonationService {
     }
 
     getDonationsWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
-      return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}page=${page}`).pipe(
+      return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`).pipe(
         catchError((error: any) => {
           console.error('Une erreur est survenue lors de la récupération des données: ', error);
           this.coreService.goToPageError();
@@ -175,11 +175,11 @@ export class DonationService {
   }
 
   searchDonation(term: String, dateStart: string, dateEnd: string): Observable<DataDon>{
-    if(term.length === 1){
-      return of();
-    }
-  
+    console.log("dans le seach donation");
+    
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${term}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      tap((data) => console.log("tap lastpage: "+ data.last_page)
+      ),
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
