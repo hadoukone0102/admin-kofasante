@@ -5,6 +5,7 @@ import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataProfileInfo, DataResultProfileInfo } from '../models/profile-info.model';
+import { DataResultSetPassword, DataSetPassword } from '../models/set-password.model';
 
 @Injectable()
 export class AdminService {
@@ -63,6 +64,21 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataResultProfileInfo>(`${environment.apiUrlAdmin}/changerInfo`, Admin, httpOptions).pipe(
+      tap((response) => console.log("C'est dans la boite: "+response.success )
+      ),
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+  
+  updatePassword(groupPasswords: DataSetPassword): Observable<DataResultSetPassword>{
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-type': 'application/json' })
+    };
+    return this.http.put<DataResultSetPassword>(`${environment.apiUrlAdmin}/changerMdp`, groupPasswords, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.success )
       ),
       catchError((error: any) => {
