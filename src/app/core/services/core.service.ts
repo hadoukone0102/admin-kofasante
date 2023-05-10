@@ -22,6 +22,10 @@ export class CoreService {
     this.router.navigate(['/dons/non-anonyme/organisation']);
   }
 
+  goToReportDonation(){
+    this.router.navigate(['/dons/bilan-don']);
+  }
+
   goToProfile(){
     this.router.navigate(['/profile']);
   }

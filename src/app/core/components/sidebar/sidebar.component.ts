@@ -53,6 +53,10 @@ export class SidebarComponent implements OnInit{
     this.coreService.goToDonationNoAnonymousOrga();
   }
 
+  goToReportDonation(){
+    this.coreService.goToReportDonation()
+  }
+
   goToProfile(){
     this.coreService.goToProfile();
   }

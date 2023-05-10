@@ -11,15 +11,18 @@ import { ListAnonymousResolver } from './resolvers/list-anonymous.resolver';
 import { ListNoAnonymousPersoResolver } from './resolvers/list-no-anonymous-perso.resolver';
 import { ListNoAnonymousOrgaResolver } from './resolvers/list-no-anonymous-orga.resolver';
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+import { ReportDonationComponent } from './components/report-donation/report-donation.component';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
+const listReportResolvers = {...{}, ...GLOBAL_RESOLVERS};
 
 const donationRoutes: Routes = [
   {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
+  {path: 'bilan-don', component: ReportDonationComponent, resolve:listReportResolvers},
 ];
 
 @NgModule({
@@ -27,7 +30,8 @@ const donationRoutes: Routes = [
     ListAnonymousComponent,
     ListNoAnonymousPersoComponent,
     ListNoAnonymousOrgaComponent,
-    DonationTableComponent
+    DonationTableComponent,
+    ReportDonationComponent
   ],
   imports: [
     CommonModule,
