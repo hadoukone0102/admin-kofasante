@@ -10,7 +10,17 @@ export class ModalSetInfoComponent implements OnInit{
   @Input() adminContact!: string|null;
   @Input() adminType!: string|null;
 
+  firstName!: string|null;
+  lastName!: string|null;
+
   ngOnInit(): void {
-    console.log("dans le moda! "+ this.adminContact);
+    
+    this.firstName = this.adminFirstName;
+    this.lastName = this.adminLastName;
+    console.log("dans le moda! "+ this.firstName);
+    
+  }
+  onSubmit(){
+
   }
 }

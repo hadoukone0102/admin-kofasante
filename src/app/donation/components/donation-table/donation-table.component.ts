@@ -173,20 +173,28 @@ export class DonationTableComponent implements OnInit{
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
 
-    if(this.listType == "anonymous"){
+    if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
-    }else{
-      if(this.listType == "noAnonymousPerso"){
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
-      }else{ 
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
-      }
+    }
+    else if(this.listType === "noAnonymousPerso")
+    {
+      this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else if(this.listType === "noAnonymousOrga")
+    {
+      this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else //all
+    {
+      this.donationTest$ = this.donationService.getDonationsWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     
     this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
+      console.log("my last page: "+data.last_page);
+      
     });
   }
 

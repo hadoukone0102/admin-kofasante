@@ -27,6 +27,16 @@ export class DonationService {
       );
     }
 
+    getDonationsWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+      return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}page=${page}`).pipe(
+        catchError((error: any) => {
+          console.error('Une erreur est survenue lors de la récupération des données: ', error);
+          this.coreService.goToPageError();
+          return throwError('Une erreur est survenue lors de la récupération des données.');
+        })
+      );
+    }
+
   /**
    * Récupère tous les dons anonymes
    * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons anonymes

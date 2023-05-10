@@ -8,7 +8,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h4">Modifiez vos informations personnelles </h1>
                     </div>
-                    <form action="#" class="mt-4">
+                    <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="form-group mb-4">
                             <label for="email">Nom</label>
@@ -16,36 +16,40 @@
                                 <span class="input-group-text" id="basic-addon1">
                                     <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                 </span>
-                                <input type="email" class="form-control" placeholder="" id="email" autofocus required
-                                    [value]="adminFirstName"
+                                <input type="email" class="form-control" placeholder="" id="firstName" autofocus required
+                                    [value]="firstName"
+                                    [(ngModel)]="firstName"
+                                    #theFirstName="ngModel"
+                                    name="firstName"
                                 >
                             </div>  
-                        </div>
+                            <div *ngIf="theFirstName.touched && theFirstName.invalid">
+                                <small class="text-danger">Entrez votre nom</small>
+                            </div>
+                        </div>  
                         <div class="form-group mb-4">
                             <label for="email">Prénom</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">
                                     <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
                                 </span>
-                                <input type="text" class="form-control" placeholder="" id="email" autofocus required
-                                    [value]="adminLastName"
+                                <input type="text" class="form-control" placeholder="" id="lastName" autofocus required
+                                    [value]="lastName"
+                                    [(ngModel)]="lastName"
+                                    #theLastName="ngModel"
+                                    name="lastName"
                                 >
+                               
                             </div>  
+                            
                         </div>
-                        <div class="form-group mb-4">
-                            <label for="email">Contact</label>
-                            <div class="input-group">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
-                                </span>
-                                <input type="text" class="form-control" placeholder="" id="email" required
-                                    [value]="adminContact" >
-                                
-                            </div>  
+                        <div *ngIf="!theLastName.pristine && theLastName.invalid">
+                            <small class="text-danger">Entrez votre prénom</small>
                         </div>
-                        
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-gray-800">Modifier</button>
+                            <button type="submit" class="btn btn-gray-800"
+                            [disabled]="!theFirstName.valid || !theLastName.valid"
+                            >Modifier</button>
                         </div>
                     </form>
                     
