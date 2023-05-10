@@ -73,7 +73,7 @@
     </thead>
     <tbody  *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
-            <tr *ngFor="let donation of donationList; let a = index">
+            <tr *ngFor="let donation of donationList; let a = index" class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation}}">
                 <!-- {{incrementI()}} -->
                 <td><a class="text-primary fw-bold">{{a+1}}</a> </td>
                 <td  class="fw-bold d-flex align-items-center">

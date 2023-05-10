@@ -13,6 +13,7 @@ import { ListNoAnonymousOrgaResolver } from './resolvers/list-no-anonymous-orga.
 import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { ReportDonationComponent } from './components/report-donation/report-donation.component';
 import { ListAllResolver } from './resolvers/list-all.resolver';
+import { DonationTypeColorPipe } from './pipes/donation-type-color.pipe';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
@@ -32,7 +33,8 @@ const donationRoutes: Routes = [
     ListNoAnonymousPersoComponent,
     ListNoAnonymousOrgaComponent,
     DonationTableComponent,
-    ReportDonationComponent
+    ReportDonationComponent,
+    DonationTypeColorPipe
   ],
   imports: [
     CommonModule,
