@@ -15,13 +15,11 @@ export class DonationTableComponent implements OnInit{
   // @Input() donationNoAnoOrga!: DataDon;
   //New
   @Input() donationListParent!: DataDon;
-  @Input() listType!: string;
+  @Input() listType!: string; //ano ? perso ? orga ? all 
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
   dateStartValue: string = "";
   dateEndValue: string = "";
-
-  
 
   donations$!: Observable<DataDon>;
   donationTest$!: Observable<DataDon>;
@@ -55,7 +53,7 @@ export class DonationTableComponent implements OnInit{
     const now = new Date();
     this.todayDate = now.toISOString().substring(0, 10); // format AAAA-MM-JJ
     this.dateEndValue = this.todayDate;
-    this.search(); //to make work (change) after loading page
+    this.search(); //to make work the first (change) after loading page
     
   }
 
@@ -171,7 +169,7 @@ export class DonationTableComponent implements OnInit{
 
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
-    console.log("je suis: "+ this.newPage);
+
     if(this.listType == "anonymous"){
       this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue)
     }else{
@@ -192,14 +190,20 @@ export class DonationTableComponent implements OnInit{
   showPage(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
+
     if(this.listType == "anonymous"){
       this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
-    }else{
-      if(this.listType == "noAnonymousPerso"){
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
-      }else{ 
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
-      }
+    }
+    else if(this.listType == "noAnonymousPerso")
+    {
+      this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
+    }
+    else if(this.listType == "noAnonymousOrga")
+    {
+      this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
+    }
+    else{// type = all
+      //do something
     }
     
     this.donationTest$.subscribe((data) => {

@@ -34,7 +34,6 @@ export class SidebarComponent implements OnInit{
 
     this.adminFirstName = sessionStorage.getItem('firstName');
     this.adminLastName = sessionStorage.getItem('lastName');
-    
   }
 
   goToDashboard(){
