@@ -4,6 +4,7 @@ import { CoreService } from '../../services/core.service';
 import { Observable, map } from 'rxjs';
 import { DataDonationNotif } from '../../models/donation-notif.model';
 import { NotificationService } from '../../services/notification.service';
+import { AuthService } from 'src/app/admin/services/auth.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +21,8 @@ export class SidebarComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private coreService: CoreService,
-    private notifService: NotificationService
+    private notifService: NotificationService,
+    private authService: AuthService,
     ){}
 
   ngOnInit(): void {
@@ -65,6 +67,10 @@ export class SidebarComponent implements OnInit{
 
   goToLogin(){
     this.coreService.goToLogin();
+  }
+
+  logout(){
+    this.authService.logout();
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoreService } from '../../services/core.service';
+import { AuthService } from 'src/app/admin/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent {
   
   constructor(
     private router: Router,
-    private coreService: CoreService
+    private coreService: CoreService,
+    private authService: AuthService,
     ){}
 
   ngOnInit(){
@@ -37,5 +39,9 @@ export class HeaderComponent {
 
   goToLogin(){
     this.coreService.goToLogin();
+  }
+
+  logout(){
+    this.authService.logout();
   }
 }

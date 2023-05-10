@@ -37,7 +37,8 @@ export class AuthService {
     }
 
   logout(){
-    
+    sessionStorage.clear();
+    this.coreService.goToLogin();
   }
 
   sendSMS(contact: DataForgotPassword): Observable<DataResultForgotPassword>{
