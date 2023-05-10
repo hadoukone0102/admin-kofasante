@@ -61,17 +61,6 @@ export class DonationTableComponent implements OnInit{
     console.log("ma date de début bro: "+this.dateStartValue);
   }
 
-  /**
-   * Nouvel algo !!!
-   * Récupère toute les données de la table dons
-   * Met la liste des don anonyme dans un tableau
-   * Met la liste des don non anonyme perso dans un tableau
-   * Met la liste des don non anonyme orga dans un tableau
-   * Met a jour la donationList en fonction du boutton appuyé
-   * Fait la pagination avec ngbBootstrap en fonction de la liste courante bouclé
-   * Fait la rechercher en fonction du tableau des dons
-   * @param term 
-   */
   search(){
     if (this.isAnonymous) {
       this.searchTerms.next(this.searchBarValue);

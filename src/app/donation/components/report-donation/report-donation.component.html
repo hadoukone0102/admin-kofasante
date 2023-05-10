@@ -8,8 +8,9 @@
         theContent="Faites le bilan des dons">
     </app-page-title>
     <!-- Content -->
+    <!--End Donation statistics -->
     <div class="row">
-        <div class="col-12 col-sm-4 col-xl-4 mb-4">
+        <div  (click)="showAnonymousList()"  class="col-12 col-sm-4 col-xl-4 mb-4">
             <div class="card border-0 shadow">
               <div class="card-body">
                 <div class="row d-block d-xl-flex align-items-center">
@@ -114,6 +115,17 @@
             </div>
           </div>
     </div>
+    <!--End Donation statistics -->
+
+    <!-- Donation table -->
+    <div *ngIf="donations$ | async as donations">
+        <app-donation-table listType="all"
+            [donationListParent]="donations">
+    
+        </app-donation-table>
+    </div>
+    <!-- End Donation table -->
+
     <!-- End content -->
     <app-footer></app-footer>
 </main>
