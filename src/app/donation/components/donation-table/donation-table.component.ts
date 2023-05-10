@@ -108,8 +108,21 @@ export class DonationTableComponent implements OnInit{
         this.checkAndApplyDisabled(donations);
       });
     }
-    else{
-      
+    else //all
+    { 
+      this.searchTerms.next(this.searchBarValue);
+    
+      this.donations$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.donationService.searchDonation(term, this.dateStartValue, this.dateEndValue))
+      );
+    
+      this.donations$.subscribe((donations) => {
+        this.donationList = donations.dons;
+        this.donationListParent = donations;
+        this.checkAndApplyDisabled(donations);
+      });
     }
   }
 
@@ -129,7 +142,7 @@ export class DonationTableComponent implements OnInit{
   
   goToPrevious(){
     // t:his.showPage(-1);
-    if(this.searchBarValue === ""){
+    if(this.searchBarValue === "" && this.dateStartValue === ""){
       console.log("the first");
       
       this.showPage(-1);
@@ -144,7 +157,7 @@ export class DonationTableComponent implements OnInit{
   
   goToNext(){
     // this.showPage(1);
-    if(this.searchBarValue === ""){
+    if(this.searchBarValue === "" && this.dateStartValue === ""){
       console.log("the first");
       
       this.showPage(1);
@@ -161,12 +174,12 @@ export class DonationTableComponent implements OnInit{
     this.newPage= this.donationListParent.current_page + pageIndex;
 
     if(this.listType == "anonymous"){
-      this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue)
+      this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }else{
       if(this.listType == "noAnonymousPerso"){
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue)
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
       }else{ 
-        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue)
+        this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
       }
     }
     
