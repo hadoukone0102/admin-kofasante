@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, finalize, map, tap } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataCountry } from '../../models/country-code.model';
 import { ActivatedRoute } from '@angular/router';
@@ -19,6 +19,9 @@ export class ForgotPasswordComponent implements OnInit{
   contact!: String;
   contactToSend!: DataForgotPassword;
   countryCode!: string;
+
+  isDataReceived!: boolean;
+  resultDataForgotPassword!: DataResultForgotPassword;
   
   constructor(
     private coreService: CoreService,
@@ -37,6 +40,7 @@ export class ForgotPasswordComponent implements OnInit{
     this.countries$.subscribe(data => this.countries = data)
     this.countryCode = '+225';
     this.contact ="";
+    this.isDataReceived = false;
   }
 
   goToLogin(){
@@ -48,19 +52,38 @@ export class ForgotPasswordComponent implements OnInit{
     console.log("mon contact: "+this.contactToSend.contactAdmin);
     
     this.authService.sendSMS(this.contactToSend).pipe(
+      finalize(() =>{
+       console.log("j'affiche le data");
+       console.log(this.resultDataForgotPassword.success);
+       console.log("message data");
+       console.log(this.resultDataForgotPassword.message);
+       
+       
+      }),
       tap((data) => {
         console.log("le succes: "+ data.success);
-        if(data.success){
+        this.resultDataForgotPassword = data;
+      //   if(data.success){
+      //     console.log("if susscess");
           
-          sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
-          this.coreService.goToConfirmCodeSms();
+      //     sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
+      //     this.coreService.goToConfirmCodeSms();
 
-        }else{
-          console.log("Erreur de sms");
+      //   }else{
+      //     console.log("Erreur de sms");
+      //   }
         }
-      }),
+      ),
      
     ).subscribe();
   }
+
+  // Vérifier si les données sont reçues toutes les 100 millisecondes
+// const checkDataInterval = setInterval(() => {
+//   if (this.isDataReceived) {
+//     clearInterval(checkDataInterval);
+    // les données sont reçues, faire quelque chose ici
+//   }
+// }, 100);
 
 }
