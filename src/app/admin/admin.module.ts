@@ -18,13 +18,17 @@ import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { CountryCodeResolver } from './resolvers/country-code.resolver';
 import { ConfirmCodeSmsComponent } from './components/confirm-code-sms/confirm-code-sms.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { DisabledAccountComponent } from './components/disabled-account/disabled-account.component';
+import { AdminTableComponent } from './components/admin-table/admin-table.component';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver }, ...GLOBAL_RESOLVERS};
+const listDisabedAccountResolvers = {...{}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
   {path: 'ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
+  {path: 'comptes-inatifs', component: DisabledAccountComponent, resolve: listDisabedAccountResolvers}, 
 ];
 
 @NgModule({
@@ -38,7 +42,9 @@ const adminRoutes: Routes = [
     ModalSetInfoComponent,
     ModalSetPasswordComponent,
     ConfirmCodeSmsComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    DisabledAccountComponent,
+    AdminTableComponent
   ],
   imports: [
     CommonModule,

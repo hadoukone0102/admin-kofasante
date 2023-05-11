@@ -37,6 +37,10 @@ export class CoreService {
   goToAddAdmin(){
     this.router.navigate(['/admin/ajouter']);
   }
+  
+  goToDisabledAccount(){
+    this.router.navigate(['/comptes-inatifs']);
+  }
 
   goToLogin(){
     this.router.navigate(['/login']);

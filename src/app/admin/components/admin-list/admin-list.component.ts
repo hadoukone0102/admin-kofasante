@@ -34,33 +34,30 @@ export class AdminListComponent {
     console.log(this.admins);
   }
 
-  search(term: String){
-      this.searchTerms.next(term);
+  // search(term: String){
+  //     this.searchTerms.next(term);
   
-      this.admins$ = this.searchTerms.pipe(
-        debounceTime(300),
-        distinctUntilChanged(),
-        switchMap((term) => this.adminService.searchAdmin(term))
-      );
+  //     this.admins$ = this.searchTerms.pipe(
+  //       debounceTime(300),
+  //       distinctUntilChanged(),
+  //       switchMap((term) => this.adminService.searchAdmin(term))
+  //     );
     
-      this.admins$.subscribe((data) => {
-        this.admins = data;
-      });
-    }
+  //     this.admins$.subscribe((data) => {
+  //       this.admins = data;
+  //     });
+  //   }
 
     deleteAdmin(id: string){
-        this.adminService.deleteAdmin(id).subscribe(data => console.log("Boombich")
-        );
-
-        this.admins$ = this.adminService.getAdmins();
-    
-        this.admins$.subscribe(
-          data => {
-            this.admins = data;
-            console.log("Mon admin: ");
-            console.table(this.admins.administrateurs);
-            
-          }
+        this.adminService.deleteAdmin(id).subscribe(data =>{
+          this.admins$ = this.adminService.getAdmins();
+          this.admins$.subscribe(
+            data => {
+              this.admins = data;
+              console.table(this.admins.administrateurs);
+            }
+          );
+        } 
         );
     }
 }

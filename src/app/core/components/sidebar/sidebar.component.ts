@@ -63,6 +63,10 @@ export class SidebarComponent implements OnInit{
   goToAdmin(){
     this.coreService.goToAdmin();
   }
+ 
+  goToDisabledAccount(){
+    this.coreService.goToDisabledAccount();
+  }
 
   goToAddAdmin(){
     this.coreService.goToAddAdmin();
