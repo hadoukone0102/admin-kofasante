@@ -11,6 +11,7 @@ import { DonationService } from '../../services/donation.service';
 })
 export class ReportDonationComponent implements OnInit{
   donations$!: Observable<DataDon>;
+  type!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -18,22 +19,27 @@ export class ReportDonationComponent implements OnInit{
     ) { }
 
   ngOnInit(): void {
+    this.type = "all";
     this.donations$ = this.route.data.pipe(
       map(data => data['listAll']),
     );
   }
 
   showAnonymousList(){
+    this.type = "anonymous";
     this.donations$ = this.donationService.getDonationsAnonymous();
   }
 
   showNoAnonymousPersoList(){
+    this.type = "noAnonymousPerso";
     this.donations$ = this.donationService.getDonationsNoAnonymousPerso();
   }
   showNoAnonymousOrgaList(){
+    this.type = "noAnonymousOrga";
     this.donations$ = this.donationService.getDonationsNoAnonymousOrga();
   }
   showAllDonationsList(){
+    this.type = "all";
     this.donations$ = this.donationService.getDonations();
   }
 }

@@ -119,7 +119,7 @@
 
     <!-- Donation table -->
     <div *ngIf="donations$ | async as donations">
-        <app-donation-table listType="all"
+        <app-donation-table [listType]="type"
             [donationListParent]="donations">
     
         </app-donation-table>
