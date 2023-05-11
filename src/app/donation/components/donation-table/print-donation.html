@@ -1,0 +1,72 @@
+<script>
+    const pageToPrint = document.getElementById('pageToPrint');
+    const printWindow = window.open('', 'http://stjosephmukassa.ci/');
+    printWindo.document.write(pageToPrint);
+</script>
+
+printWindow!.document.write(`
+  <html id="pageToPrint">
+    <head>
+      <title>http://stjosephmukassa.ci/</title>
+      <style>
+        /* Styles CSS pour la vue imprimable */
+        /* Styles spécifiques pour l'impression */
+
+body {
+font-family: Arial, sans-serif;
+}
+
+.page {
+page-break-after: always;
+padding: 20px;
+}
+
+h1 {
+font-size: 18px;
+margin-bottom: 10px;
+}
+
+table {
+width: 100%;
+border:1px solid #0a0a0a;
+}
+tr {
+width: 100%;
+border:1px solid #0a0a0a;
+}
+
+th, td {
+padding: 8px;
+text-align: left;
+border-bottom: 1px solid #eeeeee;
+}
+        @media print {
+          /* Masquer les éléments non requis */
+          button {
+            display: none;
+          }
+        }
+      </style>
+    </head>
+    <body>
+      <h1>Liste complète des dons anonymes</h1>
+      <table>
+        <thead>
+        <tr>
+              <th class="border-0 rounded-start">N°</th>
+              <th class="border-0">Montant</th>
+              <th class="border-0">Type</th>
+              <th class="border-0">Date</th>
+       </tr>
+        <tbody>
+          ${printableContent}
+        </tbody>
+      </table>
+    </body>
+    <footer><h4>saint joseph mukassa</h4></footer>
+  </html>
+`);
+
+printWindow!.document.close();
+printWindow!.print();
+  

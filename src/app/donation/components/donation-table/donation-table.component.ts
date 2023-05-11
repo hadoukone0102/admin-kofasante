@@ -27,6 +27,7 @@ export class DonationTableComponent implements OnInit{
   donations$!: Observable<DataDon>;
   donationTest$!: Observable<DataDon>;
   donationListTest!: Array<Don>;
+  allDonations!: Array<Don>;
 
   isAnonymous!: boolean;
   isOrganisation!: boolean;
@@ -60,38 +61,11 @@ export class DonationTableComponent implements OnInit{
     this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
     //Send data for search to parent
+    this.allDonations;
     
   }
 
-  exportToPDF(){
-    if(this.listType === "anonymous"){
-      this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-    }
-    else if(this.listType === "noAnonymousPerso")
-    {
-      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-    }
-    else if(this.listType === "noAnonymousOrga")
-    {
-      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-    }
-    else //all
-    {
-      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-    }
-    
-    this.donationTest$.pipe(
-      takeWhile(data => !data, true)
-    )
-    .subscribe((data) => {
-      this.donationList = data.dons;
-      this.donationListParent =  data;
-      this.checkAndApplyDisabled(data);
-      // console.log("my last page: "+data.last_page);
-      
-    });
-  }
-
+  
   showConsole(){
     console.log("ma date de début bro: "+this.dateStartValue);
   }
@@ -147,7 +121,7 @@ export class DonationTableComponent implements OnInit{
         distinctUntilChanged(),
         switchMap((term) => this.donationService.searchDonationListNoAnoOrga(term, this.dateStartValue, this.dateEndValue))
       );
-    
+      
       this.donations$.subscribe((donations) => {
         this.donationList = donations.dons;
         this.donationListParent = donations;
@@ -186,7 +160,7 @@ export class DonationTableComponent implements OnInit{
       this.showAll();
     }
   }
-
+  
   goToPrevious(){
     // t:his.showPage(-1);
     if(this.searchBarValue === "" && this.dateStartValue === ""){
@@ -216,7 +190,7 @@ export class DonationTableComponent implements OnInit{
       this.showPageWhere(1);
     }
   }
-
+  
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
 
@@ -247,8 +221,8 @@ export class DonationTableComponent implements OnInit{
       
     });
     // this.donationTest$.subscribe((data) => {
-    //   this.donationList = data.dons;
-    //   this.donationListParent =  data;
+      //   this.donationList = data.dons;
+      //   this.donationListParent =  data;
     //   this.checkAndApplyDisabled(data);
     //   console.log("my last page: "+data.last_page);
       
@@ -258,7 +232,7 @@ export class DonationTableComponent implements OnInit{
   showPage(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
     console.log("je suis: "+ this.newPage);
-
+    
     if(this.listType == "anonymous"){
       this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
     }
@@ -326,5 +300,130 @@ export class DonationTableComponent implements OnInit{
         }
       }
     }
+  }
+
+  
+  /**
+   * IMPRESSION
+   * @date 5/11/2023 - 8:43:06 PM
+   */
+  exportToPDF(){
+    if(this.listType === "anonymous"){
+      this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+
+    }
+    else if(this.listType === "noAnonymousPerso")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    else if(this.listType === "noAnonymousOrga")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    else //all
+    {
+      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    
+    this.donationTest$.subscribe((data) => {
+      this.donationList = data.dons;
+      this.allDonations = data.dons;
+      this.donationListParent =  data;
+      this.checkAndApplyDisabled(data);
+      console.log("my last page: "+data.last_page);
+      console.table(this.allDonations);
+
+      //IMPRESSION
+
+
+      // 3. Générer le contenu de la vue imprimable
+    let printableContent = '';
+    this.allDonations.forEach((donation, index) => {
+      console.log("dans le all bro");
+      
+      printableContent += `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${donation.montantDon}</td>
+          <td>${donation.typeDon}</td>
+          <td>${donation.updated_at } </td>
+          <!-- Ajoutez les autres colonnes de données nécessaires -->
+        </tr>
+      `;
+    });
+
+    // 4. Ouvrir une nouvelle fenêtre d'impression
+    const printWindow = window.open('', '_blank');
+    printWindow!.document.write(`
+      <html>
+        <head>
+          <title>http://stjosephmukassa.ci/</title>
+          <style>
+            /* Styles CSS pour la vue imprimable */
+            /* Styles spécifiques pour l'impression */
+
+  body {
+    font-family: Arial, sans-serif;
+  }
+
+  .page {
+    page-break-after: always;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    border:1px solid #0a0a0a;
+  }
+  tr {
+    width: 100%;
+    border:1px solid #0a0a0a;
+  }
+
+  th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #eeeeee;
+  }
+            @media print {
+              /* Masquer les éléments non requis */
+              button {
+                display: none;
+              }
+            }
+          </style>
+        </head>
+        <body>
+          <h1>Liste complète des dons anonymes</h1>
+          <table>
+            <thead>
+            <tr>
+                  <th class="border-0 rounded-start">N°</th>
+                  <th class="border-0">Montant</th>
+                  <th class="border-0">Type</th>
+                  <th class="border-0">Date</th>
+           </tr>
+            <tbody>
+              ${printableContent}
+            </tbody>
+          </table>
+        </body>
+        <footer><h4>saint joseph mukassa</h4></footer>
+      </html>
+    `);
+
+    printWindow!.document.close();
+    printWindow!.print();
+
+      
+    });
+
+    
+    
   }
 }
