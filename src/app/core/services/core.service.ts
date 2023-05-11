@@ -69,4 +69,8 @@ export class CoreService {
   goToPageNotFound(){
     this.router.navigate(['/page-introuvable']);
   } 
+  
+  goToLockedPage(){
+    this.router.navigate(['/page-verrouillee']);
+  } 
 }

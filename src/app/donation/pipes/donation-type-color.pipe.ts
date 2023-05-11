@@ -11,15 +11,14 @@ export class DonationTypeColorPipe implements PipeTransform {
       return "bg-secondary text-dark";
     }
     else if(isAnonymous === 0 && isOrganisation === 0) {//personal
-      return "bg-tertiary text-white"
+      return "bg-tertiary text-white";
     }
     else if(isAnonymous === 0 && isOrganisation === 1)//organisation
     { 
-      return "bg-primary text-white";
+      return "bg-danger text-white";
     }
     else{
       return "";
     }
   }
-
 }

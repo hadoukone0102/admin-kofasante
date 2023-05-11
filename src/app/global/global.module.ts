@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardResolver } from './resolvers/dashboard.resolver';
 import { DashboardService } from './services/dashboard.service';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
-import { GLOBAL_RESOLVERS } from 'src/environments/environment';
+import { GLOBAL_RESOLVERS, environment } from 'src/environments/environment';
 import { AuthGuard } from '../admin/guards/auth.guard';
 
 const listDashboardResolvers = {...{
@@ -15,7 +15,12 @@ const listDashboardResolvers = {...{
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent, resolve: listDashboardResolvers, canActivate: [AuthGuard]},
+  {path: '', component: DashboardComponent, resolve: listDashboardResolvers, 
+    canActivate: [AuthGuard],
+    data: {
+      roles: environment.allRoles
+    }
+  },
 ];
 
 @NgModule({

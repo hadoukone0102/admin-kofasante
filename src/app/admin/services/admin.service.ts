@@ -116,4 +116,45 @@ export class AdminService {
         return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
       }),)
   }
+
+  /*ACCES BY TYPE */
+  isPriest(){
+    const type = sessionStorage.getItem('type');
+    if (type === 'Curé') {
+      return true;  
+    }
+    return false;
+  }
+
+  isSecretary(){
+    const type = sessionStorage.getItem('type');
+    if (type === 'Secrétaire') {
+      return true;  
+    }
+    return false;
+  }
+
+  isFinancier(){
+    const type = sessionStorage.getItem('type');
+    if (type === 'Financier') {
+      return true;  
+    }
+    return false;
+  }
+
+  isPresidentParishCouncil(){
+    const type = sessionStorage.getItem('type');
+    if (type === 'Responsable de catéchèse') {
+      return true;  
+    }
+    return false;
+  }
+  isHeadOfCatechesis(){
+    const type = sessionStorage.getItem('type');
+    if (type === 'Président du conseil paroissiale') {
+      return true;  
+    }
+    return false;
+  }
+  /*END ACCES BY TYPE*/
 }

@@ -32,14 +32,13 @@ export class AuthService {
 
     isLogged(){
       const token = sessionStorage.getItem('token');
-      console.log('jaffiche le token: '+ token);
       return !! token; // !! transform the result to boolean
     }
 
-  logout(){
-    sessionStorage.clear();
-    this.coreService.goToLogin();
-  }
+    logout(){
+      sessionStorage.clear();
+      this.coreService.goToLogin();
+    }
 
   sendSMS(contact: DataForgotPassword): Observable<DataResultForgotPassword>{
     const httpOptions = {
