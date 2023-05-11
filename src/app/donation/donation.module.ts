@@ -46,7 +46,7 @@ const donationRoutes: Routes = [
     ListAnonymousResolver,
     ListNoAnonymousPersoResolver,
     ListNoAnonymousOrgaResolver,
-    ListAllResolver
+    ListAllResolver,
   ]
 })
 export class DonationModule { }

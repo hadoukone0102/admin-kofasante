@@ -20,16 +20,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Anonyme</h2>
-                      <h3 class="fw-extrabold mb-1">{{56}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_anonymes}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Anonyme</h2>
-                      <h3 class="fw-extrabold mb-2">{{44}}</h3>
+                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_anonymes}}</h3>
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                      {{"Montant: 12000F"}}
+                      {{"Montant: "+ accumulation.cumul_prix_dons_anonymes+"F"}}
                     </small> 
                   </div>
                 </div>
@@ -46,16 +46,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Personel</h2>
-                      <h3 class="fw-extrabold mb-1">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_non_anonymes_perso}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Personel</h2>
-                      <h3 class="fw-extrabold mb-2">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_perso}}</h3>
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: 12000F"}}
+                        {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_perso+"F"}}
                     </small> 
                   </div>
                 </div>
@@ -72,16 +72,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Organisation</h2>
-                      <h3 class="fw-extrabold mb-1">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_non_anonymes_orga}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Organisation</h2>
-                      <h3 class="fw-extrabold mb-2">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_orga}}</h3>
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: 12000F"}}
+                        {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_orga+"F"}}
                     </small> 
                   </div>
                 </div>
@@ -98,16 +98,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Total</h2>
-                      <h3 class="fw-extrabold mb-1">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Total</h2>
-                      <h3 class="fw-extrabold mb-2">{{5}}</h3>
+                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons}}</h3>
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: 99258777000F"}}
+                        {{"Montant: "+accumulation.cumul_prix_dons+"F"}}
                     </small> 
                   </div>
                 </div>
@@ -120,8 +120,12 @@
     <!-- Donation table -->
     <div *ngIf="donations$ | async as donations">
         <app-donation-table [listType]="type"
-            [donationListParent]="donations">
-    
+            [donationListParent]="donations"
+            (searchBarValueToParent) = "handleSearchBarValueFromChild($event)"
+            (dateStartValueToParent) = "handleDateStartValueFromChild($event)"
+            (dateEndValueToParent) = "handleDateEndValueFromChild($event)"
+            >
+            
         </app-donation-table>
     </div>
     <!-- End Donation table -->

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -10,9 +10,7 @@ import { CoreService } from 'src/app/core/services/core.service';
   templateUrl: './donation-table.component.html'
 })
 export class DonationTableComponent implements OnInit{
-  // @Input() donations!: DataDon;
-  // @Input() donationNoAnoPerso!: DataDon;
-  // @Input() donationNoAnoOrga!: DataDon;
+  
   //New
   @Input() donationListParent!: DataDon;
   @Input() listType!: string; //ano ? perso ? orga ? all 
@@ -20,6 +18,11 @@ export class DonationTableComponent implements OnInit{
   searchBarValue: string = "";
   dateStartValue: string = "";
   dateEndValue: string = "";
+
+  @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
+
 
   donations$!: Observable<DataDon>;
   donationTest$!: Observable<DataDon>;
@@ -50,11 +53,13 @@ export class DonationTableComponent implements OnInit{
     this.donationList = this.donationListParent.dons;
     this.checkAndApplyDisabled(this.donationListParent);
 
-
     const now = new Date();
     this.todayDate = now.toISOString().substring(0, 10); // format AAAA-MM-JJ
     this.dateEndValue = this.todayDate;
+    this.dateStartValue = this.todayDate;
+    this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
+    //Send data for search to parent
     
   }
 
@@ -62,7 +67,16 @@ export class DonationTableComponent implements OnInit{
     console.log("ma date de début bro: "+this.dateStartValue);
   }
 
+  sendDataToParent(){
+    console.log("dans le sednd data to parendt= "+ this.dateStartValue);
+    
+    this.searchBarValueToParent.emit(this.searchBarValue);
+    this.dateStartValueToParent.emit(this.dateStartValue);
+    this.dateEndValueToParent.emit(this.dateEndValue);
+  }
+
   search(){
+    this.sendDataToParent();
     if (this.isAnonymous && !this.isAll) {
       console.log("anonm");
       this.searchTerms.next(this.searchBarValue);

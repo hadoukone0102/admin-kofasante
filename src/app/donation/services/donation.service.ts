@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
+import { DataAccumulation } from '../models/accumulation.model';
 
 /**
  * Service permettant de récupérer les données de dons depuis l'API
@@ -101,6 +102,7 @@ export class DonationService {
       })
     );
   }
+
   getDonationsNoAnonymousOrgaWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
@@ -110,8 +112,17 @@ export class DonationService {
       })
     );
   }
+  
+  getAccumulationDonations(search: string, dateStart: string, dateEnd: string): Observable<DataAccumulation>{
+    return this.http.get<DataAccumulation>(`${environment.apiUrlDon}/dons/cumul-prix?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Orga Une erreur est survenue lors de la récupération des données stat: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
+      })
+    );
+  }
 
- 
   /**
    * Renvoie la liste des dons anonymes dont le nom de l'expéditeur
    * contient les lettres fournies par la barre de recherche
