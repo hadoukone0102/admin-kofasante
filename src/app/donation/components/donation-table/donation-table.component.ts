@@ -63,6 +63,35 @@ export class DonationTableComponent implements OnInit{
     
   }
 
+  exportToPDF(){
+    if(this.listType === "anonymous"){
+      this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    else if(this.listType === "noAnonymousPerso")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    else if(this.listType === "noAnonymousOrga")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    else //all
+    {
+      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+    
+    this.donationTest$.pipe(
+      takeWhile(data => !data, true)
+    )
+    .subscribe((data) => {
+      this.donationList = data.dons;
+      this.donationListParent =  data;
+      this.checkAndApplyDisabled(data);
+      // console.log("my last page: "+data.last_page);
+      
+    });
+  }
+
   showConsole(){
     console.log("ma date de début bro: "+this.dateStartValue);
   }

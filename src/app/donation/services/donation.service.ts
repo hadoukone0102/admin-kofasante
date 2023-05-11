@@ -66,6 +66,17 @@ export class DonationService {
     );
   }
 
+  getAllDonationsAnonymousWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    console.log("Je passe dans le boom: " + search);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+      })
+    );
+  }
+
   /**
    * Récupère tous les dons non anonymes faits à titre personnel 
    * @returns {Observable<DataDon>} 
@@ -79,8 +90,19 @@ export class DonationService {
       })
     );
   }
+
   getDonationsNoAnonymousPersoWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
+      })
+    );
+  }
+  
+  getAllDonationsNoAnonymousPersoWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
         console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -105,6 +127,16 @@ export class DonationService {
 
   getDonationsNoAnonymousOrgaWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
+      })
+    );
+  }
+  
+  getAllDonationsNoAnonymousOrgaWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
         console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
