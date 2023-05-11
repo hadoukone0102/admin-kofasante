@@ -20,7 +20,7 @@ import { ConfirmCodeSmsComponent } from './components/confirm-code-sms/confirm-c
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
-const listAddResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
+const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver }, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 

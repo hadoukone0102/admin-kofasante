@@ -4,12 +4,18 @@ import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '
 import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { DataCountry } from '../../models/country-code.model';
 
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html'
 })      
 export class AddAdminComponent implements OnInit {
+  countries$!: Observable<DataCountry>;
+  countries!: DataCountry;
+  countryCode!: string;
+  contact!: string;
+
   admin!: DataAdminAdd;
 
   adminList$!: Observable<DataAdmin>;
@@ -29,6 +35,8 @@ export class AddAdminComponent implements OnInit {
     ){}
 
   ngOnInit(): void {
+    this.countryCode = '+225';
+    
     this.admin = {
       nomAdmin: '',
       prenomAdmin: '',
@@ -42,12 +50,10 @@ export class AddAdminComponent implements OnInit {
       success: true,
       status_code: 200,
       message: "",
-    }
+    };
 
-    console.log("mqmq");
-    console.log(this.resultAdd);
-    
     this.pwdIsConfirmed = true;
+    
 
     this.adminList$ = this.route.data.pipe(
       map(data => data['listAdmins'])
@@ -58,9 +64,22 @@ export class AddAdminComponent implements OnInit {
         this.adminList = data;
       }
     );
+
+    
+
+    this.countries$ = this.route.data.pipe(
+      map(data => data['countryCode'])
+    );
+    this.countries$.subscribe(data => this.countries = data);
+  }
+
+  onClickContryCode(val: string){
+    this.countryCode = val;
   }
 
   onSubmit(){
+    this.admin.contactAdmin = this.countryCode + this.contact;
+    
     this.adminService.addAdmin(this.admin).subscribe(
       (admin) => {
         this.resultAdd = admin;
@@ -85,7 +104,8 @@ export class AddAdminComponent implements OnInit {
   }
 
   onClickContact(){
-    console.log("dans le for");
+    this.admin.contactAdmin = this.countryCode + this.contact;
+    console.log("mon contzct: "+this.admin.contactAdmin);
     
     this.adminList.administrateurs.some(adminInDB => {
       if (adminInDB.contactAdmin === this.admin.contactAdmin) {

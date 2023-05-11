@@ -67,6 +67,7 @@ export class ReportDonationComponent implements OnInit{
     this.type = "noAnonymousOrga";
     this.donations$ = this.donationService.getDonationsNoAnonymousOrga();
   }
+  
   showAllDonationsList(){
     this.type = "all";
     this.donations$ = this.donationService.getDonations();
@@ -78,7 +79,6 @@ export class ReportDonationComponent implements OnInit{
         this.accumulation = data;
         console.log("l'accumalqtion dons: "+this.accumulation.cumul_prix_dons);
       });
-      
   }
 
   handleSearchBarValueFromChild(searchBarValue: string) {

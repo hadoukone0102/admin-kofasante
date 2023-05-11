@@ -52,10 +52,11 @@ export class LoginComponent implements OnInit{
     console.log('djouma code contry');
       
     console.log(this.countries$);
-    this.countries$.subscribe(data => this.countries = data)
+    this.countries$.subscribe(data => this.countries = data);
     console.table(this.countries.pays);
     
   }
+  
   onSubmit(){
     this.dataLogin.contactAdmin =  this.countryCode + this.contact;
     console.log("le contact"+this.dataLogin.contactAdmin);
