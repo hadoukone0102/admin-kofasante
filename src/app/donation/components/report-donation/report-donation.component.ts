@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { DataDon } from '../../models/don.model';
+import { DonationService } from '../../services/donation.service';
 
 @Component({
   selector: 'app-report-donation',
@@ -13,34 +14,26 @@ export class ReportDonationComponent implements OnInit{
 
   constructor(
     private route: ActivatedRoute,
-    private notifService: NotificationService
+    private donationService: DonationService
     ) { }
 
   ngOnInit(): void {
     this.donations$ = this.route.data.pipe(
       map(data => data['listAll']),
     );
-    
   }
 
   showAnonymousList(){
-    console.log("Dans le ini anonmous");
-    this.notifService.updateDonationsAnoSeen().subscribe(
-      (response) => console.log("C'est dans la boite INIT: "+response),
-      (error) => console.error('Une erreur est survenue INIT: ', error)
-    );
-    
-    this.donations$ = this.route.data.pipe(
-      map(data => data['listAnonymous']),
-    );
+    this.donations$ = this.donationService.getDonationsAnonymous();
   }
-  showNoAnonymousPersoList(){
 
+  showNoAnonymousPersoList(){
+    this.donations$ = this.donationService.getDonationsNoAnonymousPerso();
   }
   showNoAnonymousOrgaList(){
-
+    this.donations$ = this.donationService.getDonationsNoAnonymousOrga();
   }
   showAllDonationsList(){
-
+    this.donations$ = this.donationService.getDonations();
   }
 }
