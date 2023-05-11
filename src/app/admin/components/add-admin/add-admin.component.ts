@@ -27,7 +27,7 @@ export class AddAdminComponent implements OnInit {
   pwdIsConfirmed!: boolean;
   contactExists!: boolean;
   
-  resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd
+  resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd;
   constructor(
     private adminService: AdminService,
     private coreService: CoreService,

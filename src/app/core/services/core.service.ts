@@ -38,6 +38,10 @@ export class CoreService {
     this.router.navigate(['/admin/ajouter']);
   }
   
+  goToEditAdmin(id: number){
+    this.router.navigate(['/modifier-un-administrateur', id]);
+  }
+  
   goToDisabledAccount(){
     this.router.navigate(['/comptes-inatifs']);
   }

@@ -14,48 +14,13 @@
     <div class="card border-0 shadow mb-4">
         
         <div class="card-body">
-            <div *ngIf="admins$ | async as adminList" class="table-responsive">
-                <table  class="table table-centered table-nowrap mb-0 rounded">
-                <thead class="thead-light">
-                    <tr>
-                    <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Nom</th>
-                    <th class="border-0">Prénom</th>
-                    <th  class="border-0">Contact</th>
-                    <th  class="border-0">Type</th>
-                    <th  class="border-0">Actions</th>
-                </tr>
-            </thead>
-            <tbody >
-
-                <!-- Item -->
-                <tr *ngFor="let admin of admins.administrateurs; let i = index">
-                    <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
-                <td >
-                    {{admin.nomAdmin}}
-                </td>
-                <td >
-                    {{admin.prenomAdmin}}
-                </td>
-                <td >
-                    {{admin.contactAdmin}}
-                </td>
-                <td >
-                    {{admin.id_typeadmin}}
-                </td>
-                <td>
-                    <a title="désactivez un administrateur" (click)="deleteAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
-                        <i class="fa fa-ban" ></i>
-                    </a>
-                </td>
-                
-                </tr>
-        <!-- End of Item -->
-        
-        </tbody>
-        </table>
-            </div>
+            
+            <app-admin-table
+                [admins$]="admins$"
+                >
+            </app-admin-table>
         </div>
+
     </div>
     <!-- End content -->
 

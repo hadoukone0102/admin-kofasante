@@ -20,14 +20,17 @@ import { ConfirmCodeSmsComponent } from './components/confirm-code-sms/confirm-c
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { DisabledAccountComponent } from './components/disabled-account/disabled-account.component';
 import { AdminTableComponent } from './components/admin-table/admin-table.component';
+import { EditAdminComponent } from './components/edit-admin/edit-admin.component';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver }, ...GLOBAL_RESOLVERS};
 const listDisabedAccountResolvers = {...{}, ...GLOBAL_RESOLVERS};
+const listEditAdminResolvers = {...{}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
   {path: 'ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
+  {path: 'modifier-un-administrateur/:id', component: EditAdminComponent, resolve: listEditAdminResolvers}, 
   {path: 'comptes-inatifs', component: DisabledAccountComponent, resolve: listDisabedAccountResolvers}, 
 ];
 
@@ -44,7 +47,8 @@ const adminRoutes: Routes = [
     ConfirmCodeSmsComponent,
     ResetPasswordComponent,
     DisabledAccountComponent,
-    AdminTableComponent
+    AdminTableComponent,
+    EditAdminComponent
   ],
   imports: [
     CommonModule,
