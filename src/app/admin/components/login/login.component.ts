@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit{
   }
   onSubmit(){
     this.dataLogin.contactAdmin =  this.countryCode + this.contact;
-
+    console.log("le contact"+this.dataLogin.contactAdmin);
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         console.log("Mon token: "+data.access_token);
@@ -72,7 +72,6 @@ export class LoginComponent implements OnInit{
           this.coreService.goToDashboard();
         }else{
           console.log("pas d'authentification réussi");
-          
         }
         
       },

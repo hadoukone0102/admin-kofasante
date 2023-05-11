@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, finalize, map, tap } from 'rxjs';
+import { Observable, finalize, map, takeWhile, tap } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataCountry } from '../../models/country-code.model';
 import { ActivatedRoute } from '@angular/router';
@@ -22,7 +22,7 @@ export class ForgotPasswordComponent implements OnInit{
 
   isDataReceived!: boolean;
   resultDataForgotPassword!: DataResultForgotPassword;
-  
+
   constructor(
     private coreService: CoreService,
     private authService: AuthService,
@@ -57,26 +57,40 @@ export class ForgotPasswordComponent implements OnInit{
        console.log(this.resultDataForgotPassword.success);
        console.log("message data");
        console.log(this.resultDataForgotPassword.message);
-       
-       
       }),
       tap((data) => {
-        console.log("le succes: "+ data.success);
         this.resultDataForgotPassword = data;
-      //   if(data.success){
-      //     console.log("if susscess");
+        console.log("le success: "+ data.success);
+        
+        if(data.success === true || data.success === false){
+          console.log("if susscess");
+          this.isDataReceived = true;
           
-      //     sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
-      //     this.coreService.goToConfirmCodeSms();
+          sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
+          this.coreService.goToConfirmCodeSms();
 
-      //   }else{
-      //     console.log("Erreur de sms");
-      //   }
+        }else{
+          console.log("Erreur de sms");
+        }
         }
       ),
+      takeWhile(data => !data, true)
      
-    ).subscribe();
+    ).subscribe(
+      data => console.log("the new = "+ data.success)
+    );
+    // Vérifier si les données sont reçues toutes les 100 millisecondes
+  // const checkDataInterval = setInterval(() => {
+  //   console.log("dans le setinterval");
+    
+  //   if (this.resultDataForgotPassword.success === false || this.isDataReceived ===  true) {
+  //     console.log("dans le clearinterval");
+  //     clearInterval(checkDataInterval);
+  //     // les données sont reçues, faire quelque chose ici
+  //   }
+  // }, 100);                    
   }
+
 
   // Vérifier si les données sont reçues toutes les 100 millisecondes
 // const checkDataInterval = setInterval(() => {

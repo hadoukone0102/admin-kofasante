@@ -16,7 +16,11 @@ export class ResetPasswordComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
-    this.newPassword.contactAdmin = sessionStorage.getItem('contactReset');
+    this.newPassword = {
+      contactAdmin: sessionStorage.getItem('contactReset'),
+      new_password: '',
+      confirm_password: ''
+    }
   }
 
   onSubmit(){

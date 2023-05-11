@@ -24,16 +24,22 @@ export class ConfirmCodeSmsComponent implements OnInit{
     }
 
   onSubmit(){ 
+    console.log("sms code: "+ this.smsCode.verificationCode);
+    
     this.authService.sendConfirmationCode(this.smsCode).subscribe(
       (data) => {
+        console.log("dans le  send confirm et sucess: "+ data.success);
+        
         if(data.success){
+          console.log("dans le  send confirm ok");
           this.coreService.goToResetPassword()
         }else{
-          this.codeIsValid = false;
+          console.log("dans le  send confirm ok");
+          // this.codeIsValid = false;
         }
       }
     )
-    this.coreService.goToResetPassword();
+    // this.coreService.goToResetPassword();
   }
 
 }
