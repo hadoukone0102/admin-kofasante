@@ -50,28 +50,37 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4  btn-group">
-                <button type="button" class="btn btn-secondary">Exporter</button>
+            
+            
+        </div>
+        <div class="row mb-4">
+            <div *ngIf="!isExporting" class=" col-8 col-sm-6 col-md-4  btn-group">
+                <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-secondary">Exporter</button>
+            </div>
+            <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4   btn-group">
+                <button title="Masquer les bouttons d'exportation" (click)="search()" type="button" class="btn btn-secondary">Masquer</button>
+            </div>
+            <div *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4  btn-group">
+                <button type="button" class="btn btn-secondary">Exporter en</button>
                 <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                   <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                  <span class="visually-hidden">Toggle Dropdown</span>
+                  <span class="visually-hidden">Exporter en</span>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a (click)="exportToPDF()" class="dropdown-item">PDF</a></li>
-                  <li><a class="dropdown-item">EXCEL</a></li>
-                  <li><a class="dropdown-item">CSV</a></li>
+                  <li><a class="dropdown-item" (click)="exportToPDF()">PDF</a></li>
+                  <li><a class="dropdown-item" (click)="exportToExel()">EXCEL</a></li>
+                  <li><a class="dropdown-item" (click)="exportToCSV()">CSV</a></li>
                   <!-- <li><hr class="dropdown-divider"></li> -->
                   <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
                 </ul>
               </div>
-            <div class="col-4  btn-group">
-                <button (click)="export()" type="button" class="btn btn-secondary">Exporter2</button>
-                
-              </div>
+            
+            
         </div>
         <!-- / Search form -->
-    <div id="pdf"  class="table-responsive">
-        <table  class="table-fill table table-centered table-nowrap mb-0 rounded">
+    <div class="table-responsive">
+        <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
+            <!-- <h1 >COol</h1> -->
         <thead class="thead-light">
             <tr id="tata">
             <th class="border-0 rounded-start">N°</th>
@@ -88,7 +97,7 @@
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Indicatif</th>
         </tr>
     </thead>
-    <tbody id="mytr" *ngIf="donationListParent.status == 'success'">
+    <tbody *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
             <tr  *ngFor="let donation of donationList; let a = index" class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
                 <!-- {{incrementI()}} -->

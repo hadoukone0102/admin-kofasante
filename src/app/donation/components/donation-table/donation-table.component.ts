@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { HttpClient } from '@angular/common/http';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-donation-table',
@@ -44,8 +47,14 @@ export class DonationTableComponent implements OnInit{
 
   todayDate!: string;
 
-  //stryle print
+  //print
   styleString: string ='';
+  isExporting!: boolean;
+  pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
+  pdfTitle!: string;
+  pdfFileName!: string;
+  excelFileName!: string;
+
 
   constructor(
     private router: Router,
@@ -55,9 +64,7 @@ export class DonationTableComponent implements OnInit{
     private http: HttpClient
     ) {}
 
-    export(){
-      window.print()
-    }
+    
 
   ngOnInit(): void {
     this.showTableOfType(this.listType);
@@ -71,17 +78,91 @@ export class DonationTableComponent implements OnInit{
     this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
     //Send data for search to parent
-    this.allDonations;
-
-    //HTTTP BRO
-    this.http.get('../../../assets/css/print.css', {responseType: 'text'}).subscribe(
-      styleSheet =>{
-        this.styleString =  styleSheet;
-        console.log("le stryle est: "+ this.styleString);
-        
-      }
-    )
     
+    this.isExporting = false;
+    this.pdfOrientation ='p';
+    this.pdfTitle ='';
+    this.pdfFileName = '';
+    this.excelFileName = '';
+    
+  }
+  
+  hideExportationButton(){
+    this.isExporting =false;
+  }
+
+  exportToPDF(){
+    let doc =  new jsPDF(/*'p','mm','a3'*/{orientation: this.pdfOrientation,});
+    let titleSize = 20;
+
+    let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor;
+    let margin = (doc.internal.pageSize.width - textWidth) / 2;
+
+    doc.setFontSize(titleSize);
+    doc.setFont('Roboto','bold');
+    doc.text(this.pdfTitle, margin, 20);
+    autoTable(doc, {html: "#exportTable", theme: "grid", startY: 30,});
+    doc.save(this.pdfFileName);
+  }
+
+  exportToExel(){
+       /* pass here the table id */
+       let element = document.getElementById('exportTable');
+       const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+    
+       /* generate workbook and add the worksheet */
+       const wb: XLSX.WorkBook = XLSX.utils.book_new();
+       XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    
+       /* save to file */  
+       XLSX.writeFile(wb, this.excelFileName);
+  }
+  exportToCSV(){
+
+  }
+
+   /**
+   * IMPRESSION
+   * @date 5/11/2023 - 8:43:06 PM
+   */
+   export(){
+    if(this.listType === "anonymous"){
+      this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.pdfOrientation = 'portrait';
+      this.pdfTitle = 'Liste des dons anonyme';
+      this.pdfFileName = 'liste_des_dons_anonyme.pdf';
+      this.excelFileName = 'liste_des_dons_anonyme.xlsx';
+      console.log('coolmano: ',this.pdfOrientation);
+      
+    }
+    else if(this.listType === "noAnonymousPerso")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.pdfOrientation = 'landscape';
+      this.pdfTitle = 'Liste des dons non anonyme faits à titre personnel';
+      this.pdfFileName = 'Dons_non_anonyme_personnel.pdf';
+      this.excelFileName = 'Dons_non_anonyme_personnel.xlsx';
+    }
+    else if(this.listType === "noAnonymousOrga")
+    {
+      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.pdfOrientation = 'landscape';
+      this.pdfTitle = 'Liste des dons non anonyme faits par des organisation';
+      this.pdfFileName = 'Dons_non_anonyme_organisation.pdf';
+      this.excelFileName = 'Dons_non_anonyme_organisation.xlsx';
+    }
+    else //all
+    {
+      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    }
+
+    this.donationTest$.subscribe((data) => {
+      this.donationList = data.dons;
+      this.donationListParent =  data;
+      this.checkAndApplyDisabled(data);
+      this.isExporting = true;
+
+    });
   }
 
   
@@ -98,6 +179,7 @@ export class DonationTableComponent implements OnInit{
   }
 
   search(){
+    this.hideExportationButton();
     this.sendDataToParent();
     if (this.isAnonymous && !this.isAll) {
       console.log("anonm");
@@ -322,247 +404,6 @@ export class DonationTableComponent implements OnInit{
   }
 
   
-  /**
-   * IMPRESSION
-   * @date 5/11/2023 - 8:43:06 PM
-   */
-  exportToPDF(){
-    if(this.listType === "anonymous"){
-      this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-      this.donationTest$.subscribe(
-        data => this.printAnonymous(data.dons)
-      )
-    }
-    else if(this.listType === "noAnonymousPerso")
-    {
-      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-      this.donationTest$.subscribe(
-        data => {
-          console.log("féééé");
-          console.table(data.dons);
-          
-          this.printNoAnonymousPerso(data.dons)}
-      )
-    }
-    else if(this.listType === "noAnonymousOrga")
-    {
-      this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-      this.donationTest$.subscribe(
-        data => {
-          console.log("féééé");
-          console.table(data.dons);
-          
-          this.printNoAnonymousOrga(data.dons)}
-      )
-    }
-    else //all
-    {
-      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-    }
-  }
+ 
 
-  printAnonymous(dataSubscrirbe: Don[]){
-    this.allDonations = dataSubscrirbe;
-      
-      //IMPRESSION
-      const printWindow = window.open();
-
-      let printableContent = '';
-      this.allDonations.forEach((donation, index) => {
-        console.log("dans le all bro");
-        
-        printableContent += `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${donation.montantDon}</td>
-            <td>${donation.typeDon}</td>
-            <td>${donation.updated_at } </td>
-            <!-- Ajoutez les autres colonnes de données nécessaires -->
-          </tr>
-        `;
-      });
-
-            printWindow!.document.write(`
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <style>
-                    ${this.styleString}
-                </style>
-            </head>
-            <body>
-            <div class="table-title">
-                <h3>Liste des dons non anonymes - organisation szszs</h3>
-            </div>
-                
-                <h1>Boom</h1>
-                <table>
-              <thead>
-              <tr>
-                    <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Montant</th>
-                    <th class="border-0">Type</th>
-                    <th class="border-0">Date</th>
-            </tr>
-              <tbody>
-                ${printableContent}
-              </tbody>
-            </table>
-            </body>
-            </html>
-            `
-            );
-            printWindow?.document.close();
-            printWindow?.focus();
-            printWindow?.print();
-
-
-            // 3. Générer le contenu de la vue imprimable
-
-            
-          
-  }
-
-  printNoAnonymousPerso(dataSubscrirbe: Don[]){
-    this.allDonations = dataSubscrirbe;
-      
-      //IMPRESSION
-      const printArea =  document.getElementById('pdf');
-      const printWindow = window.open('', '_blank');
-
-      let printableContent = '';
-      this.allDonations.forEach((donation, index) => {
-        console.log("dans le all bro");
-        
-        printableContent += `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${donation.montantDon}</td>
-            <td>${donation.typeDon}</td>
-            <td>${donation.updated_at}</td>
-            <td>${donation.nomDon}</td>
-            <td>${donation.prenomDon}</td>
-            <td>${donation.contactDon}</td>
-            <td>${donation.civiliteDon } </td>
-            <td>${donation.villeDon } </td>
-            <td>${donation.paysDon } </td>
-          </tr>
-        `;
-      });
-
-            printWindow!.document.write(`
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <style>
-                    ${this.styleString}
-                </style>
-            </head>
-            <body>
-            <div class="table-title">
-                <h3>Liste des dons non anonymes - organisation szszs</h3>
-            </div>
-            
-                <h1>Boom</h1>
-                <table>
-              <thead>
-              <tr>
-                    <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Montant</th>
-                    <th class="border-0">Type</th>
-                    <th class="border-0">Date</th>
-                    <th class="border-0">Nom</th>
-                    <th class="border-0">Prénom</th>
-                    <th class="border-0">Contact</th>
-                    <th class="border-0">Civilité</th>
-                    <th class="border-0">Ville</th>
-                    <th class="border-0">Pays</th>
-            </tr>
-              <tbody>
-                ${printableContent}
-              </tbody>
-            </table>
-            </body>
-            </html>
-            `
-            );
-            printWindow?.document.close();
-            printWindow?.focus();
-            printWindow?.print();
-
-
-            // 3. Générer le contenu de la vue imprimable
-
-            
-          
-  }
-
-  printNoAnonymousOrga(dataSubscrirbe: Don[]){
-    this.allDonations = dataSubscrirbe;
-      
-      
-      //IMPRESSION
-      const printWindow = window.open('', '_blank');
-
-      let printableContent = '';
-      this.allDonations.forEach((donation, index) => {
-        console.log("dans le all bro");
-        
-        printableContent += `
-          <tr>
-            <td>${index + 1}</td>
-            <td>${donation.montantDon}</td>
-            <td>${donation.typeDon}</td>
-            <td>${donation.organisationDon}</td>
-            <td>${donation.updated_at}</td>
-            <td>${donation.nomDon}</td>
-            <td>${donation.prenomDon}</td>
-            <td>${donation.contactDon}</td>
-            <td>${donation.civiliteDon } </td>
-            <td>${donation.villeDon } </td>
-            <td>${donation.paysDon } </td>
-          </tr>
-        `;
-      });
-
-            printWindow!.document.write(`
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <style>
-                    ${this.styleString}
-                </style>
-            </head>
-            <body>
-            <div class="table-title">
-                <h3>Liste des dons non anonymes - organisation szszs</h3>
-            </div>
-            
-                <h1>Boom</h1>
-                <table>
-              <thead>
-              <tr>
-                    <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Montant</th>
-                    <th class="border-0">Type</th>
-                    <th class="border-0">Organisation</th>
-                    <th class="border-0">Date</th>
-                    <th class="border-0">Nom</th>
-                    <th class="border-0">Prénom</th>
-                    <th class="border-0">Civilité</th>
-                    <th class="border-0">Ville</th>
-                    <th class="border-0">Pays</th>
-            </tr>
-              <tbody>
-                ${printableContent}
-              </tbody>
-            </table>
-            </body>
-            </html>
-            `
-            );
-            printWindow?.document.close();
-            printWindow?.focus();
-            printWindow?.print();
-  }
 }
