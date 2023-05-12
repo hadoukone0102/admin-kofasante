@@ -21,11 +21,13 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { DisabledAccountComponent } from './components/disabled-account/disabled-account.component';
 import { AdminTableComponent } from './components/admin-table/admin-table.component';
 import { EditAdminComponent } from './components/edit-admin/edit-admin.component';
+import { ListDisabledCountAdminResolver } from './resolvers/list-disabled-account-admin.resolver';
+import { AdminByIdResolver } from './resolvers/admin-by-id.resolver';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver }, ...GLOBAL_RESOLVERS};
-const listDisabedAccountResolvers = {...{}, ...GLOBAL_RESOLVERS};
-const listEditAdminResolvers = {...{}, ...GLOBAL_RESOLVERS};
+const listDisabedAccountResolvers = {...{listDisabledAccount: ListDisabledCountAdminResolver}, ...GLOBAL_RESOLVERS};
+const listEditAdminResolvers = {...{adminById: AdminByIdResolver}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
@@ -61,6 +63,7 @@ const adminRoutes: Routes = [
     AdminService,
     ListAdminsResolver,
     CountryCodeResolver,
+    ListDisabledCountAdminResolver,
     AuthService
   ]
 })

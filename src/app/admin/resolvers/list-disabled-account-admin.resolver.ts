@@ -5,12 +5,14 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { AdminService } from '../services/admin.service';
+import { DataDisabledAccount } from '../models/disabled-account-admin.model';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ListDisabledCountAdminResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+@Injectable()
+export class ListDisabledCountAdminResolver implements Resolve<DataDisabledAccount> {
+  constructor(private adminService: AdminService){}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDisabledAccount> {
+    return this.adminService.getDisabledAccount();
   }
 }

@@ -16,7 +16,7 @@
                     <div>
                         <label for="firstName">Nom</label>
                         <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Entrez votre nom" 
-                        [value]=""
+                        [value]="admin.administrateur.nomAdmin"
                         disabled
                         required>
                     </div>
@@ -25,7 +25,7 @@
                     <div>
                         <label for="lastName">Prénom</label>
                         <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Entrez votre prénom" 
-                        [value]=""
+                        [value]="admin.administrateur.prenomAdmin"
                         disabled
                         required="">
                     </div>
@@ -35,7 +35,7 @@
                     <div>
                         <label for="contact">Contact</label>
                         <input class="form-control" id="contact" name="contact" type="text" placeholder="Entrez votre numéros mobile" 
-                        [value]=""
+                        [value]="admin.administrateur.contactAdmin"
                         disabled
                         required="">
                     </div>
@@ -44,7 +44,7 @@
                
                 <div class="col-12 mb-3">
                     <label for="role">Type</label>
-                    <select [(ngModel)]="admin.administrateurs" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
+                    <select [(ngModel)]="admin.administrateur.id_typeadmin" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
                         <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                         <option value="1" selected>Curé</option>
                         <option value="2">Responsable de catéchèse</option>

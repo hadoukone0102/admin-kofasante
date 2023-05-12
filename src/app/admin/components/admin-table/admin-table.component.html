@@ -1,4 +1,4 @@
-<div *ngIf="admins$ | async as adminList" class="table-responsive">
+<div  class="table-responsive">
     <table  class="table table-centered table-nowrap mb-0 rounded">
     <thead class="thead-light">
         <tr>
@@ -10,7 +10,8 @@
         <th  class="border-0">Actions</th>
     </tr>
 </thead>
-<tbody >
+<!-- ENABLED ACCOUNT -->
+<tbody *ngIf="!isDisabledAccount()" >
 
     <!-- Item -->
     <tr *ngFor="let admin of admins.administrateurs; let i = index">
@@ -31,8 +32,37 @@
         <a title="Désactivez un administrateur" (click)="deleteAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
             <i class="fa fa-ban" ></i>
         </a>
-        <a title="Modifier le type de l'administrateur" (click)="goToEditAdmin(1)" class="ms-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
+        <a title="Modifier le type de l'administrateur" (click)="goToEditAdmin(admin.id)" class="ms-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
             <i class="fa fa-edit" ></i>
+        </a>
+    </td>
+    
+    </tr>
+<!-- End of Item -->
+
+</tbody>
+
+<!-- DISABLED ACCOUNT -->
+<tbody *ngIf="isDisabledAccount()" >
+
+    <!-- Item -->
+    <tr *ngFor="let disabled of disabledAccounts.administrateurs; let i = index">
+        <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
+    <td >
+        {{disabled.nomAdmin}}
+    </td>
+    <td >
+        {{disabled.prenomAdmin}}
+    </td>
+    <td >
+        {{disabled.contactAdmin}}
+    </td>
+    <td >
+        {{disabled.id_typeadmin}}
+    </td>
+    <td>
+        <a title="Réactiver un administrateur" (click)="restoreAdmin(disabled.id)" class="btn btn-sm btn-success d-inline-flex align-items-center">
+            <i class="fa fa-arrow-up" ></i>
         </a>
     </td>
     

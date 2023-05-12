@@ -38,7 +38,7 @@ export class CoreService {
     this.router.navigate(['/admin/ajouter']);
   }
   
-  goToEditAdmin(id: number){
+  goToEditAdmin(id: string){
     this.router.navigate(['/modifier-un-administrateur', id]);
   }
   

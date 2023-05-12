@@ -7,6 +7,10 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { DataProfileInfo, DataResultProfileInfo } from '../models/profile-info.model';
 import { DataResultSetPassword, DataSetPassword } from '../models/set-password.model';
 import { DataResultSetTypeAdmin, DataSetTypeAdmin } from '../models/set-type-admin.model';
+import { DataDisabledAccount } from '../models/disabled-account-admin.model';
+import { DataAdminByid } from '../models/admin-by-id.model';
+import { DataEnabledAccount } from '../models/enabled-account-admin.model';
+import { DataAdminType } from '../models/admin-type.model';
 
 @Injectable()
 export class AdminService {
@@ -21,7 +25,27 @@ export class AdminService {
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+  
+  getDisabledAccount(): Observable<DataDisabledAccount>{
+    return this.http.get<DataDisabledAccount>(`${environment.apiUrlAdmin}/Admin/delete`).pipe(
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+  
+  getAdminTypes(): Observable<DataAdminType>{
+    return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/returnTypedAdmin`).pipe(
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
@@ -40,8 +64,16 @@ export class AdminService {
     );
   }
 
-  getAdmin(id: number): Observable<DataAdmin>{
-    return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/${id}`);
+  getAdminById(id: string = ''): Observable<DataAdminByid>{
+    return this.http.get<DataAdminByid>(`${environment.apiUrlAdmin}/administrateur/${id}`).pipe(
+      tap(data => console.log("dans le tap: "+data.administrateur.contactAdmin)
+      ),
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
   }
 
   addAdmin(Admin: DataAdminAdd): Observable<DataAdminResultAdd|DataAmdinErrorAdd>{
@@ -94,7 +126,7 @@ export class AdminService {
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-    return this.http.put<DataResultSetTypeAdmin>(`${environment.apiUrlAdmin}/changerMdp`, typeAdmin, httpOptions).pipe(
+    return this.http.put<DataResultSetTypeAdmin>(`${environment.apiUrlAdmin}/typeAdmin/change`, typeAdmin, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.success )
       ),
       catchError((error: any) => {
@@ -105,10 +137,22 @@ export class AdminService {
     );
   }
 
-  deleteAdmin(id: String): Observable<DataDeleteAdmin>{
+  disabledAdmin(id: String): Observable<DataDeleteAdmin>{
     console.log("dans le deletes");
     
     return this.http.delete<DataDeleteAdmin>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
+      tap((response) => console.log("cest dans la boite")
+      ),
+      catchError((error) => {
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
+      }),)
+  }
+  
+  enabledAdmin(id: String): Observable<DataEnabledAccount>{
+    console.log("dans le deletes");
+    
+    return this.http.get<DataEnabledAccount>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
       tap((response) => console.log("cest dans la boite")
       ),
       catchError((error) => {
