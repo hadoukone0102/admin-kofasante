@@ -54,6 +54,7 @@ export class DonationTableComponent implements OnInit{
   pdfTitle!: string;
   pdfFileName!: string;
   excelFileName!: string;
+  csvFileName!: string;
 
 
   constructor(
@@ -84,6 +85,7 @@ export class DonationTableComponent implements OnInit{
     this.pdfTitle ='';
     this.pdfFileName = '';
     this.excelFileName = '';
+    this.csvFileName = '';
     
   }
   
@@ -118,7 +120,19 @@ export class DonationTableComponent implements OnInit{
        XLSX.writeFile(wb, this.excelFileName);
   }
   exportToCSV(){
+    // const XLSX = require('xlsx');
 
+    // Créer une feuille de calcul
+     /* pass here the table id */
+     let element = document.getElementById('exportTable');
+     const worksheet: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+    // Convertir la feuille de calcul en CSV
+    const csvData = XLSX.utils.sheet_to_csv(worksheet);
+
+    // Enregistrer le CSV dans un fichier
+    // const fs = require('fs');
+    // fs.writeFileSync(this.csvFileName, csvData);
   }
 
    /**
@@ -132,6 +146,7 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons anonyme';
       this.pdfFileName = 'liste_des_dons_anonyme.pdf';
       this.excelFileName = 'liste_des_dons_anonyme.xlsx';
+      this.csvFileName = 'liste_des_dons_anonyme.csv';
       console.log('coolmano: ',this.pdfOrientation);
       
     }
@@ -142,6 +157,7 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons non anonyme faits à titre personnel';
       this.pdfFileName = 'Dons_non_anonyme_personnel.pdf';
       this.excelFileName = 'Dons_non_anonyme_personnel.xlsx';
+      this.csvFileName = 'Dons_non_anonyme_personnel.csv';
     }
     else if(this.listType === "noAnonymousOrga")
     {
@@ -150,6 +166,7 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons non anonyme faits par des organisation';
       this.pdfFileName = 'Dons_non_anonyme_organisation.pdf';
       this.excelFileName = 'Dons_non_anonyme_organisation.xlsx';
+      this.csvFileName = 'Dons_non_anonyme_organisation.csv';
     }
     else //all
     {
