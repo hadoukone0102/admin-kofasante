@@ -65,15 +65,15 @@
                 </ul>
               </div>
             <div class="col-4  btn-group">
-                <button (click)="exportToPDF()" type="button" class="btn btn-secondary">Exporter2</button>
+                <button (click)="export()" type="button" class="btn btn-secondary">Exporter2</button>
                 
               </div>
         </div>
         <!-- / Search form -->
-    <div class="table-responsive">
-        <table class="table table-centered table-nowrap mb-0 rounded">
+    <div id="pdf"  class="table-responsive">
+        <table  class="table-fill table table-centered table-nowrap mb-0 rounded">
         <thead class="thead-light">
-            <tr>
+            <tr id="tata">
             <th class="border-0 rounded-start">N°</th>
             <th class="border-0">Montant</th>
             <th class="border-0">Type</th>
@@ -88,9 +88,9 @@
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Indicatif</th>
         </tr>
     </thead>
-    <tbody  *ngIf="donationListParent.status == 'success'">
+    <tbody id="mytr" *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
-            <tr *ngFor="let donation of donationList; let a = index" class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
+            <tr  *ngFor="let donation of donationList; let a = index" class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
                 <!-- {{incrementI()}} -->
                 <td><a class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}} fw-bold">{{a+1}}</a> </td>
                 <td  class="fw-bold d-flex align-items-center">
@@ -128,8 +128,6 @@
             </td>
             </tr>
 <!-- End of Item -->
-
-
 </tbody>
 </table>
 </div>

@@ -4,10 +4,12 @@ import { DataDon, Don } from '../../models/don.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
 import { CoreService } from 'src/app/core/services/core.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-donation-table',
-  templateUrl: './donation-table.component.html'
+  templateUrl: './donation-table.component.html',
+  // styleUrls: ['./donation-table.component.css']
 })
 export class DonationTableComponent implements OnInit{
   
@@ -42,12 +44,20 @@ export class DonationTableComponent implements OnInit{
 
   todayDate!: string;
 
+  //stryle print
+  styleString: string ='';
+
   constructor(
     private router: Router,
     private donationService: DonationService,
     private coreService :  CoreService,
     private route: ActivatedRoute,
+    private http: HttpClient
     ) {}
+
+    export(){
+      window.print()
+    }
 
   ngOnInit(): void {
     this.showTableOfType(this.listType);
@@ -62,6 +72,15 @@ export class DonationTableComponent implements OnInit{
     this.search(); //to make work the first (change) after loading page
     //Send data for search to parent
     this.allDonations;
+
+    //HTTTP BRO
+    this.http.get('../../../assets/css/print.css', {responseType: 'text'}).subscribe(
+      styleSheet =>{
+        this.styleString =  styleSheet;
+        console.log("le stryle est: "+ this.styleString);
+        
+      }
+    )
     
   }
 
@@ -310,120 +329,240 @@ export class DonationTableComponent implements OnInit{
   exportToPDF(){
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
-
+      this.donationTest$.subscribe(
+        data => this.printAnonymous(data.dons)
+      )
     }
     else if(this.listType === "noAnonymousPerso")
     {
       this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousPersoWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.donationTest$.subscribe(
+        data => {
+          console.log("féééé");
+          console.table(data.dons);
+          
+          this.printNoAnonymousPerso(data.dons)}
+      )
     }
     else if(this.listType === "noAnonymousOrga")
     {
       this.donationTest$ =  this.donationService.getAllDonationsNoAnonymousOrgaWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.donationTest$.subscribe(
+        data => {
+          console.log("féééé");
+          console.table(data.dons);
+          
+          this.printNoAnonymousOrga(data.dons)}
+      )
     }
     else //all
     {
       // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
     }
-    
-    this.donationTest$.subscribe((data) => {
-      this.donationList = data.dons;
-      this.allDonations = data.dons;
-      this.donationListParent =  data;
-      this.checkAndApplyDisabled(data);
-      console.log("my last page: "+data.last_page);
-      console.table(this.allDonations);
+  }
 
+  printAnonymous(dataSubscrirbe: Don[]){
+    this.allDonations = dataSubscrirbe;
+      
       //IMPRESSION
+      const printWindow = window.open();
+
+      let printableContent = '';
+      this.allDonations.forEach((donation, index) => {
+        console.log("dans le all bro");
+        
+        printableContent += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${donation.montantDon}</td>
+            <td>${donation.typeDon}</td>
+            <td>${donation.updated_at } </td>
+            <!-- Ajoutez les autres colonnes de données nécessaires -->
+          </tr>
+        `;
+      });
+
+            printWindow!.document.write(`
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    ${this.styleString}
+                </style>
+            </head>
+            <body>
+            <div class="table-title">
+                <h3>Liste des dons non anonymes - organisation szszs</h3>
+            </div>
+                
+                <h1>Boom</h1>
+                <table>
+              <thead>
+              <tr>
+                    <th class="border-0 rounded-start">N°</th>
+                    <th class="border-0">Montant</th>
+                    <th class="border-0">Type</th>
+                    <th class="border-0">Date</th>
+            </tr>
+              <tbody>
+                ${printableContent}
+              </tbody>
+            </table>
+            </body>
+            </html>
+            `
+            );
+            printWindow?.document.close();
+            printWindow?.focus();
+            printWindow?.print();
 
 
-      // 3. Générer le contenu de la vue imprimable
-    let printableContent = '';
-    this.allDonations.forEach((donation, index) => {
-      console.log("dans le all bro");
+            // 3. Générer le contenu de la vue imprimable
+
+            
+          
+  }
+
+  printNoAnonymousPerso(dataSubscrirbe: Don[]){
+    this.allDonations = dataSubscrirbe;
       
-      printableContent += `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${donation.montantDon}</td>
-          <td>${donation.typeDon}</td>
-          <td>${donation.updated_at } </td>
-          <!-- Ajoutez les autres colonnes de données nécessaires -->
-        </tr>
-      `;
-    });
+      //IMPRESSION
+      const printArea =  document.getElementById('pdf');
+      const printWindow = window.open('', '_blank');
 
-    // 4. Ouvrir une nouvelle fenêtre d'impression
-    const printWindow = window.open('', '_blank');
-    printWindow!.document.write(`
-      <html>
-        <head>
-          <title>http://stjosephmukassa.ci/</title>
-          <style>
-            /* Styles CSS pour la vue imprimable */
-            /* Styles spécifiques pour l'impression */
+      let printableContent = '';
+      this.allDonations.forEach((donation, index) => {
+        console.log("dans le all bro");
+        
+        printableContent += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${donation.montantDon}</td>
+            <td>${donation.typeDon}</td>
+            <td>${donation.updated_at}</td>
+            <td>${donation.nomDon}</td>
+            <td>${donation.prenomDon}</td>
+            <td>${donation.contactDon}</td>
+            <td>${donation.civiliteDon } </td>
+            <td>${donation.villeDon } </td>
+            <td>${donation.paysDon } </td>
+          </tr>
+        `;
+      });
 
-  body {
-    font-family: Arial, sans-serif;
+            printWindow!.document.write(`
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    ${this.styleString}
+                </style>
+            </head>
+            <body>
+            <div class="table-title">
+                <h3>Liste des dons non anonymes - organisation szszs</h3>
+            </div>
+            
+                <h1>Boom</h1>
+                <table>
+              <thead>
+              <tr>
+                    <th class="border-0 rounded-start">N°</th>
+                    <th class="border-0">Montant</th>
+                    <th class="border-0">Type</th>
+                    <th class="border-0">Date</th>
+                    <th class="border-0">Nom</th>
+                    <th class="border-0">Prénom</th>
+                    <th class="border-0">Contact</th>
+                    <th class="border-0">Civilité</th>
+                    <th class="border-0">Ville</th>
+                    <th class="border-0">Pays</th>
+            </tr>
+              <tbody>
+                ${printableContent}
+              </tbody>
+            </table>
+            </body>
+            </html>
+            `
+            );
+            printWindow?.document.close();
+            printWindow?.focus();
+            printWindow?.print();
+
+
+            // 3. Générer le contenu de la vue imprimable
+
+            
+          
   }
 
-  .page {
-    page-break-after: always;
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-
-  table {
-    width: 100%;
-    border:1px solid #0a0a0a;
-  }
-  tr {
-    width: 100%;
-    border:1px solid #0a0a0a;
-  }
-
-  th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #eeeeee;
-  }
-            @media print {
-              /* Masquer les éléments non requis */
-              button {
-                display: none;
-              }
-            }
-          </style>
-        </head>
-        <body>
-          <h1>Liste complète des dons anonymes</h1>
-          <table>
-            <thead>
-            <tr>
-                  <th class="border-0 rounded-start">N°</th>
-                  <th class="border-0">Montant</th>
-                  <th class="border-0">Type</th>
-                  <th class="border-0">Date</th>
-           </tr>
-            <tbody>
-              ${printableContent}
-            </tbody>
-          </table>
-        </body>
-        <footer><h4>saint joseph mukassa</h4></footer>
-      </html>
-    `);
-
-    printWindow!.document.close();
-    printWindow!.print();
-
+  printNoAnonymousOrga(dataSubscrirbe: Don[]){
+    this.allDonations = dataSubscrirbe;
       
-    });
+      
+      //IMPRESSION
+      const printWindow = window.open('', '_blank');
 
-    
-    
+      let printableContent = '';
+      this.allDonations.forEach((donation, index) => {
+        console.log("dans le all bro");
+        
+        printableContent += `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${donation.montantDon}</td>
+            <td>${donation.typeDon}</td>
+            <td>${donation.organisationDon}</td>
+            <td>${donation.updated_at}</td>
+            <td>${donation.nomDon}</td>
+            <td>${donation.prenomDon}</td>
+            <td>${donation.contactDon}</td>
+            <td>${donation.civiliteDon } </td>
+            <td>${donation.villeDon } </td>
+            <td>${donation.paysDon } </td>
+          </tr>
+        `;
+      });
+
+            printWindow!.document.write(`
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <style>
+                    ${this.styleString}
+                </style>
+            </head>
+            <body>
+            <div class="table-title">
+                <h3>Liste des dons non anonymes - organisation szszs</h3>
+            </div>
+            
+                <h1>Boom</h1>
+                <table>
+              <thead>
+              <tr>
+                    <th class="border-0 rounded-start">N°</th>
+                    <th class="border-0">Montant</th>
+                    <th class="border-0">Type</th>
+                    <th class="border-0">Organisation</th>
+                    <th class="border-0">Date</th>
+                    <th class="border-0">Nom</th>
+                    <th class="border-0">Prénom</th>
+                    <th class="border-0">Civilité</th>
+                    <th class="border-0">Ville</th>
+                    <th class="border-0">Pays</th>
+            </tr>
+              <tbody>
+                ${printableContent}
+              </tbody>
+            </table>
+            </body>
+            </html>
+            `
+            );
+            printWindow?.document.close();
+            printWindow?.focus();
+            printWindow?.print();
   }
 }
