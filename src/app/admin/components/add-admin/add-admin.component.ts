@@ -5,6 +5,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataCountry } from '../../models/country-code.model';
+import { DataAdminType } from '../../models/admin-type.model';
 
 @Component({
   selector: 'app-add-admin',
@@ -20,6 +21,8 @@ export class AddAdminComponent implements OnInit {
 
   adminList$!: Observable<DataAdmin>;
   adminList!: DataAdmin;
+
+  listAdminTypes!: DataAdminType;
 
   password!: string;
   confirmPassword!: string;
@@ -66,11 +69,24 @@ export class AddAdminComponent implements OnInit {
     );
 
     
-
+      //contrise list
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])
     );
     this.countries$.subscribe(data => this.countries = data);
+
+    //admin type list
+    this.route.data.pipe(
+      map(data => data['listAdminTypes'])
+    ).subscribe(
+      data => {
+        this.listAdminTypes = data;
+        console.log("the wall");
+        
+        console.log(this.listAdminTypes.typeadministrateurs);
+        
+      }
+    );
   }
 
   onClickContryCode(val: string){
@@ -119,5 +135,14 @@ export class AddAdminComponent implements OnInit {
         return false;
       }
     });
+  }
+
+  isAdminType(type: number): boolean{
+    console.log("type: "+type);
+    
+    if(type === 1){
+      return true;
+    }
+    return false;
   }
 }
