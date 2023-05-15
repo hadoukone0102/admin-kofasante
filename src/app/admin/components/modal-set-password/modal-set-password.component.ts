@@ -9,6 +9,7 @@ import { AdminService } from '../../services/admin.service';
 export class ModalSetPasswordComponent implements OnInit{
   groupPasswords!: DataSetPassword;
   pwdIsConfirmed!: boolean;
+  pwdExists!: boolean;
 
   constructor(
     private adminService: AdminService
@@ -22,16 +23,27 @@ export class ModalSetPasswordComponent implements OnInit{
       mdpAdmin: ''
     }  
     this.pwdIsConfirmed = true;
+    this.pwdExists = true;
   }
   
   onSubmit(){
-    this.adminService.updatePassword(this.groupPasswords).subscribe(
-      data => {
-        console.log("come back password => "+data.success);
-        console.log("come back password => "+data.message);
-      },
-      (error) => console.log("erreur: "+ error)
-    );
+    if(this.groupPasswords.new_password != this.groupPasswords.confirm_password){
+      this.pwdIsConfirmed = false;
+    }
+    else{
+      this.adminService.updatePassword(this.groupPasswords).subscribe(
+        data => {                     
+          if(!data.success){
+            this.pwdExists = false; 
+            console.log("le thub+ "+this.pwdExists);
+            
+          }
+        },
+        (error) => console.log("Erreur: "+ error)
+      );
+    }
+
+   
   }
 
   onClickConfirmPassword(){
