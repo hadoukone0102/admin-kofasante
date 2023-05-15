@@ -152,7 +152,7 @@ export class AdminService {
   enabledAdmin(id: String): Observable<DataEnabledAccount>{
     console.log("dans le deletes");
     
-    return this.http.get<DataEnabledAccount>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
+    return this.http.patch<DataEnabledAccount>(`${environment.apiUrlAdmin}/restoreAdmin/${id}`, null).pipe(
       tap((response) => console.log("cest dans la boite")
       ),
       catchError((error) => {

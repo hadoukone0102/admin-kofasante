@@ -6,6 +6,7 @@ import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminByid } from '../../models/admin-by-id.model';
 import { DataSetPassword } from '../../models/set-password.model';
+import { DataSetTypeAdmin } from '../../models/set-type-admin.model';
 
 @Component({
   selector: 'app-edit-admin',
@@ -15,7 +16,7 @@ export class EditAdminComponent implements OnInit{
   contact!: string;
 
   admin!: DataAdminByid;
-  typeAdmin!: DataSetPassword;
+  typeAdmin!: DataSetTypeAdmin;
 
   password!: string;
   confirmPassword!: string;
