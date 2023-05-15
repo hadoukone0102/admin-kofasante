@@ -20,7 +20,7 @@ export class ForgotPasswordComponent implements OnInit{
   contactToSend!: DataForgotPassword;
   countryCode!: string;
 
-  isDataReceived!: boolean;
+  contactExist!: boolean;
   resultDataForgotPassword!: DataResultForgotPassword;
 
   constructor(
@@ -40,7 +40,7 @@ export class ForgotPasswordComponent implements OnInit{
     this.countries$.subscribe(data => this.countries = data)
     this.countryCode = '+225';
     this.contact ="";
-    this.isDataReceived = false;
+    this.contactExist = true;
   }
 
   goToLogin(){
@@ -62,15 +62,14 @@ export class ForgotPasswordComponent implements OnInit{
         this.resultDataForgotPassword = data;
         console.log("le success: "+ data.success);
         
-        if(data.success === true || data.success === false){
+        if(data.success){
           console.log("if susscess");
-          this.isDataReceived = true;
           
           sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
           this.coreService.goToConfirmCodeSms();
-
         }else{
           console.log("Erreur de sms");
+          this.contactExist = false;
         }
         }
       ),

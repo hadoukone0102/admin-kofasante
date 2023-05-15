@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit{
 
   contactIsEmpty!: boolean;
   passwordIsEmpty!: boolean;
+  isLogged!: boolean;
 
   countries$!: Observable<DataCountry>;
   countries!: DataCountry;
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit{
     this.contactIsEmpty = false;
     this.passwordIsEmpty = false;
     this.countryCode = '+225';
+    this.isLogged = true;
 
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])
@@ -58,8 +60,8 @@ export class LoginComponent implements OnInit{
   }
   
   onSubmit(){
+    this.isLogged = true
     this.dataLogin.contactAdmin =  this.countryCode + this.contact;
-    console.log("le contact"+this.dataLogin.contactAdmin);
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         console.log("Mon token: "+data.access_token);
@@ -73,12 +75,15 @@ export class LoginComponent implements OnInit{
           this.coreService.goToDashboard();
         }else{
           console.log("pas d'authentification réussi");
+          this.isLogged = false;
         }
         
       },
       (error) => console.log("Erreur: "+ error)
     );
 
+
+  
     // this.coreService.goToDashboard();
 
 
@@ -94,14 +99,6 @@ export class LoginComponent implements OnInit{
     // }else{
     //   this.passwordIsEmpty = false;
     // }
-  }
-
-  login(){
-    
-  }
-
-  logout(){
-    
   }
 
   goToForgotPassowrd(){

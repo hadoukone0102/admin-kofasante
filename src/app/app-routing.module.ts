@@ -12,6 +12,7 @@ import { ResetPasswordComponent } from './admin/components/reset-password/reset-
 import { PriestGuard } from './admin/guards/priest.guard';
 import { SecretaryGuard } from './admin/guards/secretary.guard';
 import { AccessGuard } from './admin/guards/access.guard';
+import { IsResettingPasswordGuard } from './admin/guards/is-resetting-password.guard';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
@@ -52,8 +53,8 @@ const routes: Routes = [
   }, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
   {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 
-  {path: 'confirmer-code-sms', component: ConfirmCodeSmsComponent}, 
-  {path: 'reinitialiser-mot-de-passe', component: ResetPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
+  {path: 'confirmer-code-sms', component: ConfirmCodeSmsComponent, canActivate: [IsResettingPasswordGuard]}, 
+  {path: 'reinitialiser-mot-de-passe', component: ResetPasswordComponent, resolve: {countryCode: CountryCodeResolver}, canActivate: [IsResettingPasswordGuard]}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
   {path:'**', redirectTo:'/page-introuvable'},
 ];

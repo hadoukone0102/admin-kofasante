@@ -9,6 +9,8 @@ import { AuthService } from '../../services/auth.service';
 })
 export class ResetPasswordComponent implements OnInit{
   newPassword!: DataResetPassword;
+  pwdIsConfirmed!: boolean;
+  success!: boolean;
 
   constructor(
     private coreService: CoreService,
@@ -21,13 +23,30 @@ export class ResetPasswordComponent implements OnInit{
       new_password: '',
       confirm_password: ''
     }
+    this.pwdIsConfirmed = true;
+    this.success = true;
   }
 
   onSubmit(){
     this.authService.resetPassword(this.newPassword).subscribe(
-      (data) => this.coreService.goToLogin(),
+      (data) => {
+        if (data.success){
+          this.coreService.goToLogin()
+        }else{
+          this.success = false;
+        }
+      },
       (error) => console.log("Error lors de la réinitialisation du mot de passe: "+error)
     )
+  }
+
+  onClickConfirmPassword(){
+    if(this.newPassword.new_password != this.newPassword.confirm_password){
+      this.pwdIsConfirmed = false;
+    }
+    else{
+      this.pwdIsConfirmed = true;
+    }
   }
 
 }

@@ -25,8 +25,6 @@ export class ModalSetPasswordComponent implements OnInit{
   }
   
   onSubmit(){
-    console.log("le num: "+this.groupPasswords.contactAdmin);
-    
     this.adminService.updatePassword(this.groupPasswords).subscribe(
       data => {
         console.log("come back password => "+data.success);
