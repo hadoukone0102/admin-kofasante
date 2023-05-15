@@ -88,6 +88,14 @@ export class DonationTableComponent implements OnInit{
     this.csvFileName = '';
     
   }
+
+  isNotReporter(): boolean {
+    if (this.router.url.includes("/dons/bilan-don")){
+      return false;
+    }else{
+      return true;
+    }
+  }
   
   hideExportationButton(){
     this.isExporting =false;

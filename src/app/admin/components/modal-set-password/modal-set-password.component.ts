@@ -31,12 +31,11 @@ export class ModalSetPasswordComponent implements OnInit{
       this.pwdIsConfirmed = false;
     }
     else{
+      this.pwdExists = true;
       this.adminService.updatePassword(this.groupPasswords).subscribe(
         data => {                     
           if(!data.success){
             this.pwdExists = false; 
-            console.log("le thub+ "+this.pwdExists);
-            
           }
         },
         (error) => console.log("Erreur: "+ error)

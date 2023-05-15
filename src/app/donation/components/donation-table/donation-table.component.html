@@ -54,7 +54,7 @@
             
         </div>
         <div class="row mb-4">
-            <div *ngIf="!isExporting" class=" col-8 col-sm-6 col-md-4  btn-group">
+            <div *ngIf="!isExporting && isNotReporter()" class=" col-8 col-sm-6 col-md-4  btn-group">
                 <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-secondary">Exporter</button>
             </div>
             <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4   btn-group">
