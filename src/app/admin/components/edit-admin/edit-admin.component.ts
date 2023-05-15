@@ -52,6 +52,10 @@ export class EditAdminComponent implements OnInit{
     ).subscribe(
       data => {
         this.listAdminTypes = data;
+        console.log("the wall");
+        
+        console.log(this.listAdminTypes.typeadministrateurs);
+        
       }
     );
     
@@ -66,5 +70,15 @@ export class EditAdminComponent implements OnInit{
       },
       (error) => console.log("Une erreur s'est produite!")
     )
+  }
+
+  isAdminType(type: number): boolean{
+    console.log("type: "+type);
+    console.log("admin.type: "+this.admin.administrateur.id_typeadmin);
+    
+    if(this.admin.administrateur.id_typeadmin === type){
+      return true;
+    }
+    return false;
   }
 }
