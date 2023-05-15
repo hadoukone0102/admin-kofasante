@@ -23,11 +23,12 @@ import { AdminTableComponent } from './components/admin-table/admin-table.compon
 import { EditAdminComponent } from './components/edit-admin/edit-admin.component';
 import { ListDisabledCountAdminResolver } from './resolvers/list-disabled-account-admin.resolver';
 import { AdminByIdResolver } from './resolvers/admin-by-id.resolver';
+import { ListAdminTypesResolver } from './resolvers/list-admin-types.resolver';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver }, ...GLOBAL_RESOLVERS};
 const listDisabedAccountResolvers = {...{listDisabledAccount: ListDisabledCountAdminResolver}, ...GLOBAL_RESOLVERS};
-const listEditAdminResolvers = {...{adminById: AdminByIdResolver}, ...GLOBAL_RESOLVERS};
+const listEditAdminResolvers = {...{adminById: AdminByIdResolver, listAdminTypes: ListAdminTypesResolver}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
@@ -64,6 +65,7 @@ const adminRoutes: Routes = [
     ListAdminsResolver,
     CountryCodeResolver,
     ListDisabledCountAdminResolver,
+    ListAdminTypesResolver,
     AuthService
   ]
 })

@@ -5,14 +5,14 @@ export const  environment = {
     apiUrlDon: 'http://192.168.1.17:8000/api',
     apiUrlAdmin: 'http://192.168.1.17:4200/api',
 
-    allRoles: ['Curé', 'Sécrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
+    allRoles: ['Curé', 'Secrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
 }
 
 /**
  * ROLES POSSIBLES
  * 
  * Curé
- * Sécrétaire
+ * Secrétaire
  * Financier
  * Responsable de catéchèse
  * Président du conseil paroissiale

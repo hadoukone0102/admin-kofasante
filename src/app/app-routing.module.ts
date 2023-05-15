@@ -19,7 +19,7 @@ const listProfileResolvers = {...GLOBAL_RESOLVERS};
  * ROLES POSSIBLES
  * 
  * Curé
- * Sécrétaire
+ * Secrétaire
  * Financier
  * Responsable de catéchèse
  * Président du conseil paroissiale
@@ -48,7 +48,7 @@ const routes: Routes = [
     canActivate: [AuthGuard, AccessGuard],
     data:{
       roles: ['Curé']
-    }
+    },
   }, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
   {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 

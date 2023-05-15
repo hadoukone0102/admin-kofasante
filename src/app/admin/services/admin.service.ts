@@ -41,7 +41,7 @@ export class AdminService {
   }
   
   getAdminTypes(): Observable<DataAdminType>{
-    return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/returnTypedAdmin`).pipe(
+    return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/typesAdmin`).pipe(
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();

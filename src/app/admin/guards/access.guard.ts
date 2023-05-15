@@ -17,13 +17,16 @@ export class AccessGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
-      let test =  this.adminService.isSecretary();
-      if(test){
-        return true;
-      }
+      // let test =  this.adminService.isSecretary();
+      // if(test){
+      //   return true;
+      // }
 
     const type = sessionStorage.getItem('type');
     const roles = route.data['roles'];
+    console.log("type: "+ type);
+    console.log("roles: "+ roles);
+    
 
     if (roles.includes(type)) {
       return true;

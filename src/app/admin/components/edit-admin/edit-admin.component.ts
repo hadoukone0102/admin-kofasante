@@ -7,6 +7,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminByid } from '../../models/admin-by-id.model';
 import { DataSetPassword } from '../../models/set-password.model';
 import { DataSetTypeAdmin } from '../../models/set-type-admin.model';
+import { DataAdminType } from '../../models/admin-type.model';
 
 @Component({
   selector: 'app-edit-admin',
@@ -17,6 +18,8 @@ export class EditAdminComponent implements OnInit{
 
   admin!: DataAdminByid;
   typeAdmin!: DataSetTypeAdmin;
+
+  listAdminTypes!: DataAdminType;
 
   password!: string;
   confirmPassword!: string;
@@ -36,13 +39,19 @@ export class EditAdminComponent implements OnInit{
     ).subscribe(
       data => {
         this.admin = data;
-        console.log("grand: "+this.admin.administrateur.contactAdmin);
         
         this.typeAdmin = {
           contactAdmin: this.admin.administrateur.contactAdmin,
           id_typeadmin: this.admin.administrateur.id_typeadmin
         };
-        console.log("contact:  "+ this.typeAdmin.id_typeadmin);
+      }
+    );
+    
+    this.route.data.pipe(
+      map(data => data['listAdminTypes'])
+    ).subscribe(
+      data => {
+        this.listAdminTypes = data;
       }
     );
     
@@ -50,8 +59,6 @@ export class EditAdminComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log('sub contact: '+ this.typeAdmin.id_typeadmin);
-    
     this.adminService.updateTypeAdmin(this.typeAdmin).subscribe(
       data => {
         console.log("donnee recus de type admin: "+data.success);
