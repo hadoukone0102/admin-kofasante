@@ -5,6 +5,7 @@ import { Observable, map } from 'rxjs';
 import { DataDonationNotif } from '../../models/donation-notif.model';
 import { NotificationService } from '../../services/notification.service';
 import { AuthService } from 'src/app/admin/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
@@ -17,7 +18,10 @@ export class SidebarComponent implements OnInit{
 
   adminFirstName!: string|null;
   adminLastName!: string|null;
+  adminType!: string|null;
 
+  rolesForDonation!: string[];
+  rolesForAdmin!: string[];
   
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +39,26 @@ export class SidebarComponent implements OnInit{
 
     this.adminFirstName = sessionStorage.getItem('firstName');
     this.adminLastName = sessionStorage.getItem('lastName');
+    this.adminType = sessionStorage.getItem('type');
+    //roles initialisation
+    this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
+    this.rolesForAdmin = ['Curé'];
   }
+
+  isAuthorizedForDonation(): boolean{
+    if(this.rolesForDonation.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
+  }
+  
+  isAuthorizedForAdmin(){
+    if(this.rolesForAdmin.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
+  }
+
 
   goToDashboard(){
     this.coreService.goToDashboard();

@@ -6,6 +6,7 @@ export const  environment = {
     apiUrlAdmin: 'http://192.168.1.17:4200/api',
 
     allRoles: ['Curé', 'Secrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
+    allRoles_Without_HeadOfCatechesis: ['Curé', 'Secrétaire', 'Financier', 'Président du conseil paroissiale'],
 }
 
 /**

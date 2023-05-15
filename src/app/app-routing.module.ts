@@ -35,7 +35,7 @@ const routes: Routes = [
   {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule), 
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: environment.allRoles
+      roles: environment.allRoles_Without_HeadOfCatechesis
     }
   }, 
   {path: 'profile', component: ProfileComponent, resolve: listProfileResolvers, 
