@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-donation-table',
@@ -72,10 +73,10 @@ export class DonationTableComponent implements OnInit{
     this.donationList = this.donationListParent.dons;
     this.checkAndApplyDisabled(this.donationListParent);
 
-    const now = new Date();
-    this.todayDate = now.toISOString().substring(0, 10); // format AAAA-MM-JJ
-    this.dateEndValue = this.todayDate;
-    this.dateStartValue = this.todayDate;
+    this.dateEndValue = environment.todayDate;
+    this.dateStartValue = environment.dateStartForSearch;
+    console.log("ma date fav: "+this.dateStartValue);
+    
     this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
     //Send data for search to parent
@@ -90,7 +91,7 @@ export class DonationTableComponent implements OnInit{
   }
 
   isNotReporter(): boolean {
-    if (this.router.url.includes("/dons/bilan-don")){
+    if (this.router.url === "/dons/bilan-don"){
       return false;
     }else{
       return true;
