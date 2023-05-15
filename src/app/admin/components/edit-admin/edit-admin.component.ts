@@ -36,15 +36,25 @@ export class EditAdminComponent implements OnInit{
     ).subscribe(
       data => {
         this.admin = data;
-        console.log("grand: "+this.admin.administrateur.nomAdmin);
-    }
+        console.log("grand: "+this.admin.administrateur.contactAdmin);
+        
+        this.typeAdmin = {
+          contactAdmin: this.admin.administrateur.contactAdmin,
+          id_typeadmin: this.admin.administrateur.id_typeadmin
+        };
+        console.log("contact:  "+ this.typeAdmin.id_typeadmin);
+      }
     );
+    
+    
   }
 
   onSubmit(){
+    console.log('sub contact: '+ this.typeAdmin.id_typeadmin);
+    
     this.adminService.updateTypeAdmin(this.typeAdmin).subscribe(
       data => {
-        console.log("donnee recus de type admin: "+data);
+        console.log("donnee recus de type admin: "+data.success);
         this.coreService.goToAdmin();
       },
       (error) => console.log("Une erreur s'est produite!")
