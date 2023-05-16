@@ -36,10 +36,9 @@
                         <label for="contact">Contact</label>
                         <input class="form-control" id="contact" name="contact" type="text" placeholder="Entrez votre numéros mobile" 
                         [value]="admin.administrateur.contactAdmin"
-                        disabled
+                        [(ngModel)]="typeAdmin.newcontactAdmin"
                         required="">
                     </div>
-                     
                 </div>
                
                 <div class="col-12 mb-3">

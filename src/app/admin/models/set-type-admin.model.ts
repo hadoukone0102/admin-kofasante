@@ -1,11 +1,13 @@
-export interface DataSetTypeAdmin {
-    contactAdmin: string
-    id_typeadmin: number
+export interface DataSetTypeAndContactAdmin {
+  id: number
+  newcontactAdmin: string
+  id_typeadmin: number
   }
 
-export interface DataResultSetTypeAdmin {
+export interface DataResultSetTypeAndContactAdmin {
     success: boolean
     message: string
     errorslist: string
   }
+  
   

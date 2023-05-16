@@ -5,8 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminByid } from '../../models/admin-by-id.model';
-import { DataSetPassword } from '../../models/set-password.model';
-import { DataSetTypeAdmin } from '../../models/set-type-admin.model';
+import { DataSetTypeAndContactAdmin } from '../../models/set-type-admin.model';
 import { DataAdminType } from '../../models/admin-type.model';
 
 @Component({
@@ -17,7 +16,7 @@ export class EditAdminComponent implements OnInit{
   contact!: string;
 
   admin!: DataAdminByid;
-  typeAdmin!: DataSetTypeAdmin;
+  typeAdmin!: DataSetTypeAndContactAdmin;
 
   listAdminTypes!: DataAdminType;
 
@@ -41,7 +40,8 @@ export class EditAdminComponent implements OnInit{
         this.admin = data;
         
         this.typeAdmin = {
-          contactAdmin: this.admin.administrateur.contactAdmin,
+          id: +this.admin.administrateur.id,
+          newcontactAdmin: this.admin.administrateur.contactAdmin,
           id_typeadmin: this.admin.administrateur.id_typeadmin
         };
       }

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataProfileInfo, DataResultProfileInfo } from '../models/profile-info.model';
 import { DataResultSetPassword, DataSetPassword } from '../models/set-password.model';
-import { DataResultSetTypeAdmin, DataSetTypeAdmin } from '../models/set-type-admin.model';
+import { DataResultSetTypeAndContactAdmin, DataSetTypeAndContactAdmin } from '../models/set-type-admin.model';
 import { DataDisabledAccount } from '../models/disabled-account-admin.model';
 import { DataAdminByid } from '../models/admin-by-id.model';
 import { DataEnabledAccount } from '../models/enabled-account-admin.model';
@@ -122,11 +122,11 @@ export class AdminService {
     );
   }
   
-  updateTypeAdmin(typeAdmin: DataSetTypeAdmin): Observable<DataResultSetTypeAdmin>{
+  updateTypeAdmin(typeAdmin: DataSetTypeAndContactAdmin): Observable<DataResultSetTypeAndContactAdmin>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-    return this.http.put<DataResultSetTypeAdmin>(`${environment.apiUrlAdmin}/typeAdmin/change`, typeAdmin, httpOptions).pipe(
+    return this.http.put<DataResultSetTypeAndContactAdmin>(`${environment.apiUrlAdmin}/changeNumTypeAdmin`, typeAdmin, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.success )
       ),
       catchError((error: any) => {

@@ -83,17 +83,6 @@
             
         </div>
 
-        <div class="spinner-grow text-warning" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <div class="spinner-border text-info" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <div class="spinner-grow text-info" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          
-          
         <!-- / Search form -->
     <div class="table-responsive">
         <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
@@ -159,7 +148,7 @@
 </div>
 </div>
 
-<div *ngIf=" donationListParent.last_page != 0 && donationListParent.last_page != undefined" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+<div *ngIf=" donationListParent.last_page != 0 && donationListParent.last_page != undefined && donationListParent.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
     <p>
         Affichage de {{donationListParent.current_page}}/{{donationListParent.last_page}} pages
     </p>
@@ -179,7 +168,16 @@
         </ul>
     </nav>
 </div>
-    <div *ngIf="donationListParent.last_page === 0 || donationListParent.last_page === undefined">
+    <div *ngIf="(donationListParent.last_page === 0 || donationListParent.last_page === undefined) && !isExporting">
         <h4 class="text-center">Aucune donnée dans la table</h4>
     </div>
+
+    <!-- Spinner -->
+   <div class="text-center">
+       <div *ngIf="donationListParent.last_page === -1" class="spinner-border text-info " role="status">
+         <span class="visually-hidden">Loading...</span>
+       </div>
+
+   </div>
+      
 </div>

@@ -141,6 +141,18 @@ export class DonationTableComponent implements OnInit{
    * @date 5/11/2023 - 8:43:06 PM
    */
    export(){
+    //clear table
+    this.donationList = [];
+    this.donationListParent = {
+      status: '',
+      status_code: 0,
+      status_message: '',
+      current_page: 0,
+      last_page: -1,
+      dons: []
+
+    }
+
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
       this.pdfOrientation = 'portrait';
