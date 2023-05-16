@@ -24,6 +24,7 @@ export class DonationTableComponent implements OnInit{
   searchBarValue: string = "";
   dateStartValue: string = "";
   dateEndValue: string = "";
+  dateIsCorrect!: boolean;
 
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
@@ -46,7 +47,7 @@ export class DonationTableComponent implements OnInit{
   isLastPage!: string;
   newPage!: number;
 
-  todayDate!: string;
+  today: Date = new Date();
 
   //print
   styleString: string ='';
@@ -75,6 +76,7 @@ export class DonationTableComponent implements OnInit{
 
     this.dateEndValue = environment.todayDate;
     this.dateStartValue = environment.dateStartForSearch;
+    this.dateIsCorrect = true;
     console.log("ma date fav: "+this.dateStartValue);
     
     this.sendDataToParent();
@@ -87,7 +89,12 @@ export class DonationTableComponent implements OnInit{
     this.pdfFileName = '';
     this.excelFileName = '';
     this.csvFileName = '';
-    
+
+    console.log("may maufm mama: "+ this.endDate());
+  }
+
+  endDate(): Date{
+    return new Date(this.dateEndValue);
   }
 
   isNotReporter(): boolean {
@@ -202,6 +209,15 @@ export class DonationTableComponent implements OnInit{
     this.searchBarValueToParent.emit(this.searchBarValue);
     this.dateStartValueToParent.emit(this.dateStartValue);
     this.dateEndValueToParent.emit(this.dateEndValue);
+  }
+  checkAndSearch(){
+    const dateStart = new Date(this.dateStartValue)
+    const dateEnd = new Date(this.dateEndValue)
+    if(dateStart > dateEnd){
+      this.dateIsCorrect = true;
+    }else{
+      
+    }
   }
 
   search(){

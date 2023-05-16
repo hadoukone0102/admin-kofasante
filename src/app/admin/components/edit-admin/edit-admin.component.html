@@ -47,9 +47,9 @@
                     <select [(ngModel)]="+typeAdmin.id_typeadmin" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
                         <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                         <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
-                            value="3"
-                            [selected]="isAdminType(3)"
-                            >{{type}}
+                            value="{{type.id}}"
+                            [selected]="isAdminType(type.id)"
+                            >{{type.libelleType}}
                         </option>
                         <!-- <option value="1">Curé</option> -->
                         <!-- <option value="2">Sécrétaire</option> -->

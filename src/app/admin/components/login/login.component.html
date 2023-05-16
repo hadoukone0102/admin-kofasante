@@ -18,7 +18,7 @@
                             >
                                  <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                                  <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
-                                    {{country.ITU_T_Telephone_Code}}
+                                    {{country.ISO_3166_1_2_Letter_Code+"("+ country.ITU_T_Telephone_Code + ")"}}
                                   </option>
                                 
                             </select>

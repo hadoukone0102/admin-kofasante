@@ -25,7 +25,7 @@
                             <small class="text-danger">Entrez un nom</small>
                         </div>
                         <div class="text-danger"
-                        [hidden]="theFirstName.valid || theFirstName.pristine">
+                            [hidden]="theFirstName.valid || theFirstName.pristine">
                             Entrez des lettres et des chiffres uniquement
                         </div> 
                     </div>
@@ -56,7 +56,7 @@
                         >
                              <!-- <option value='+225' selected>+25a5</option> -->
                              <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
-                                {{country.ITU_T_Telephone_Code}}
+                                {{country.ISO_3166_1_2_Letter_Code+"("+ country.ITU_T_Telephone_Code + ")"}}
                               </option>
                             
                         </select>
@@ -121,10 +121,10 @@
                         <select [(ngModel)]="admin.id_typeadmin" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
                             <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                             <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
-                                value="3"
-                                [selected]="isAdminType(3)"
-                                >{{type}}
-                            </option>
+                            value="{{type.id}}"
+                            [selected]="isAdminType(1)"
+                            >{{type.libelleType}}
+                        </option>
                             <!-- <option value="1" selected>Curé</option> -->
                             <!-- <option value="2">Sécrétaire</option> -->
                             <!-- <option value="3">Responsable de catéchèse</option> -->

@@ -31,7 +31,11 @@
                             (change)="search()"
                         
                         name="dateStart"
+                        [max]="endDate().toISOString().split('T')[0]"
                         type="date" class="form-control" id="dateStart" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">                                               
+                    </div>
+                    <div *ngIf="dateIsCorrect" class="text-danger">
+                        <small>La date de début doit être inférieur à la date de début</small>
                     </div>
                 </div>
                 <!-- End of Form -->
@@ -46,6 +50,7 @@
                         <input #searchBar [(ngModel)]="dateEndValue" 
                         (change)="search()"
                         name="dateEnd"
+                        [max]="today.toISOString().split('T')[0]"
                         type="date" class="form-control" id="dateEnd" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">                                               
                     </div>
                 </div>
