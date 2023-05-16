@@ -214,9 +214,14 @@ export class DonationTableComponent implements OnInit{
     const dateStart = new Date(this.dateStartValue)
     const dateEnd = new Date(this.dateEndValue)
     if(dateStart > dateEnd){
-      this.dateIsCorrect = true;
-    }else{
+      console.log("sup");
+      this.donationList = [];
+      this.donationListParent = new DataDon();
       
+      this.dateIsCorrect = false;
+    }else{
+      console.log("inf");
+      this.search();
     }
   }
 
