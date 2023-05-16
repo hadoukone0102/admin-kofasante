@@ -210,6 +210,7 @@ export class DonationTableComponent implements OnInit{
     this.dateStartValueToParent.emit(this.dateStartValue);
     this.dateEndValueToParent.emit(this.dateEndValue);
   }
+
   checkAndSearch(){
     const dateStart = new Date(this.dateStartValue)
     const dateEnd = new Date(this.dateEndValue)
@@ -217,9 +218,12 @@ export class DonationTableComponent implements OnInit{
       console.log("sup");
       this.donationList = [];
       this.donationListParent = new DataDon();
+      console.log("le last: "+ this.donationListParent.last_page);
+      
       
       this.dateIsCorrect = false;
     }else{
+      this.dateIsCorrect = true;
       console.log("inf");
       this.search();
     }
@@ -449,8 +453,4 @@ export class DonationTableComponent implements OnInit{
       }
     }
   }
-
-  
- 
-
 }

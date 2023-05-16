@@ -32,7 +32,12 @@ export class AdminTableComponent implements OnInit{
       )
     }else{
       this.disabledAccounts$.subscribe(
-        disabledAccounts => this.disabledAccounts = disabledAccounts
+        disabledAccounts => {
+          this.disabledAccounts = disabledAccounts;
+          console.log("log+ ");
+          console.log(this.disabledAccounts.administrateurs);
+      }
+        
         
         );
     }

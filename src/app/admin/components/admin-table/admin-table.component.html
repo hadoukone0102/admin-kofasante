@@ -39,7 +39,6 @@
     
     </tr>
 <!-- End of Item -->
-
 </tbody>
 
 <!-- DISABLED ACCOUNT -->
@@ -70,5 +69,12 @@
 <!-- End of Item -->
 
 </tbody>
+
 </table>
+<div *ngIf="!isDisabledAccount()">
+    <h4 *ngIf="admins.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4>
+</div>
+<div *ngIf="isDisabledAccount()">
+    <h4 *ngIf="disabledAccounts.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4>
+</div>
 </div>

@@ -82,6 +82,18 @@
             
             
         </div>
+
+        <div class="spinner-grow text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-border text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="spinner-grow text-info" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          
+          
         <!-- / Search form -->
     <div class="table-responsive">
         <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
@@ -147,7 +159,7 @@
 </div>
 </div>
 
-<div *ngIf="donationListParent.last_page != 0" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+<div *ngIf=" donationListParent.last_page != 0 && donationListParent.last_page != undefined" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
     <p>
         Affichage de {{donationListParent.current_page}}/{{donationListParent.last_page}} pages
     </p>
@@ -166,20 +178,8 @@
             </li>
         </ul>
     </nav>
-    <!-- <nav aria-label="Page navigation example">
-        <ul class="pagination mb-0">
-            <li class="page-item disabled" >
-                <button class="page-link" (click)="goToPrevious()">Précédent</button>
-            </li>
-            <li class="page-item">
-                <a class="page-link" >{{donationListParent.current_page}}</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" (click)="goToNext()" >Suivant</a>
-            </li>
-        </ul>
-    </nav> -->
-
-   
 </div>
+    <div *ngIf="donationListParent.last_page === 0 || donationListParent.last_page === undefined">
+        <h4 class="text-center">Aucune donnée dans la table</h4>
+    </div>
 </div>
