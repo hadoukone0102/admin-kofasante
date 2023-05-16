@@ -29,7 +29,7 @@ export class AdminTableComponent implements OnInit{
     if(this.listType === "enabled"){
       this.admins$.subscribe(
         admin => this.admins = admin
-      )
+      );
     }else{
       this.disabledAccounts$.subscribe(
         disabledAccounts => {
@@ -37,8 +37,6 @@ export class AdminTableComponent implements OnInit{
           console.log("log+ ");
           console.log(this.disabledAccounts.administrateurs);
       }
-        
-        
         );
     }
 

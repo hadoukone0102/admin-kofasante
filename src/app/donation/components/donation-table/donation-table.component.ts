@@ -135,21 +135,6 @@ export class DonationTableComponent implements OnInit{
        /* save to file */  
        XLSX.writeFile(wb, this.excelFileName);
   }
-  exportToCSV(){
-    // const XLSX = require('xlsx');
-
-    // Créer une feuille de calcul
-     /* pass here the table id */
-     let element = document.getElementById('exportTable');
-     const worksheet: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-
-    // Convertir la feuille de calcul en CSV
-    const csvData = XLSX.utils.sheet_to_csv(worksheet);
-
-    // Enregistrer le CSV dans un fichier
-    // const fs = require('fs');
-    // fs.writeFileSync(this.csvFileName, csvData);
-  }
 
    /**
    * IMPRESSION
