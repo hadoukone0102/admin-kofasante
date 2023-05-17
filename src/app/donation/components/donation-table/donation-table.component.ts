@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
-import { CoreService } from 'src/app/core/services/core.service';
-import { HttpClient } from '@angular/common/http';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
@@ -361,25 +359,26 @@ export class DonationTableComponent implements OnInit{
    * @param {DataDon} donationListParenta
    */
   checkAndApplyDisabled(donationListParenta: DataDon){
+    //NOTE - "1" means that it should be disabled and "..." that it should be enabled
     if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
-      //NOTE - ("1/...")
+      //("1/...")
       
       this.isFirstPage = "disabled";
       this.isLastPage = "";
     }else{
       if((donationListParenta.current_page === 1) && (donationListParenta.current_page === donationListParenta.last_page)){
-        //NOTE - ("1/1")
+        //("1/1")
         this.isFirstPage = "disabled";
         this.isLastPage = "disabled";
       }
       else{
         if((donationListParenta.current_page != 1) && (donationListParenta.current_page != donationListParenta.last_page)){
-          //NOTE - (".../...")
+          //(".../...")
           this.isFirstPage  = "";
           this.isLastPage = "";
         }
         else{
-            //NOTE - (".../1")
+            //(".../1")
             this.isFirstPage  = "";
             this.isLastPage = "disabled";
         }
