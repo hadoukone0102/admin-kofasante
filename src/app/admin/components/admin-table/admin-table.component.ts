@@ -24,6 +24,10 @@ export class AdminTableComponent implements OnInit{
     private coreService: CoreService
   ){}
 
+  /**
+   * Get admin list depending statut account (disabled/enabled)
+   * @date 5/17/2023 - 2:27:23 PM
+   */
   ngOnInit(): void {
     this.isDisabledAccount();
     if(this.listType === "enabled"){
@@ -32,26 +36,32 @@ export class AdminTableComponent implements OnInit{
       );
     }else{
       this.disabledAccounts$.subscribe(
-        disabledAccounts => {
-          this.disabledAccounts = disabledAccounts;
-          console.log("log+ ");
-          console.log(this.disabledAccounts.administrateurs);
-      }
+        disabledAccounts => this.disabledAccounts = disabledAccounts
         );
     }
 
   }
 
+  /**
+   * Returns true if the list to obtain is the list of disabled accounts
+   * @date 5/17/2023 - 2:29:11 PM
+   *
+   * @returns {boolean}
+   */
   isDisabledAccount(): boolean {
     if(this.listType === "disabled"){
-      console.log("le vrai");
-      
       return true;
     }
     return false;
   }
 
-  deleteAdmin(id: string){
+  /**
+   * Disable the specified account
+   * @date 5/17/2023 - 2:32:31 PM
+   *
+   * @param {string} id
+   */
+  disabledAdmin(id: string){
     this.adminService.disabledAdmin(id).subscribe(data =>{
       this.admins$ = this.adminService.getAdmins();
       this.admins$.subscribe(
@@ -63,6 +73,12 @@ export class AdminTableComponent implements OnInit{
     );
   }
 
+  /**
+   * Restore the specified account
+   * @date 5/17/2023 - 2:33:22 PM
+   *
+   * @param {string} id
+   */
   restoreAdmin(id: string){
     this.adminService.enabledAdmin(id).subscribe(
       data => this.coreService.goToAdmin(),
@@ -70,6 +86,12 @@ export class AdminTableComponent implements OnInit{
     )
   }
 
+  /**
+   * Go to the edition page for the specified administrator
+   * @date 5/17/2023 - 2:33:40 PM
+   *
+   * @param {string} id
+   */
   goToEditAdmin(id: string){
     this.coreService.goToEditAdmin(id);
   }

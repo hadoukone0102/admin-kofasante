@@ -29,7 +29,7 @@
         {{admin.id_typeadmin}}
     </td>
     <td>
-        <a title="Désactivez un administrateur" (click)="deleteAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
+        <a title="Désactivez un administrateur" (click)="disabledAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
             <i class="fa fa-ban" ></i>
         </a>
         <a title="Modifier le type de l'administrateur" (click)="goToEditAdmin(admin.id)" class="ms-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
