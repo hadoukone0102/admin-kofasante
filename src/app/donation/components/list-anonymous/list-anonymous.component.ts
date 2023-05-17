@@ -14,8 +14,11 @@ export class ListAnonymousComponent implements OnInit{
     private route: ActivatedRoute,
     ) { }
 
+  /**
+   * Get the list of anonymous donations when the page is initialized
+   * @date 5/17/2023 - 1:53:18 PM
+   */
   ngOnInit(): void {
-    
     this.donations$ = this.route.data.pipe(
       map(data => data['listAnonymous']),
     );
