@@ -67,13 +67,13 @@ export class AddAdminComponent implements OnInit {
       }
     );
     
-    //Get countries list
+    //Get countries list from resolver
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])
     );
     this.countries$.subscribe(data => this.countries = data);
 
-    //Get admin type list
+    //Get admin type list from resolver
     this.route.data.pipe(
       map(data => data['listAdminTypes'])
     ).subscribe(
