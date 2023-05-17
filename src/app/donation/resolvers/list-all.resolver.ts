@@ -13,6 +13,6 @@ export class ListAllResolver implements Resolve<DataDon> {
   constructor(private donationService: DonationService){}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDon> {
-    return this.donationService.getDonations();
+    return this.donationService.getDonationsWhere();
   }
 }

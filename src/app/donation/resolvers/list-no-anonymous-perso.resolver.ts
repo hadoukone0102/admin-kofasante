@@ -13,6 +13,6 @@ export class ListNoAnonymousPersoResolver implements Resolve<DataDon> {
   constructor(private donationService: DonationService){}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDon> {
-    return this.donationService.getDonationsNoAnonymousPerso();
+    return this.donationService.getDonationsNoAnonymousPersoWhere();
   }
 }

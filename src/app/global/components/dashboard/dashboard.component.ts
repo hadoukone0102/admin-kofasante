@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DataDonationInfo } from '../../models/donationInfo.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataAdminInfo } from '../../models/admin-info.model';
@@ -15,12 +15,9 @@ export class DashboardComponent implements OnInit{
   adminInfo$!: Observable<DataAdminInfo>;
   adminInfo!: DataAdminInfo;
   
-
-  
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    console.log("dahs");
     this.donationInfo$ = this.route.data.pipe(
       map(data => data['dashboard']),
     );

@@ -56,44 +56,40 @@ export class ReportDonationComponent implements OnInit{
 
   showAnonymousList(){
     this.type = "anonymous";
-    this.donations$ = this.donationService.getDonationsAnonymous();
+    this.donations$ = this.donationService.getDonationsAnonymousWhere();
   }
 
   showNoAnonymousPersoList(){
     this.type = "noAnonymousPerso";
-    this.donations$ = this.donationService.getDonationsNoAnonymousPerso();
+    this.donations$ = this.donationService.getDonationsNoAnonymousPersoWhere();
   }
   showNoAnonymousOrgaList(){
     this.type = "noAnonymousOrga";
-    this.donations$ = this.donationService.getDonationsNoAnonymousOrga();
+    this.donations$ = this.donationService.getDonationsNoAnonymousOrgaWhere();
   }
   
   showAllDonationsList(){
     this.type = "all";
-    this.donations$ = this.donationService.getDonations();
+    this.donations$ = this.donationService.getDonationsWhere();
   }
 
   getAccumlationDonations(){
     this.donationService.getAccumulationDonations(this.searchBarValue, this.dateStartValue, this.dateEndValue)
     .subscribe(data => {
         this.accumulation = data;
-        console.log("l'accumalqtion dons: "+this.accumulation.cumul_prix_dons);
       });
   }
 
   handleSearchBarValueFromChild(searchBarValue: string) {
     this.searchBarValue = searchBarValue;
-    console.log("bar: "+this.searchBarValue);
     this.getAccumlationDonations();
   }
   handleDateStartValueFromChild(dateStartValue: string) {
     this.dateStartValue = dateStartValue;
-    console.log("start: "+this.dateStartValue);
     this.getAccumlationDonations();
   }
   handleDateEndValueFromChild(dateEndValue: string) {
     this.dateEndValue = dateEndValue;
-    console.log("end: "+this.dateEndValue);
     this.getAccumlationDonations();
   }
 

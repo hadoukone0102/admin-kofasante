@@ -69,11 +69,9 @@ export class AuthService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataResultForgotPassword>(`${environment.apiUrlAdmin}/SMS`, contact, httpOptions).pipe(
-      tap((response) => console.log("send confirm")
-      ),
       catchError((error) => {
         this.coreService.goToPageError();
-        return throwError('sendsms Une erreur est survenue lors de la récupération des données: '+ error);
+        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
       }),
       
     );
@@ -89,11 +87,9 @@ export class AuthService {
    */
   sendConfirmationCode(smsCode: DataConfirmCode): Observable<DataResultConfirmCode> {
     return this.http.post<DataResultConfirmCode>(`${environment.apiUrlAdmin}/verification`, smsCode).pipe(
-      tap((response) => console.log("c ok")
-      ),
       catchError((error) => {
         this.coreService.goToPageError();
-        return throwError('sendconfirm Une erreur est survenue lors de la récupération des données: '+ error);
+        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
       }),
       
     );
@@ -111,11 +107,9 @@ export class AuthService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataResultResetPassword>(`${environment.apiUrlAdmin}/renitialisation`, newPassword, httpOptions).pipe(
-      tap((response) => console.log("password reset")
-      ),
       catchError((error) => {
         this.coreService.goToPageError();
-        return throwError('resetpass Une erreur est survenue lors de la récupération des données: '+ error);
+        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
       }),
       
     );
@@ -130,9 +124,9 @@ export class AuthService {
   getCountryCode(): Observable<DataCountry>{
     return this.http.get<DataCountry>(`${environment.apiUrlDon}/pays`).pipe(
       catchError((error: any) => {
-        console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
