@@ -8,7 +8,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 
 /**
- * Service permettant de récupérer les données de dons depuis l'API
+ * Service to get donation data from API
  */
 @Injectable()
 export class DonationService {
@@ -18,6 +18,14 @@ export class DonationService {
     private coreService: CoreService
     ) { }
 
+    /**
+     * Get the full list of donation from API.
+     * It uses pagination system (25 lines per page)
+     * @date 5/17/2023 - 8:23:54 AM
+     *
+     * @param {string} [page='1']
+     * @returns {Observable<DataDon>}
+     */
     getDonations(page: string = '1'): Observable<DataDon>{
       return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?page=${page}`).pipe(
         catchError((error: any) => {
@@ -28,6 +36,17 @@ export class DonationService {
       );
     }
 
+    /**
+     * Get the donation list matching  the filter criteria. 
+     * It uses pagination system (25 lines per page)
+     * @date 5/17/2023 - 8:27:41 AM
+     *
+     * @param {string} [page='1']
+     * @param {string} search
+     * @param {string} dateStart
+     * @param {string} dateEnd
+     * @returns {Observable<DataDon>}
+     */
     getDonationsWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
       return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`).pipe(
         catchError((error: any) => {
@@ -39,11 +58,13 @@ export class DonationService {
     }
 
   /**
-   * Récupère tous les dons anonymes
-   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons anonymes
+   * Get the list of anonymous donations
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 8:41:21 AM
+   *
+   * @param {string} [page='1']
+   * @returns {Observable<DataDon>}
    */
-  //  SOIT JE RECUPERE LA DONNEE DE L'URL
-  // SOIT JE CREE UNE VARIABLE ICI QUE J'INCREMENTE
   getDonationsAnonymous(page: string = '1'): Observable<DataDon>{
     console.log("Je passe dans le meta: " + page);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?page=${page}`).pipe(
@@ -55,6 +76,17 @@ export class DonationService {
     );
   }
 
+  /**
+   * Get the list of anonymous donations matching  the filter criteria
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 8:48:20 AM
+   *
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getDonationsAnonymousWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     console.log("Je passe dans le boom: " + search);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
@@ -66,6 +98,15 @@ export class DonationService {
     );
   }
 
+  /**
+   * Get the full list of anonymous donations mathching the filter criteria
+   * @date 5/17/2023 - 8:50:31 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getAllDonationsAnonymousWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     console.log("Je passe dans le boom: " + search);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
@@ -78,8 +119,12 @@ export class DonationService {
   }
 
   /**
-   * Récupère tous les dons non anonymes faits à titre personnel 
-   * @returns {Observable<DataDon>} 
+   * Get the list of non-anonymous donations made on a personal basis
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 8:52:44 AM
+   *
+   * @param {string} [page='1']
+   * @returns {Observable<DataDon>}
    */
   getDonationsNoAnonymousPerso(page: string = '1'): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?page=${page}`).pipe(
@@ -91,6 +136,18 @@ export class DonationService {
     );
   }
 
+  /**
+   * Get the list of non-anonymous donation made on a personal basis matching
+   * the filter criteria.
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 8:55:48 AM
+   *
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getDonationsNoAnonymousPersoWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
@@ -101,6 +158,15 @@ export class DonationService {
     );
   }
   
+  /**
+   * Get the fuul list of non-anonymous donations matching the filter criteria
+   * @date 5/17/2023 - 9:04:19 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getAllDonationsNoAnonymousPersoWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
@@ -111,9 +177,14 @@ export class DonationService {
     );
   }
 
+  
   /**
-   * Récupère tous les dons non anonymes pour les organisations
-   * @returns {Observable<DataDon>} Observable qui renvoie un objet DataDon contenant tous les dons non anonymes des organisations
+   * Get the list of non-anonymous donation made by organizations
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 9:08:16 AM
+   *
+   * @param {string} [page='1']
+   * @returns {Observable<DataDon>}
    */
   getDonationsNoAnonymousOrga(page: string = '1'): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?page=${page}`).pipe(
@@ -125,6 +196,17 @@ export class DonationService {
     );
   }
 
+  /**
+   * Get the list of non-anonymous donation made by organizations matching the filter criteria
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 9:10:55 AM
+   *
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getDonationsNoAnonymousOrgaWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
@@ -135,6 +217,15 @@ export class DonationService {
     );
   }
   
+  /**
+   * Get the full list of non-anonymous donation made by organizations matching the filter criteria
+   * @date 5/17/2023 - 9:11:45 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
   getAllDonationsNoAnonymousOrgaWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
@@ -145,6 +236,15 @@ export class DonationService {
     );
   }
   
+  /**
+   * Get the cumulative price and donations number for a periode
+   * @date 5/17/2023 - 9:12:20 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataAccumulation>}
+   */
   getAccumulationDonations(search: string, dateStart: string, dateEnd: string): Observable<DataAccumulation>{
     return this.http.get<DataAccumulation>(`${environment.apiUrlDon}/dons/cumul-prix?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
@@ -155,11 +255,15 @@ export class DonationService {
     );
   }
 
+  
   /**
-   * Renvoie la liste des dons anonymes dont le nom de l'expéditeur
-   * contient les lettres fournies par la barre de recherche
+   * 
+   * @date 5/17/2023 - 9:15:46 AM
+   *
    * @param {String} term
-   * @returns {Observable<Don[]>}
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
    */
   searchDonationListAno(term: String, dateStart: string, dateEnd: string): Observable<DataDon>{
     if(term.length === 1){
