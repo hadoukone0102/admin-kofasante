@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Admin, DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, DataDeleteAdmin } from '../models/admin.model';
-import { Observable, catchError, map, of, tap, throwError } from 'rxjs';
+import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, DataDeleteAdmin } from '../models/admin.model';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataProfileInfo, DataResultProfileInfo } from '../models/profile-info.model';
@@ -20,16 +20,32 @@ export class AdminService {
     private coreService: CoreService
     ) {}
 
+  // ====================================================== //
+  // =================== //ANCHOR - GET =================== //
+  // ====================================================== //
+
+  /**
+   * Get the admin list from API
+   * @date 5/17/2023 - 2:01:34 PM
+   *
+   * @returns {Observable<DataAdmin>}
+   */
   getAdmins(): Observable<DataAdmin>{
     return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/afficher`).pipe(
       catchError((error: any) => {
-        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
   
+  /**
+   * Get the list of disabled accounts
+   * @date 5/17/2023 - 2:03:13 PM
+   *
+   * @returns {Observable<DataDisabledAccount>}
+   */
   getDisabledAccount(): Observable<DataDisabledAccount>{
     return this.http.get<DataDisabledAccount>(`${environment.apiUrlAdmin}/Admin/delete`).pipe(
       catchError((error: any) => {
@@ -40,6 +56,12 @@ export class AdminService {
     );
   }
   
+  /**
+   * Get the list of administrator types
+   * @date 5/17/2023 - 2:03:34 PM
+   *
+   * @returns {Observable<DataAdminType>}
+   */
   getAdminTypes(): Observable<DataAdminType>{
     return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/typesAdmin`).pipe(
       catchError((error: any) => {
@@ -50,24 +72,15 @@ export class AdminService {
     );
   }
 
-  searchAdmin(term: String): Observable<DataAdmin>{
-    if(term.length === 1){
-      return of();
-    }
-  
-    return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/admin?search=${term}`).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),
-      map(dataDon => dataDon)
-    );
-  }
-
+  /**
+   * Get an administrator by id
+   * @date 5/17/2023 - 2:05:51 PM
+   *
+   * @param {string} [id='']
+   * @returns {Observable<DataAdminByid>}
+   */
   getAdminById(id: string = ''): Observable<DataAdminByid>{
     return this.http.get<DataAdminByid>(`${environment.apiUrlAdmin}/administrateur/${id}`).pipe(
-      tap(data => console.log("dans le tap: "+data.administrateur.contactAdmin)
-      ),
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -76,9 +89,18 @@ export class AdminService {
     );
   }
 
+  // ====================================================== //
+  // =================== //ANCHOR - ADD =================== //
+  // ====================================================== //
+
+  /**
+   * Add an administrator to the database
+   * @date 5/17/2023 - 2:06:40 PM
+   *
+   * @param {DataAdminAdd} Admin
+   * @returns {Observable<DataAdminResultAdd|DataAmdinErrorAdd>}
+   */
   addAdmin(Admin: DataAdminAdd): Observable<DataAdminResultAdd|DataAmdinErrorAdd>{
-    console.log('dans add ok');
-    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
@@ -92,13 +114,22 @@ export class AdminService {
     );
   }
 
+  // ====================================================== //
+  // ================== //ANCHOR - UPDATE ================= //
+  // ====================================================== //
+
+  /**
+   * Update the first name and the last name of an administrator 
+   * @date 5/17/2023 - 2:07:34 PM
+   *
+   * @param {DataProfileInfo} Admin
+   * @returns {Observable<DataResultProfileInfo>}
+   */
   updateProfileInfo(Admin: DataProfileInfo): Observable<DataResultProfileInfo>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultProfileInfo>(`${environment.apiUrlAdmin}/changerInfo`, Admin, httpOptions).pipe(
-      tap((response) => console.log("C'est dans la boite: "+response.success )
-      ),
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -106,14 +137,19 @@ export class AdminService {
       })
     );
   }
-  
+
+  /**
+   * Update the password of an administrator
+   * @date 5/17/2023 - 2:09:50 PM
+   *
+   * @param {DataSetPassword} groupPasswords
+   * @returns {Observable<DataResultSetPassword>}
+   */
   updatePassword(groupPasswords: DataSetPassword): Observable<DataResultSetPassword>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultSetPassword>(`${environment.apiUrlAdmin}/changerMdp`, groupPasswords, httpOptions).pipe(
-      tap((response) => console.log("C'est dans la boite: "+response.success )
-      ),
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -122,13 +158,18 @@ export class AdminService {
     );
   }
   
+  /**
+   * Update the type and the phone number of an administrator
+   * @date 5/17/2023 - 2:10:09 PM
+   *
+   * @param {DataSetTypeAndContactAdmin} typeAdmin
+   * @returns {Observable<DataResultSetTypeAndContactAdmin>}
+   */
   updateTypeAdmin(typeAdmin: DataSetTypeAndContactAdmin): Observable<DataResultSetTypeAndContactAdmin>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultSetTypeAndContactAdmin>(`${environment.apiUrlAdmin}/changeNumTypeAdmin`, typeAdmin, httpOptions).pipe(
-      tap((response) => console.log("C'est dans la boite: "+response.success )
-      ),
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -137,31 +178,50 @@ export class AdminService {
     );
   }
 
+  // ====================================================== //
+  // ============= //ANCHOR - ACCOUNTS STATUT ============= //
+  // ====================================================== //
+
+  /**
+   * Disabled an administrator account
+   * @date 5/17/2023 - 2:11:15 PM
+   *
+   * @param {String} id
+   * @returns {Observable<DataDeleteAdmin>}
+   */
   disabledAdmin(id: String): Observable<DataDeleteAdmin>{
-    console.log("dans le deletes");
-    
     return this.http.delete<DataDeleteAdmin>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
-      tap((response) => console.log("cest dans la boite")
-      ),
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
       }),)
   }
   
+  /**
+   * Enabled an administrator account
+   * @date 5/17/2023 - 2:12:20 PM
+   *
+   * @param {String} id
+   * @returns {Observable<DataEnabledAccount>}
+   */
   enabledAdmin(id: String): Observable<DataEnabledAccount>{
-    console.log("dans le deletes");
-    
     return this.http.patch<DataEnabledAccount>(`${environment.apiUrlAdmin}/restoreAdmin/${id}`, null).pipe(
-      tap((response) => console.log("cest dans la boite")
-      ),
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
       }),)
   }
 
-  /*ACCES BY TYPE */
+  // ====================================================== //
+  // ============== //ANCHOR - ACCESS BY TYPE ============= //
+  // ====================================================== //
+
+  /**
+   * Return true if the administrator logged is a priest
+   * @date 5/17/2023 - 2:12:37 PM
+   *
+   * @returns {boolean}
+   */
   isPriest(){
     const type = sessionStorage.getItem('type');
     if (type === 'Curé') {
@@ -170,6 +230,12 @@ export class AdminService {
     return false;
   }
 
+  /**
+   * Return true if the administrator logged is a secretary
+   * @date 5/17/2023 - 2:13:13 PM
+   *
+   * @returns {boolean}
+   */
   isSecretary(){
     const type = sessionStorage.getItem('type');
     if (type === 'Secrétaire') {
@@ -178,6 +244,12 @@ export class AdminService {
     return false;
   }
 
+  /**
+   * Return true if the administrator logged is a financier
+   * @date 5/17/2023 - 2:13:25 PM
+   *
+   * @returns {boolean}
+   */
   isFinancier(){
     const type = sessionStorage.getItem('type');
     if (type === 'Financier') {
@@ -186,6 +258,12 @@ export class AdminService {
     return false;
   }
 
+  /**
+   * Return true if the administrator logged is a president of parish council
+   * @date 5/17/2023 - 2:13:35 PM
+   *
+   * @returns {boolean}
+   */
   isPresidentParishCouncil(){
     const type = sessionStorage.getItem('type');
     if (type === 'Responsable de catéchèse') {
@@ -193,6 +271,13 @@ export class AdminService {
     }
     return false;
   }
+  
+  /**
+   * Return true if the administrator logged is a head of catechesis
+   * @date 5/17/2023 - 2:14:41 PM
+   *
+   * @returns {boolean}
+   */
   isHeadOfCatechesis(){
     const type = sessionStorage.getItem('type');
     if (type === 'Président du conseil paroissiale') {
@@ -200,5 +285,4 @@ export class AdminService {
     }
     return false;
   }
-  /*END ACCES BY TYPE*/
 }
