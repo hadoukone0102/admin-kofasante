@@ -93,55 +93,26 @@ export class DonationTableComponent implements OnInit{
   // ====================================================== //
 
   /**
-   * Convert string too date
-   * @date 5/17/2023 - 12:33:23 PM
-   *
-   * @param {string} date
-   * @returns {Date}
-   */
-  convertStringToDate(date : string): Date{
-    return new Date(date);
-  }
-
-  /**
-   * Returns false if we are not in the donation report page 
-   * @date 5/17/2023 - 12:33:49 PM
-   *
-   * @returns {boolean}
-   */
-  isNotReporter(): boolean {
-    if (this.router.url === "/dons/bilan-don"){
-      return false;
-    }else{
-      return true;
-    }
-  }
-  
-  /**
-   * Hide  exportation button
-   * @date 5/17/2023 - 12:40:21 PM
-   */
-  hideExportationButton(){
-    this.isExporting =false;
-  }
-
-  /**
    * Export data from table to PDF
    * @date 5/17/2023 - 12:40:46 PM
    */
-  exportToPDF(){
-    let doc =  new jsPDF(/*'p','mm','a3'*/{orientation: this.pdfOrientation,});
-    let titleSize = 20;
-
-    let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor;
-    let margin = (doc.internal.pageSize.width - textWidth) / 2;
-
+  exportToPDF() {
+    let doc = new jsPDF({ orientation: this.pdfOrientation }); // Create a new instance of jsPDF with the specified orientation
+    
+    let titleSize = 20; // Set the size of the title text
+    let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor; // Calculate the width of the title text in the document
+    let margin = (doc.internal.pageSize.width - textWidth) / 2;  // Calculate the margin to center the title horizontally
+  
+    // Set the font size and style for the title
     doc.setFontSize(titleSize);
-    doc.setFont('Roboto','bold');
-    doc.text(this.pdfTitle, margin, 20);
-    autoTable(doc, {html: "#exportTable", theme: "grid", startY: 30,});
-    doc.save(this.pdfFileName);
+    doc.setFont('Roboto', 'bold');
+    doc.text(this.pdfTitle, margin, 20); // Add the title to the document at the calculated position
+  
+    // Use the autoTable plugin to generate a table from the HTML element with the id "exportTable"
+    autoTable(doc, { html: "#exportTable", theme: "grid", startY: 30 });
+    doc.save(this.pdfFileName);// Save the generated PDF file with the specified file name
   }
+  
 
   /**
    * Export data from table to Excel
@@ -160,6 +131,65 @@ export class DonationTableComponent implements OnInit{
        XLSX.writeFile(wb, this.excelFileName);
   }
 
+  /**
+   * Check if the start date field value is lower than the end date field value
+   * before searching
+   * @date 5/17/2023 - 12:46:43 PM
+   */
+  checkAndSearch(){
+    const dateStart = new Date(this.dateStartValue)
+    const dateEnd = new Date(this.dateEndValue)
+    if(dateStart > dateEnd){
+      this.donationList = [];
+      this.donationListParent = new DataDon();
+      
+      this.dateIsCorrect = false;
+    }else{
+      this.dateIsCorrect = true;
+      this.search();
+    }
+  }
+
+  /**
+   * Show table matching donation type
+   * @date 5/17/2023 - 12:50:42 PM
+   *
+   * @param {string} type
+   */
+  showTableOfType(type: string){
+    if(type === "anonymous"){
+      this.showAnonymous();
+    }
+    else if(type === "noAnonymousPerso"){
+      this.showNoAnonymousPerso();
+    }
+    else if(type === "noAnonymousOrga"){
+      this.showNoAnonymousOrga();
+    }
+    else{// all
+      this.showAll();
+    }
+  }
+
+  /**
+   * Go to previous page of table
+   * @date 5/17/2023 - 12:51:29 PM
+   */
+  goToPrevious(){
+    this.showPageWhere(-1);
+  }
+  
+  /**
+   * Go to next page of table
+   * @date 5/17/2023 - 12:52:23 PM
+   */
+  goToNext(){
+    this.showPageWhere(1);
+  }
+
+  // ====================================================== //
+  // ============= //ANCHOR - Child Fonctions ============= //
+  // ====================================================== //
    
    /**
     * Show all data matching filter criteria without pagination for exportation
@@ -185,7 +215,6 @@ export class DonationTableComponent implements OnInit{
       this.pdfFileName = 'liste_des_dons_anonyme.pdf';
       this.excelFileName = 'liste_des_dons_anonyme.xlsx';
       this.csvFileName = 'liste_des_dons_anonyme.csv';
-      console.log('coolmano: ',this.pdfOrientation);
       
     }
     else if(this.listType === "noAnonymousPerso")
@@ -221,40 +250,6 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
-   * Send filter data to parent component
-   * @date 5/17/2023 - 12:45:20 PM
-   */
-  sendDataToParent(){
-    console.log("dans le sednd data to parendt= "+ this.dateStartValue);
-    
-    this.searchBarValueToParent.emit(this.searchBarValue);
-    this.dateStartValueToParent.emit(this.dateStartValue);
-    this.dateEndValueToParent.emit(this.dateEndValue);
-  }
-
-  /**
-   * Check if the start date field value is lower than the end date field value
-   * before searching
-   * @date 5/17/2023 - 12:46:43 PM
-   */
-  checkAndSearch(){
-    const dateStart = new Date(this.dateStartValue)
-    const dateEnd = new Date(this.dateEndValue)
-    if(dateStart > dateEnd){
-      console.log("sup");
-      this.donationList = [];
-      this.donationListParent = new DataDon();
-      console.log("le last: "+ this.donationListParent.last_page);
-      
-      this.dateIsCorrect = false;
-    }else{
-      this.dateIsCorrect = true;
-      console.log("inf");
-      this.search();
-    }
-  }
-
-  /**
    * Get data matching filter criteria
    * @date 5/17/2023 - 12:48:54 PM
    */
@@ -262,7 +257,6 @@ export class DonationTableComponent implements OnInit{
     this.hideExportationButton();
     this.sendDataToParent();
     if (this.isAnonymous && !this.isAll) {//Anonymous
-      console.log("anonm");
       this.searchTerms.next(this.searchBarValue);
   
       this.donations$ = this.searchTerms.pipe(
@@ -279,7 +273,6 @@ export class DonationTableComponent implements OnInit{
     else if(!this.isAnonymous && !this.isOrganisation && !this.isAll) //non-anonymous perso
     {
       this.searchTerms.next(this.searchBarValue);
-        console.log("non anonme personally");
         this.donations$ = this.searchTerms.pipe(
           debounceTime(300),
           distinctUntilChanged(),
@@ -294,7 +287,6 @@ export class DonationTableComponent implements OnInit{
     }
     else if(!this.isAnonymous && this.isOrganisation && !this.isAll)//non-anonymous orga
     {
-      console.log("orga");
       this.searchTerms.next(this.searchBarValue);
     
       this.donations$ = this.searchTerms.pipe(
@@ -311,7 +303,6 @@ export class DonationTableComponent implements OnInit{
     }
     else //all
     { 
-      console.log("the wall");
       
       this.searchTerms.next(this.searchBarValue);
     
@@ -329,43 +320,6 @@ export class DonationTableComponent implements OnInit{
     }
   }
 
-  /**
-   * Show table matching donation type
-   * @date 5/17/2023 - 12:50:42 PM
-   *
-   * @param {string} type
-   */
-  showTableOfType(type: string){
-    if(type === "anonymous"){
-      this.showAnonymous();
-    }
-    else if(type === "noAnonymousPerso"){
-      this.showNoAnonymousPerso();
-    }
-    else if(type === "noAnonymousOrga"){
-      this.showNoAnonymousOrga();
-    }
-    else{// all
-      this.showAll();
-    }
-  }
-  
-  /**
-   * Go to previous page of table
-   * @date 5/17/2023 - 12:51:29 PM
-   */
-  goToPrevious(){
-    this.showPageWhere(-1);
-  }
-  
-  /**
-   * Go to next page of table
-   * @date 5/17/2023 - 12:52:23 PM
-   */
-  goToNext(){
-    this.showPageWhere(1);
-  }
-  
   /**
    * Get the data matching of the current page of pagination
    * @date 5/17/2023 - 12:52:37 PM
@@ -395,9 +349,52 @@ export class DonationTableComponent implements OnInit{
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
-      console.log("my last page: "+data.last_page);
       
     });
+  }
+
+  /**
+   * Disable or enable the buttons to go to the next or previous page 
+   * depending on the current and last page
+   * @date 5/17/2023 - 1:00:43 PM
+   *
+   * @param {DataDon} donationListParenta
+   */
+  checkAndApplyDisabled(donationListParenta: DataDon){
+    if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
+      //NOTE - ("1/...")
+      
+      this.isFirstPage = "disabled";
+      this.isLastPage = "";
+    }else{
+      if((donationListParenta.current_page === 1) && (donationListParenta.current_page === donationListParenta.last_page)){
+        //NOTE - ("1/1")
+        this.isFirstPage = "disabled";
+        this.isLastPage = "disabled";
+      }
+      else{
+        if((donationListParenta.current_page != 1) && (donationListParenta.current_page != donationListParenta.last_page)){
+          //NOTE - (".../...")
+          this.isFirstPage  = "";
+          this.isLastPage = "";
+        }
+        else{
+            //NOTE - (".../1")
+            this.isFirstPage  = "";
+            this.isLastPage = "disabled";
+        }
+      }
+    }
+  }
+
+  /**
+   * Send filter data to parent component
+   * @date 5/17/2023 - 12:45:20 PM
+   */
+  sendDataToParent(){
+    this.searchBarValueToParent.emit(this.searchBarValue);
+    this.dateStartValueToParent.emit(this.dateStartValue);
+    this.dateEndValueToParent.emit(this.dateEndValue);
   }
 
   /**
@@ -428,6 +425,14 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
+   * Hide  exportation button
+   * @date 5/17/2023 - 12:40:21 PM
+   */
+  hideExportationButton(){
+    this.isExporting =false;
+  }
+
+  /**
    * Allows to display all columns for the list of all donation types
    * @date 5/17/2023 - 12:59:53 PM
    */
@@ -438,36 +443,27 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
-   * Disable or enable the buttons to go to the next or previous page 
-   * depending on the current and last page
-   * @date 5/17/2023 - 1:00:43 PM
+   * Convert string too date
+   * @date 5/17/2023 - 12:33:23 PM
    *
-   * @param {DataDon} donationListParenta
+   * @param {string} date
+   * @returns {Date}
    */
-  checkAndApplyDisabled(donationListParenta: DataDon){
-    if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
-      console.log("1/...");
-      
-      this.isFirstPage = "disabled";
-      this.isLastPage = "";
+  convertStringToDate(date : string): Date{
+    return new Date(date);
+  }
+
+  /**
+   * Returns false if we are not in the donation report page 
+   * @date 5/17/2023 - 12:33:49 PM
+   *
+   * @returns {boolean}
+   */
+  isNotReporter(): boolean {
+    if (this.router.url === "/dons/bilan-don"){
+      return false;
     }else{
-      if((donationListParenta.current_page === 1) && (donationListParenta.current_page === donationListParenta.last_page)){
-        console.log("1/1");
-        this.isFirstPage = "disabled";
-        this.isLastPage = "disabled";
-      }
-      else{
-        if((donationListParenta.current_page != 1) && (donationListParenta.current_page != donationListParenta.last_page)){
-          console.log(".../...");
-          this.isFirstPage  = "";
-          this.isLastPage = "";
-        }
-        else{
-            console.log(".../1");
-            this.isFirstPage  = "";
-            this.isLastPage = "disabled";
-        }
-      }
+      return true;
     }
   }
 }
