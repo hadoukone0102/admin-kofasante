@@ -13,9 +13,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['../../../../assets/css/print.css']
 })
 export class SidebarComponent implements OnInit{
-  donationNotif$!: Observable<DataDonationNotif>;
-  donationNotif!: DataDonationNotif;
-
   adminFirstName!: string|null;
   adminLastName!: string|null;
   adminType!: string|null;
@@ -24,19 +21,11 @@ export class SidebarComponent implements OnInit{
   rolesForAdmin!: string[];
   
   constructor(
-    private route: ActivatedRoute,
     private coreService: CoreService,
-    private notifService: NotificationService,
     private authService: AuthService,
     ){}
 
   ngOnInit(): void {
-    this.donationNotif$ = this.route.data.pipe(
-      map(data => data['donationNotif']),
-    );
-    // this.notifService.getNoSeenDonations().subscribe((data) => this.donationNotif = data); 
-    this.donationNotif$.subscribe((data) => this.donationNotif = data);
-
     this.adminFirstName = sessionStorage.getItem('firstName');
     this.adminLastName = sessionStorage.getItem('lastName');
     this.adminType = sessionStorage.getItem('type');

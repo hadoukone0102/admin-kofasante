@@ -51,9 +51,6 @@
       <span class="sidebar-text">Dons</span>
     </span>
     <span>
-      <span *ngIf="donationNotif.unseen_donations != 0" class="badge badge-sm bg-secondary ms-1 text-gray-800">
-        {{donationNotif.unseen_donations}}
-      </span>
   </span>
     <span class="link-arrow">
       <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
@@ -65,9 +62,6 @@
       <li class="nav-item">
         <a (click)="goToDonationAnonymous()" class="nav-link ">
           <span class="sidebar-text">Anonymes</span>
-          <span *ngIf="donationNotif.unseen_ano_donations != 0" class="badge badge-sm bg-secondary ms-1 text-gray-800">
-            {{donationNotif.unseen_ano_donations}}
-          </span>
         </a>
       </li>
       
@@ -79,9 +73,6 @@
       <li class="nav-item ">
         <a (click)="goToDonationNoAnonymousPerso()" class="nav-link">
           <span class="sidebar-text">Personel</span>
-          <span *ngIf="donationNotif.unseen_no_ano_perso_donations != 0" class="badge badge-sm bg-secondary ms-1 text-gray-800">
-            {{donationNotif.unseen_no_ano_perso_donations}}
-          </span>
         </a>
       </li>
     </ul>
@@ -92,9 +83,6 @@
       <li class="nav-item ">
         <a (click)="goToDonationNoAnonymousOrga()" class="nav-link">
           <span class="sidebar-text">Organisation</span>
-          <span *ngIf="donationNotif.unseen_no_ano_orga_donations != 0" class="badge badge-sm bg-secondary ms-1 text-gray-800">
-            {{donationNotif.unseen_no_ano_orga_donations}}
-          </span>
         </a>
       </li>
     </ul>
