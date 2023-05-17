@@ -18,6 +18,10 @@ export class DonationService {
     private coreService: CoreService
     ) { }
 
+  // ====================================================== //
+  // =================== //ANCHOR - GET =================== //
+  // ====================================================== //
+
     /**
      * Get the full list of donation from API.
      * It uses pagination system (25 lines per page)
@@ -37,27 +41,6 @@ export class DonationService {
     }
 
     /**
-     * Get the donation list matching  the filter criteria. 
-     * It uses pagination system (25 lines per page)
-     * @date 5/17/2023 - 8:27:41 AM
-     *
-     * @param {string} [page='1']
-     * @param {string} search
-     * @param {string} dateStart
-     * @param {string} dateEnd
-     * @returns {Observable<DataDon>}
-     */
-    getDonationsWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
-      return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`).pipe(
-        catchError((error: any) => {
-          console.error('Une erreur est survenue lors de la récupération des données: ', error);
-          this.coreService.goToPageError();
-          return throwError('Une erreur est survenue lors de la récupération des données.');
-        })
-      );
-    }
-
-  /**
    * Get the list of anonymous donations
    * It uses pagination system (25 lines per page)
    * @date 5/17/2023 - 8:41:21 AM
@@ -68,48 +51,6 @@ export class DonationService {
   getDonationsAnonymous(page: string = '1'): Observable<DataDon>{
     console.log("Je passe dans le meta: " + page);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?page=${page}`).pipe(
-      catchError((error: any) => {
-        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
-    );
-  }
-
-  /**
-   * Get the list of anonymous donations matching  the filter criteria
-   * It uses pagination system (25 lines per page)
-   * @date 5/17/2023 - 8:48:20 AM
-   *
-   * @param {string} [page='1']
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataDon>}
-   */
-  getDonationsAnonymousWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
-    console.log("Je passe dans le boom: " + search);
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
-      catchError((error: any) => {
-        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
-    );
-  }
-
-  /**
-   * Get the full list of anonymous donations mathching the filter criteria
-   * @date 5/17/2023 - 8:50:31 AM
-   *
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataDon>}
-   */
-  getAllDonationsAnonymousWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
-    console.log("Je passe dans le boom: " + search);
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
@@ -137,6 +78,90 @@ export class DonationService {
   }
 
   /**
+   * Get the list of non-anonymous donation made by organizations
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 9:08:16 AM
+   *
+   * @param {string} [page='1']
+   * @returns {Observable<DataDon>}
+   */
+  getDonationsNoAnonymousOrga(page: string = '1'): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
+      })
+    );
+  }
+
+  /**
+   * Get the cumulative price and donations number for a periode
+   * @date 5/17/2023 - 9:12:20 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataAccumulation>}
+   */
+  getAccumulationDonations(search: string, dateStart: string, dateEnd: string): Observable<DataAccumulation>{
+    return this.http.get<DataAccumulation>(`${environment.apiUrlDon}/dons/cumul-prix?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Orga Une erreur est survenue lors de la récupération des données stat: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
+      })
+    );
+  }
+
+  // ====================================================== //
+  // ================ //ANCHOR - GET WHERE ================ //
+  // ====================================================== //
+
+    /**
+     * Get the donation list matching  the filter criteria. 
+     * It uses pagination system (25 lines per page)
+     * @date 5/17/2023 - 8:27:41 AM
+     *
+     * @param {string} [page='1']
+     * @param {string} search
+     * @param {string} dateStart
+     * @param {string} dateEnd
+     * @returns {Observable<DataDon>}
+     */
+    getDonationsWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
+      return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`).pipe(
+        catchError((error: any) => {
+          console.error('Une erreur est survenue lors de la récupération des données: ', error);
+          this.coreService.goToPageError();
+          return throwError('Une erreur est survenue lors de la récupération des données.');
+        })
+      );
+    }
+    
+  /**
+   * Get the list of anonymous donations matching  the filter criteria
+   * It uses pagination system (25 lines per page)
+   * @date 5/17/2023 - 8:48:20 AM
+   *
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
+  getDonationsAnonymousWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
+    console.log("Je passe dans le boom: " + search);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error: any) => {
+        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+
+  /**
    * Get the list of non-anonymous donation made on a personal basis matching
    * the filter criteria.
    * It uses pagination system (25 lines per page)
@@ -154,44 +179,6 @@ export class DonationService {
         console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
-      })
-    );
-  }
-  
-  /**
-   * Get the fuul list of non-anonymous donations matching the filter criteria
-   * @date 5/17/2023 - 9:04:19 AM
-   *
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataDon>}
-   */
-  getAllDonationsNoAnonymousPersoWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
-      catchError((error: any) => {
-        console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
-      })
-    );
-  }
-
-  
-  /**
-   * Get the list of non-anonymous donation made by organizations
-   * It uses pagination system (25 lines per page)
-   * @date 5/17/2023 - 9:08:16 AM
-   *
-   * @param {string} [page='1']
-   * @returns {Observable<DataDon>}
-   */
-  getDonationsNoAnonymousOrga(page: string = '1'): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?page=${page}`).pipe(
-      catchError((error: any) => {
-        console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
       })
     );
   }
@@ -216,8 +203,51 @@ export class DonationService {
       })
     );
   }
-  
-  /**
+
+  // ====================================================== //
+  // ============== // ANCHOR - GET ALL WHERE ============= //
+  // ====================================================== //
+
+   /**
+   * Get the full list of anonymous donations mathching the filter criteria
+   * @date 5/17/2023 - 8:50:31 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
+   getAllDonationsAnonymousWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    console.log("Je passe dans le boom: " + search);
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+
+   /**
+   * Get the fuul list of non-anonymous donations matching the filter criteria
+   * @date 5/17/2023 - 9:04:19 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
+   getAllDonationsNoAnonymousPersoWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro perso');
+      })
+    );
+  }
+
+   /**
    * Get the full list of non-anonymous donation made by organizations matching the filter criteria
    * @date 5/17/2023 - 9:11:45 AM
    *
@@ -226,29 +256,10 @@ export class DonationService {
    * @param {string} dateEnd
    * @returns {Observable<DataDon>}
    */
-  getAllDonationsNoAnonymousOrgaWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+   getAllDonationsNoAnonymousOrgaWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {
         console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
-      })
-    );
-  }
-  
-  /**
-   * Get the cumulative price and donations number for a periode
-   * @date 5/17/2023 - 9:12:20 AM
-   *
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataAccumulation>}
-   */
-  getAccumulationDonations(search: string, dateStart: string, dateEnd: string): Observable<DataAccumulation>{
-    return this.http.get<DataAccumulation>(`${environment.apiUrlDon}/dons/cumul-prix?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
-      catchError((error: any) => {
-        console.error('Orga Une erreur est survenue lors de la récupération des données stat: ', error);
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données. Stay cool bro orga');
       })

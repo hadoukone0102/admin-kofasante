@@ -217,7 +217,6 @@ export class DonationTableComponent implements OnInit{
       this.donationListParent = new DataDon();
       console.log("le last: "+ this.donationListParent.last_page);
       
-      
       this.dateIsCorrect = false;
     }else{
       this.dateIsCorrect = true;
