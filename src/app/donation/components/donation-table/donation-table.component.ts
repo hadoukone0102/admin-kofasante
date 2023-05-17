@@ -279,6 +279,8 @@ export class DonationTableComponent implements OnInit{
     }
     else //all
     { 
+      console.log("the wall");
+      
       this.searchTerms.next(this.searchBarValue);
     
       this.donations$ = this.searchTerms.pipe(
@@ -311,33 +313,11 @@ export class DonationTableComponent implements OnInit{
   }
   
   goToPrevious(){
-    // t:his.showPage(-1);
-    if(this.searchBarValue === "" && this.dateStartValue === ""){
-      console.log("the first");
-      
-      this.showPage(-1);
-      
-    }
-    else{
-      console.log("the last: "+this.searchBarValue);
-
-      this.showPageWhere(-1);
-    }
+    this.showPageWhere(-1);
   }
   
   goToNext(){
-    // this.showPage(1);
-    if(this.searchBarValue === "" && this.dateStartValue === ""){
-      console.log("the first");
-      
-      this.showPage(1);
-      
-    }
-    else{
-      console.log("the last: "+this.searchBarValue);
-
-      this.showPageWhere(1);
-    }
+    this.showPageWhere(1);
   }
   
   showPageWhere(pageIndex: number){
@@ -359,10 +339,7 @@ export class DonationTableComponent implements OnInit{
       this.donationTest$ = this.donationService.getDonationsWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     
-    this.donationTest$.pipe(
-      takeWhile(data => !data, true)
-    )
-    .subscribe((data) => {
+    this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
@@ -376,32 +353,6 @@ export class DonationTableComponent implements OnInit{
     //   console.log("my last page: "+data.last_page);
       
     // });
-  }
-
-  showPage(pageIndex: number){
-    this.newPage= this.donationListParent.current_page + pageIndex;
-    console.log("je suis: "+ this.newPage);
-    
-    if(this.listType == "anonymous"){
-      this.donationTest$ =  this.donationService.getDonationsAnonymous(this.newPage.toString())
-    }
-    else if(this.listType == "noAnonymousPerso")
-    {
-      this.donationTest$ =  this.donationService.getDonationsNoAnonymousPerso(this.newPage.toString())
-    }
-    else if(this.listType == "noAnonymousOrga")
-    {
-      this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrga(this.newPage.toString())
-    }
-    else{// type = all
-      this.donationTest$ =  this.donationService.getDonations(this.newPage.toString())
-    }
-    
-    this.donationTest$.subscribe((data) => {
-      this.donationList = data.dons;
-      this.donationListParent =  data;
-      this.checkAndApplyDisabled(data);
-    });
   }
 
   showAnonymous(){
