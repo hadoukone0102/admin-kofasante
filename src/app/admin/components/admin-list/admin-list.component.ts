@@ -17,9 +17,12 @@ export class AdminListComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private adminService: AdminService
     ) { }
 
+  /**
+   * Get admin list when the page is initialized
+   * @date 5/17/2023 - 2:38:45 PM
+   */
   ngOnInit(): void {
     this.admins$ = this.route.data.pipe(
       map(data => data['listAdmins'])
@@ -30,21 +33,5 @@ export class AdminListComponent {
         this.admins = data;
       }
     );
-    
-    console.log(this.admins);
   }
-
-  // search(term: String){
-  //     this.searchTerms.next(term);
-  
-  //     this.admins$ = this.searchTerms.pipe(
-  //       debounceTime(300),
-  //       distinctUntilChanged(),
-  //       switchMap((term) => this.adminService.searchAdmin(term))
-  //     );
-    
-  //     this.admins$.subscribe((data) => {
-  //       this.admins = data;
-  //     });
-  //   }
 }

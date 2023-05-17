@@ -17,7 +17,6 @@ export class AdminTableComponent implements OnInit{
 
   @Input() disabledAccounts$!: Observable<DataDisabledAccount>;
   disabledAccounts!: DataDisabledAccount;
-  
 
   constructor(
     private adminService: AdminService,
@@ -26,6 +25,7 @@ export class AdminTableComponent implements OnInit{
 
   /**
    * Get admin list depending statut account (disabled/enabled)
+   * when the page is initialized
    * @date 5/17/2023 - 2:27:23 PM
    */
   ngOnInit(): void {
@@ -39,7 +39,6 @@ export class AdminTableComponent implements OnInit{
         disabledAccounts => this.disabledAccounts = disabledAccounts
         );
     }
-
   }
 
   /**
@@ -95,5 +94,4 @@ export class AdminTableComponent implements OnInit{
   goToEditAdmin(id: string){
     this.coreService.goToEditAdmin(id);
   }
-
 }

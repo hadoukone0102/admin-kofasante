@@ -15,6 +15,10 @@ export class DisabledAccountComponent {
     private route: ActivatedRoute,
     ) { }
 
+  /**
+   * Get disabled accounts when the page is initialized
+   * @date 5/17/2023 - 2:39:43 PM
+   */
   ngOnInit(): void {
     this.disabledAccounts$ = this.route.data.pipe(
       map(data => data['listDisabledAccount'])
@@ -23,8 +27,6 @@ export class DisabledAccountComponent {
     this.disabledAccounts$.subscribe(
       data => {
         this.disabledAccounts = data;
-        console.log("laroute");
-        console.log(this.disabledAccounts);
       }
     );
       
