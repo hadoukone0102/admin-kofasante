@@ -23,7 +23,7 @@ export class DonationService {
         catchError((error: any) => {
           console.error('Une erreur est survenue lors de la récupération des données: ', error);
           this.coreService.goToPageError();
-          return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+          return throwError('Une erreur est survenue lors de la récupération des données.');
         })
       );
     }
@@ -50,7 +50,7 @@ export class DonationService {
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
@@ -61,7 +61,7 @@ export class DonationService {
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
@@ -72,7 +72,7 @@ export class DonationService {
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);
         this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
+        return throwError('Une erreur est survenue lors de la récupération des données.');
       })
     );
   }
