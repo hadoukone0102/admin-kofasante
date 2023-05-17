@@ -17,39 +17,38 @@ import { environment } from 'src/environments/environment';
 })
 export class DonationTableComponent implements OnInit{
   
-  //New
+  // ~~~~~~~~~~ Donation variables ~~~~~~~~~ //
+  donations$!: Observable<DataDon>;
+  donationTest$!: Observable<DataDon>;
+  donationListTest!: Array<Don>;
+  donationList!: Array<Don>;
+  
+  // ~~~~~~~~~~ Decorated variables ~~~~~~~~~ //
   @Input() donationListParent!: DataDon;
   @Input() listType!: string; //ano ? perso ? orga ? all 
-  searchTerms =  new Subject<String>();
-  searchBarValue: string = "";
-  dateStartValue: string = "";
-  dateEndValue: string = "";
-  dateIsCorrect!: boolean;
-
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
 
+  // ~~~~~~~~~~~ Search variables ~~~~~~~~~~ //
+  searchTerms =  new Subject<String>();
+  searchBarValue: string = "";
+  dateStartValue: string = "";
+  dateEndValue: string = "";
 
-  donations$!: Observable<DataDon>;
-  donationTest$!: Observable<DataDon>;
-  donationListTest!: Array<Don>;
-  allDonations!: Array<Don>;
-
+  // ~~~~~~~~~~ Boolean variables ~~~~~~~~~~ //
+  dateIsCorrect!: boolean;
   isAnonymous!: boolean;
   isOrganisation!: boolean;
   isAll!: boolean;
   noData!: boolean;
 
-  donationList!: Array<Don>;
-
+  // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
-
-  today: Date = new Date();
-
-  //print
+  
+  // ~~~~~~~~~~~ Print variables ~~~~~~~~~~~ //
   styleString: string ='';
   isExporting!: boolean;
   pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
@@ -58,45 +57,58 @@ export class DonationTableComponent implements OnInit{
   excelFileName!: string;
   csvFileName!: string;
 
-
+  // ~~~~~~~~~ Today date variables ~~~~~~~~ //
+  today: Date = new Date();
+  
   constructor(
     private router: Router,
     private donationService: DonationService,
-    private coreService :  CoreService,
-    private route: ActivatedRoute,
-    private http: HttpClient
     ) {}
 
-    
-
   ngOnInit(): void {
-    this.showTableOfType(this.listType);
+    //Show correct table for donnation
+    this.showTableOfType(this.listType); 
     this.donationList = this.donationListParent.dons;
-    this.checkAndApplyDisabled(this.donationListParent);
+    this.checkAndApplyDisabled(this.donationListParent); 
 
+    // ~~~ search variables initialization ~~~ //
     this.dateEndValue = environment.todayDate;
     this.dateStartValue = environment.dateStartForSearch;
     this.dateIsCorrect = true;
-    console.log("ma date fav: "+this.dateStartValue);
     
     this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
-    //Send data for search to parent
     
+    // ~~~~ Print variables Initialization ~~~ //
     this.isExporting = false;
     this.pdfOrientation ='p';
     this.pdfTitle ='';
     this.pdfFileName = '';
     this.excelFileName = '';
     this.csvFileName = '';
-
-    console.log("may maufm mama: "+ this.endDate());
   }
 
-  endDate(): Date{
-    return new Date(this.dateEndValue);
+  // ====================================================== //
+  // ============= //ANCHOR - Parent Fonctions ============ //
+  // ====================================================== //
+
+  /**
+   * Convert string too date
+   * @date 5/17/2023 - 12:33:23 PM
+   *
+   * @param {string} date
+   * @returns {Date}
+   */
+  convertStringToDate(date : string): Date{
+    return new Date(date);
   }
 
+  /**
+   * Returns false if we are not in the donation report page 
+   * @date 5/17/2023 - 12:33:49 PM
+   *
+   * @returns {boolean}
+   */
   isNotReporter(): boolean {
     if (this.router.url === "/dons/bilan-don"){
       return false;
@@ -105,10 +117,18 @@ export class DonationTableComponent implements OnInit{
     }
   }
   
+  /**
+   * Hide  exportation button
+   * @date 5/17/2023 - 12:40:21 PM
+   */
   hideExportationButton(){
     this.isExporting =false;
   }
 
+  /**
+   * Export data from table to PDF
+   * @date 5/17/2023 - 12:40:46 PM
+   */
   exportToPDF(){
     let doc =  new jsPDF(/*'p','mm','a3'*/{orientation: this.pdfOrientation,});
     let titleSize = 20;
@@ -123,6 +143,10 @@ export class DonationTableComponent implements OnInit{
     doc.save(this.pdfFileName);
   }
 
+  /**
+   * Export data from table to Excel
+   * @date 5/17/2023 - 12:41:09 PM
+   */
   exportToExel(){
        /* pass here the table id */
        let element = document.getElementById('exportTable');
@@ -136,10 +160,11 @@ export class DonationTableComponent implements OnInit{
        XLSX.writeFile(wb, this.excelFileName);
   }
 
+   
    /**
-   * IMPRESSION
-   * @date 5/11/2023 - 8:43:06 PM
-   */
+    * Show all data matching filter criteria without pagination for exportation
+    * @date 5/17/2023 - 12:42:01 PM
+    */
    export(){
     //clear table
     this.donationList = [];
@@ -195,11 +220,10 @@ export class DonationTableComponent implements OnInit{
     });
   }
 
-  
-  showConsole(){
-    console.log("ma date de début bro: "+this.dateStartValue);
-  }
-
+  /**
+   * Send filter data to parent component
+   * @date 5/17/2023 - 12:45:20 PM
+   */
   sendDataToParent(){
     console.log("dans le sednd data to parendt= "+ this.dateStartValue);
     
@@ -208,6 +232,11 @@ export class DonationTableComponent implements OnInit{
     this.dateEndValueToParent.emit(this.dateEndValue);
   }
 
+  /**
+   * Check if the start date field value is lower than the end date field value
+   * before searching
+   * @date 5/17/2023 - 12:46:43 PM
+   */
   checkAndSearch(){
     const dateStart = new Date(this.dateStartValue)
     const dateEnd = new Date(this.dateEndValue)
@@ -225,6 +254,10 @@ export class DonationTableComponent implements OnInit{
     }
   }
 
+  /**
+   * Get data matching filter criteria
+   * @date 5/17/2023 - 12:48:54 PM
+   */
   search(){
     this.hideExportationButton();
     this.sendDataToParent();
@@ -296,6 +329,12 @@ export class DonationTableComponent implements OnInit{
     }
   }
 
+  /**
+   * Show table matching donation type
+   * @date 5/17/2023 - 12:50:42 PM
+   *
+   * @param {string} type
+   */
   showTableOfType(type: string){
     if(type === "anonymous"){
       this.showAnonymous();
@@ -311,14 +350,28 @@ export class DonationTableComponent implements OnInit{
     }
   }
   
+  /**
+   * Go to previous page of table
+   * @date 5/17/2023 - 12:51:29 PM
+   */
   goToPrevious(){
     this.showPageWhere(-1);
   }
   
+  /**
+   * Go to next page of table
+   * @date 5/17/2023 - 12:52:23 PM
+   */
   goToNext(){
     this.showPageWhere(1);
   }
   
+  /**
+   * Get the data matching of the current page of pagination
+   * @date 5/17/2023 - 12:52:37 PM
+   *
+   * @param {number} pageIndex
+   */
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
 
@@ -345,35 +398,52 @@ export class DonationTableComponent implements OnInit{
       console.log("my last page: "+data.last_page);
       
     });
-    // this.donationTest$.subscribe((data) => {
-      //   this.donationList = data.dons;
-      //   this.donationListParent =  data;
-    //   this.checkAndApplyDisabled(data);
-    //   console.log("my last page: "+data.last_page);
-      
-    // });
   }
 
+  /**
+   * Allows to display only columns for the list of anonymous donatitons
+   * @date 5/17/2023 - 12:55:09 PM
+   */
   showAnonymous(){
     this.isAnonymous = true;
   }
 
+  /**
+   * Allows to display only columns for the list of non-anonymous donatitons made 
+   * on a personal basis
+   * @date 5/17/2023 - 12:58:07 PM
+   */
   showNoAnonymousPerso(){
     this.isAnonymous = false;
     this.isOrganisation = false;
   }
 
+  /**
+   * Allows to display only columns for the list of non-anonymous donatitons made by organizations
+   * @date 5/17/2023 - 12:59:34 PM
+   */
   showNoAnonymousOrga(){
     this.isAnonymous = false;
     this.isOrganisation = true;
   }
 
+  /**
+   * Allows to display all columns for the list of all donation types
+   * @date 5/17/2023 - 12:59:53 PM
+   */
   showAll(){
     this.isAnonymous = false;
     this.isOrganisation = true;
     this.isAll = true;
   }
 
+  /**
+   * Disable or enable the buttons to go to the next or previous page 
+   * depending on the current and last page
+   * @date 5/17/2023 - 1:00:43 PM
+   *
+   * @param {DataDon} donationListParenta
+   */
   checkAndApplyDisabled(donationListParenta: DataDon){
     if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
       console.log("1/...");
