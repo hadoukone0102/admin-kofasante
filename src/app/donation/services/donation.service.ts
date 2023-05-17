@@ -47,7 +47,7 @@ export class DonationService {
      * @param {string} dateEnd
      * @returns {Observable<DataDon>}
      */
-    getDonationsWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    getDonationsWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
       return this.http.get<DataDon>(`${environment.apiUrlDon}/dons?search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`).pipe(
         catchError((error: any) => {
           console.error('Une erreur est survenue lors de la récupération des données: ', error);
@@ -87,7 +87,7 @@ export class DonationService {
    * @param {string} dateEnd
    * @returns {Observable<DataDon>}
    */
-  getDonationsAnonymousWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+  getDonationsAnonymousWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
     console.log("Je passe dans le boom: " + search);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
@@ -148,7 +148,7 @@ export class DonationService {
    * @param {string} dateEnd
    * @returns {Observable<DataDon>}
    */
-  getDonationsNoAnonymousPersoWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+  getDonationsNoAnonymousPersoWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/perso?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Per Une erreur est survenue lors de la récupération des données: ', error);
@@ -207,7 +207,7 @@ export class DonationService {
    * @param {string} dateEnd
    * @returns {Observable<DataDon>}
    */
-  getDonationsNoAnonymousOrgaWhere(page: string = '1', search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+  getDonationsNoAnonymousOrgaWhere(page: string = '1', search: String, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Orga Une erreur est survenue lors de la récupération des données: ', error);
