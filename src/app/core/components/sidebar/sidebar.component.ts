@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CoreService } from '../../services/core.service';
-import { Observable, map } from 'rxjs';
-import { DataDonationNotif } from '../../models/donation-notif.model';
-import { NotificationService } from '../../services/notification.service';
 import { AuthService } from 'src/app/admin/services/auth.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['../../../../assets/css/print.css']
 })
 export class SidebarComponent implements OnInit{
   adminFirstName!: string|null;
