@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { DataAdmin } from '../../models/admin.model';
+import { map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -33,6 +32,7 @@ export class EditAdminComponent implements OnInit{
   ){}
   
   ngOnInit(): void {
+    //Get admin by id from resolver
     this.route.data.pipe(
       map(data => data['adminById'])
     ).subscribe(
@@ -46,36 +46,37 @@ export class EditAdminComponent implements OnInit{
         };
       }
     );
-    
+    //Get admin type list from resolver
     this.route.data.pipe(
       map(data => data['listAdminTypes'])
     ).subscribe(
       data => {
         this.listAdminTypes = data;
-        console.log("the wall");
-        
-        console.log(this.listAdminTypes.typeadministrateurs);
-        
       }
     );
-    
-    
   }
 
+  /**
+   * Update type and phone number of specified administrator
+   * @date 5/17/2023 - 3:07:32 PM
+   */
   onSubmit(){
     this.adminService.updateTypeAdmin(this.typeAdmin).subscribe(
       data => {
-        console.log("donnee recus de type admin: "+data.success);
         this.coreService.goToAdmin();
       },
-      (error) => console.log("Une erreur s'est produite!")
+      (error) => console.log("Une erreur s'est produite: "+error)
     )
   }
 
+  /**
+   * Return true if admin type of select matches admin type of specified administrator
+   * @date 5/17/2023 - 3:09:17 PM
+   *
+   * @param {number} type
+   * @returns {boolean}
+   */
   isAdminType(type: number): boolean{
-    console.log("type: "+type);
-    console.log("admin.type: "+this.admin.administrateur.id_typeadmin);
-    
     if(this.admin.administrateur.id_typeadmin === type){
       return true;
     }
