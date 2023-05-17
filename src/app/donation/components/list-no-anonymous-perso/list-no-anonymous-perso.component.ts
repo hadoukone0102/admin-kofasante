@@ -13,20 +13,16 @@ export class ListNoAnonymousPersoComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private notifService: NotificationService
     ) { }
 
+  /**
+   * Get the list of non-anonymous donations made on a personal basis
+   * when the page is initialized
+   * @date 5/17/2023 - 1:56:18 PM
+   */
   ngOnInit(): void {
-    this.notifService.updateDonationsNoAnoPersoSeen().subscribe(
-      (response) => console.log("C'est dans la boite INIT: "+response),
-      (error) => console.error('Une erreur est survenue INIT: ', error)
-    );
-
     this.donations$ = this.route.data.pipe(
       map(data => data['listNoAnonymousPerso'])
     );
-    console.log('mameee perso');
-      
-    console.log(this.donations$);
   }
 }

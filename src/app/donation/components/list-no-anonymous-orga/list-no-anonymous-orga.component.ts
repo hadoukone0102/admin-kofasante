@@ -13,15 +13,14 @@ export class ListNoAnonymousOrgaComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private notifService: NotificationService
     ) { }
 
+  /**
+   * Get the list of non-anonymous donations made by organizations
+   * when the page is initialized
+   * @date 5/17/2023 - 1:58:58 PM
+   */
   ngOnInit(): void {
-    this.notifService.updateDonationsNoAnoOrgaSeen().subscribe(
-      (response) => console.log("C'est dans la boite INIT: "+response),
-      (error) => console.error('Une erreur est survenue INIT: ', error)
-    );
-
     this.donations$ = this.route.data.pipe(
       map(data => data['listNoAnonymousOrga'])
     );
