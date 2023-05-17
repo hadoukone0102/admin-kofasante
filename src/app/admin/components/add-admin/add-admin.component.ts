@@ -39,6 +39,7 @@ export class AddAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.countryCode = '+225';
+    this.pwdIsConfirmed = true;
     
     this.admin = {
       nomAdmin: '',
@@ -55,9 +56,7 @@ export class AddAdminComponent implements OnInit {
       message: "",
     };
 
-    this.pwdIsConfirmed = true;
-    
-
+    //Get admin list from resolver
     this.adminList$ = this.route.data.pipe(
       map(data => data['listAdmins'])
     );
@@ -67,49 +66,47 @@ export class AddAdminComponent implements OnInit {
         this.adminList = data;
       }
     );
-
     
-      //contrise list
+    //Get countries list
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])
     );
     this.countries$.subscribe(data => this.countries = data);
 
-    //admin type list
+    //Get admin type list
     this.route.data.pipe(
       map(data => data['listAdminTypes'])
     ).subscribe(
       data => {
         this.listAdminTypes = data;
-        console.log("the wall");
-        
-        console.log(this.listAdminTypes.typeadministrateurs);
-        
       }
     );
   }
 
-  onClickContryCode(val: string){
-    this.countryCode = val;
-  }
-
+  /**
+   * Add admin in database
+   * @date 5/17/2023 - 2:51:27 PM
+   */
   onSubmit(){
     this.admin.contactAdmin = this.countryCode + this.contact;
     
     this.adminService.addAdmin(this.admin).subscribe(
       (admin) => {
         this.resultAdd = admin;
-        console.log("Le admin: "+ admin.success+" :finished");
         if (admin.success === true){
           this.coreService.goToAdmin();
         }else{
-          console.log("Le sucre: "+this.resultAdd.success);
+          console.log("Une erreur est survenu: "+this.resultAdd.message);
         }
       },
-      (error)=> console.log("mon erreur: "+error)
+      (error)=> console.log("Une erreur est survenu:: "+error)
       );
   }
 
+  /**
+   * Return true if password and confirm password match
+   * @date 5/17/2023 - 2:54:07 PM
+   */
   onClickConfirmPassword(){
     if(this.admin.mdpAdmin != this.confirmPassword){
       this.pwdIsConfirmed = false;
@@ -119,24 +116,32 @@ export class AddAdminComponent implements OnInit {
     }
   }
 
+  /**
+   * Get the list of administrators' contacts and return true
+   * if the value of the contact matches one of the contacts in the obtained list.
+   * @date 5/17/2023 - 2:54:57 PM
+   */
   onClickContact(){
     this.admin.contactAdmin = this.countryCode + this.contact;
-    console.log("mon contzct: "+this.admin.contactAdmin);
     
     this.adminList.administrateurs.some(adminInDB => {
       if (adminInDB.contactAdmin === this.admin.contactAdmin) {
         this.contactExists = true;
-        console.log("dans le for TRUE");
         return true;
-        // return ; // pour arreter la boucle
       }else{
         this.contactExists = false;
-        console.log("dans le for FALSE");
         return false;
       }
     });
   }
 
+  /**
+   * Return true if administrator type is "1"
+   * @date 5/17/2023 - 3:00:18 PM
+   *
+   * @param {number} type
+   * @returns {boolean}
+   */
   isAdminType(type: number): boolean{
     console.log("type: "+type);
     
@@ -144,5 +149,15 @@ export class AddAdminComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Get country code select value
+   * @date 5/17/2023 - 2:49:24 PM
+   *
+   * @param {string} val
+   */
+  onClickContryCode(val: string){
+    this.countryCode = val;
   }
 }
