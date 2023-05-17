@@ -22,18 +22,24 @@ export class SidebarComponent implements OnInit{
   
   constructor(
     private coreService: CoreService,
-    private authService: AuthService,
+    private authService: AuthService
     ){}
 
   ngOnInit(): void {
     this.adminFirstName = sessionStorage.getItem('firstName');
     this.adminLastName = sessionStorage.getItem('lastName');
     this.adminType = sessionStorage.getItem('type');
-    //roles initialisation
+    //roles initialization
     this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
     this.rolesForAdmin = ['Curé'];
   }
 
+  /**
+   * Returns true if the connected administrator is authorized to access the donations
+   * @date 5/17/2023 - 4:11:45 PM
+   *
+   * @returns {boolean}
+   */
   isAuthorizedForDonation(): boolean{
     if(this.rolesForDonation.includes(this.adminType ?? '')){
       return true;
@@ -41,13 +47,18 @@ export class SidebarComponent implements OnInit{
     return false;
   }
   
+  /**
+   * Returns true if the connected administrator is authorized to access the admin menu
+   * @date 5/17/2023 - 4:10:47 PM
+   *
+   * @returns {boolean}
+   */
   isAuthorizedForAdmin(){
     if(this.rolesForAdmin.includes(this.adminType ?? '')){
       return true;
     }
     return false;
   }
-
 
   goToDashboard(){
     this.coreService.goToDashboard();
