@@ -49,7 +49,6 @@ export class DonationService {
    * @returns {Observable<DataDon>}
    */
   getDonationsAnonymous(page: string = '1'): Observable<DataDon>{
-    console.log("Je passe dans le meta: " + page);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Nor Une erreur est survenue lors de la récupération des données: ', error);

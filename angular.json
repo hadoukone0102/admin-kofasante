@@ -18,7 +18,6 @@
               "raf",
               "rgbcolor",
               "jspdf-autotable"
-
             ],
             "outputPath": "dist/admin-font-gc",
             "index": "src/index.html",
