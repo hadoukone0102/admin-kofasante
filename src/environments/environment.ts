@@ -2,8 +2,10 @@ import { DonationNotifResolver } from "src/app/core/resolvers/donation-notif.res
 const dateStart = new Date(2023, 0, 1)
 export const  environment = {
     production: false,
-    apiUrlDon: 'http://192.168.1.58:8000/api',
-    apiUrlAdmin: 'http://192.168.1.58:4200/api',
+    apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
+    // apiUrlDon: 'http://192.168.2.106:8000/api',
+    apiUrlAdmin: 'https://admin-api.eglise-mukasa.ci/api',
+    // apiUrlAdmin: 'http://192.168.2.106:4200/api',
 
     dateStartForSearch: new Date(2023, 0, 1).toISOString().substring(0, 10),
     todayDate: new Date().toISOString().substring(0, 10),// format AAAA-MM-JJ

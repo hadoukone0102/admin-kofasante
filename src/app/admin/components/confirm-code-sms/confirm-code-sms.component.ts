@@ -27,6 +27,7 @@ export class ConfirmCodeSmsComponent implements OnInit{
     }
 
   onSubmit(){ 
+    this.success =true;
     this.authService.sendConfirmationCode(this.smsCode).subscribe(
       (data) => {
         if(data.success){

@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit{
     );
     this.countries$.subscribe(data => this.countries = data);
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = "6LdJBx0mAAAAAHQnu4w5OjGXBQUtRQeyzzRVe_gB";
-    this.theme ="dark"
+    this.siteKey = "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw";
+    this.theme ="light"
     this.tokenCaptcha = null;
   }
 
@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit{
   
   onSubmit(){
     this.isLogged = true
-    this.dataLogin.contactAdmin =  this.countryCode + this.contact;
+    this.dataLogin.contactAdmin =  "+2250566013534";
+    // this.dataLogin.contactAdmin =  this.countryCode + this.contact;
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         if(data.access_token && data.auth){
