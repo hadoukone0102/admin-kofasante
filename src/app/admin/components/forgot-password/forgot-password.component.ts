@@ -49,7 +49,6 @@ export class ForgotPasswordComponent implements OnInit{
 
   onSubmit(){
     this.contactToSend.contactAdmin = this.countryCode + this.contact;
-    console.log("mon contact: "+this.contactToSend.contactAdmin);
     
     this.authService.sendSMS(this.contactToSend).subscribe(
       (data) => {

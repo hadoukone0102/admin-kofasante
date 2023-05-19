@@ -66,14 +66,9 @@ export class LoginComponent implements OnInit{
 
   getResponse($response: string =  ""){
     this.tokenCaptcha = $response;
-    console.debug("mon event: "+$response);
   }
   handleExpire(){
     this.tokenCaptcha = null;
-    console.log("Expiration dans la poche");
-    // clearInterval(this.timer);
-    // window.console.l
-    
   }
   
   onSubmit(){

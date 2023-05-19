@@ -11,7 +11,9 @@ export class ConfirmCodeSmsComponent implements OnInit{
 
   smsCode!: DataConfirmCode;
   codeIsValid!: boolean;
-  
+
+  success!: boolean;
+
   constructor(private coreService: CoreService,
     private authService: AuthService
     ){}
@@ -21,20 +23,17 @@ export class ConfirmCodeSmsComponent implements OnInit{
         verificationCode: ''
       };
       this.codeIsValid = true;
+      this.success = true;
     }
 
   onSubmit(){ 
-    console.log("sms code: "+ this.smsCode.verificationCode);
-    
     this.authService.sendConfirmationCode(this.smsCode).subscribe(
       (data) => {
-        console.log("dans le  send confirm et sucess: "+ data.success);
-        
         if(data.success){
-          console.log("dans le  send confirm ok");
-          this.coreService.goToResetPassword()
+          this.success =true;
+          this.coreService.goToResetPassword();
         }else{
-          console.log("dans le  send confirm ok");
+          this.success =false;
           // this.codeIsValid = false;
         }
       }

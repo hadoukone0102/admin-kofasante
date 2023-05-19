@@ -21,12 +21,15 @@
                                 <div *ngIf="theCode.touched && theCode.invalid">
                                     <small class="text-danger">Entrez le code de confirmation</small>
                                 </div> 
+                                <div *ngIf="!success">
+                                    <small class="text-danger">Le code est incorrect</small>
+                                </div> 
                             </div>
   
                           </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-gray-800"
-                                [disabled]="theCode.invalid"
+                                [disabled]="theCode.invalid "
                             >Réinitialiser mon mot de passe</button>
                         </div>
                     </form>
