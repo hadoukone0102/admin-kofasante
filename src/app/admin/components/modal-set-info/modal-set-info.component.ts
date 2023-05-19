@@ -16,11 +16,15 @@ export class ModalSetInfoComponent implements OnInit{
   lastName!: string|null;
   profile!: DataProfileInfo;
 
+  isSubmitting!:boolean;
+
   constructor(
     private adminService: AdminService
   ){}
 
   ngOnInit(): void {
+    this.isSubmitting =false;
+
     this.profile={
       contactAdmin: sessionStorage.getItem("contact"),
       nomAdmin: this.adminFirstName,
@@ -29,13 +33,19 @@ export class ModalSetInfoComponent implements OnInit{
   }
 
   onSubmit(){
+    this.isSubmitting = true;
     this.adminService.updateProfileInfo(this.profile).subscribe(
       data => {
         console.log("come back => "+data.success)
         if(data.success){
+          this.isSubmitting =false;
           sessionStorage.setItem('firstName', this.profile.nomAdmin ?? ''); //attribution of default value '' if this. profile.nomAdmin is null
           sessionStorage.setItem('lastName', this.profile.prenomAdmin ?? '');
           location.reload();
+        }
+        else{
+          this.isSubmitting =false;
+          console.log("Une erreur s'est produite: "+data.message);
         }
       }
     );

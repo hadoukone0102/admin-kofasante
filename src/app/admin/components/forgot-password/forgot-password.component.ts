@@ -22,6 +22,7 @@ export class ForgotPasswordComponent implements OnInit{
 
   contactExists!: boolean;
   resultDataForgotPassword!: DataResultForgotPassword;
+  isSubmitting!: boolean;
 
   constructor(
     private coreService: CoreService,
@@ -41,6 +42,7 @@ export class ForgotPasswordComponent implements OnInit{
     this.countryCode = '+225';
     this.contact ="";
     this.contactExists = true;
+    this.isSubmitting = false;
   }
 
   goToLogin(){
@@ -48,6 +50,7 @@ export class ForgotPasswordComponent implements OnInit{
   }  
 
   onSubmit(){
+    this.isSubmitting =true;
     this.contactToSend.contactAdmin = this.countryCode + this.contact;
     
     this.authService.sendSMS(this.contactToSend).subscribe(
@@ -55,8 +58,10 @@ export class ForgotPasswordComponent implements OnInit{
         this.resultDataForgotPassword = data;
         if(data.success){
           sessionStorage.setItem('contactReset', this.contactToSend.contactAdmin);
+          this.isSubmitting =false;
           this.coreService.goToConfirmCodeSms();
         }else{
+          this.isSubmitting =false;
           this.contactExists = false;
         }
         }

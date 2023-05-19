@@ -24,6 +24,8 @@ export class EditAdminComponent implements OnInit{
 
   pwdIsConfirmed!: boolean;
   contactExists!: boolean;
+  // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
+  isSubmitting!: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +34,8 @@ export class EditAdminComponent implements OnInit{
   ){}
   
   ngOnInit(): void {
+    this.isSubmitting = false;
+
     //Get admin by id from resolver
     this.route.data.pipe(
       map(data => data['adminById'])
@@ -61,6 +65,7 @@ export class EditAdminComponent implements OnInit{
    * @date 5/17/2023 - 3:07:32 PM
    */
   onSubmit(){
+    this.isSubmitting = true;
     this.adminService.updateTypeAdmin(this.typeAdmin).subscribe(
       data => {
         this.coreService.goToAdmin();

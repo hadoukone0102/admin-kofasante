@@ -31,6 +31,9 @@ export class AddAdminComponent implements OnInit {
   contactExists!: boolean;
   
   resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd;
+  // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
+  isSubmitting!: boolean;
+  
   constructor(
     private adminService: AdminService,
     private coreService: CoreService,
@@ -40,6 +43,7 @@ export class AddAdminComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode = '+225';
     this.pwdIsConfirmed = true;
+    this.isSubmitting = false;
     
     this.admin = {
       nomAdmin: '',
@@ -87,7 +91,8 @@ export class AddAdminComponent implements OnInit {
    * Add admin in database
    * @date 5/17/2023 - 2:51:27 PM
    */
-  onSubmit(){
+  onSubmit(){ 
+    this.isSubmitting = true;
     this.admin.contactAdmin = this.countryCode + this.contact;
     
     this.adminService.addAdmin(this.admin).subscribe(
@@ -143,8 +148,6 @@ export class AddAdminComponent implements OnInit {
    * @returns {boolean}
    */
   isAdminType(type: number): boolean{
-    console.log("type: "+type);
-    
     if(type === 1){
       return true;
     }

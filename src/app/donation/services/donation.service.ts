@@ -78,7 +78,6 @@ export class DonationService {
    * @returns {Observable<DataDon>}
    */
   getDonationsAnonymousWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<DataDon>{
-    console.log("Je passe dans le boom: " + search);
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error: any) => {
         console.error('Une erreur est survenue lors de la récupération des données: ', error);

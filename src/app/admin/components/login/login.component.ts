@@ -33,6 +33,8 @@ export class LoginComponent implements OnInit{
   siteKey!: string;
   theme!: "dark" | "light";
   tokenCaptcha!: string|null;
+
+  isSubmitting!:  boolean;
   
 
   constructor(
@@ -42,6 +44,8 @@ export class LoginComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
+    this.isSubmitting = false;
+
     this.dataLogin={
       contactAdmin:"",
       mdpAdmin: "",
@@ -72,7 +76,9 @@ export class LoginComponent implements OnInit{
   }
   
   onSubmit(){
-    this.isLogged = true
+    this.isSubmitting =true;
+    this.isLogged = true;
+
     this.dataLogin.contactAdmin =  this.countryCode + this.contact;
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
@@ -83,11 +89,12 @@ export class LoginComponent implements OnInit{
           sessionStorage.setItem('type', data.administrateur.id_typeadmin);
           sessionStorage.setItem('token', data.access_token);
 
+          this.isSubmitting =false;
           this.coreService.goToDashboard();
         }else{
+          this.isSubmitting = false;
           this.isLogged = false;
         }
-        
       },
       (error) => console.log("Erreur: "+ error)
     );
