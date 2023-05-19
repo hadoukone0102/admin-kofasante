@@ -1,0 +1,17 @@
+#password{
+    /* background-color: aqua; */
+}
+
+@media (max-height: 600px) {
+    #password{
+        background-color: #000;
+    }
+}
+#rc-imageselect,
+.g-recaptcha {
+   opacity: 0;
+}
+@media screen and (max-height: 575px){
+   
+   
+}

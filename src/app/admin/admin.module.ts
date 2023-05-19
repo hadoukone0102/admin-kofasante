@@ -24,6 +24,7 @@ import { EditAdminComponent } from './components/edit-admin/edit-admin.component
 import { ListDisabledCountAdminResolver } from './resolvers/list-disabled-account-admin.resolver';
 import { AdminByIdResolver } from './resolvers/admin-by-id.resolver';
 import { ListAdminTypesResolver } from './resolvers/list-admin-types.resolver';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{listAdmins: ListAdminsResolver,countryCode: CountryCodeResolver, listAdminTypes: ListAdminTypesResolver }, ...GLOBAL_RESOLVERS};
@@ -57,7 +58,8 @@ const adminRoutes: Routes = [
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule.forChild(adminRoutes)  
+    RouterModule.forChild(adminRoutes),
+    NgxCaptchaModule
 
   ],
   providers:[

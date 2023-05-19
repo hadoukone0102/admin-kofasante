@@ -7,7 +7,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h3">Connectez vous à l'Eglise Mukasa</h1>
                     </div>
-                    <form (ngSubmit)="onSubmit()" #login="ngForm" class="mt-4">
+                    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="row">
                           <div class="col-sm-4 mb-4">
@@ -79,10 +79,20 @@
                                 </div> -->
                                 <div><a (click)="goToForgotPassowrd()" class="small text-right">Mot de passe oublié?</a></div>
                             </div>
+                            <div class="align-items-center m-1">
+                                <ngx-recaptcha2 #captchaElem
+                                    [siteKey]="siteKey"
+                                    [theme]="theme"
+                                    (success)="getResponse($event)"
+                                    (expire)="handleExpire()"
+                                    >
+                                    </ngx-recaptcha2>
+
+                            </div>
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-gray-800"
-                                [disabled]="!theContact.valid || !thePassword.valid"
+                                [disabled]="loginForm.invalid || !tokenCaptcha"
                             >Se connecter</button>
                         </div>
                     </form>

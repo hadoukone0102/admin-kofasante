@@ -11,7 +11,8 @@ import { DataResultLogin } from '../../models/result-login.model';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html'
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit{
   contact!: string;
@@ -27,6 +28,11 @@ export class LoginComponent implements OnInit{
 
   countries$!: Observable<DataCountry>;
   countries!: DataCountry;
+
+  // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
+  siteKey!: string;
+  theme!: "dark" | "light";
+  tokenCaptcha!: string|null;
   
 
   constructor(
@@ -51,11 +57,22 @@ export class LoginComponent implements OnInit{
     this.countries$ = this.route.data.pipe(
       map(data => data['countryCode'])
     );
-    console.log('djouma code contry');
-      
-    console.log(this.countries$);
     this.countries$.subscribe(data => this.countries = data);
-    console.table(this.countries.pays);
+    // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
+    this.siteKey = "6LdJBx0mAAAAAHQnu4w5OjGXBQUtRQeyzzRVe_gB";
+    this.theme ="dark"
+    this.tokenCaptcha = null;
+  }
+
+  getResponse($response: string =  ""){
+    this.tokenCaptcha = $response;
+    console.debug("mon event: "+$response);
+  }
+  handleExpire(){
+    this.tokenCaptcha = null;
+    console.log("Expiration dans la poche");
+    // clearInterval(this.timer);
+    // window.console.l
     
   }
   
@@ -64,7 +81,6 @@ export class LoginComponent implements OnInit{
     this.dataLogin.contactAdmin =  this.countryCode + this.contact;
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
-        console.log("Mon token: "+data.access_token);
         if(data.access_token && data.auth){
           sessionStorage.setItem('contact', data.administrateur.contactAdmin);
           sessionStorage.setItem('firstName', data.administrateur.nomAdmin);
@@ -74,7 +90,6 @@ export class LoginComponent implements OnInit{
 
           this.coreService.goToDashboard();
         }else{
-          console.log("pas d'authentification réussi");
           this.isLogged = false;
         }
         

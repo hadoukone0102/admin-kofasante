@@ -22,7 +22,7 @@ import { GlobalModule } from './global/global.module';
     AdminModule,
     PagesModule,
     GlobalModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -100,6 +100,7 @@
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Civilité</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Ville</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Pays</th>
+            <th class="border-0 rounded-end">Id de transaction</th>
         </tr>
     </thead>
     <tbody *ngIf="donationListParent.status == 'success'">
@@ -136,6 +137,9 @@
             </td>
             <td *ngIf="!isAnonymous">
                 {{donation.paysDon}}
+            </td>
+            <td *ngIf="!isAnonymous">
+                {{donation.transactionId}}
             </td>
             </tr>
 <!-- End of Item -->

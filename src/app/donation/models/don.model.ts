@@ -12,6 +12,7 @@ export class Don {
     organisationDon!: string
     estAnonyme!: number
     estOrganisation!: number
+    transactionId!: string
     idEglise!: number
     created_at!: string
     updated_at!: string
