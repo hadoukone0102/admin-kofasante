@@ -43,7 +43,7 @@ export class CoreService {
   }
   
   goToDisabledAccount(){
-    this.router.navigate(['/admin/comptes-inatifs']);
+    this.router.navigate(['/admin/comptes-inactifs']);
   }
 
   goToLogin(){

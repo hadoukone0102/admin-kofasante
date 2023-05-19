@@ -144,6 +144,24 @@ export class DonationService {
    * @param {string} dateEnd
    * @returns {Observable<DataDon>}
    */
+   getAllDonationsWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error: any) => {
+        console.error('Une erreur est survenue lors de la récupération des données: ', error);
+        this.coreService.goToPageError();
+        return throwError('Une erreur est survenue lors de la récupération des données.');
+      })
+    );
+  }
+   /**
+   * Get the full list of anonymous donations mathching the filter criteria
+   * @date 5/17/2023 - 8:50:31 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<DataDon>}
+   */
    getAllDonationsAnonymousWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error: any) => {

@@ -211,8 +211,6 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons anonyme';
       this.pdfFileName = 'liste_des_dons_anonyme.pdf';
       this.excelFileName = 'liste_des_dons_anonyme.xlsx';
-      this.csvFileName = 'liste_des_dons_anonyme.csv';
-      
     }
     else if(this.listType === "noAnonymousPerso")
     {
@@ -221,7 +219,6 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons non anonyme faits à titre personnel';
       this.pdfFileName = 'Dons_non_anonyme_personnel.pdf';
       this.excelFileName = 'Dons_non_anonyme_personnel.xlsx';
-      this.csvFileName = 'Dons_non_anonyme_personnel.csv';
     }
     else if(this.listType === "noAnonymousOrga")
     {
@@ -230,11 +227,14 @@ export class DonationTableComponent implements OnInit{
       this.pdfTitle = 'Liste des dons non anonyme faits par des organisation';
       this.pdfFileName = 'Dons_non_anonyme_organisation.pdf';
       this.excelFileName = 'Dons_non_anonyme_organisation.xlsx';
-      this.csvFileName = 'Dons_non_anonyme_organisation.csv';
     }
     else //all
     {
-      // this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+      this.pdfOrientation = 'landscape';
+      this.pdfTitle = 'Liste de tout les dons';
+      this.pdfFileName = 'Liste_complète_des_dons.pdf';
+      this.excelFileName = 'Liste_complète_des_dons.xlsx';
     }
 
     this.donationTest$.subscribe((data) => {
@@ -457,11 +457,11 @@ export class DonationTableComponent implements OnInit{
    *
    * @returns {boolean}
    */
-  isNotReporter(): boolean {
+  /*isNotReporter(): boolean {
     if (this.router.url === "/dons/bilan-don"){
       return false;
     }else{
       return true;
     }
-  }
+  }*/
 }

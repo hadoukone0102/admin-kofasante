@@ -35,7 +35,7 @@ const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
   {path: 'ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
   {path: 'modifier-un-administrateur/:id', component: EditAdminComponent, resolve: listEditAdminResolvers}, 
-  {path: 'comptes-inatifs', component: DisabledAccountComponent, resolve: listDisabedAccountResolvers}, 
+  {path: 'comptes-inactifs', component: DisabledAccountComponent, resolve: listDisabedAccountResolvers}, 
 ];
 
 @NgModule({

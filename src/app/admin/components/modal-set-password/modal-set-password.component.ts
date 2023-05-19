@@ -11,6 +11,8 @@ export class ModalSetPasswordComponent implements OnInit{
   pwdIsConfirmed!: boolean;
   pwdExists!: boolean;
 
+  pwdIsInDatabase!:boolean;
+
   constructor(
     private adminService: AdminService
   ){}
@@ -24,6 +26,7 @@ export class ModalSetPasswordComponent implements OnInit{
     }  
     this.pwdIsConfirmed = true;
     this.pwdExists = true;
+    this.pwdIsInDatabase = true;
   }
   
   onSubmit(){
@@ -33,9 +36,18 @@ export class ModalSetPasswordComponent implements OnInit{
     else{
       this.pwdExists = true;
       this.adminService.updatePassword(this.groupPasswords).subscribe(
-        data => {                     
+        data => { 
+          console.log("Dans dedans");
+                              
           if(!data.success){
+            console.log("Dans dedans SUCCESS");
             this.pwdExists = false; 
+            this.pwdIsInDatabase = true;
+            location.reload();
+          }
+          else{
+            console.log("Dans dedans FALSE");
+            this.pwdIsInDatabase = false;
           }
         },
         (error) => console.log("Erreur: "+ error)
