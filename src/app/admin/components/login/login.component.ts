@@ -73,8 +73,7 @@ export class LoginComponent implements OnInit{
   
   onSubmit(){
     this.isLogged = true
-    this.dataLogin.contactAdmin =  "+2250566013534";
-    // this.dataLogin.contactAdmin =  this.countryCode + this.contact;
+    this.dataLogin.contactAdmin =  this.countryCode + this.contact;
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         if(data.access_token && data.auth){
