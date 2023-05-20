@@ -9,6 +9,7 @@ import { AdminModule } from './admin/admin.module';
 import { FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { GlobalModule } from './global/global.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GlobalModule } from './global/global.module';
     PagesModule,
     GlobalModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

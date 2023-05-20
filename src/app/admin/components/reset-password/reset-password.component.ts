@@ -11,6 +11,7 @@ export class ResetPasswordComponent implements OnInit{
   newPassword!: DataResetPassword;
   pwdIsConfirmed!: boolean;
   success!: boolean;
+  isSubmitting!:boolean;
 
   constructor(
     private coreService: CoreService,
@@ -25,13 +26,16 @@ export class ResetPasswordComponent implements OnInit{
     }
     this.pwdIsConfirmed = true;
     this.success = true;
+    this.isSubmitting =false;
   }
 
   onSubmit(){
+    this.isSubmitting =true;
     this.authService.resetPassword(this.newPassword).subscribe(
       (data) => {
+        this.isSubmitting =false;
         if (data.success){
-          this.coreService.goToLogin()
+          this.coreService.goToLogin();
         }else{
           this.success = false;
         }

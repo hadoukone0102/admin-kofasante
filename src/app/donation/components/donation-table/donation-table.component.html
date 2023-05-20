@@ -60,14 +60,14 @@
         </div>
         <div class="row mb-4">
             <div *ngIf="!isExporting" class=" col-8 col-sm-6 col-md-4  btn-group">
-                <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-secondary">Exporter</button>
+                <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
             </div>
             <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4   btn-group">
-                <button title="Masquer les bouttons d'exportation" (click)="checkAndSearch()" type="button" class="btn btn-secondary">Masquer</button>
+                <button title="Masquer les bouttons d'exportation" (click)="checkAndSearch()" type="button" class="btn btn-primary">Masquer</button>
             </div>
             <div *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4  btn-group">
-                <button type="button" class="btn btn-secondary">Exporter en</button>
-                <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                <button type="button" class="btn btn-primary">Exporter en</button>
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                   <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                   <span class="visually-hidden">Exporter en</span>
                 </button>
@@ -105,7 +105,7 @@
     </thead>
     <tbody *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
-            <tr  *ngFor="let donation of donationList; let a = index" class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
+            <tr  *ngFor="let donation of donationList; let a = index" @lineAnime class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
                 <!-- {{incrementI()}} -->
                 <td><a class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}} fw-bold">{{a+1}}</a> </td>
                 <td  class="fw-bold d-flex align-items-center">

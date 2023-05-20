@@ -14,6 +14,8 @@ export class ConfirmCodeSmsComponent implements OnInit{
 
   success!: boolean;
 
+  isSubmitting!:boolean;
+
   constructor(private coreService: CoreService,
     private authService: AuthService
     ){}
@@ -27,14 +29,17 @@ export class ConfirmCodeSmsComponent implements OnInit{
     }
 
   onSubmit(){ 
+    this.isSubmitting =true;
     this.success =true;
     this.authService.sendConfirmationCode(this.smsCode).subscribe(
       (data) => {
         if(data.success){
+          this.isSubmitting =false;
           this.success =true;
           this.coreService.goToResetPassword();
         }else{
           this.success =false;
+          this.isSubmitting =false;
           // this.codeIsValid = false;
         }
       }

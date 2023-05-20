@@ -105,7 +105,6 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdmin}/register`, Admin, httpOptions).pipe(
-      tap((response) => this.coreService.goToAdmin()),
       catchError((error) => {
         this.coreService.goToPageError();
         return throwError('Une erreur est survenue lors de la récupération des données: '+ error);

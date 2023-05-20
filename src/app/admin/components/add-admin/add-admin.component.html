@@ -10,24 +10,24 @@
         <!-- Content -->
         <div class="card card-body border-0 shadow mb-4">
             <h2 class="h5 mb-4"></h2>
-            <form (ngSubmit)="onSubmit()" #addAdmin="ngForm">
+            <form (ngSubmit)="onSubmit()" #addAdminForm="ngForm">
                 <div class="row">
                     <div class="col-12 mb-3">
                         <div>
                             <label for="firstName">Nom</label>
                             <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Entrez votre nom" 
-                            pattern="^[a-zA-Z0-9àéèç ]{1,50}$"
+                            
                             [(ngModel)]="admin.nomAdmin"
                             #theFirstName="ngModel"
                             required>
                         </div>
-                        <div *ngIf="theFirstName.touched && theFirstName.invalid">
+                        <div *ngIf="theFirstName.touched && theFirstName.errors?.['required']">
                             <small class="text-danger">Entrez un nom</small>
                         </div>
-                        <div class="text-danger"
-                            [hidden]="theFirstName.valid || theFirstName.pristine">
-                            Entrez des lettres et des chiffres uniquement
-                        </div> 
+                        <!-- <div class="text-danger"
+                            [hidden]="theFirstName.errors?.['pattern'] && theFirstName.touched">
+                            <small>Entrez des lettres et des chiffres uniquement</small>
+                        </div>  -->
                     </div>
                     <div class="col-12 mb-3">
                         <div>
@@ -42,8 +42,8 @@
                             <small class="text-danger">Entrez un prénom</small>
                         </div>
                         <div class="text-danger"
-                        [hidden]="theLastName.valid || theLastName.pristine">
-                            Entrez des lettres et des chiffres uniquement
+                        [hidden]="!theLastName.errors?.['pattern'] || theLastName.pristine">
+                             <small>Entrez moins de 50 lettres</small>
                         </div> 
                     </div>
                     <div class="col-sm-4 mb-4">
@@ -68,18 +68,18 @@
                             pattern="^[0-9]+$"
                             [(ngModel)]="contact"
                             #theContact="ngModel"
-                            (keyup)="onClickContact()"
+                            (keyup)="disabledContactExists()"
                             onkeypress="return event.charCode >= 48 && event.charCode<= 57"
                             required="">
                         </div>
-                        <div *ngIf="theContact.touched && theContact.invalid">
-                            <small class="text-danger">Le champ contact est requis</small>
+                        <div *ngIf="theContact.touched && theContact.errors?.['required']">
+                            <small class="text-danger">Entrez votre contact</small>
                         </div>
                         <div *ngIf="contactExists">
                             <small class="text-danger">Ce numéros existe déjà!</small>
                         </div>
                         <div class="text-danger"
-                            [hidden]="theContact.valid || theContact.pristine">
+                            [hidden]="!theContact.errors?.['pattern'] || theContact.pristine">
                             <small>Entrez des chiffres</small> 
                         </div> 
                     </div>
@@ -87,33 +87,34 @@
                         <div>
                             <label for="password">Mot de passe</label>
                             <input class="form-control" id="password"  name="password" type="password" placeholder="Entrez votre mot de passe" 
-                            pattern="^.{5,}$"
+                            pattern="^.{8,}$"
                             [(ngModel)]="admin.mdpAdmin"
                             #thePassword="ngModel"
+                            (change)="onClickConfirmPassword()"
                             (keyup)="onClickConfirmPassword()"
                             required="">
                         </div>
-                        <div *ngIf="thePassword.touched && thePassword.invalid">
+                        <div *ngIf="thePassword.touched && thePassword.errors?.['required']">
                             <small class="text-danger">Entrez un mot de passe</small>
                         </div>
                         <div class="text-danger"
-                        [hidden]="thePassword.valid || thePassword.pristine">
-                            Entrez au moins 5 caractère
+                        [hidden]="!thePassword.errors?.['pattern'] || thePassword.pristine">
+                           <small>Entrez au moins 8 caractères</small>
                         </div> 
                     </div>
                     <div class="col-12 mb-3">
                         <div>
                             <label for="confirmPassword">Confirmez le mot de passe</label>
                             <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirmez votre mot de passe" 
-                            pattern="^.{5,}$"
                             [(ngModel)]="confirmPassword"
                             #theConfirmPassword="ngModel"
                             (keyup)="onClickConfirmPassword()"
+                            (change)="onClickConfirmPassword()"
                             required="">
                         </div>
                         
                         <div *ngIf="!pwdIsConfirmed" class="text-danger">
-                            Les deux mots de passe ne correspondent pas
+                            <small>Les deux mots de passe ne correspondent pas</small>
                         </div> 
                     </div>
                     <div class="col-12 mb-3">
@@ -122,8 +123,9 @@
                             <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                             <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
                             value="{{type.id}}"
-                            [selected]="isAdminType(1)"
-                            >{{type.libelleType}}
+                            [selected]="isAdminType(type.id)"
+                            >
+                            {{type.libelleType}}
                         </option>
                             <!-- <option value="1" selected>Curé</option> -->
                             <!-- <option value="2">Sécrétaire</option> -->
@@ -135,7 +137,7 @@
         
                 <div class="mt-3 d-flex">
                     <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit"
-                         [disabled]="!theFirstName.valid || !theLastName.valid || !theContact.valid || !thePassword.valid || !pwdIsConfirmed || contactExists"
+                         [disabled]="addAdminForm.invalid|| !pwdIsConfirmed"
                         >Ajouter</button>
                     <!-- <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit"
                         [hidden]="theFirstName.valid || theLastName.valid || theContact.valid || thePassword.valid || admin.mdpAdmin != confirmPassword"

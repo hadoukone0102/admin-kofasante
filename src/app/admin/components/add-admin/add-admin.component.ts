@@ -19,9 +19,6 @@ export class AddAdminComponent implements OnInit {
 
   admin!: DataAdminAdd;
 
-  adminList$!: Observable<DataAdmin>;
-  adminList!: DataAdmin;
-
   listAdminTypes!: DataAdminType;
 
   password!: string;
@@ -59,17 +56,6 @@ export class AddAdminComponent implements OnInit {
       status_code: 200,
       message: "",
     };
-
-    //Get admin list from resolver
-    this.adminList$ = this.route.data.pipe(
-      map(data => data['listAdmins'])
-    );
-
-    this.adminList$.subscribe(
-      data => {
-        this.adminList = data;
-      }
-    );
     
     //Get countries list from resolver
     this.countries$ = this.route.data.pipe(
@@ -93,15 +79,19 @@ export class AddAdminComponent implements OnInit {
    */
   onSubmit(){ 
     this.isSubmitting = true;
+    this.contactExists =false;
     this.admin.contactAdmin = this.countryCode + this.contact;
     
     this.adminService.addAdmin(this.admin).subscribe(
       (admin) => {
+        this.isSubmitting = false;
         this.resultAdd = admin;
         if (admin.success === true){
+          this.contactExists = false;
           this.coreService.goToAdmin();
         }else{
-          console.log("Une erreur est survenu: "+this.resultAdd.message);
+          this.contactExists =true;
+          console.log("Une erreur est survenuOK: "+this.resultAdd.message);
         }
       },
       (error)=> console.log("Une erreur est survenu:: "+error)
@@ -126,18 +116,8 @@ export class AddAdminComponent implements OnInit {
    * if the value of the contact matches one of the contacts in the obtained list.
    * @date 5/17/2023 - 2:54:57 PM
    */
-  onClickContact(){
-    this.admin.contactAdmin = this.countryCode + this.contact;
-    
-    this.adminList.administrateurs.some(adminInDB => {
-      if (adminInDB.contactAdmin === this.admin.contactAdmin) {
-        this.contactExists = true;
-        return true;
-      }else{
-        this.contactExists = false;
-        return false;
-      }
-    });
+  disabledContactExists(){
+    this.contactExists = false;
   }
 
   /**
@@ -148,7 +128,7 @@ export class AddAdminComponent implements OnInit {
    * @returns {boolean}
    */
   isAdminType(type: number): boolean{
-    if(type === 1){
+    if(type === 2){
       return true;
     }
     return false;

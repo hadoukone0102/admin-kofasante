@@ -11,10 +11,11 @@
     </tr>
 </thead>
 <!-- ENABLED ACCOUNT -->
+<!-- <tbody *ngIf="!isDisabledAccount()" [@boomTrigger]="admins.administrateurs.length"> -->
 <tbody *ngIf="!isDisabledAccount()" >
 
     <!-- Item -->
-    <tr *ngFor="let admin of admins.administrateurs; let i = index">
+    <tr *ngFor="let admin of admins.administrateurs; let i = index; trackBy: trackByAdminId"  @lineAnime >
         <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
     <td >
         {{admin.nomAdmin}}
@@ -45,7 +46,7 @@
 <tbody *ngIf="isDisabledAccount()" >
 
     <!-- Item -->
-    <tr *ngFor="let disabled of disabledAccounts.administrateurs; let i = index">
+    <tr *ngFor="let disabled of disabledAccounts.administrateurs; let i = index; trackBy: trackByDisabledAccountId" @lineAnime>
         <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
     <td >
         {{disabled.nomAdmin}}

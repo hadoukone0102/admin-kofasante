@@ -1,6 +1,6 @@
-export function showConsole(){
-    console.log("super man!");
-}
+// export function showConsole(){
+//     console.log("super man!");
+// }
 
 // Récupération de l'élément input du numéro de téléphone
 var input = document.querySelector("#phone");
