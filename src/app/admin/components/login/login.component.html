@@ -44,7 +44,12 @@
                                   onkeypress="return event.charCode >= 48 && event.charCode<= 57"
                                   autofocus required>
                               </div> 
-                              <div *ngIf="theContact.invalid && theContact.touched"  class="text-danger">
+                              <!-- <button onclick="showConsole()" >click moi</button> -->
+                              
+                              <div *ngIf="theContact.errors?.['pattern'] && theContact.touched"  class="text-danger">
+                                  <small>Entrez des chiffres</small>
+                              </div> 
+                              <div *ngIf="theContact.errors?.['required'] && theContact.touched"  class="text-danger">
                                   <small>Entrez votre contact</small>
                               </div> 
                           </div>
@@ -98,10 +103,10 @@
                         </div>
                         <div class="d-grid">
                             <button type="submit" class="btn btn-gray-800"
-                               
+                            [disabled]="loginForm.invalid || !tokenCaptcha" 
                             >Se connecter</button>
                         </div>
-                        <!-- [disabled]="loginForm.invalid || !tokenCaptcha" -->
+                        <!---->
                     </form>
                     
                 </div>
@@ -109,3 +114,5 @@
         </div>
     </div>
 </section>
+
+<!-- <input type="tel" id="phone" /> -->

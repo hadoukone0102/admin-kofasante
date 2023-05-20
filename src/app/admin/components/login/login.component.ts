@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataCountry } from '../../models/country-code.model';
 import { Observable, map } from 'rxjs';
@@ -8,6 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Datalogin } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
 import { DataResultLogin } from '../../models/result-login.model';
+import * as intlTelInput from 'intl-tel-input';
+
+// declare function showConsole():any ;
+// declare function checkout():any;
+
 
 @Component({
   selector: 'app-login',
@@ -35,6 +39,8 @@ export class LoginComponent implements OnInit{
   tokenCaptcha!: string|null;
 
   isSubmitting!:  boolean;
+
+  title!: string;
   
 
   constructor(
@@ -44,6 +50,16 @@ export class LoginComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
+    // ~~~~~~~~~~~~~~ Tel input ~~~~~~~~~~~~~~ //
+    const inputElement = document.querySelector('input[type="tel"]');
+    if(inputElement){
+    intlTelInput(inputElement,{
+      initialCountry:'CI',
+      separateDialCode:true,
+      utilsScript:'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
+    });
+    }
+    this.title = 'angularl10';
     this.isSubmitting = false;
 
     this.dataLogin={
@@ -66,7 +82,8 @@ export class LoginComponent implements OnInit{
     this.siteKey = "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw";
     this.theme ="light"
     this.tokenCaptcha = null;
-  }
+    
+}
 
   getResponse($response: string =  ""){
     this.tokenCaptcha = $response;

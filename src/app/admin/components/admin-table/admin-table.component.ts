@@ -61,15 +61,17 @@ export class AdminTableComponent implements OnInit{
    * @param {string} id
    */
   disabledAdmin(id: string){
-    this.adminService.disabledAdmin(id).subscribe(data =>{
-      this.admins$ = this.adminService.getAdmins();
-      this.admins$.subscribe(
-        data => {
-          this.admins = data;
-        }
+    if(confirm("Etes vous sur de vouloir désactiver ce compte ?")){
+      this.adminService.disabledAdmin(id).subscribe(data =>{
+        this.admins$ = this.adminService.getAdmins();
+        this.admins$.subscribe(
+          data => {
+            this.admins = data;
+          }
+        );
+      } 
       );
-    } 
-    );
+    }
   }
 
   /**
@@ -79,10 +81,12 @@ export class AdminTableComponent implements OnInit{
    * @param {string} id
    */
   restoreAdmin(id: string){
-    this.adminService.enabledAdmin(id).subscribe(
-      data => this.coreService.goToAdmin(),
-      error => console.log("Une erreur s'est produite: "+error)
-    )
+    if(confirm("Etes vous sûr de vouloir restorer ce compte ?")){
+      this.adminService.enabledAdmin(id).subscribe(
+        data => this.coreService.goToAdmin(),
+        error => console.log("Une erreur s'est produite: "+error)
+      )
+    }
   }
 
   /**

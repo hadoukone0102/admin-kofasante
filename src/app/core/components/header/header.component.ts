@@ -42,6 +42,7 @@ export class HeaderComponent {
   }
 
   logout(){
-    this.authService.logout();
+    if(confirm("Etes Vous sûr de vouloir vous déconnecter ?"))
+      this.authService.logout();
   }
 }
