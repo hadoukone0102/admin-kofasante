@@ -6,6 +6,8 @@ export const  environment = {
     // apiUrlDon: 'http://192.168.2.106:8000/api',
     apiUrlAdmin: 'https://admin-api.eglise-mukasa.ci/api',
     // apiUrlAdmin: 'http://192.168.2.106:4200/api',
+    captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",
+    captchaKeyDev: "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw",
 
     dateStartForSearch: new Date(2023, 0, 1).toISOString().substring(0, 10),
     todayDate: new Date().toISOString().substring(0, 10),// format AAAA-MM-JJ

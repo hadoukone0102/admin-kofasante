@@ -8,6 +8,7 @@ import { Datalogin } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
 import { DataResultLogin } from '../../models/result-login.model';
 import * as intlTelInput from 'intl-tel-input';
+import { environment } from 'src/environments/environment';
 
 // declare function showConsole():any ;
 // declare function checkout():any;
@@ -79,7 +80,7 @@ export class LoginComponent implements OnInit{
     );
     this.countries$.subscribe(data => this.countries = data);
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw";
+    this.siteKey = environment.captchaKeyProd;
     this.theme ="light"
     this.tokenCaptcha = null;
     
