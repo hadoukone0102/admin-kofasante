@@ -4,26 +4,13 @@ import { DataDonationInfo } from '../../models/donationInfo.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataAdminInfo } from '../../models/admin-info.model';
 import { style, transition, trigger,animate } from '@angular/animations';
+import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   animations:[
-    trigger('lineAnime', [
-     
-      transition(':enter', [
-        style({
-          transform: 'scale(0) ',
-          opacity: 0,
-            // 'background-color': 'rgb(201, 157, 242)',
-        }),
-        animate('250ms ease-out', style({
-          transform: 'scale(1) ',
-          opacity: 1,
-            // 'background-color': 'aqua',
-        }))
-    ]),
-  ]),
+    zoomEnterAnimation
   ]
 })
 export class DashboardComponent implements OnInit{

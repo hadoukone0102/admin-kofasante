@@ -5,13 +5,13 @@ import { NotificationService } from 'src/app/core/services/notification.service'
 import { DataDon } from '../../models/don.model';
 import { DonationService } from '../../services/donation.service';
 import { DataAccumulation } from '../../models/accumulation.model';
-import { lineAnime } from 'src/app/core/animations/animations';
+import { lineTableAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-report-donation',
   templateUrl: './report-donation.component.html',
   animations:[
-    lineAnime
+    zoomEnterAnimation
   ]
 })
 export class ReportDonationComponent implements OnInit{

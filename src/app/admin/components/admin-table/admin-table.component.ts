@@ -5,58 +5,13 @@ import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataDisabledAccount } from '../../models/disabled-account-admin.model';
 import { style, transition, trigger, animate, query, stagger, keyframes } from '@angular/animations';
+import { lineTableAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   animations:[
-    trigger('lineAnime', [
-      transition(':leave', [
-        style({
-            transform: 'translateX(0)',
-            opacity: 1,
-            // 'background-color': 'rgb(201, 157, 242)',
-        }),
-        animate('250ms ease-out', style({
-            transform: 'translateX(-100px)',
-            opacity: 0,
-            // 'background-color': 'aqua',
-        }))
-    ]),
-      transition(':enter', [
-        style({
-          transform: 'translateX(-100px)',
-          opacity: 0,
-            // 'background-color': 'rgb(201, 157, 242)',
-        }),
-        animate('250ms ease-out', style({
-          transform: 'translateX(0)',
-          opacity: 1,
-            // 'background-color': 'aqua',
-        }))
-    ]),
-  ]),
-
-  trigger('boomTrigger', [
-    transition('* => *', [
-      query(':enter', style({opacity:0}), {optional: true}),
-      
-      query(':enter', stagger('300ms',[
-        animate('1s ease-in', keyframes([
-          style({opacity: .3, transform: 'translateY(-75px)', offset: 0}),//depart
-          style({opacity: .5, transform: 'translateY(35px)', offset: 0.3}),//ensuite
-          style({opacity: 1, transform: 'translateY(0)', offset: 1}),//final (position initial)
-        ]))
-      ]), {optional: true}),
-      query(':leave', stagger('300ms',[
-        animate('1s ease-in', keyframes([
-          style({opacity: 1, transform: 'translateY(0)', offset: 0}),//final (position initial)
-          style({opacity: .5, transform: 'translateY(35px)', offset: 0.3}),//ensuite
-          style({opacity: .3, transform: 'translateY(-75px)', offset: 1}),//depart
-        ]))
-      ]), {optional: true}) ,
-    ])
-  ]),
+      lineTableAnimation,
   ]
 })
 export class AdminTableComponent implements OnInit{

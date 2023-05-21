@@ -105,7 +105,7 @@
     </thead>
     <tbody *ngIf="donationListParent.status == 'success'">
         <!-- Item -->
-            <tr  *ngFor="let donation of donationList; let a = index" @lineAnime class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
+            <tr  *ngFor="let donation of donationList; let a = index" @linePaginateAnimation class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
                 <!-- {{incrementI()}} -->
                 <td><a class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}} fw-bold">{{a+1}}</a> </td>
                 <td  class="fw-bold d-flex align-items-center">

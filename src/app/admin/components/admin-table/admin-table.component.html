@@ -15,7 +15,7 @@
 <tbody *ngIf="!isDisabledAccount()" >
 
     <!-- Item -->
-    <tr *ngFor="let admin of admins.administrateurs; let i = index; trackBy: trackByAdminId"  @lineAnime >
+    <tr *ngFor="let admin of admins.administrateurs; let i = index; trackBy: trackByAdminId"  @lineTableAnimation >
         <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
     <td >
         {{admin.nomAdmin}}
@@ -30,10 +30,10 @@
         {{admin.id_typeadmin}}
     </td>
     <td>
-        <a title="Désactivez un administrateur" (click)="disabledAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
+        <a *ngIf="admin.id_typeadmin !== 'Curé'" title="Désactivez un administrateur" (click)="disabledAdmin(admin.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
             <i class="fa fa-ban" ></i>
         </a>
-        <a title="Modifier le type de l'administrateur" (click)="goToEditAdmin(admin.id)" class="ms-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
+        <a title="Modifier le compte de l'administrateur" (click)="goToEditAdmin(admin.id)" class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
             <i class="fa fa-edit" ></i>
         </a>
     </td>
@@ -42,11 +42,12 @@
 <!-- End of Item -->
 </tbody>
 
+
 <!-- DISABLED ACCOUNT -->
 <tbody *ngIf="isDisabledAccount()" >
 
     <!-- Item -->
-    <tr *ngFor="let disabled of disabledAccounts.administrateurs; let i = index; trackBy: trackByDisabledAccountId" @lineAnime>
+    <tr *ngFor="let disabled of disabledAccounts.administrateurs; let i = index; trackBy: trackByDisabledAccountId" @lineTableAnimation>
         <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
     <td >
         {{disabled.nomAdmin}}

@@ -7,6 +7,7 @@
         theTitle="Modifier un administrateur"
         theContent="Modifiez les informations d'un administrateur">
     </app-page-title>
+    
     <!-- Content -->
     <div class="card card-body border-0 shadow mb-4">
         <h2 class="h5 mb-4"></h2>
@@ -57,7 +58,9 @@
                
                 <div class="col-12 mb-3">
                     <label for="role">Type</label>
-                    <select [(ngModel)]="+typeAdmin.id_typeadmin" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
+                    <select [(ngModel)]="+typeAdmin.id_typeadmin" 
+                    [disabled]="typeAdmin.id_typeadmin === 1"
+                        class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
                         <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                         <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
                             value="{{type.id}}"

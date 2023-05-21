@@ -7,27 +7,13 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
-import { style, transition, trigger,animate } from '@angular/animations';
+import { linePaginateAnimation,  } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-donation-table',
   templateUrl: './donation-table.component.html',
   animations:[
-    trigger('lineAnime', [
-     
-      transition(':enter', [
-        style({
-          transform: 'translateX(-100px)',
-          opacity: 0,
-            // 'background-color': 'rgb(201, 157, 242)',
-        }),
-        animate('250ms ease-out', style({
-          transform: 'translateX(0)',
-          opacity: 1,
-            // 'background-color': 'aqua',
-        }))
-    ]),
-  ]),
+    linePaginateAnimation
   ]
 })
 export class DonationTableComponent implements OnInit{

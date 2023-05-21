@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminByid } from '../../models/admin-by-id.model';
 import { DataSetTypeAndContactAdmin } from '../../models/set-type-admin.model';
 import { DataAdminType } from '../../models/admin-type.model';
-import { DataAdmin } from '../../models/admin.model';
 
 @Component({
   selector: 'app-edit-admin',
@@ -27,6 +26,8 @@ export class EditAdminComponent implements OnInit{
   contactExists!: boolean;
   // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
   isSubmitting!: boolean;
+
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -60,7 +61,11 @@ export class EditAdminComponent implements OnInit{
         this.listAdminTypes = data;
       }
     );
+
+   
   }
+
+  
 
   /**
    * Update type and phone number of specified administrator
