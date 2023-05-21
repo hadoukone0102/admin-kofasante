@@ -16,18 +16,21 @@ export class TokenInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private coreService: CoreService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
+
     const token = this.authService.getToken();
 
     if(token !== null){
+      //Clone the request to modify by insert token
       let clone =request.clone({
         headers: request.headers.set('Authorization', 'Bearer ' + token)
       });
+      //return the request modified 
       return next.handle(clone).pipe(
         catchError((error) => { 
           if(error.status === 401){
-            this.coreService.goToLogin();
+            this.coreService.goToLogin();//redirect to login if session expired
           }
+          this.coreService.goToPageError();//else redirect to page error
           return throwError('Une erreur est survenue lors de l\'authentification: '+ error);
         }),
       );
