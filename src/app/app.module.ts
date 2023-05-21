@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { PagesModule } from './pages/pages.module';
 import { GlobalModule } from './global/global.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [TokenInterceptorProvider],//All time enabled
   bootstrap: [AppComponent]
 })
 export class AppModule { }

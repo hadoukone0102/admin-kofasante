@@ -37,6 +37,10 @@ export class AuthService {
       }),)
     }
 
+    getToken(): string|null {
+      return sessionStorage.getItem('token');
+    }
+
     /**
      * Return true if the administrator is authenticated
      * @date 5/17/2023 - 4:25:09 PM
