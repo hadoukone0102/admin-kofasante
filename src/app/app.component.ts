@@ -124,13 +124,11 @@ export class AppComponent implements OnInit{
       switch(true) {
         case event instanceof NavigationStart: {
           this.pageLoading = true;
-          console.info('loading', this.pageLoading);
           break;
         }
         case event instanceof NavigationEnd:
         case event instanceof NavigationCancel:
         case event instanceof NavigationError: {
-          console.info('loading', this.pageLoading);
           this.pageLoading = false;
           break;
         }

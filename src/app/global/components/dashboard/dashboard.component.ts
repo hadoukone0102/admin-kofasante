@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DataAdminInfo } from '../../models/admin-info.model';
 import { style, transition, trigger,animate } from '@angular/animations';
 import { zoomEnterAnimation } from 'src/app/core/animations/animations';
+import { environment } from 'src/environments/environment';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,8 +21,13 @@ export class DashboardComponent implements OnInit{
 
   adminInfo$!: Observable<DataAdminInfo>;
   adminInfo!: DataAdminInfo;
+
+  adminType!: string|null;
+
+  rolesForDonation!: string[];
+  rolesForAdmin!: string[];
   
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private coreService: CoreService) { }
 
   ngOnInit(): void {
     this.donationInfo$ = this.route.data.pipe(
@@ -35,7 +42,43 @@ export class DashboardComponent implements OnInit{
     
     this.adminInfo$.subscribe((data) => this.adminInfo = data);
 
-    
+    this.adminType = sessionStorage.getItem('type');
+    //roles initialization
+    this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
+    this.rolesForAdmin = ['Curé'];
+  }
 
+  /**
+   * Returns true if the connected administrator is authorized to access the donations
+   * @date 5/17/2023 - 4:11:45 PM
+   *
+   * @returns {boolean}
+   */
+  isAuthorizedForDonation(): boolean{
+    if(this.rolesForDonation.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
+  }
+  
+  /**
+   * Returns true if the connected administrator is authorized to access the admin menu
+   * @date 5/17/2023 - 4:10:47 PM
+   *
+   * @returns {boolean}
+   */
+  isAuthorizedForAdmin(){
+    if(this.rolesForAdmin.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
+  }
+
+  goToReportDonation(){
+    this.coreService.goToReportDonation();
+  }
+
+  goToAdmin(){
+    this.coreService.goToAdmin();
   }
 }

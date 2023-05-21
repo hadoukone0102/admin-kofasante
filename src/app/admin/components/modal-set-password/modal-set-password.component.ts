@@ -39,17 +39,13 @@ export class ModalSetPasswordComponent implements OnInit{
       this.pwdExists = true;
       this.adminService.updatePassword(this.groupPasswords).subscribe(
         data => { 
-          console.log("Dans dedans");
-                              
           if(data.success){
-            console.log("Dans dedans SUCCESS");
             this.pwdExists = true; 
             this.pwdIsInDatabase = true;
             this.isSubmitting = false;
             location.reload();
           }
           else{
-            console.log("Dans dedans FALSE");
             this.pwdExists = false; 
             this.isSubmitting = false;
           }
