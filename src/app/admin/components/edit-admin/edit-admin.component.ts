@@ -73,10 +73,9 @@ export class EditAdminComponent implements OnInit{
    */
   onSubmit(){
     this.isSubmitting = true;
+    if(this.typeAdmin.id_typeadmin)
     this.adminService.updateTypeAdmin(this.typeAdmin).subscribe(
       data => {
-        console.log("le message! "+data.message);
-        
         if(data.success){
           this.contactExists = false;
           this.isSubmitting = false;

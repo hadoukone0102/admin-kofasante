@@ -91,7 +91,6 @@ export class AddAdminComponent implements OnInit {
           this.coreService.goToAdmin();
         }else{
           this.contactExists =true;
-          console.log("Une erreur est survenuOK: "+this.resultAdd.message);
         }
       },
       (error)=> console.log("Une erreur est survenu:: "+error)

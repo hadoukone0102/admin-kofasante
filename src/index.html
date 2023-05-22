@@ -15,23 +15,22 @@
   
 
   <script>
-    //POUR GARDER LA RESPONSIVITEE
+    //to maintain responsiveness
 
-    // Sélectionnez l'élément à observer
+    // Select the element to observe
     const targetNode = document.getElementById('bod');
 
-    // Créez une instance de MutationObserver
+    // Create an instance of MutationObserver
     const observer = new MutationObserver(function(mutations) {
       mutations.forEach(function(mutation) {
-        // console.log('Un changement a été détecté dans le DOM');
         document.getElementById("bod").style.position = 'relative';
       });    
     });
 
-    // Configurez l'observation des modifications
+    //Configure change observation
     const config = { attributes: true, childList: true, subtree: true };
 
-    // Commencez à observer l'élément cible
+    // Start observing the target element
     observer.observe(targetNode, config);
   </script>
   <script src="assets/js-links.js"></script>
