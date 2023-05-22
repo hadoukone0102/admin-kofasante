@@ -39,9 +39,14 @@ export class LoginComponent implements OnInit{
   theme!: "dark" | "light";
   tokenCaptcha!: string|null;
 
+  // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
   isSubmitting!:  boolean;
 
-  title!: string;
+  title!: string;//tel input
+
+  // ~~~~~~~~~ Show hidden password ~~~~~~~~ //
+  passwordTest!: string;
+  showPassword: boolean = false;
   
 
   constructor(
@@ -83,16 +88,38 @@ export class LoginComponent implements OnInit{
     this.siteKey = environment.captchaKeyProd;
     this.theme ="light"
     this.tokenCaptcha = null;
-    
 }
 
+/**
+ * Toogle password visibility
+ * @date 5/22/2023 - 6:59:19 PM
+ */
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
+
+  /**
+   * Get the reponse of captcha
+   * @date 5/22/2023 - 6:59:56 PM
+   *
+   * @param {string} [$response=""]
+   */
   getResponse($response: string =  ""){
     this.tokenCaptcha = $response;
   }
+
+  /**
+   * Called when captcha is expired
+   * @date 5/22/2023 - 7:00:29 PM
+   */
   handleExpire(){
     this.tokenCaptcha = null;
   }
   
+  /**
+   * Send data to api for auhentication
+   * @date 5/22/2023 - 7:01:02 PM
+   */
   onSubmit(){
     this.isSubmitting =true;
     this.isLogged = true;
@@ -117,23 +144,6 @@ export class LoginComponent implements OnInit{
       (error) => console.log("Erreur: "+ error)
     );
 
-
-  
-    // this.coreService.goToDashboard();
-
-
-
-    
-    // if(this.contact === ""){
-    //   this.contactIsEmpty = true;
-    // }else{
-    //   this.contactIsEmpty = false;
-    // }
-    // if(this.password === ""){
-    //   this.passwordIsEmpty = true;
-    // }else{
-    //   this.passwordIsEmpty = false;
-    // }
   }
 
   goToForgotPassowrd(){
