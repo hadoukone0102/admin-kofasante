@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
 import { DataDon, Don } from '../../models/don.model';
-import { Router } from '@angular/router';
 import { DonationService } from '../../services/donation.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -14,6 +13,33 @@ import { linePaginateAnimation,  } from 'src/app/core/animations/animations';
   templateUrl: './donation-table.component.html',
   animations:[
     linePaginateAnimation
+  ],
+  styles: [
+    `
+  .loader {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  border: 10px solid;
+  border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
+  box-sizing: border-box;
+  animation: rotation .5s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
+
+
+    
+    `
   ]
 })
 export class DonationTableComponent implements OnInit{
@@ -56,13 +82,14 @@ export class DonationTableComponent implements OnInit{
   pdfTitle!: string;
   pdfFileName!: string;
   excelFileName!: string;
-  csvFileName!: string;
 
   // ~~~~~~~~~ Today date variables ~~~~~~~~ //
   today: Date = new Date();
+
+  // ~~~~~~~~~~~ Refresh variable ~~~~~~~~~~ //
+  isRefreshing!: boolean;
   
   constructor(
-    private router: Router,
     private donationService: DonationService,
     ) {}
 
@@ -86,7 +113,8 @@ export class DonationTableComponent implements OnInit{
     this.pdfTitle ='';
     this.pdfFileName = '';
     this.excelFileName = '';
-    this.csvFileName = '';
+
+    this.isRefreshing = false;
   }
 
   // ====================================================== //
@@ -188,6 +216,12 @@ export class DonationTableComponent implements OnInit{
     this.showPageWhere(1);
   }
 
+  handleToogleButtonFromChild(toogleButton: boolean){
+    console.log("refresh 22");
+    
+    this.search();
+  }
+
   // ====================================================== //
   // ============= //ANCHOR - Child Fonctions ============= //
   // ====================================================== //
@@ -257,6 +291,7 @@ export class DonationTableComponent implements OnInit{
   search(){
     this.hideExportationButton();
     this.sendDataToParent();
+    this.isRefreshing = true;
     if (this.isAnonymous && !this.isAll) {//Anonymous
       this.searchTerms.next(this.searchBarValue);
   
@@ -264,12 +299,6 @@ export class DonationTableComponent implements OnInit{
         debounceTime(300),
         switchMap((term) => this.donationService.getDonationsAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
-    
-      this.donations$.subscribe((donations) => {
-        this.donationList = donations.dons;
-        this.donationListParent = donations;
-        this.checkAndApplyDisabled(donations)
-      });
     }
     else if(!this.isAnonymous && !this.isOrganisation && !this.isAll) //non-anonymous perso
     {
@@ -279,12 +308,6 @@ export class DonationTableComponent implements OnInit{
           distinctUntilChanged(),
           switchMap((term) => this.donationService.getDonationsNoAnonymousPersoWhere('1',term, this.dateStartValue, this.dateEndValue))
         );
-      
-        this.donations$.subscribe((donations) => {
-          this.donationList = donations.dons;
-          this.donationListParent = donations;
-          this.checkAndApplyDisabled(donations);
-      });
     }
     else if(!this.isAnonymous && this.isOrganisation && !this.isAll)//non-anonymous orga
     {
@@ -295,16 +318,9 @@ export class DonationTableComponent implements OnInit{
         distinctUntilChanged(),
         switchMap((term) => this.donationService.getDonationsNoAnonymousOrgaWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
-      
-      this.donations$.subscribe((donations) => {
-        this.donationList = donations.dons;
-        this.donationListParent = donations;
-        this.checkAndApplyDisabled(donations);
-      });
     }
     else //all
     { 
-      
       this.searchTerms.next(this.searchBarValue);
     
       this.donations$ = this.searchTerms.pipe(
@@ -312,13 +328,15 @@ export class DonationTableComponent implements OnInit{
         distinctUntilChanged(),
         switchMap((term) => this.donationService.getDonationsWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
-    
-      this.donations$.subscribe((donations) => {
-        this.donationList = donations.dons;
-        this.donationListParent = donations;
-        this.checkAndApplyDisabled(donations);
-      });
     }
+
+    //Getting data from API depending filter criteria
+    this.donations$.subscribe((donations) => {
+      this.donationList = donations.dons;
+      this.donationListParent = donations;
+      this.checkAndApplyDisabled(donations);
+      this.isRefreshing = false;
+    });
   }
 
   /**

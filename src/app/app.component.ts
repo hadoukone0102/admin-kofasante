@@ -73,11 +73,6 @@ import { topToBottomAnimation } from './core/animations/animations';
     transform: rotate(-360deg);
   }
 }
-    
-  
-  
-
-
 
   `]
   

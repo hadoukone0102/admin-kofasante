@@ -42,6 +42,10 @@ export class AuthService {
     getTypeOfAdminLogged(): string|null {
       return sessionStorage.getItem('type');
     }
+    
+    getContactOfAdminLogged(): string|null {
+      return sessionStorage.getItem('contact');
+    }
 
     /**
      * Return true if the administrator is authenticated

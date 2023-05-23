@@ -1,0 +1,12 @@
+
+    <button (click)="toogleRefresh()"  class="btn btn-info d-inline-flex align-items-center justify-content-center " type="button">
+      <div class="row">
+          <div class="col-2 ">
+              <i *ngIf="!isRefreshing" class="fa fa-sync-alt me-3"></i>
+              <span *ngIf="isRefreshing"  class="loader"></span>  
+          </div>
+          <div class="col text-center">
+              Rafraichir
+          </div>
+      </div>  
+  </button>
