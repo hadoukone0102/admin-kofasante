@@ -7,6 +7,7 @@ import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import { linePaginateAnimation,  } from 'src/app/core/animations/animations';
+import { DataFilter } from 'src/app/core/models/filter-model';
 
 @Component({
   selector: 'app-donation-table',
@@ -219,6 +220,14 @@ export class DonationTableComponent implements OnInit{
   handleToogleButtonFromChild(toogleButton: boolean){
     this.search();
   }
+
+  handleDataFilterFromChild(dataFilter: DataFilter) {
+    this.searchBarValue = dataFilter.searchBarValue;
+    this.dateStartValue = dataFilter.dateStartValue
+    this.dateEndValue = dataFilter.dateEndValue
+    this.search();
+  }
+ 
 
   // ====================================================== //
   // ============= //ANCHOR - Child Fonctions ============= //

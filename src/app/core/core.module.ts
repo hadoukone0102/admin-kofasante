@@ -8,6 +8,8 @@ import { PageTitleComponent } from './components/page-title/page-title.component
 import { HttpClientModule } from '@angular/common/http';
 import { RefreshComponent } from './components/refresh/refresh.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { ModalFilterComponent } from './components/modal-filter/modal-filter.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -20,10 +22,12 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     PageTitleComponent,
     RefreshComponent,
     SpinnerComponent,
+    ModalFilterComponent,
   ],
   imports: [
     CommonModule,
     HttpClientModule,
+    FormsModule
   ],
   exports: [
     FooterComponent,
@@ -32,7 +36,8 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     SidebarComponent,
     PageTitleComponent,
     RefreshComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    ModalFilterComponent
   ]
 
 })

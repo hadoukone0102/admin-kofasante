@@ -55,18 +55,13 @@
                     </div>
                 </div>
             </div>
-            
-            
         </div>
         <div class="row mb-4">
-            <!-- <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
-                <button class="btn btn-github d-inline-flex align-items-center" type="button">
+            <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
+                <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">
                     <i class="fa fa-table me-3"></i>
                     Filtrer
                 </button>
-            </div> -->
-            <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
-                <button title="Affichez toute la liste pour exporter" type="button" class="btn btn-primary">Filtre</button>
             </div>
             <div *ngIf="!isExporting" class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
                 <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
@@ -189,9 +184,17 @@
 
     <!-- Spinner -->
    <div class="text-center">
-       <div *ngIf="donationListParent.last_page === -1" class="spinner-border text-info " role="status">
-         <span class="visually-hidden">Loading...</span>
-       </div>
+    <div *ngIf="donationListParent.last_page === -1" class=" ms-3 d-flex align-items-center justify-content-center">
+        <app-spinner></app-spinner>
+    </div>
    </div>
+   <!-- End spinner -->
+
+   <app-modal-filter
+    [searchBarValue]="searchBarValue"
+    [dateStartValue]="dateStartValue"
+    [dateEndValue]="dateEndValue"
+   (dataFilterToParent) = "handleDataFilterFromChild($event)"
+   ></app-modal-filter>
       
 </div>
