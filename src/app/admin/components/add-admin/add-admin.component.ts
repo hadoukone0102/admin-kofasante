@@ -30,6 +30,9 @@ export class AddAdminComponent implements OnInit {
   resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd;
   // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
   isSubmitting!: boolean;
+
+  // ~~~~~~~~~~~~~~~~ Select ~~~~~~~~~~~~~~~ //
+  isSelected: boolean = false;
   
   constructor(
     private adminService: AdminService,
@@ -47,7 +50,7 @@ export class AddAdminComponent implements OnInit {
       prenomAdmin: '',
       contactAdmin: '',
       mdpAdmin: '',
-      id_typeadmin: '1',
+      id_typeadmin: '2',
       id_Eglise: '1'
     };
 
@@ -117,20 +120,6 @@ export class AddAdminComponent implements OnInit {
    */
   disabledContactExists(){
     this.contactExists = false;
-  }
-
-  /**
-   * Return true if administrator type is "1"
-   * @date 5/17/2023 - 3:00:18 PM
-   *
-   * @param {number} type
-   * @returns {boolean}
-   */
-  isAdminType(type: number): boolean{
-    if(type === 2){
-      return true;
-    }
-    return false;
   }
 
   /**

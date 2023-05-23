@@ -10,8 +10,6 @@ export class RefreshComponent {
   @Output() toogleButton: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   toogleRefresh(){
-    console.log("refresh miam");
-    
     this.toogleButton.emit(true);
   }
 

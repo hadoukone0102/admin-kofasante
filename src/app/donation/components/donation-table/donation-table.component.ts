@@ -217,8 +217,6 @@ export class DonationTableComponent implements OnInit{
   }
 
   handleToogleButtonFromChild(toogleButton: boolean){
-    console.log("refresh 22");
-    
     this.search();
   }
 

@@ -8,11 +8,10 @@
                         <h1 class="mb-0 h3">Connectez vous à l'Eglise Mukasa</h1>
                     </div>
                     <!-- Spinner -->
-                    <div *ngIf="isSubmitting" class="d-flex align-items-center justify-content-center">
-                        <div  class="spinner-border text-info " role="status">
-                        <span class="visually-hidden">Loading...</span>
-                        </div>
+                    <div class="d-flex align-items-center justify-content-center" *ngIf="isSubmitting">
+                        <app-spinner></app-spinner>
                     </div>
+                    <!-- End spinner -->
                     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="row">

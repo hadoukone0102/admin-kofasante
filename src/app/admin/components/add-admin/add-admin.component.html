@@ -16,7 +16,7 @@
                         <div>
                             <label for="firstName">Nom</label>
                             <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Entrez votre nom" 
-                            
+                            pattern="^[a-zA-Z0-9àéèç ]{1,50}$"
                             [(ngModel)]="admin.nomAdmin"
                             #theFirstName="ngModel"
                             required>
@@ -24,10 +24,10 @@
                         <div *ngIf="theFirstName.touched && theFirstName.errors?.['required']">
                             <small class="text-danger">Entrez un nom</small>
                         </div>
-                        <!-- <div class="text-danger"
-                            [hidden]="theFirstName.errors?.['pattern'] && theFirstName.touched">
-                            <small>Entrez des lettres et des chiffres uniquement</small>
-                        </div>  -->
+                        <div class="text-danger"
+                            [hidden]="!theFirstName.errors?.['pattern'] || theFirstName.pristine">
+                            <small>Entrez uniquement des lettres et des chiffres </small>
+                        </div> 
                     </div>
                     <div class="col-12 mb-3">
                         <div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="text-danger"
                         [hidden]="!theLastName.errors?.['pattern'] || theLastName.pristine">
-                             <small>Entrez moins de 50 lettres</small>
+                             <small>Entrez uniquement des lettres et des chiffres </small>
                         </div> 
                     </div>
                     <div class="col-sm-4 mb-4">
@@ -123,7 +123,6 @@
                             <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                             <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
                             value="{{type.id}}"
-                            [selected]="isAdminType(type.id)"
                             >
                             {{type.libelleType}}
                         </option>
@@ -139,15 +138,12 @@
                     <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit"
                          [disabled]="addAdminForm.invalid|| !pwdIsConfirmed"
                         >Ajouter</button>
-                    <!-- <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit"
-                        [hidden]="theFirstName.valid || theLastName.valid || theContact.valid || thePassword.valid || admin.mdpAdmin != confirmPassword"
-                        >Ajouter</button> -->
+                    
                         <!-- Spinner -->
-                        <div *ngIf="isSubmitting" class="ms-3 text-center d-flex align-items-center">
-                            <div  class="spinner-border text-info " role="status">
-                            <span class="visually-hidden">Loading...</span>
-                            </div>
+                        <div class=" ms-3 d-flex align-items-center justify-content-center" *ngIf="isSubmitting">
+                            <app-spinner></app-spinner>
                         </div>
+                        <!-- End spinner -->
                 </div>
             </form>
         </div>

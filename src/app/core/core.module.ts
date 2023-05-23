@@ -7,6 +7,7 @@ import { HeaderToggleComponent } from './components/header-toggle/header-toggle.
 import { PageTitleComponent } from './components/page-title/page-title.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RefreshComponent } from './components/refresh/refresh.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 
 
@@ -18,6 +19,7 @@ import { RefreshComponent } from './components/refresh/refresh.component';
     HeaderToggleComponent,
     PageTitleComponent,
     RefreshComponent,
+    SpinnerComponent,
   ],
   imports: [
     CommonModule,
@@ -29,7 +31,8 @@ import { RefreshComponent } from './components/refresh/refresh.component';
     HeaderToggleComponent,
     SidebarComponent,
     PageTitleComponent,
-    RefreshComponent
+    RefreshComponent,
+    SpinnerComponent
   ]
 
 })
