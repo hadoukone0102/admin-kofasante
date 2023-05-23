@@ -59,6 +59,15 @@
             
         </div>
         <div class="row mb-4">
+            <!-- <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
+                <button class="btn btn-github d-inline-flex align-items-center" type="button">
+                    <i class="fa fa-table me-3"></i>
+                    Filtrer
+                </button>
+            </div> -->
+            <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
+                <button title="Affichez toute la liste pour exporter" type="button" class="btn btn-primary">Filtre</button>
+            </div>
             <div *ngIf="!isExporting" class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
                 <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
             </div>
@@ -79,7 +88,7 @@
                   <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
                 </ul>
               </div>
-              
+
               <!-- Refresh -->
               <div class="col-8 mb-2 col-sm-6 col-md-4   btn-group">
                   <app-refresh [isRefreshing]="isRefreshing"
