@@ -1,0 +1,20 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Dons"
+        theTitle="Liste des transactions de dons échouées"
+        theContent="Consultez la liste des transations échouées">
+    </app-page-title>
+    <!-- Content -->
+    <div *ngIf="donations$ | async as donations">
+        <app-donation-table listType="failed"
+            [donationListParent]="donations">
+    
+        </app-donation-table>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

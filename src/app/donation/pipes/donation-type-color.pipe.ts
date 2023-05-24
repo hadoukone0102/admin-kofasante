@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class DonationTypeColorPipe implements PipeTransform {
 
   transform(isAnonymous: number, isOrganisation: number, listType: string): string {
-    if(listType === "all"){
+    if(listType === "all" || listType === "failed"){
       if(isAnonymous === 1) { //anonymous
         return "bg-secondary text-dark";
       }

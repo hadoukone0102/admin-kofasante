@@ -74,6 +74,10 @@ export class SidebarComponent implements OnInit{
   goToReportDonation(){
     this.coreService.goToReportDonation()
   }
+  
+  goToBasketDonation(){
+    this.coreService.goToBasketDonation()
+  }
 
   goToProfile(){
     this.coreService.goToProfile();

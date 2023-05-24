@@ -27,7 +27,7 @@ export class DonationTableComponent implements OnInit{
   
   // ~~~~~~~~~~ Decorated variables ~~~~~~~~~ //
   @Input() donationListParent!: DataDon;
-  @Input() listType!: string; //ano ? perso ? orga ? all 
+  @Input() listType!: string; //ano ? perso ? orga ? all ? failed
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
@@ -43,6 +43,7 @@ export class DonationTableComponent implements OnInit{
   isAnonymous!: boolean;
   isOrganisation!: boolean;
   isAll!: boolean;
+  isFailed!: boolean;
   noData!: boolean;
 
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
@@ -254,7 +255,7 @@ export class DonationTableComponent implements OnInit{
     this.hideExportationButton();
     this.sendDataToParent();
     this.isRefreshing = true;
-    if (this.isAnonymous && !this.isAll) {//Anonymous
+    if (this.listType === "anonymous") {//Anonymous
       this.searchTerms.next(this.searchBarValue);
   
       this.donations$ = this.searchTerms.pipe(
@@ -262,7 +263,7 @@ export class DonationTableComponent implements OnInit{
         switchMap((term) => this.donationService.getDonationsAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
     }
-    else if(!this.isAnonymous && !this.isOrganisation && !this.isAll) //non-anonymous perso
+    else if(this.listType === "noAnonymousPerso") //non-anonymous perso
     {
       this.searchTerms.next(this.searchBarValue);
         this.donations$ = this.searchTerms.pipe(
@@ -271,7 +272,7 @@ export class DonationTableComponent implements OnInit{
           switchMap((term) => this.donationService.getDonationsNoAnonymousPersoWhere('1',term, this.dateStartValue, this.dateEndValue))
         );
     }
-    else if(!this.isAnonymous && this.isOrganisation && !this.isAll)//non-anonymous orga
+    else if(this.listType === "noAnonymousOrga")//non-anonymous orga
     {
       this.searchTerms.next(this.searchBarValue);
     
@@ -281,7 +282,7 @@ export class DonationTableComponent implements OnInit{
         switchMap((term) => this.donationService.getDonationsNoAnonymousOrgaWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
     }
-    else //all
+    else if(this.listType === "all")
     { 
       this.searchTerms.next(this.searchBarValue);
     
@@ -289,6 +290,15 @@ export class DonationTableComponent implements OnInit{
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((term) => this.donationService.getDonationsWhere('1',term, this.dateStartValue, this.dateEndValue))
+      );
+    }
+    else{//failed
+      this.searchTerms.next(this.searchBarValue);
+    
+      this.donations$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.donationService.getDonationsFailedWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
     }
 
@@ -321,9 +331,12 @@ export class DonationTableComponent implements OnInit{
     {
       this.donationTest$ =  this.donationService.getDonationsNoAnonymousOrgaWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
-    else //all
+    else if(this.listType === "all")
     {
       this.donationTest$ = this.donationService.getDonationsWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else{//failed
+      this.donationTest$ = this.donationService.getDonationsFailedWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     
     this.donationTest$.subscribe((data) => {

@@ -43,6 +43,10 @@ export class CoreService {
   goToReportDonation(){
     this.router.navigate(['/dons/bilan-don']);
   }
+  
+  goToBasketDonation(){
+    this.router.navigate(['/dons/Corbeille-don']);
+  }
 
   goToProfile(){
     this.router.navigate(['/profile']);

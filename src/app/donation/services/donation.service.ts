@@ -109,6 +109,23 @@ export class DonationService {
       catchError((error) => this.coreService.handleError(error))
     );
   }
+  
+  /**
+   * Get list of failed donation transactions
+   * It uses pagination system (25 lines per page)
+   * @date 5/24/2023 - 9:37:26 AM
+   *
+   * @param {string} [page='1']
+   * @param {String} [search='']
+   * @param {string} [dateStart=environment.dateStartForSearch]
+   * @param {string} [dateEnd=environment.todayDate]
+   * @returns {Observable<DataDon>}
+   */
+  getDonationsFailedWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<DataDon>{
+    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/failed?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
 
   // ====================================================== //
   // ============== // ANCHOR - GET ALL WHERE ============= //

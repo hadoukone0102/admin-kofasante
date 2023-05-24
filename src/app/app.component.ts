@@ -100,6 +100,7 @@ export class AppComponent implements OnInit{
           finalUrl === "/non-anonyme/personel" ||
           finalUrl === "/non-anonyme/organisation" ||
           finalUrl === "/bilan-don" ||
+          finalUrl === "/Corbeille-don" ||
 
           //Children route of admin
           finalUrl === "/liste" ||

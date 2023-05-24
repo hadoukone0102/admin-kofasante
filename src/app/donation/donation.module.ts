@@ -14,17 +14,21 @@ import { GLOBAL_RESOLVERS } from 'src/environments/environment';
 import { ReportDonationComponent } from './components/report-donation/report-donation.component';
 import { ListAllResolver } from './resolvers/list-all.resolver';
 import { DonationTypeColorPipe } from './pipes/donation-type-color.pipe';
+import { ListBasketDonationComponent } from './components/list-basket-donation/list-basket-donation.component';
+import { ListBasketDonationResolver } from './resolvers/list-basket-donation.resolver';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
 const listReportResolvers = {...{listAll: ListAllResolver}, ...GLOBAL_RESOLVERS};
+const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
 
 const donationRoutes: Routes = [
   {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
   {path: 'bilan-don', component: ReportDonationComponent, resolve:listReportResolvers},
+  {path: 'Corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
 ];
 
 @NgModule({
@@ -34,7 +38,8 @@ const donationRoutes: Routes = [
     ListNoAnonymousOrgaComponent,
     DonationTableComponent,
     ReportDonationComponent,
-    DonationTypeColorPipe
+    DonationTypeColorPipe,
+    ListBasketDonationComponent
   ],
   imports: [
     CommonModule,
