@@ -29,10 +29,8 @@ export class AuthService {
    */
   login(dataLogin: Datalogin): Observable<DataResultLogin>{
     return this.http.post<DataResultLogin>(`${environment.apiUrlAdmin}/login`, dataLogin).pipe(
-      catchError((error) => { 
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),)
+      catchError((error) => this.coreService.handleError(error)),
+      );
     }
 
     getToken(): string|null {
@@ -79,11 +77,7 @@ export class AuthService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataResultForgotPassword>(`${environment.apiUrlAdmin}/SMS`, contact, httpOptions).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),
-      
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -97,11 +91,7 @@ export class AuthService {
    */
   sendConfirmationCode(smsCode: DataConfirmCode): Observable<DataResultConfirmCode> {
     return this.http.post<DataResultConfirmCode>(`${environment.apiUrlAdmin}/verification`, smsCode).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),
-      
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -117,11 +107,7 @@ export class AuthService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataResultResetPassword>(`${environment.apiUrlAdmin}/renitialisation`, newPassword, httpOptions).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),
-      
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -133,14 +119,8 @@ export class AuthService {
    */
   getCountryCode(): Observable<DataCountry>{
     return this.http.get<DataCountry>(`${environment.apiUrlDon}/pays`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
-
-
-
+  
 }

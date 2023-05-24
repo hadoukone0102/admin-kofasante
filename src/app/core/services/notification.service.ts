@@ -18,63 +18,38 @@ export class NotificationService {
 
   getNoSeenDonations(): Observable<DataDonationNotif>{
     return this.http.get<DataDonationNotif>(`${environment.apiUrlDon}/dons/unseen/total`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
   
   updateDonationsAnoSeen(): Observable<DataSetViewDonation>{
-    console.log("Je passe dans le update");
-    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-
     return this.http.put<DataSetViewDonation>(`${environment.apiUrlDon}/dons/anonymes/seen/edit`, null, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.status_message )
       ),
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
   updateDonationsNoAnoPersoSeen(): Observable<DataSetViewDonation>{
-    console.log("Je passe dans le update");
-    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-
     return this.http.put<DataSetViewDonation>(`${environment.apiUrlDon}/dons/non-anonymes/perso/seen/edit`, null, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.status_message )
       ),
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
   updateDonationsNoAnoOrgaSeen(): Observable<DataSetViewDonation>{
-    console.log("Je passe dans le update");
-    
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-
     return this.http.put<DataSetViewDonation>(`${environment.apiUrlDon}/dons/non-anonymes/orga/seen/edit`, null, httpOptions).pipe(
       tap((response) => console.log("C'est dans la boite: "+response.status_message )
       ),
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
 }

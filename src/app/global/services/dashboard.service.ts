@@ -20,20 +20,12 @@ export class DashboardService {
    */
   getDonationInfo(): Observable<DataDonationInfo>{
     return this.http.get<DataDonationInfo>(`${environment.apiUrlDon}/dons/total`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données. Bouyacacha');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
   getAdminInfo(): Observable<DataAdminInfo>{
     return this.http.get<DataAdminInfo>(`${environment.apiUrlAdmin}/total`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error))
     );
   }
 }

@@ -13,7 +13,7 @@
                 <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
             </div>
             <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4   btn-group">
-                <button title="Masquer les bouttons d'exportation" (click)="checkAndSearch()" type="button" class="btn btn-primary">Masquer</button>
+                <button title="Masquer le boutton d'exportation" (click)="this.search()" type="button" class="btn btn-primary">Masquer</button>
             </div>
             <div *ngIf="isExporting"  class="col-8 mb-2 col-sm-6 col-md-4  btn-group">
                 <button type="button" class="btn btn-primary">Exporter en</button>

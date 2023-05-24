@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,23 @@ import { Router } from '@angular/router';
 export class CoreService {
 
   constructor(private router: Router){}
+
+  // ====================================================== //
+  // ================== //ANCHOR - ERRORS ================= //
+  // ====================================================== //
+
+  handleError(error: any) {
+    if(error.status === 401){
+      this.goToLogin();//redirect to login if session expired
+    }
+    this.goToPageError();//else redirect to page error
+    return throwError('Une erreur est survenue la récupération des données: '+ error);
+  }
+
+
+  // ====================================================== //
+  // ================== //ANCHOR - ROUTES ================= //
+  // ====================================================== //
 
   goToDashboard(){
     this.router.navigate(['/dashboard']);

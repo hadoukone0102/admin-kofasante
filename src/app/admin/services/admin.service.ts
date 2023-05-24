@@ -32,11 +32,7 @@ export class AdminService {
    */
   getAdmins(): Observable<DataAdmin>{
     return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/afficher`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
   
@@ -48,11 +44,7 @@ export class AdminService {
    */
   getDisabledAccount(): Observable<DataDisabledAccount>{
     return this.http.get<DataDisabledAccount>(`${environment.apiUrlAdmin}/Admin/delete`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
   
@@ -64,11 +56,7 @@ export class AdminService {
    */
   getAdminTypes(): Observable<DataAdminType>{
     return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/typesAdmin`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -81,11 +69,7 @@ export class AdminService {
    */
   getAdminById(id: string = ''): Observable<DataAdminByid>{
     return this.http.get<DataAdminByid>(`${environment.apiUrlAdmin}/administrateur/${id}`).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -105,13 +89,11 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdmin}/register`, Admin, httpOptions).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données: '+ error);
-      }),
-      
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
+
+  
 
   // ====================================================== //
   // ================== //ANCHOR - UPDATE ================= //
@@ -129,11 +111,7 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultProfileInfo>(`${environment.apiUrlAdmin}/changerInfo`, Admin, httpOptions).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -149,11 +127,7 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultSetPassword>(`${environment.apiUrlAdmin}/changerMdp`, groupPasswords, httpOptions).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
   
@@ -169,11 +143,7 @@ export class AdminService {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
     return this.http.put<DataResultSetTypeAndContactAdmin>(`${environment.apiUrlAdmin}/changeNumTypeAdmin`, typeAdmin, httpOptions).pipe(
-      catchError((error: any) => {
-        console.error('Une erreur est survenue lors de la récupération des données: ', error);
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la récupération des données.');
-      })
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 
@@ -190,10 +160,8 @@ export class AdminService {
    */
   disabledAdmin(id: String): Observable<DataDeleteAdmin>{
     return this.http.delete<DataDeleteAdmin>(`${environment.apiUrlAdmin}/supprimer/${id}`).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
-      }),)
+      catchError((error) => this.coreService.handleError(error)),
+      );
   }
   
   /**
@@ -205,10 +173,8 @@ export class AdminService {
    */
   enabledAdmin(id: String): Observable<DataEnabledAccount>{
     return this.http.patch<DataEnabledAccount>(`${environment.apiUrlAdmin}/restoreAdmin/${id}`, null).pipe(
-      catchError((error) => {
-        this.coreService.goToPageError();
-        return throwError('Une erreur est survenue lors de la suppression des données: '+ error);
-      }),)
+      catchError((error) => this.coreService.handleError(error)),
+      );
   }
 
   // ====================================================== //

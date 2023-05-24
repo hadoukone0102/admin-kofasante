@@ -136,25 +136,6 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
-   * Check if the start date field value is lower than the end date field value
-   * before searching
-   * @date 5/17/2023 - 12:46:43 PM
-   */
-  checkAndSearch(){
-    const dateStart = new Date(this.dateStartValue)
-    const dateEnd = new Date(this.dateEndValue)
-    if(dateStart > dateEnd){
-      this.donationList = [];
-      this.donationListParent = new DataDon();
-      
-      this.dateIsCorrect = false;
-    }else{
-      this.dateIsCorrect = true;
-      this.search();
-    }
-  }
-
-  /**
    * Show table matching donation type
    * @date 5/17/2023 - 12:50:42 PM
    *
