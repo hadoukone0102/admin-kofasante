@@ -53,17 +53,11 @@ export class ModalFilterComponent implements OnInit{
    startIsLessThanEnd(){
     const dateStart = new Date(this.dataFilter.dateStartValue);
     const dateEnd = new Date(this.dataFilter.dateEndValue);
-    console.log("deb: "+dateStart);
-    console.log("fin: "+dateEnd);
     
     if(dateStart > dateEnd){
       this.dateIsCorrect = false;
-      console.log("int the false");
-      
     }else{
       this.dateIsCorrect = true;
-      console.log("in the true");
-      
     }
   }
 

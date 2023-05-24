@@ -184,6 +184,12 @@ export class DonationTableComponent implements OnInit{
     this.search();
   }
  
+  resetFilter(){
+    this.searchBarValue = '';
+    this.dateStartValue = environment.dateStartForSearch;
+    this.dateEndValue = environment.todayDate;
+    this.search();
+  }
 
   // ====================================================== //
   // ============= //ANCHOR - Child Fonctions ============= //
