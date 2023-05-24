@@ -29,6 +29,7 @@ export class TokenInterceptor implements HttpInterceptor {
         catchError((error) => { 
           if(error.status === 401){
             this.coreService.goToLogin();//redirect to login if session expired
+            return throwError('Session expirée: '+ error);
           }
           this.coreService.goToPageError();//else redirect to page error
           return throwError('Une erreur est survenue lors de l\'authentification: '+ error);

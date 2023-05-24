@@ -7,6 +7,7 @@ export class Don {
     prenomDon!: string
     indicatifPaysDon!: string
     contactDon!: string
+    payeurDon!: string
     paysDon!: string
     villeDon!: string
     organisationDon!: string

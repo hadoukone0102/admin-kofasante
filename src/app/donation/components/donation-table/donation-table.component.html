@@ -53,6 +53,7 @@
             <th *ngIf="!isAnonymous" class="border-0">Nom</th>
             <th *ngIf="!isAnonymous" class="border-0">Prénom</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Contact</th>
+            <th class="border-0 rounded-end">Payeur</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Civilité</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Ville</th>
             <th *ngIf="!isAnonymous" class="border-0 rounded-end">Pays</th>
@@ -84,6 +85,9 @@
             </td>
             <td *ngIf="!isAnonymous">
                 {{donation.contactDon}}
+            </td>
+            <td>
+                {{donation.payeurDon}}
             </td>
             <td *ngIf="!isAnonymous">
                 {{donation.civiliteDon}}

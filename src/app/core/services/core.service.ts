@@ -16,6 +16,7 @@ export class CoreService {
   handleError(error: any) {
     if(error.status === 401){
       this.goToLogin();//redirect to login if session expired
+      return throwError('Une erreur est survenue la récupération des données: '+ error);
     }
     this.goToPageError();//else redirect to page error
     return throwError('Une erreur est survenue la récupération des données: '+ error);
