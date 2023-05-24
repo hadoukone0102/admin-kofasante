@@ -1,61 +1,7 @@
-<div class="card border-0 shadow mb-4">
+<div class="card border-0 shadow mb-4 ">
     <div class="card-body">
         
-        <!-- Search form -->
-        <div class="row mb-4">
-            <div class="col-lg-4 col-sm-6">
-                <!-- Form -->
-                <div class="mb-3">
-                    <label for="exampleInputIconLeft">Rechercher</label>
-                    <div class="input-group">
-                        <span class="input-group-text" id="basic-addon1">
-                            <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>  
-                        </span>
-                        <input #searchBar [(ngModel)]="searchBarValue" 
-                        (keyup)="checkAndSearch()" 
-                        name="searcheBar"
-                        type="text" class="form-control" id="searcheBar" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">
-                    </div>
-                </div>
-                <!-- End of Form -->
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <!-- Form -->
-                <div class="">
-                    <label for="birthday">Début</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                        </span>
-                        <input #searchBar [(ngModel)]="dateStartValue" 
-                            (change)="checkAndSearch()"
-                        
-                        name="dateStart"
-                        [max]="convertStringToDate(dateEndValue).toISOString().split('T')[0]"
-                        type="date" class="form-control" id="dateStart" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">                                               
-                    </div>
-                    <div *ngIf="!dateIsCorrect" class="text-danger">
-                        <small>La date de début doit être inférieur à la date de fin</small>
-                    </div>
-                </div>
-                <!-- End of Form -->
-            </div>
-            <div class="col-lg-4 col-sm-6">
-                <div class="mb-3">
-                    <label for="birthday">Fin</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
-                        </span>
-                        <input #searchBar [(ngModel)]="dateEndValue" 
-                        (change)="checkAndSearch()"
-                        name="dateEnd"
-                        [max]="today.toISOString().split('T')[0]"
-                        type="date" class="form-control" id="dateEnd" placeholder="Rechercher" aria-label="Search" aria-describedby="topbar-addon">                                               
-                    </div>
-                </div>
-            </div>
-        </div>
+        
         <div class="row mb-4">
             <div class="mb-2 col-8 col-sm-6 col-md-4  btn-group">
                 <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">

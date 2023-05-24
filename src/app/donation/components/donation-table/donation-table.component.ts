@@ -14,34 +14,8 @@ import { DataFilter } from 'src/app/core/models/filter-model';
   templateUrl: './donation-table.component.html',
   animations:[
     linePaginateAnimation
-  ],
-  styles: [
-    `
-  .loader {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  border: 10px solid;
-  border-color: rgba(255, 255, 255, 0.15) rgba(255, 255, 255, 0.25) rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.5);
-  box-sizing: border-box;
-  animation: rotation .5s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-} 
-
-
-    
-    `
   ]
+  
 })
 export class DonationTableComponent implements OnInit{
   
