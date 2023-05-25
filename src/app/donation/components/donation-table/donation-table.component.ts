@@ -175,13 +175,15 @@ export class DonationTableComponent implements OnInit{
 
   handleToogleButtonFromChild(toogleButton: boolean){
     this.search();
+    this.sendDataToParent(); //send data to report for update accumulations
   }
 
   handleDataFilterFromChild(dataFilter: DataFilter) {
     this.searchBarValue = dataFilter.searchBarValue;
-    this.dateStartValue = dataFilter.dateStartValue
-    this.dateEndValue = dataFilter.dateEndValue
+    this.dateStartValue = dataFilter.dateStartValue;
+    this.dateEndValue = dataFilter.dateEndValue;
     this.search();
+    this.sendDataToParent();//send data to report for update accumulations
   }
  
   resetFilter(){
@@ -189,6 +191,7 @@ export class DonationTableComponent implements OnInit{
     this.dateStartValue = environment.dateStartForSearch;
     this.dateEndValue = environment.todayDate;
     this.search();
+    this.sendDataToParent();//send data to report for update accumulations
   }
 
   // ====================================================== //
