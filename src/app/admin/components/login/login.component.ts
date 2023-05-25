@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
 import { DataResultLogin } from '../../models/result-login.model';
 import * as intlTelInput from 'intl-tel-input';
 import { environment } from 'src/environments/environment';
+// import myModule from '../../../../assets/js/mod'
 
 // declare function showConsole():any ;
 // declare function checkout():any;
@@ -48,6 +49,11 @@ export class LoginComponent implements OnInit{
   passwordTest!: string;
   showPassword: boolean = false;
 
+  code!: string;
+
+  inputTel!: HTMLInputElement;
+  iti!: intlTelInput.Plugin;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -57,16 +63,35 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     // ~~~~~~~~~~~~~~ Tel input ~~~~~~~~~~~~~~ //
-    const inputElement = document.querySelector('input[type="tel"]');
-    if(inputElement){
-    intlTelInput(inputElement,{
-      initialCountry:'CI',
-      separateDialCode:true,
-      utilsScript:'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
+    // const inputElement = document.querySelector('input[type="tel"]') as HTMLInputElement;
+    this.inputTel = document.querySelector('input[type="tel"]') as HTMLInputElement;
+    if (this.inputTel) {
+      this.iti = intlTelInput(this.inputTel, {
+        initialCountry: 'CI',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
+      });
+      
+      this.inputTel.addEventListener('input', () => {
+        this.dataLogin.contactAdmin = this.iti.getNumber();
+        // const dialCode = iti.getSelectedCountryData().dialCode;
+        // const isValid = iti.isValidNumber();
 
+        console.log('Numéro de téléphone :',  this.dataLogin.contactAdmin);
+        // console.log('change Indicatif du pays :', dialCode);
+        // console.log('change is valid :', isValid);
+      });
+      this.inputTel.addEventListener('click', () => {
+        this.dataLogin.contactAdmin = this.iti.getNumber();
+        // const dialCode = iti.getSelectedCountryData().dialCode;
+        // const isValid = iti.isValidNumber();
 
-    });
+        console.log('click Numéro de téléphone :',  this.dataLogin.contactAdmin);
+        // console.log('change Indicatif du pays :', dialCode);
+        // console.log('change is valid :', isValid);
+      });
     }
+
     this.title = 'angularl10';
     this.isSubmitting = false;
 
@@ -87,9 +112,20 @@ export class LoginComponent implements OnInit{
     );
     this.countries$.subscribe(data => this.countries = data);
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
+}
+
+showConsole(val: string){
+  
+  console.log("keyup the new mama: "+val);
+  
+}
+showConsoleChange(val: string){
+  
+  // console.log("change the new mama: "+val);
+  
 }
 
 /**
@@ -125,8 +161,7 @@ togglePasswordVisibility() {
   onSubmit(){
     this.isSubmitting =true;
     this.isLogged = true;
-
-    this.dataLogin.contactAdmin =  this.countryCode + this.contact;
+    this.dataLogin.contactAdmin = this.iti.getNumber();
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
         if(data.access_token && data.auth){
