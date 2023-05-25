@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit{
   // ~~~~~~~~~ Show hidden password ~~~~~~~~ //
   passwordTest!: string;
   showPassword: boolean = false;
-  
+
 
   constructor(
     private route: ActivatedRoute,
@@ -63,6 +63,8 @@ export class LoginComponent implements OnInit{
       initialCountry:'CI',
       separateDialCode:true,
       utilsScript:'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
+
+
     });
     }
     this.title = 'angularl10';
@@ -115,7 +117,7 @@ togglePasswordVisibility() {
   handleExpire(){
     this.tokenCaptcha = null;
   }
-  
+
   /**
    * Send data to api for auhentication
    * @date 5/22/2023 - 7:01:02 PM
@@ -148,5 +150,5 @@ togglePasswordVisibility() {
 
   goToForgotPassowrd(){
     this.coreService.goToForgotPassowrd();
-  }  
+  }
 }

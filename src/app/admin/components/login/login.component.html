@@ -1,6 +1,6 @@
 <section class="vh-lg-100 mt-5 mt-lg-0 bg-soft d-flex align-items-center">
     <div class="container">
-        
+
         <div class="row justify-content-center form-bg-image" style="background-image: url('assets/assets/img/illustrations/signin.svg'); ">
             <div class="col-12 d-flex align-items-center justify-content-center">
                 <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
@@ -15,43 +15,32 @@
                     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="row">
-                          <div class="col-sm-4 mb-4">
-                            <label for="role">Indicatif</label>
-                            <select  class="form-select w-100 mb-0" id="role" 
-                                name="state" aria-label="State select example"
-                                [(ngModel)]="countryCode"
-                            >
+                            <div class="col-sm-4 mb-4">
+                                <label for="role">Indicatif</label>
+                                <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example" [(ngModel)]="countryCode">
                                  <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
                                  <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
                                     {{country.ISO_3166_1_2_Letter_Code+"("+ country.ITU_T_Telephone_Code + ")"}}
                                   </option>
-                                
+
                             </select>
-                        </div>
-                          <div class="col-sm-8  mb-4">
-                              <label for="contact">Numéro mobile</label>
-                              <div class="input-group">
-                                  <span class="input-group-text" id="basic-addon1">
-                                      <i class="fa fa-phone"></i>
-                                  </span>
-                                  <input 
-                                  type="text" class="form-control" placeholder="072233..." 
-                                  id="phone" name="contact" 
-                                  pattern="^[0-9]+$"
-                                  [(ngModel)]="contact"
-                                  #theContact="ngModel"
-                                  onkeypress="return event.charCode >= 48 && event.charCode<= 57"
-                                  autofocus required>
-                              </div> 
-                              <!-- <button onclick="showConsole()" >click moi</button> -->
-                              
-                              <div *ngIf="theContact.errors?.['pattern'] && theContact.touched"  class="text-danger">
-                                  <small>Entrez des chiffres</small>
-                              </div> 
-                              <div *ngIf="theContact.errors?.['required'] && theContact.touched"  class="text-danger">
-                                  <small>Entrez votre contact</small>
-                              </div> 
-                          </div>
+                            </div>
+                            <div class="col-sm-8  mb-4">
+                                <label for="contact">Numéro mobile</label>
+                                <div class="input-group">
+
+                                    <input type="tel" class="form-control" placeholder="072233..." id="phone" name="contact" pattern="^[0-9]+$" [(ngModel)]="contact" #theContact="ngModel" onkeypress="return event.charCode >= 48 && event.charCode<= 57" autofocus required>
+                                </div>
+
+                                <!-- <button onclick="showConsole()" >click moi</button> -->
+
+                                <div *ngIf="theContact.errors?.['pattern'] && theContact.touched" class="text-danger">
+                                    <small>Entrez des chiffres</small>
+                                </div>
+                                <div *ngIf="theContact.errors?.['required'] && theContact.touched" class="text-danger">
+                                    <small>Entrez votre contact</small>
+                                </div>
+                            </div>
 
                         </div>
                         <!-- End of Form -->
@@ -60,17 +49,13 @@
                             <div class="form-group mb-4">
                                 <label for="password">Mot de passe</label>
                                 <div class="input-group">
-                                    <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="" class="form-control" 
-                                    id="password" name="password" 
-                                    [(ngModel)]="dataLogin.mdpAdmin"
-                                    #thePassword="ngModel"
-                                    required>
+                                    <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="" class="form-control" id="password" name="password" [(ngModel)]="dataLogin.mdpAdmin" #thePassword="ngModel" required>
                                     <span (click)="togglePasswordVisibility()" class="input-group-text" id="basic-addon2">
                                         <i class="fa {{ showPassword ? 'fa-eye-slash' : 'fa-eye' }}"></i>
                                     </span>
-                                </div>  
+                                </div>
                                 <div *ngIf="thePassword.invalid && thePassword.touched" class="text-danger">
-                                    <small>Entrez votre mot de passe</small> 
+                                    <small>Entrez votre mot de passe</small>
                                 </div>
                                 <div *ngIf="!isLogged" class="text-danger">
                                     <small>Contact ou mot de passe incorrecte</small>
@@ -79,7 +64,7 @@
                             <!-- End of Form -->
                             <div class="d-flex justify-content-between align-items-top mb-4">
                                 <!-- <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
+                                    <input class="form-check-input" type="checkbox"
                                     value="" id="remember" name="remember"
                                     [(ngModel)]="dataLogin.remember"
                                     >
@@ -90,24 +75,17 @@
                                 <div><a (click)="goToForgotPassowrd()" class="small text-right">Mot de passe oublié?</a></div>
                             </div>
                             <div class="align-items-center m-1">
-                                <ngx-recaptcha2 #captchaElem
-                                    [siteKey]="siteKey"
-                                    [theme]="theme"
-                                    (success)="getResponse($event)"
-                                    (expire)="handleExpire()"
-                                    >
-                                    </ngx-recaptcha2>
+                                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [theme]="theme" (success)="getResponse($event)" (expire)="handleExpire()">
+                                </ngx-recaptcha2>
 
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-gray-800"
-                            [disabled]="loginForm.invalid || !tokenCaptcha" 
-                            >Se connecter</button>
+                            <button type="submit" class="btn btn-gray-800" [disabled]="loginForm.invalid || !tokenCaptcha">Se connecter</button>
                         </div>
                         <!---->
                     </form>
-                    
+
                 </div>
             </div>
         </div>
