@@ -71,25 +71,6 @@ export class LoginComponent implements OnInit{
         separateDialCode: true,
         utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
       });
-      
-      this.inputTel.addEventListener('input', () => {
-        this.dataLogin.contactAdmin = this.iti.getNumber();
-        // const dialCode = iti.getSelectedCountryData().dialCode;
-        // const isValid = iti.isValidNumber();
-
-        console.log('Numéro de téléphone :',  this.dataLogin.contactAdmin);
-        // console.log('change Indicatif du pays :', dialCode);
-        // console.log('change is valid :', isValid);
-      });
-      this.inputTel.addEventListener('click', () => {
-        this.dataLogin.contactAdmin = this.iti.getNumber();
-        // const dialCode = iti.getSelectedCountryData().dialCode;
-        // const isValid = iti.isValidNumber();
-
-        console.log('click Numéro de téléphone :',  this.dataLogin.contactAdmin);
-        // console.log('change Indicatif du pays :', dialCode);
-        // console.log('change is valid :', isValid);
-      });
     }
 
     this.title = 'angularl10';
