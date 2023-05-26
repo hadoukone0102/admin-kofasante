@@ -113,7 +113,7 @@ export class DonationTableComponent implements OnInit{
     let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor; // Calculate the width of the title text in the document
     let margin = (doc.internal.pageSize.width - textWidth) / 2;  // Calculate the margin to center the title horizontally
     
-    //Add header
+    // ~~~~~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~ //
     let logoImg = new Image();
     logoImg.src = 'assets/images/logo.png';
     let xPosition = 15; // X position of the image
@@ -127,17 +127,44 @@ export class DonationTableComponent implements OnInit{
     doc.setFontSize(30);
     doc.setFont('Roboto', 'bold');
     doc.text("Eglise Mukasa", margin, textYPosition); // Add the title to the document at the calculated position
-  
+    // ~~~~~~~~~~~~~~ END HEADER ~~~~~~~~~~~~~ //
+
+    // ~~~~~~~~~~~~~~~~ TITLE ~~~~~~~~~~~~~~~~ //
     // Set the font size and style for the title
     doc.setFontSize(titleSize);
     doc.setFont('Roboto', 'bold');
     doc.text(this.pdfTitle, margin, 45); // Add the title to the document at the calculated position
-  
+    // ~~~~~~~~~~~~~~ END TITLE ~~~~~~~~~~~~~~ //
+
+    // ~~~~~~~~~~~~ TABLE CONTENT ~~~~~~~~~~~~ //
     // Use the autoTable plugin to generate a table from the HTML element with the id "exportTable"
     autoTable(doc, { html: "#exportTable", theme: "striped", startY: 60, showFoot: "everyPage" });
+    // ~~~~~~~~~~ END TABLE CONTENT ~~~~~~~~~~ //
+
+    // ~~~~~~~~~~~~~~~~ FOOTER ~~~~~~~~~~~~~~~ //
+    let footerText = "PAROISSE SAINT-JOSEPH-MUKASA-BALIKUDDEMBE";
+    let footerFontSize = 10;
+    let footerMargin = 10;
+    let pageNumber = 1;
+
+    //Funciton to add footer to each page
+    function addFooter() {
+      let pageCount = doc.getNumberOfPages();
+    
+      for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(footerFontSize);
+        doc.text(footerText, footerMargin, doc.internal.pageSize.height - footerMargin);
+        doc.text("Page " + pageNumber, doc.internal.pageSize.width - footerMargin, doc.internal.pageSize.height - footerMargin, { align: "right" });
+        doc.text("", footerMargin, doc.internal.pageSize.height - footerMargin, { align: "left" });
+        pageNumber++;
+      }
+    }
+    addFooter(); 
+    // ~~~~~~~~~~~~~~ END FOOTER ~~~~~~~~~~~~~ //
+
     doc.save(this.pdfFileName);// Save the generated PDF file with the specified file name
   }
-  
 
   /**
    * Export data from table to Excel
@@ -266,7 +293,7 @@ export class DonationTableComponent implements OnInit{
     {
       this.donationTest$ = this.donationService.getAllDonationsWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
       this.pdfOrientation = 'landscape';
-      this.pdfTitle = 'Liste de tout les dons';
+      this.pdfTitle = 'Liste de tous les dons';
       this.pdfFileName = 'Liste_complète_des_dons.pdf';
       this.excelFileName = 'Liste_complète_des_dons.xlsx';
     }
