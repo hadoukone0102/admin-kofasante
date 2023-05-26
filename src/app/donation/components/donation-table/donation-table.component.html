@@ -15,7 +15,7 @@
                     Réinitialiser
                 </button>
             </div>
-            <div *ngIf="!isExporting" class="mb-2 col-8 col-sm-4 btn-group">
+            <div *ngIf="!isExporting && listType != 'failed'" class="mb-2 col-8 col-sm-4 btn-group">
                 <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
             </div>
             <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-4  btn-group">
@@ -36,7 +36,7 @@
                 </ul>
               </div>
 
-              <div class="mb-2 col-8 col-sm-4  btn-group">
+              <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
                 <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
                     <i class="fa fa-check me-3"></i>
                     Colonnes
