@@ -1,0 +1,151 @@
+<!-- Modal Content -->
+<div class="modal fade " id="modal-select-column" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0 bg-tertiary">
+                <div class="card p-3 p-lg-4">
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center text-md-center mb-4 mt-md-0">
+                        <h1 class="mb-0 h4">Selectionnez les colonnes a afiicher</h1>
+                    </div>
+                    <!-- Spinner -->
+                    <!-- <div  class="d-flex align-items-center justify-content-center">
+                        <div  class="spinner-border text-info " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div> -->
+                    <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
+                        <!-- Form -->
+                        <div class="row">
+
+                            <div class="col">
+                                <!-- Checkboxes -->
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="number" name="number"
+                                    [(ngModel)]="formDonationColumn.number"
+                                    >
+                                    <label class="form-check-label" for="number">
+                                      N°
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="amount" name="amount"
+                                    [(ngModel)]="formDonationColumn.montantDon"
+                                    >
+                                    <label class="form-check-label" for="amount">
+                                      Montant
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="type" name="type"
+                                    [(ngModel)]="formDonationColumn.typeDon"
+                                    >
+                                    <label class="form-check-label" for="type">
+                                      Type
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="organisation" name="organisation"
+                                    [(ngModel)]="formDonationColumn.organisationDon"
+                                    >
+                                    <label class="form-check-label" for="organisation">
+                                      Organisation
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="date" name="date"
+                                    [(ngModel)]="formDonationColumn.dateDon"
+                                    >
+                                    <label class="form-check-label" for="date">
+                                      Date
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="lastName" name="lastName"
+                                    [(ngModel)]="formDonationColumn.nomDon"
+                                    >
+                                    <label class="form-check-label" for="lastName">
+                                      Nom
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="firstName" name="firstName"
+                                    [(ngModel)]="formDonationColumn.prenomDon"
+                                    >
+                                    <label class="form-check-label" for="firstName">
+                                      Prénom
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="contact" name="contact"
+                                    [(ngModel)]="formDonationColumn.contactDon"
+                                    >
+                                    <label class="form-check-label" for="contact">
+                                      Contact
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="payer" name="payer"
+                                    [(ngModel)]="formDonationColumn.payeurDon"
+                                    >
+                                    <label class="form-check-label" for="payer">
+                                      Payeur
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="civility" name="civility"
+                                    [(ngModel)]="formDonationColumn.civiliteDon"
+                                    >
+                                    <label class="form-check-label" for="civility">
+                                      Civilité
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="city" name="city"
+                                    [(ngModel)]="formDonationColumn.villeDon"
+                                    >
+                                    <label class="form-check-label" for="city">
+                                      Ville
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="country" name="country"
+                                    [(ngModel)]="formDonationColumn.paysDon"
+                                    >
+                                    <label class="form-check-label" for="country">
+                                      Pays
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="transactionId"  name="transactionId" 
+                                    [(ngModel)]="formDonationColumn.transactionId"
+                                    >
+                                    <label class="form-check-label" for="transactionId">
+                                      Id de transaction
+                                    </label>
+                                </div>
+                                <div class="col-6">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-success"
+                                        [disabled]="!formDonationColumn.civiliteDon"
+                                        >Appliquer</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="col-6">
+                                <div class="d-grid">
+                                    <a class="btn btn-github" data-bs-dismiss="modal" aria-label="Close"
+                                   
+                                    >Fermer</a>
+                                </div>
+                            </div> -->
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

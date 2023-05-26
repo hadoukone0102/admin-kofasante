@@ -16,6 +16,7 @@ import { ListAllResolver } from './resolvers/list-all.resolver';
 import { DonationTypeColorPipe } from './pipes/donation-type-color.pipe';
 import { ListBasketDonationComponent } from './components/list-basket-donation/list-basket-donation.component';
 import { ListBasketDonationResolver } from './resolvers/list-basket-donation.resolver';
+import { ModalSelectColumnComponent } from './components/modal-select-column/modal-select-column.component';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
@@ -39,7 +40,8 @@ const donationRoutes: Routes = [
     DonationTableComponent,
     ReportDonationComponent,
     DonationTypeColorPipe,
-    ListBasketDonationComponent
+    ListBasketDonationComponent,
+    ModalSelectColumnComponent
   ],
   imports: [
     CommonModule,

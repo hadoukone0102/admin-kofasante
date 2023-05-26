@@ -36,6 +36,13 @@
                 </ul>
               </div>
 
+              <div class="mb-2 col-8 col-sm-4  btn-group">
+                <button title="Choisissez les colonnes à afficher"  class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
+                    <i class="fa fa-check me-3"></i>
+                    Colonnes
+                </button>
+            </div>
+
               <!-- Refresh -->
               <div class="col-8 mb-2 col-sm-4  btn-group">
                   <app-refresh [isRefreshing]="isRefreshing"
@@ -152,5 +159,9 @@
     [dateEndValue]="dateEndValue"
    (dataFilterToParent) = "handleDataFilterFromChild($event)"
    ></app-modal-filter>
+
+   <app-modal-select-column
+   [listType]="listType"
+   ></app-modal-select-column>
       
 </div>
