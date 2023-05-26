@@ -8,6 +8,7 @@ import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import { linePaginateAnimation,  } from 'src/app/core/animations/animations';
 import { DataFilter } from 'src/app/core/models/filter-model';
+import { FormDonationColumn } from '../../models/form-donation-column.model';
 
 @Component({
   selector: 'app-donation-table',
@@ -64,6 +65,9 @@ export class DonationTableComponent implements OnInit{
 
   // ~~~~~~~~~~~ Refresh variable ~~~~~~~~~~ //
   isRefreshing!: boolean;
+
+  // ~~~~~~~~~~ Columns valriabled ~~~~~~~~~ //
+  formDonationColumn!: FormDonationColumn;
   
   constructor(
     private donationService: DonationService,
@@ -72,6 +76,7 @@ export class DonationTableComponent implements OnInit{
   ngOnInit(): void {
     //Show correct table for donnation
     this.showTableOfType(this.listType); 
+    
     this.donationList = this.donationListParent.dons;
     this.checkAndApplyDisabled(this.donationListParent); 
 
@@ -107,14 +112,29 @@ export class DonationTableComponent implements OnInit{
     let titleSize = 20; // Set the size of the title text
     let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor; // Calculate the width of the title text in the document
     let margin = (doc.internal.pageSize.width - textWidth) / 2;  // Calculate the margin to center the title horizontally
+    
+    //Add header
+    let logoImg = new Image();
+    logoImg.src = 'assets/images/logo.png';
+    let xPosition = 15; // X position of the image
+    let yPosition = 10; // Y position of the image
+    let imageWidth = 23; // Width of the image
+    let imageHeight = 25; // Height of the image
+    let textYPosition = yPosition + (imageHeight / 2) + (titleSize / 4); // Y position of the title text
+
+    doc.addImage(logoImg, 'PNG', xPosition, yPosition, imageWidth, imageHeight);
+  
+    doc.setFontSize(30);
+    doc.setFont('Roboto', 'bold');
+    doc.text("Eglise Mukasa", margin, textYPosition); // Add the title to the document at the calculated position
   
     // Set the font size and style for the title
     doc.setFontSize(titleSize);
     doc.setFont('Roboto', 'bold');
-    doc.text(this.pdfTitle, margin, 20); // Add the title to the document at the calculated position
+    doc.text(this.pdfTitle, margin, 45); // Add the title to the document at the calculated position
   
     // Use the autoTable plugin to generate a table from the HTML element with the id "exportTable"
-    autoTable(doc, { html: "#exportTable", theme: "grid", startY: 30 });
+    autoTable(doc, { html: "#exportTable", theme: "striped", startY: 60, showFoot: "everyPage" });
     doc.save(this.pdfFileName);// Save the generated PDF file with the specified file name
   }
   
@@ -184,6 +204,10 @@ export class DonationTableComponent implements OnInit{
     this.dateEndValue = dataFilter.dateEndValue;
     this.search();
     this.sendDataToParent();//send data to report for update accumulations
+  }
+  
+  handleDataColumnFromChild(dataColumn: FormDonationColumn) {
+   this.formDonationColumn = dataColumn ;
   }
  
   resetFilter(){
@@ -407,6 +431,22 @@ export class DonationTableComponent implements OnInit{
    */
   showAnonymous(){
     this.isAnonymous = true;
+    //Initialisation
+    this.formDonationColumn = {
+      number: true,
+      montantDon: true,
+      typeDon: true,
+      organisationDon: false,
+      civiliteDon: false,
+      nomDon: false,
+      prenomDon: false,
+      contactDon: false,
+      payeurDon: true,
+      paysDon: false,
+      villeDon: false,
+      transactionId: true,
+      dateDon: true
+    }
   }
 
   /**
@@ -417,6 +457,22 @@ export class DonationTableComponent implements OnInit{
   showNoAnonymousPerso(){
     this.isAnonymous = false;
     this.isOrganisation = false;
+    //Initialisation
+    this.formDonationColumn = {
+      number: true,
+      montantDon: true,
+      typeDon: true,
+      organisationDon: false,
+      civiliteDon: true,
+      nomDon: true,
+      prenomDon: true,
+      contactDon: true,
+      payeurDon: true,
+      paysDon: true,
+      villeDon: true,
+      transactionId: true,
+      dateDon: true
+    }
   }
 
   /**
@@ -426,6 +482,22 @@ export class DonationTableComponent implements OnInit{
   showNoAnonymousOrga(){
     this.isAnonymous = false;
     this.isOrganisation = true;
+     //Initialisation
+     this.formDonationColumn = {
+      number: true,
+      montantDon: true,
+      typeDon: true,
+      organisationDon: true,
+      civiliteDon: true,
+      nomDon: true,
+      prenomDon: true,
+      contactDon: true,
+      payeurDon: true,
+      paysDon: true,
+      villeDon: true,
+      transactionId: true,
+      dateDon: true
+    }
   }
 
   /**
@@ -444,6 +516,22 @@ export class DonationTableComponent implements OnInit{
     this.isAnonymous = false;
     this.isOrganisation = true;
     this.isAll = true;
+     //Initialisation
+     this.formDonationColumn = {
+      number: true,
+      montantDon: true,
+      typeDon: true,
+      organisationDon: true,
+      civiliteDon: true,
+      nomDon: true,
+      prenomDon: true,
+      contactDon: true,
+      payeurDon: true,
+      paysDon: true,
+      villeDon: true,
+      transactionId: true,
+      dateDon: true
+    }
   }
 
   /**

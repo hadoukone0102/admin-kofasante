@@ -5,3 +5,4 @@ export class myModule {
         console.log("je suis dans le monde");
     }
 }
+

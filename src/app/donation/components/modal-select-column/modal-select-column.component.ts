@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormDonationColumn } from '../../models/form-donation-column.model';
 
 @Component({
@@ -8,6 +8,7 @@ import { FormDonationColumn } from '../../models/form-donation-column.model';
 })
 export class ModalSelectColumnComponent implements OnInit{
   @Input() listType!: string;
+  @Output() formDonationColumnToParent: EventEmitter<FormDonationColumn> = new EventEmitter<FormDonationColumn>();
 
   //Disable or enable checkbox depending list type
   isAnonymous!: boolean;
@@ -20,7 +21,7 @@ export class ModalSelectColumnComponent implements OnInit{
   }
 
   onSubmit(){
-
+    this.formDonationColumnToParent.emit(this.formDonationColumn);
   }
 
   /**
