@@ -32,7 +32,7 @@ export class TokenInterceptor implements HttpInterceptor {
             return throwError('Session expirée: '+ error);
           }
           this.coreService.goToPageError();//else redirect to page error
-          return throwError('Une erreur est survenue lors de l\'authentification: '+ error);
+          return throwError('Une erreur est survenue lors de l\'interception de la requête: '+ error.status);
         }),
       );
     }
