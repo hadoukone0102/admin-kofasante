@@ -3,7 +3,7 @@
 
         <div class="row justify-content-center form-bg-image" style="background-image: url('assets/assets/img/illustrations/signin.svg'); ">
             <div class="col-12 d-flex align-items-center justify-content-center">
-                <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
+                <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500" style="width: 1000px;">
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h3">Connectez vous à l'Eglise Mukasa</h1>
                     </div>
@@ -14,8 +14,8 @@
                     <!-- End spinner -->
                     <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="mt-4">
                         <!-- Form -->
-                        <div class="row">
-                            <div class="mb-4">
+                        <div class="form-group d-flex flex-column justify-content-start align-items-center">
+                            <div class="mb-4" style="width: 300px !important">
                                 <label for="contact">Numéro mobile</label>
                                 <div class="input-group">
 
@@ -34,9 +34,9 @@
 
                         </div>
                         <!-- End of Form -->
-                        <div class="form-group">
+                        <div class="form-group d-flex flex-column justify-content-start align-items-center">
                             <!-- Form -->
-                            <div class="form-group mb-4">
+                            <div class="form-group mb-4 w-75  d-flex flex-column justify-content-start align-items-start" style="width: 300px !important">
                                 <label for="password">Mot de passe</label>
                                 <div class="input-group">
                                     <input type="{{ showPassword ? 'text' : 'password' }}" placeholder="" class="form-control" id="password" name="password" [(ngModel)]="dataLogin.mdpAdmin" #thePassword="ngModel" required>
@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <!-- End of Form -->
-                            <div class="d-flex justify-content-between align-items-top mb-4">
+                            <div class="d-flex justify-content-between align-items-top mb-4 ">
                                 <!-- <div class="form-check">
                                     <input class="form-check-input" type="checkbox"
                                     value="" id="remember" name="remember"
@@ -65,14 +65,14 @@
                                 <div><a (click)="goToForgotPassowrd()" class="small text-right">Mot de passe oublié?</a></div>
                             </div>
 
-                            <!-- Captcha -->
-                            <div class="align-items-center m-1">
-                                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [theme]="theme" (success)="getResponse($event)" (expire)="handleExpire()">
-                                </ngx-recaptcha2>
-                            </div>
-                            <!-- End Captcha -->
                             
                         </div>
+                        <!-- Captcha -->
+                        <div class="align-items-center m-1">
+                            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [theme]="theme" (success)="getResponse($event)" (expire)="handleExpire()">
+                            </ngx-recaptcha2>
+                        </div>
+                        <!-- End Captcha -->
                         <div class="d-grid">
                             <button type="submit" class="btn btn-gray-800" [disabled]="loginForm.invalid || !tokenCaptcha">Se connecter</button>
                         </div>
