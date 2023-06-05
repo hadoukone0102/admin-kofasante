@@ -161,7 +161,8 @@ export class DonationService {
   }
 
    /**
-   * Get the fuul list of non-anonymous donations matching the filter criteria
+   * Get the full list of non-anonymous donations made on a personal basis 
+   * matching the filter criteria
    * @date 5/17/2023 - 9:04:19 AM
    *
    * @param {string} search

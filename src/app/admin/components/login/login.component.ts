@@ -93,7 +93,7 @@ export class LoginComponent implements OnInit{
     );
     this.countries$.subscribe(data => this.countries = data);
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
 }

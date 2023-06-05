@@ -32,6 +32,7 @@ export class ReportDonationComponent implements OnInit{
 
   ngOnInit(): void {
     this.type = "all";
+    //Get data from resolver
     this.donations$ = this.route.data.pipe(
       map(data => data['listAll']),
     );
@@ -58,25 +59,46 @@ export class ReportDonationComponent implements OnInit{
     }
   }
 
+  /**
+   * Get anonymous donation list
+   * @date 6/5/2023 - 1:45:03 PM
+   */
   showAnonymousList(){
     this.type = "anonymous";
     this.donations$ = this.donationService.getDonationsAnonymousWhere();
   }
 
+  /**
+   * Get the list of non-anonymous donation made on a personal basis
+   * @date 6/5/2023 - 1:46:28 PM
+   */
   showNoAnonymousPersoList(){
     this.type = "noAnonymousPerso";
     this.donations$ = this.donationService.getDonationsNoAnonymousPersoWhere();
   }
+
+  /**
+   * Get the list of non-anonymous donation made by organisation
+   * @date 6/5/2023 - 1:51:26 PM
+   */
   showNoAnonymousOrgaList(){
     this.type = "noAnonymousOrga";
     this.donations$ = this.donationService.getDonationsNoAnonymousOrgaWhere();
   }
   
+  /**
+   * Get the list of all donation
+   * @date 6/5/2023 - 1:52:28 PM
+   */
   showAllDonationsList(){
     this.type = "all";
     this.donations$ = this.donationService.getDonationsWhere();
   }
 
+  /**
+   * Get the cumulative price and donations number for a periode
+   * @date 6/5/2023 - 1:53:04 PM
+   */
   getAccumlationDonations(){
     this.donationService.getAccumulationDonations(this.searchBarValue, this.dateStartValue, this.dateEndValue)
     .subscribe(data => {
@@ -84,14 +106,34 @@ export class ReportDonationComponent implements OnInit{
       });
   }
 
+  /**
+   * Get search bar value from child component(donationTableComponent)
+   * @date 6/5/2023 - 1:54:13 PM
+   *
+   * @param {string} searchBarValue
+   */
   handleSearchBarValueFromChild(searchBarValue: string) {
     this.searchBarValue = searchBarValue;
     this.getAccumlationDonations();
   }
+
+  /**
+   * Get value of date start field from child component(donationTableComponent)
+   * @date 6/5/2023 - 1:56:18 PM
+   *
+   * @param {string} dateStartValue
+   */
   handleDateStartValueFromChild(dateStartValue: string) {
     this.dateStartValue = dateStartValue;
     this.getAccumlationDonations();
   }
+
+  /**
+   * Get value of end date field from child component(donationTableComponent)
+   * @date 6/5/2023 - 1:57:41 PM
+   *
+   * @param {string} dateEndValue
+   */
   handleDateEndValueFromChild(dateEndValue: string) {
     this.dateEndValue = dateEndValue;
     this.getAccumlationDonations();
