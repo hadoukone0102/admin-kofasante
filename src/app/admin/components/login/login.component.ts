@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit{
 
   code!: string;
 
+  // ~~~~~~~~~~~~~~ Tel input ~~~~~~~~~~~~~~ //
   inputTel!: HTMLInputElement;
   iti!: intlTelInput.Plugin;
 

@@ -19,7 +19,7 @@
                                 <label for="contact">Numéro mobile</label>
                                 <div class="input-group">
 
-                                    <input type="tel"  #theTel (keyup)="showConsole(theTel.value)" (change)="showConsoleChange(theTel.value)" class="form-control" placeholder="072233..." id="phone" name="contact" pattern="^[0-9]+$" [(ngModel)]="contact" #theContact="ngModel" onkeypress="return event.charCode >= 48 && event.charCode<= 57" autofocus required>
+                                    <input type="tel"  #theTel class="form-control" placeholder="072233..." id="phone" name="contact" pattern="^[0-9]+$" [(ngModel)]="contact" #theContact="ngModel" onkeypress="return event.charCode >= 48 && event.charCode<= 57" autofocus required>
                                 </div>
 
                                 <!-- <button onclick="showConsole()" >click moi</button> -->

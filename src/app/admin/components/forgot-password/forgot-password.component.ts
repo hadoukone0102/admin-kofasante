@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { DataForgotPassword } from '../../models/forgot-password.model';
 import { DataResultForgotPassword } from '../../models/result-forgot-password.model';
+import * as intlTelInput from 'intl-tel-input';
 
 @Component({
   selector: 'app-forgot-password',
@@ -23,6 +24,10 @@ export class ForgotPasswordComponent implements OnInit{
   contactExists!: boolean;
   resultDataForgotPassword!: DataResultForgotPassword;
   isSubmitting!: boolean;
+
+  // ~~~~~~~~~~~~~~ Tel input ~~~~~~~~~~~~~~ //
+  inputTel!: HTMLInputElement;
+  iti!: intlTelInput.Plugin;
 
   constructor(
     private coreService: CoreService,
@@ -43,6 +48,17 @@ export class ForgotPasswordComponent implements OnInit{
     this.contact ="";
     this.contactExists = true;
     this.isSubmitting = false;
+
+    // ~~~~~~~~~~~~~~ Tel input ~~~~~~~~~~~~~~ //
+    // const inputElement = document.querySelector('input[type="tel"]') as HTMLInputElement;
+    this.inputTel = document.querySelector('input[type="tel2"]') as HTMLInputElement;
+    if (this.inputTel) {
+      this.iti = intlTelInput(this.inputTel, {
+        initialCountry: 'CI',
+        separateDialCode: true,
+        utilsScript: 'https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.1.5/js/utils.js'
+      });
+    }
   }
 
   goToLogin(){
@@ -51,7 +67,7 @@ export class ForgotPasswordComponent implements OnInit{
 
   onSubmit(){
     this.isSubmitting =true;
-    this.contactToSend.contactAdmin = this.countryCode + this.contact;
+    this.contactToSend.contactAdmin = this.iti.getNumber();
     
     this.authService.sendSMS(this.contactToSend).subscribe(
       (data) => {
