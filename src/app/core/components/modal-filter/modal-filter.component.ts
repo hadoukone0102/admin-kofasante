@@ -30,6 +30,10 @@ export class ModalFilterComponent implements OnInit{
     this.dateIsCorrect = true;
   }
 
+  /**
+   * Send data to parent component (donationTableComponent)
+   * @date 6/5/2023 - 1:59:01 PM
+   */
   onSubmit(){
     this.dataFilterToParent.emit(this.dataFilter)
   }
