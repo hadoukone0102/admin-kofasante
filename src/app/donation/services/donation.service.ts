@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
-import { DonationTypeModel } from '../models/donation-type.model';
+import { AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeData, DonationTypeModel } from '../models/donation-type.model';
 
 /**
  * Service to get donation data from API
@@ -201,6 +201,16 @@ export class DonationService {
    getAllDonationsNoAnonymousOrgaWhere(search: string, dateStart: string, dateEnd: string): Observable<DataDon>{
     return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga-all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
       catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  // ====================================================== //
+  // =================== //ANCHOR - ADD =================== //
+  // ====================================================== //
+
+  addDonationType(data: AddDontationTypeModel): Observable<AddDontationTypeResponseModel>{
+    return this.http.post<AddDontationTypeResponseModel>(`${environment.apiUrlDon}/dons/type/create`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 }

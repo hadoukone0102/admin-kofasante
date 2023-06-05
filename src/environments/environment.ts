@@ -3,8 +3,8 @@ const dateStart = new Date(2023, 0, 1)
 export const  environment = {
     production: false,
     // ~~~~~~~~~~~~~~~~~ API ~~~~~~~~~~~~~~~~~ //
-    apiUrlDon: 'http://192.168.1.73:8000/api',
-    // apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
+    // apiUrlDon: 'http://192.168.1.73:8000/api',
+    apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
     apiUrlAdmin: 'https://admin-api.eglise-mukasa.ci/api',
 
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //

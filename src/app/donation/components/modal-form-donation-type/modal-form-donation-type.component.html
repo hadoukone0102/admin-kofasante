@@ -1,5 +1,5 @@
 <!-- Modal Content -->
-<div class="modal fade" id="modal-form-info" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+<div class="modal fade" id="modal-form-donationType" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-body p-0">
@@ -17,14 +17,14 @@
                     <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="form-group mb-4">
-                            <label for="firstName">Nom</label>
+                            <label for="libelle">Libellé</label>
                             <div class="input-group">
-                                <span class="input-group-text" id="name">
+                                <span class="input-group-text" id="basic-addon1">
                                     <i class=" fa fa-pen" ></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="" id="firstName" autofocus required
-                                    [value]="profile.nomAdmin"
-                                    [(ngModel)]="profile.nomAdmin"
+                                <input type="text" class="form-control" placeholder="" id="libelle" autofocus required
+                                    [value]="donationTypeData.libelle"
+                                    [(ngModel)]="donationTypeForm.libelle"
                                     #theFirstName="ngModel"
                                     name="firstName"
                                 >
@@ -34,20 +34,32 @@
                             </div>
                         </div>  
                         <div class="form-group mb-4">
-                            <label for="lastName">Prénom</label>
+                            <label for="amount">Montant</label>
                             <div class="input-group">
                                 <span class="input-group-text" id="basic-addon1">
                                     <i class=" fa fa-pen" ></i>
                                 </span>
-                                <input type="text" class="form-control" placeholder="" id="lastName" autofocus required
-                                    [value]="profile.prenomAdmin"
-                                    [(ngModel)]="profile.prenomAdmin"
+                                <input type="number" class="form-control" placeholder="" id="amount" autofocus required
+                                    [value]="donationTypeData.montant"
+                                    [(ngModel)]="donationTypeForm.montant"
                                     #theLastName="ngModel"
                                     name="lastName"
                                 >
-                               
                             </div>  
-                            
+                        </div>
+                        <div class="form-group mb-4">
+                            <label for="isfixed">Fixer le montant</label>
+                            <div class="input-group">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class=" fa fa-pen" ></i>
+                                </span>
+                                <input type="checkbox" class="form-control" placeholder="" id="isfixed" autofocus required
+                                    [value]="donationTypeData.montant_est_fixe"
+                                    [(ngModel)]="donationTypeForm.montant_est_fixe"
+                                    #theLastName="ngModel"
+                                    name="lastName"
+                                >
+                            </div>  
                         </div>
                         <div *ngIf="!theLastName.pristine && theLastName.invalid">
                             <small class="text-danger">Entrez votre prénom</small>

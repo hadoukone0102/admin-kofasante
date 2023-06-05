@@ -22,6 +22,7 @@ import { AddDonationTypeComponent } from './components/add-donation-type/add-don
 import { EditDonationTypeComponent } from './components/edit-donation-type/edit-donation-type.component';
 import { DonationTypeTableComponent } from './components/donation-type-table/donation-type-table.component';
 import { ListDonationTypeResolver } from './resolvers/list-donation-type.resolver';
+import { ModalFormDonationTypeComponent } from './components/modal-form-donation-type/modal-form-donation-type.component';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
@@ -56,7 +57,8 @@ const donationRoutes: Routes = [
     ListDonationTypeComponent,
     AddDonationTypeComponent,
     EditDonationTypeComponent,
-    DonationTypeTableComponent
+    DonationTypeTableComponent,
+    ModalFormDonationTypeComponent
   ],
   imports: [
     CommonModule,
