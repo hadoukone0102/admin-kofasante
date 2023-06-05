@@ -15,8 +15,9 @@ export const  environment = {
     todayDate: new Date().toISOString().substring(0, 10),// format AAAA-MM-JJ
 
     // ~~~~~~~~~~~~~~~~ ROLES ~~~~~~~~~~~~~~~~ //
-    allRoles: ['Curé', 'Secrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
-    allRoles_Without_HeadOfCatechesis: ['Curé', 'Secrétaire', 'Financier', 'Président du conseil paroissiale'],
+    allRoles: ['Curé', 'Vicaire', 'Secrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
+    allRoles_Without_HeadOfCatechesis: ['Curé', 'Vicaire', 'Secrétaire', 'Financier', 'Président du conseil paroissiale'],
+    superAdmins : ['Curé', 'Vicaire']
 }
 
 // apiUrlDon: 'http://192.168.2.106:8000/api',
@@ -26,6 +27,7 @@ export const  environment = {
  * ROLES POSSIBLES
  * 
  * Curé
+ * Vicaire
  * Secrétaire
  * Financier
  * Responsable de catéchèse

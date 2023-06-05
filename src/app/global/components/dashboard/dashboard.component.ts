@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit{
     this.adminType = sessionStorage.getItem('type');
     //roles initialization
     this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
-    this.rolesForAdmin = ['Curé'];
+    this.rolesForAdmin = environment.superAdmins;
   }
 
   /**

@@ -48,7 +48,7 @@ const routes: Routes = [
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), 
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: ['Curé']
+      roles: environment.superAdmins
     },
   }, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
