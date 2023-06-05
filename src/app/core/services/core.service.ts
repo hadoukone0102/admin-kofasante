@@ -28,28 +28,12 @@ export class CoreService {
   // ================== //ANCHOR - ROUTES ================= //
   // ====================================================== //
 
+  // ~~~~~~~~~~~~~~ Dashboard ~~~~~~~~~~~~~~ //
   goToDashboard(){
     this.router.navigate(['/dashboard']);
   }
 
-  goToDonationAnonymous(){
-    this.router.navigate(['/dons/anonyme']);
-  }
-  goToDonationNoAnonymousPerso(){
-    this.router.navigate(['/dons/non-anonyme/personel']);
-  }
-  goToDonationNoAnonymousOrga(){
-    this.router.navigate(['/dons/non-anonyme/organisation']);
-  }
-
-  goToReportDonation(){
-    this.router.navigate(['/dons/bilan-don']);
-  }
-  
-  goToBasketDonation(){
-    this.router.navigate(['/dons/Corbeille-don']);
-  }
-
+  // ~~~~~~~~~~~~~~~~ Admin ~~~~~~~~~~~~~~~~ //
   goToProfile(){
     this.router.navigate(['/profile']);
   }
@@ -85,6 +69,39 @@ export class CoreService {
   goToResetPassword(){
     this.router.navigate(['/reinitialiser-mot-de-passe']);
   } 
+
+  // ~~~~~~~~~~~~~~~ Donation ~~~~~~~~~~~~~~ //
+  goToDonationAnonymous(){
+    this.router.navigate(['/dons/anonyme']);
+  }
+  goToDonationNoAnonymousPerso(){
+    this.router.navigate(['/dons/non-anonyme/personel']);
+  }
+  goToDonationNoAnonymousOrga(){
+    this.router.navigate(['/dons/non-anonyme/organisation']);
+  }
+
+  goToReportDonation(){
+    this.router.navigate(['/dons/bilan-don']);
+  }
+ 
+  goToListDonationType(){
+    this.router.navigate(['/dons/type-don']);
+  }
+  
+  goToAddDonationType(){
+    this.router.navigate(['/dons/ajouter-don']);
+  }
+  
+  goToEditDonationType(){
+    this.router.navigate(['/dons/modifier-don']);
+  }
+  
+  goToBasketDonation(){
+    this.router.navigate(['/dons/corbeille-don']);
+  }
+
+  
   
   goToPageError(){
     this.router.navigate(['/erreur']);

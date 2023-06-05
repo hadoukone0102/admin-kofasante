@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
+import { DonationTypeModel } from '../models/donation-type.model';
 
 /**
  * Service to get donation data from API
@@ -33,6 +34,18 @@ export class DonationService {
    */
   getAccumulationDonations(search: string, dateStart: string, dateEnd: string): Observable<DataAccumulation>{
     return this.http.get<DataAccumulation>(`${environment.apiUrlDon}/dons/cumul-prix?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  /**
+   * Get the list of donation types
+   * @date 6/5/2023 - 5:18:11 PM
+   *
+   * @returns {Observable<DonationTypeModel>}
+   */
+  getListDonationType(): Observable<DonationTypeModel>{
+    return this.http.get<DonationTypeModel>(`${environment.apiUrlDon}/dons/types`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

@@ -4,14 +4,13 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataDisabledAccount } from '../../models/disabled-account-admin.model';
-import { style, transition, trigger, animate, query, stagger, keyframes } from '@angular/animations';
 import { lineTableAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-admin-table',
   templateUrl: './admin-table.component.html',
   animations:[
-      lineTableAnimation,
+    lineTableAnimation,
   ]
 })
 export class AdminTableComponent implements OnInit{

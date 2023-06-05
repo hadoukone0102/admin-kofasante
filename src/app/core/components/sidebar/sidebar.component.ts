@@ -55,9 +55,7 @@ export class SidebarComponent implements OnInit{
     return false;
   }
 
-  goToDashboard(){
-    this.coreService.goToDashboard();
-  }
+  goToDashboard(){this.coreService.goToDashboard();}
 
   goToDonationAnonymous(){
     this.coreService.goToDonationAnonymous();
@@ -73,6 +71,18 @@ export class SidebarComponent implements OnInit{
 
   goToReportDonation(){
     this.coreService.goToReportDonation()
+  }
+
+  goToListDonationType(){
+    this.coreService.goToListDonationType();
+  }
+  
+  goToAddDonationType(){
+   this.coreService.goToAddDonationType();
+  }
+  
+  goToEditDonationType(){
+    this.coreService.goToEditDonationType();
   }
   
   goToBasketDonation(){

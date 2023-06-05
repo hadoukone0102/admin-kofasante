@@ -1,0 +1,25 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Dons"
+        theTitle="Liste des types de don"
+        theContent="Consultez la liste des types de don">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card border-0 shadow mb-4" >
+        
+        <div *ngIf="donationTypes$ | async as donationType" class="card-body" >
+            
+            <app-donation-type-table 
+            [donationTypeModel]="donationType"
+            >
+            </app-donation-type-table>
+        </div>
+
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

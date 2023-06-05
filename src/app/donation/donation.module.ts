@@ -17,11 +17,18 @@ import { DonationTypeColorPipe } from './pipes/donation-type-color.pipe';
 import { ListBasketDonationComponent } from './components/list-basket-donation/list-basket-donation.component';
 import { ListBasketDonationResolver } from './resolvers/list-basket-donation.resolver';
 import { ModalSelectColumnComponent } from './components/modal-select-column/modal-select-column.component';
+import { ListDonationTypeComponent } from './components/list-donation-type/list-donation-type.component';
+import { AddDonationTypeComponent } from './components/add-donation-type/add-donation-type.component';
+import { EditDonationTypeComponent } from './components/edit-donation-type/edit-donation-type.component';
+import { DonationTypeTableComponent } from './components/donation-type-table/donation-type-table.component';
+import { ListDonationTypeResolver } from './resolvers/list-donation-type.resolver';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
 const listReportResolvers = {...{listAll: ListAllResolver}, ...GLOBAL_RESOLVERS};
+const listDonationTypeResolvers = {...{listDonationType: ListDonationTypeResolver}, ...GLOBAL_RESOLVERS};
+
 const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
 
 const donationRoutes: Routes = [
@@ -29,7 +36,11 @@ const donationRoutes: Routes = [
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
   {path: 'bilan-don', component: ReportDonationComponent, resolve:listReportResolvers},
-  {path: 'Corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
+  {path: 'corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
+  
+  {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
+  {path: 'ajouter-don', component: AddDonationTypeComponent, resolve:listBasketResolvers},
+  {path: 'modifier-don', component: EditDonationTypeComponent, resolve:listBasketResolvers},
 ];
 
 @NgModule({
@@ -41,7 +52,11 @@ const donationRoutes: Routes = [
     ReportDonationComponent,
     DonationTypeColorPipe,
     ListBasketDonationComponent,
-    ModalSelectColumnComponent
+    ModalSelectColumnComponent,
+    ListDonationTypeComponent,
+    AddDonationTypeComponent,
+    EditDonationTypeComponent,
+    DonationTypeTableComponent
   ],
   imports: [
     CommonModule,
