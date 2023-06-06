@@ -29,12 +29,12 @@ import { NgxCaptchaModule } from 'ngx-captcha';
 const listAdminResolvers = {...{listAdmins: ListAdminsResolver}, ...GLOBAL_RESOLVERS};
 const listAddResolvers = {...{countryCode: CountryCodeResolver, listAdminTypes: ListAdminTypesResolver }, ...GLOBAL_RESOLVERS};
 const listDisabedAccountResolvers = {...{listDisabledAccount: ListDisabledCountAdminResolver}, ...GLOBAL_RESOLVERS};
-const listEditAdminResolvers = {...{adminById: AdminByIdResolver, listAdminTypes: ListAdminTypesResolver}, ...GLOBAL_RESOLVERS};
+const editAdminResolvers = {...{adminById: AdminByIdResolver, listAdminTypes: ListAdminTypesResolver}, ...GLOBAL_RESOLVERS};
 
 const adminRoutes: Routes = [
   {path: 'liste', component: AdminListComponent, resolve: listAdminResolvers}, 
   {path: 'ajouter', component: AddAdminComponent, resolve: listAddResolvers}, 
-  {path: 'modifier-un-administrateur/:id', component: EditAdminComponent, resolve: listEditAdminResolvers}, 
+  {path: 'modifier-un-administrateur/:id', component: EditAdminComponent, resolve: editAdminResolvers}, 
   {path: 'comptes-inactifs', component: DisabledAccountComponent, resolve: listDisabedAccountResolvers}, 
 ];
 

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
-import { AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeData, DonationTypeModel } from '../models/donation-type.model';
+import { AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
 
 /**
  * Service to get donation data from API
@@ -46,6 +46,12 @@ export class DonationService {
    */
   getListDonationType(): Observable<DonationTypeModel>{
     return this.http.get<DonationTypeModel>(`${environment.apiUrlDon}/dons/types`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getDonationTypeById(id: string = ''): Observable<DonationTypeByIdModel>{
+    return this.http.get<DonationTypeByIdModel>(`${environment.apiUrlDon}/dons/types/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
@@ -209,7 +215,17 @@ export class DonationService {
   // ====================================================== //
 
   addDonationType(data: AddDontationTypeModel): Observable<AddDontationTypeResponseModel>{
-    return this.http.post<AddDontationTypeResponseModel>(`${environment.apiUrlDon}/dons/type/create`, data).pipe(
+    return this.http.post<AddDontationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/create`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  // ====================================================== //
+  // ================== //ANCHOR - UPDATE ================= //
+  // ====================================================== //
+
+  updateDonationType(data: AddDontationTypeModel, id:number): Observable<SetDonationTypeResponseModel>{
+    return this.http.put<SetDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/edit/${id}`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

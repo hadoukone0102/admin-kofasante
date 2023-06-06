@@ -4,13 +4,10 @@ import { ProfileComponent } from './admin/components/profile/profile.component';
 import { LoginComponent } from './admin/components/login/login.component';
 import { ForgotPasswordComponent } from './admin/components/forgot-password/forgot-password.component';
 import { GLOBAL_RESOLVERS, environment } from 'src/environments/environment';
-import { ListAnonymousResolver } from './donation/resolvers/list-anonymous.resolver';
 import { CountryCodeResolver } from './admin/resolvers/country-code.resolver';
 import { AuthGuard } from './admin/guards/auth.guard';
 import { ConfirmCodeSmsComponent } from './admin/components/confirm-code-sms/confirm-code-sms.component';
 import { ResetPasswordComponent } from './admin/components/reset-password/reset-password.component';
-import { PriestGuard } from './admin/guards/priest.guard';
-import { SecretaryGuard } from './admin/guards/secretary.guard';
 import { AccessGuard } from './admin/guards/access.guard';
 import { IsResettingPasswordGuard } from './admin/guards/is-resetting-password.guard';
 
@@ -20,6 +17,7 @@ const listProfileResolvers = {...GLOBAL_RESOLVERS};
  * ROLES POSSIBLES
  * 
  * Curé
+ * Vicaire
  * Secrétaire
  * Financier
  * Responsable de catéchèse

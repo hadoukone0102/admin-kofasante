@@ -24,14 +24,10 @@ export class ModalFormDonationTypeComponent implements OnInit, OnChanges{
       montant: this.donationTypeData.montant,
       montant_est_fixe: this.donationTypeData.montant_est_fixe
     }
-    console.log("modal form: "+this.donationTypeData.montant_est_fixe);
-    
-    
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['donationTypeData']) {
       console.log("bulbulite");
-      
     }
   }
 

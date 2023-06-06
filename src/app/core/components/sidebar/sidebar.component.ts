@@ -81,10 +81,6 @@ export class SidebarComponent implements OnInit{
    this.coreService.goToAddDonationType();
   }
   
-  goToEditDonationType(){
-    this.coreService.goToEditDonationType();
-  }
-  
   goToBasketDonation(){
     this.coreService.goToBasketDonation()
   }

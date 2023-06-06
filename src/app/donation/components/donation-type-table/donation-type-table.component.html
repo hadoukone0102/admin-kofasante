@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="mb-2 col-8 col-sm-4 btn-group">
-        <button (click)="callAddModalFormFields()" class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-donationType">
+        <button class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-donationType">
             <i class="fa fa-plus me-3"></i>
             Ajouter
         </button>
@@ -29,24 +29,15 @@
             <a title="Désactivez ce type de don" (click)="disabledDonationType(donationType.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
                 <i class="fa fa-ban" ></i>
             </a>
-            <a title="Modifiez ce type de don" (click)="callEditModalForm(
-                donationType.id, 
-                donationType.libelle, 
-                donationType.montant, 
-                donationType.montant_est_fixe )" 
-                data-bs-toggle="modal" data-bs-target="#modal-form-donationType" 
-                class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
+            <a title="Modifiez ce type de don" (click)="goToEditDonationType(donationType.id)" class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
                 <i class="fa fa-edit" ></i>
             </a>
         </td>
     </tr>
-
-    <app-modal-form-donation-type
-        [formType]= formType
-        [donationTypeData]= donationTypeData
-    >
-        
-    </app-modal-form-donation-type>
+    <!-- Modal form -->
+    <app-modal-add-donation-type> </app-modal-add-donation-type>
+    <!-- End modal form -->
+    
 <!-- End of Item -->
 </tbody>
 </table>

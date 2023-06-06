@@ -14,11 +14,17 @@ export class CoreService {
   // ====================================================== //
 
   handleError(error: any) {
+    console.log("mamamam cool");
     if(error.status === 401){
       sessionStorage.clear();//Empty the session storage
       this.goToLogin();//redirect to login if session expired
       return throwError('Une erreur est survenue la récupération des données: '+ error);
     }
+    else if(error.status === 404){
+      this.goToPageNotFound();
+      return throwError('Page introvalble: '+ error);
+    }
+    
     this.goToPageError();//else redirect to page error
     return throwError('Une erreur est survenue la récupération des données: '+ error);
   }
@@ -93,8 +99,8 @@ export class CoreService {
     this.router.navigate(['/dons/ajouter-don']);
   }
   
-  goToEditDonationType(){
-    this.router.navigate(['/dons/modifier-don']);
+  goToEditDonationType(id: number){
+    this.router.navigate(['/dons/modifier-don', id]);
   }
   
   goToBasketDonation(){

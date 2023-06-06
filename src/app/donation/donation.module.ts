@@ -23,12 +23,15 @@ import { EditDonationTypeComponent } from './components/edit-donation-type/edit-
 import { DonationTypeTableComponent } from './components/donation-type-table/donation-type-table.component';
 import { ListDonationTypeResolver } from './resolvers/list-donation-type.resolver';
 import { ModalFormDonationTypeComponent } from './components/modal-form-donation-type/modal-form-donation-type.component';
+import { ModalAddDonationTypeComponent } from './components/modal-add-donation-type/modal-add-donation-type.component';
+import { DonationTypeByIdResolver } from './resolvers/donation-type-by-id.resolver';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
 const listReportResolvers = {...{listAll: ListAllResolver}, ...GLOBAL_RESOLVERS};
 const listDonationTypeResolvers = {...{listDonationType: ListDonationTypeResolver}, ...GLOBAL_RESOLVERS};
+const editDonationTypeResolvers = {...{donationTypeById: DonationTypeByIdResolver}, ...GLOBAL_RESOLVERS};
 
 const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
 
@@ -41,7 +44,7 @@ const donationRoutes: Routes = [
   
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
   {path: 'ajouter-don', component: AddDonationTypeComponent, resolve:listBasketResolvers},
-  {path: 'modifier-don', component: EditDonationTypeComponent, resolve:listBasketResolvers},
+  {path: 'modifier-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
 ];
 
 @NgModule({
@@ -58,7 +61,8 @@ const donationRoutes: Routes = [
     AddDonationTypeComponent,
     EditDonationTypeComponent,
     DonationTypeTableComponent,
-    ModalFormDonationTypeComponent
+    ModalFormDonationTypeComponent,
+    ModalAddDonationTypeComponent
   ],
   imports: [
     CommonModule,

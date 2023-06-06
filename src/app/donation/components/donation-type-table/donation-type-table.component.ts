@@ -15,20 +15,10 @@ export class DonationTypeTableComponent implements OnInit{
   @Input() donationTypeModel!: DonationTypeModel;
   donationTypeData!: DonationTypeData;
 
-  formType!: "add" | "edit";
-
-  
   constructor(private coreService: CoreService){}
 
   ngOnInit(): void {
-    this.donationTypeData = {
-      id: null,
-      libelle: "",
-      montant: null,
-      montant_est_fixe: null,
-      created_at: "",
-      updated_at: ""
-    }
+   
   }
 
   // Méthode trackBy pour identifier chaque administrateur par son id unique
@@ -36,27 +26,12 @@ export class DonationTypeTableComponent implements OnInit{
     return donationType.id; // Remplacez "id" par la propriété unique de votre administrateur
   }
 
-  callAddModalFormFields(){
-    this.callEditModalForm();
-    this.formType = "add";
-  }
-
-  callEditModalForm(id: number|null = null, libelle: string = "", montant: number|null = null, montant_est_fixe: number|null = null): void {
-    
-    this.formType = "edit";
-    this.donationTypeData.id = id;
-    this.donationTypeData.libelle = libelle;
-    this.donationTypeData.montant = montant;
-    this.donationTypeData.montant_est_fixe = montant_est_fixe;
-    console.log("edt: "+this.donationTypeData.montant_est_fixe);
-  }
-
   /**
    * Go to the edition page for the specified donation type
    * @date 6/5/2023 - 4:32:50 PM
    */
   goToEditDonationType(id: number){
-    this.coreService.goToEditDonationType();
+    this.coreService.goToEditDonationType(id);
   }
 
   /**

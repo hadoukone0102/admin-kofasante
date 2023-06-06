@@ -27,10 +27,17 @@ export class TokenInterceptor implements HttpInterceptor {
       //return the request modified 
       return next.handle(clone).pipe(
         catchError((error) => { 
+          
           if(error.status === 401){
             this.authService.logout();//redirect to login if session expired
             return throwError('Session expirée: '+ error);
           }
+          else if (error.status === 404){
+            console.log("J'intercepte de ouff bro");
+            this.coreService.goToPageNotFound();
+            return throwError('La page est introuvable: '+ error.status);
+          }
+          
           this.coreService.goToPageError();//else redirect to page error
           return throwError('Une erreur est survenue lors de l\'interception de la requête: '+ error.status);
         }),
