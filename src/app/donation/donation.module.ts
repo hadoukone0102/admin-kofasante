@@ -25,15 +25,19 @@ import { ListDonationTypeResolver } from './resolvers/list-donation-type.resolve
 import { ModalFormDonationTypeComponent } from './components/modal-form-donation-type/modal-form-donation-type.component';
 import { ModalAddDonationTypeComponent } from './components/modal-add-donation-type/modal-add-donation-type.component';
 import { DonationTypeByIdResolver } from './resolvers/donation-type-by-id.resolver';
+import { DisabledDonationTypeComponent } from './components/disabled-donation-type/disabled-donation-type.component';
+import { DisabledDonationTypeResolver } from './resolvers/disabled-donation-type.resolver';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
+const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
 const listReportResolvers = {...{listAll: ListAllResolver}, ...GLOBAL_RESOLVERS};
+
 const listDonationTypeResolvers = {...{listDonationType: ListDonationTypeResolver}, ...GLOBAL_RESOLVERS};
 const editDonationTypeResolvers = {...{donationTypeById: DonationTypeByIdResolver}, ...GLOBAL_RESOLVERS};
+const disabledDonationTypeResolvers = {...{disabledDonationType: DisabledDonationTypeResolver}, ...GLOBAL_RESOLVERS};
 
-const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
 
 const donationRoutes: Routes = [
   {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
@@ -45,6 +49,7 @@ const donationRoutes: Routes = [
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
   {path: 'ajouter-don', component: AddDonationTypeComponent, resolve:listBasketResolvers},
   {path: 'modifier-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
+  {path: 'type-don-inactif', component: DisabledDonationTypeComponent, resolve:disabledDonationTypeResolvers},
 ];
 
 @NgModule({
@@ -62,7 +67,8 @@ const donationRoutes: Routes = [
     EditDonationTypeComponent,
     DonationTypeTableComponent,
     ModalFormDonationTypeComponent,
-    ModalAddDonationTypeComponent
+    ModalAddDonationTypeComponent,
+    DisabledDonationTypeComponent
   ],
   imports: [
     CommonModule,

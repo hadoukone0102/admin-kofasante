@@ -4,17 +4,17 @@
     <app-header></app-header>
     <app-page-title
         theModule="Dons"
-        theTitle="Liste des types de don"
-        theContent="Consultez la liste des types de don">
+        theTitle="Liste des types des dons désactivés"
+        theContent="Consultez la liste des types des dons désactivés">
     </app-page-title>
     <!-- Content -->
     <div class="card border-0 shadow mb-4" >
         
-        <div *ngIf="donationTypes$ | async as donationType" class="card-body" >
+        <div *ngIf="disabledDonationTypes$ | async as disabledDonationTypes" class="card-body" >
             
             <app-donation-type-table 
             [listType]="listType"
-            [donationTypeModel]="donationType"
+            [donationTypeModel]="disabledDonationTypes"
             >
             </app-donation-type-table>
         </div>

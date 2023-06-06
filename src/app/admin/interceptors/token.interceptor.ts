@@ -33,7 +33,6 @@ export class TokenInterceptor implements HttpInterceptor {
             return throwError('Session expirée: '+ error);
           }
           else if (error.status === 404){
-            console.log("J'intercepte de ouff bro");
             this.coreService.goToPageNotFound();
             return throwError('La page est introuvable: '+ error.status);
           }

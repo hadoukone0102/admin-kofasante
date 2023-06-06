@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { DataDon } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
-import { AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
+import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
 
 /**
  * Service to get donation data from API
@@ -46,6 +46,12 @@ export class DonationService {
    */
   getListDonationType(): Observable<DonationTypeModel>{
     return this.http.get<DonationTypeModel>(`${environment.apiUrlDon}/dons/types`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getListDisabledDonationType(): Observable<DonationTypeModel>{
+    return this.http.get<DonationTypeModel>(`${environment.apiUrlDon}/dons/types/soft-deleted`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
@@ -228,5 +234,23 @@ export class DonationService {
     return this.http.put<SetDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/edit/${id}`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
+  }
+
+  enableDonationType(id: String): Observable<ActionDonationTypeResponseModel>{
+    return this.http.put<ActionDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/restore/${id}`, null).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+      );
+  }
+
+  disableDonationType(id: String): Observable<ActionDonationTypeResponseModel>{
+    return this.http.delete<ActionDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/soft-delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+      );
+  }
+  
+  deleteDonationType(id: String): Observable<ActionDonationTypeResponseModel>{
+    return this.http.delete<ActionDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+      );
   }
 }

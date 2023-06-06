@@ -10,6 +10,7 @@ import { Observable, map } from 'rxjs';
 })
 export class ListDonationTypeComponent implements OnInit{
   donationTypes$!: Observable<DonationTypeModel>;
+  listType: "disabled" | "enabled" = "enabled";
 
   constructor(
     private route: ActivatedRoute,

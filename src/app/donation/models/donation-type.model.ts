@@ -1,9 +1,10 @@
 // ~~~~~~~~~~ Get Donation type ~~~~~~~~~~ //
-export interface DonationTypeModel {
-    status: string
+
+  export interface DonationTypeModel {
+    success: boolean
     status_code: number
     status_message: string
-    types_don: DonationTypeData[]
+    types_dons: DonationTypeData[]
   }
   
   export interface DonationTypeData {
@@ -13,8 +14,9 @@ export interface DonationTypeModel {
     montant_est_fixe: number|null
     created_at: string
     updated_at: string
-
+    deleted_at: any
   }
+  
 
   // ~~~~~~~~~~~~ Add and update ~~~~~~~~~~~ //
   export interface AddDontationTypeModel {
@@ -64,6 +66,17 @@ export interface DonationTypeModel {
     updated_at: string
     deleted_at: any
   }
+
+  // ====================================================== //
+  // =============== ENABLED DISABLED DELETE ============== //
+  // ====================================================== //
+
+  export interface ActionDonationTypeResponseModel {
+    success: string
+    status_code: number
+    status_message: string
+  }
+  
   
   
   

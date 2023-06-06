@@ -77,6 +77,10 @@ export class SidebarComponent implements OnInit{
     this.coreService.goToListDonationType();
   }
   
+  goToListDisabledDonationType(){
+    this.coreService.goToListDisabledDonationType();
+  }
+  
   goToAddDonationType(){
    this.coreService.goToAddDonationType();
   }

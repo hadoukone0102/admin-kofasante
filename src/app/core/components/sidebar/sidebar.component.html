@@ -102,7 +102,17 @@
     <ul class="flex-column nav">
       <li class="nav-item ">
         <a (click)="goToListDonationType()" class="nav-link">
-          <span class="sidebar-text">Type</span>
+          <span class="sidebar-text">Type On</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="multi-level collapse "
+    role="list" id="submenu-donation" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToListDisabledDonationType()" class="nav-link">
+          <span class="sidebar-text">Type Off</span>
         </a>
       </li>
     </ul>

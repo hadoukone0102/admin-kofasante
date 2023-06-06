@@ -1,4 +1,4 @@
-<div class="row mb-4">
+<div *ngIf="listType === 'enabled'" class="row mb-4">
     <div class="mb-2 col-8 col-sm-4 btn-group">
         <button class="btn btn-primary d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-donationType">
             <i class="fa fa-plus me-3"></i>
@@ -20,17 +20,27 @@
 <!-- ENABLED ACCOUNT -->
 <!-- <tbody *ngIf="!isDisabledAccount()" [@boomTrigger]="admins.administrateurs.length"> -->
 <tbody >
-    <tr *ngFor="let donationType of donationTypeModel.types_don; let i = index; trackBy: trackByDonationTypeId"  @lineTableAnimation>
+    <tr *ngFor="let donationType of donationTypeModel.types_dons; let i = index; trackBy: trackByDonationTypeId"  @lineTableAnimation>
         <td>{{i+1}} </td>
         <td>{{donationType.libelle}} </td>
         <td>{{donationType.montant}} </td>
         <td>{{donationType.montant_est_fixe === 0? "non":"oui"}} </td>
-        <td>
-            <a title="Désactivez ce type de don" (click)="disabledDonationType(donationType.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
+        <!-- If -->
+        <td *ngIf="listType === 'enabled'" >
+            <a title="Désactivez ce type de don" (click)="disableDonationType(donationType.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
                 <i class="fa fa-ban" ></i>
             </a>
             <a title="Modifiez ce type de don" (click)="goToEditDonationType(donationType.id)" class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
                 <i class="fa fa-edit" ></i>
+            </a>
+        </td>
+        <!-- Else -->
+        <td *ngIf="listType === 'disabled'" >
+            <a title="Restaurer ce type de don" (click)="enableDonationType(donationType.id)" class="btn btn-sm btn-success d-inline-flex align-items-center">
+                <i class="fa fa-arrow-up" ></i>
+            </a>
+            <a title="Supprimer définitivement ce type de don" (click)="deleteDonationType(donationType.id)" class="ms-2 btn btn-sm btn-danger d-inline-flex align-items-center">
+                <i class="fa fa-trash" ></i>
             </a>
         </td>
     </tr>

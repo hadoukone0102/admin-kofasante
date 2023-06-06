@@ -14,7 +14,6 @@ export class CoreService {
   // ====================================================== //
 
   handleError(error: any) {
-    console.log("mamamam cool");
     if(error.status === 401){
       sessionStorage.clear();//Empty the session storage
       this.goToLogin();//redirect to login if session expired
@@ -93,6 +92,10 @@ export class CoreService {
  
   goToListDonationType(){
     this.router.navigate(['/dons/type-don']);
+  }
+  
+  goToListDisabledDonationType(){
+    this.router.navigate(['/dons/type-don-inactif']);
   }
   
   goToAddDonationType(){
