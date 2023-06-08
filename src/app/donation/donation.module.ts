@@ -48,7 +48,7 @@ const donationRoutes: Routes = [
   
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
   {path: 'ajouter-don', component: AddDonationTypeComponent, resolve:listBasketResolvers},
-  {path: 'modifier-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
+  {path: 'modifier-type-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
   {path: 'type-don-inactif', component: DisabledDonationTypeComponent, resolve:disabledDonationTypeResolvers},
 ];
 

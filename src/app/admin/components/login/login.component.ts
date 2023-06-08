@@ -89,12 +89,8 @@ export class LoginComponent implements OnInit{
     this.countryCode = '+225';
     this.isLogged = true;
 
-    this.countries$ = this.route.data.pipe(
-      map(data => data['countryCode'])
-    );
-    this.countries$.subscribe(data => this.countries = data);
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
 }

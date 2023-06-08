@@ -50,7 +50,7 @@ const routes: Routes = [
     },
   }, 
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent, resolve: {countryCode: CountryCodeResolver}}, 
-  {path: 'login', component: LoginComponent, resolve: {countryCode: CountryCodeResolver}}, 
+  {path: 'login', component: LoginComponent}, 
   {path: 'confirmer-code-sms', component: ConfirmCodeSmsComponent, canActivate: [IsResettingPasswordGuard]}, 
   {path: 'reinitialiser-mot-de-passe', component: ResetPasswordComponent, resolve: {countryCode: CountryCodeResolver}, canActivate: [IsResettingPasswordGuard]}, 
   {path:'', redirectTo:'dashboard', pathMatch:'full'},

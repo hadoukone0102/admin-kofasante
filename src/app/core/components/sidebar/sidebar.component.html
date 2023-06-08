@@ -101,6 +101,16 @@
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
+        <a (click)="goToBasketDonation()" class="nav-link">
+          <span class="sidebar-text">Corbeille</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="multi-level collapse "
+    role="list" id="submenu-donation" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
         <a (click)="goToListDonationType()" class="nav-link">
           <span class="sidebar-text">Types activés</span>
         </a>
@@ -113,16 +123,6 @@
       <li class="nav-item ">
         <a (click)="goToListDisabledDonationType()" class="nav-link">
           <span class="sidebar-text">Types désactivés</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-donation" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToBasketDonation()" class="nav-link">
-          <span class="sidebar-text">Corbeille</span>
         </a>
       </li>
     </ul>

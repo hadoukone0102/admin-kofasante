@@ -103,12 +103,13 @@ export class AppComponent implements OnInit{
           finalUrl === "/corbeille-don" ||
           finalUrl === "/type-don" ||
           finalUrl === "/ajouter-don" ||
-          finalUrl === "/modifier-don" ||
+          finalUrl.startsWith("/modifier-type-don") ||
 
           //Children route of admin
           finalUrl === "/liste" ||
           finalUrl === "/ajouter" ||
-          finalUrl === "/comptes-inatifs"
+          finalUrl === "/comptes-inactifs" ||
+          finalUrl.startsWith("/modifier-un-administrateur")
         ){
           this.coreService.goToPageNotFound();
         }
@@ -134,6 +135,5 @@ export class AppComponent implements OnInit{
       }
     })
   }
-
 
 }

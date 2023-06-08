@@ -103,7 +103,7 @@ export class CoreService {
   }
   
   goToEditDonationType(id: number){
-    this.router.navigate(['/dons/modifier-don', id]);
+    this.router.navigate(['/dons/modifier-type-don', id]);
   }
   
   goToBasketDonation(){
