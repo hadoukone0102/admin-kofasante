@@ -15,16 +15,24 @@ export class DonationTypeTableComponent implements OnInit{
   // ~~~~~~~~~~ Decorated variables ~~~~~~~~~ //
   @Input() donationTypeModel!: DonationTypeModel;
   @Input() listType!: "disabled" | "enabled";
+  
   donationTypeData!: DonationTypeData;
 
   constructor(private coreService: CoreService, private donationService: DonationService){}
 
   ngOnInit(): void {
-  //  console.log("la table: "+this.donationTypeModel.types_don);
    
   }
 
-  // Méthode trackBy pour identifier chaque administrateur par son id unique
+  
+  /**
+   * trackBy method to identify each administrator by their unique id
+   * @date 6/8/2023 - 10:03:34 AM
+   *
+   * @param {number} index
+   * @param {*} donationType
+   * @returns {number}
+   */
   trackByDonationTypeId(index: number, donationType: any): number {
     return donationType.id; // Remplacez "id" par la propriété unique de votre administrateur
   }
@@ -53,6 +61,12 @@ export class DonationTypeTableComponent implements OnInit{
     }
   }
 
+  /**
+   * Enable the specified donation type
+   * @date 6/8/2023 - 10:02:06 AM
+   *
+   * @param {number} id
+   */
   enableDonationType(id: number){
     if(confirm("Etes vous sûr de vouloir restorer ce type de don ?")){
       this.donationService.enableDonationType(id.toString()).subscribe(data =>{
@@ -65,6 +79,12 @@ export class DonationTypeTableComponent implements OnInit{
     }
   }
   
+  /**
+   * delete the specified donation type
+   * @date 6/8/2023 - 10:02:35 AM
+   *
+   * @param {number} id
+   */
   deleteDonationType(id: number){
     if(confirm("Etes vous sûr de vouloir supprimer ce type de don ?")){
       this.donationService.deleteDonationType(id.toString()).subscribe(data =>{

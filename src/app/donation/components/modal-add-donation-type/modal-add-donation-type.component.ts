@@ -47,12 +47,18 @@ export class ModalAddDonationTypeComponent implements OnInit{
     );
   }
 
-  cheked(val:boolean){
+  /**
+   * Reset amount value if checkbox is checked
+   * @date 6/8/2023 - 9:57:07 AM
+   *
+   * @param {boolean} val
+   */
+  onAmountFixedCheked(val:boolean){
     this.donationTypeForm.montant = null;
   }
 
   /**
-   * Check if amount field is correct
+   * Return true if amount field is correct
    * @date 6/6/2023 - 10:00:27 AM
    *
    * @returns {boolean}

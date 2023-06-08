@@ -18,7 +18,6 @@ import { ListBasketDonationComponent } from './components/list-basket-donation/l
 import { ListBasketDonationResolver } from './resolvers/list-basket-donation.resolver';
 import { ModalSelectColumnComponent } from './components/modal-select-column/modal-select-column.component';
 import { ListDonationTypeComponent } from './components/list-donation-type/list-donation-type.component';
-import { AddDonationTypeComponent } from './components/add-donation-type/add-donation-type.component';
 import { EditDonationTypeComponent } from './components/edit-donation-type/edit-donation-type.component';
 import { DonationTypeTableComponent } from './components/donation-type-table/donation-type-table.component';
 import { ListDonationTypeResolver } from './resolvers/list-donation-type.resolver';
@@ -47,7 +46,6 @@ const donationRoutes: Routes = [
   {path: 'corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
   
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
-  {path: 'ajouter-don', component: AddDonationTypeComponent, resolve:listBasketResolvers},
   {path: 'modifier-type-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
   {path: 'type-don-inactif', component: DisabledDonationTypeComponent, resolve:disabledDonationTypeResolvers},
 ];
@@ -63,7 +61,6 @@ const donationRoutes: Routes = [
     ListBasketDonationComponent,
     ModalSelectColumnComponent,
     ListDonationTypeComponent,
-    AddDonationTypeComponent,
     EditDonationTypeComponent,
     DonationTypeTableComponent,
     ModalFormDonationTypeComponent,

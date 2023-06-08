@@ -395,7 +395,7 @@ export class DonationTableComponent implements OnInit{
     {
       this.donationTest$ = this.donationService.getDonationsWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
-    else{//failed
+    else{//failed (Corbeille)
       this.donationTest$ = this.donationService.getDonationsFailedWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     
@@ -571,18 +571,4 @@ export class DonationTableComponent implements OnInit{
   convertStringToDate(date : string): Date{
     return new Date(date);
   }
-
-  /**
-   * Returns false if we are not in the donation report page 
-   * @date 5/17/2023 - 12:33:49 PM
-   *
-   * @returns {boolean}
-   */
-  /*isNotReporter(): boolean {
-    if (this.router.url === "/dons/bilan-don"){
-      return false;
-    }else{
-      return true;
-    }
-  }*/
 }

@@ -3,6 +3,15 @@ import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } fro
 import { Observable } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 
+/**
+ * Return true if the user there is a contactReset in session storage
+ * @date 6/8/2023 - 9:52:40 AM
+ *
+ * @export
+ * @class IsResettingPasswordGuard
+ * @typedef {IsResettingPasswordGuard}
+ * @implements {CanActivate}
+ */
 @Injectable({
   providedIn: 'root'
 })

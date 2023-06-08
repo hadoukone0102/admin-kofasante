@@ -72,7 +72,7 @@ export class EditDonationTypeComponent implements OnInit{
   }
 
   /**
-   * Check if amount field is correct
+   * Return true if amount field is correct
    * @date 6/6/2023 - 10:00:27 AM
    *
    * @returns {boolean}

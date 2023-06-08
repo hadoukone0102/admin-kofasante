@@ -33,12 +33,12 @@
                             </div>
                         </div>  
                         <div class="form-check">
-                            <input (click)="cheked(theCheckbox.checked)"  class="form-check-input" type="checkbox"
-                             id="remember" name="remember"
+                            <input (click)="onAmountFixedCheked(theCheckbox.checked)"  class="form-check-input" type="checkbox"
+                             id="amountFixed" name="amountFixed"
                              #theCheckbox
                             [(ngModel)]="chekcboxValue"
                             >
-                            <label class="form-check-label mb-0" for="remember">
+                            <label class="form-check-label mb-0" for="amountFixed">
                                 Fixer le montant
                             </label>
                         </div>

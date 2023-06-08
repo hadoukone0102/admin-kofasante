@@ -42,7 +42,7 @@ export class ReportDonationComponent implements OnInit{
     this.dateEndValue = this.todayDate;
     this.dateStartValue = this.todayDate;
 
-    this.accumulation = {
+    this.accumulation = {//initialization
       status : '',
       status_code : 0,
       status_message : '',
