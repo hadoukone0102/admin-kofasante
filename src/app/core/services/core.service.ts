@@ -33,94 +33,37 @@ export class CoreService {
   // ================== //ANCHOR - ROUTES ================= //
   // ====================================================== //
 
-  // ~~~~~~~~~~~~~~ Dashboard ~~~~~~~~~~~~~~ //
-  goToDashboard(){
-    this.router.navigate(['/dashboard']);
-  }
+  // ~~~~~~~~~~~~~~ //TODO - DASHBOARD ~~~~~~~~~~~~~~ //
 
-  // ~~~~~~~~~~~~~~~~ Admin ~~~~~~~~~~~~~~~~ //
-  goToProfile(){
-    this.router.navigate(['/profile']);
-  }
+  goToDashboard(){this.router.navigate(['/dashboard']);}
 
-  goToAdmin(){
-    this.router.navigate(['/admin/liste']);
-  }
+  // ~~~~~~~~~~~~~~~~ //TODO - ADMIN ~~~~~~~~~~~~~~~~ //
 
-  goToAddAdmin(){
-    this.router.navigate(['/admin/ajouter']);
-  }
-  
-  goToEditAdmin(id: string){
-    this.router.navigate(['/admin/modifier-un-administrateur', id]);
-  }
-  
-  goToDisabledAccount(){
-    this.router.navigate(['/admin/comptes-inactifs']);
-  }
+  goToProfile(){this.router.navigate(['/profile']);}
+  goToAdmin(){this.router.navigate(['/admin/liste']);}
+  goToAddAdmin(){this.router.navigate(['/admin/ajouter']);}
+  goToEditAdmin(id: string){this.router.navigate(['/admin/modifier-un-administrateur', id]);}
+  goToDisabledAccount(){this.router.navigate(['/admin/comptes-inactifs']);}
+  goToLogin(){this.router.navigate(['/login']);} 
+  goToForgotPassowrd(){this.router.navigate(['/mot-de-passe-oublie']);} 
+  goToConfirmCodeSms(){this.router.navigate(['/confirmer-code-sms']);} 
+  goToResetPassword(){this.router.navigate(['/reinitialiser-mot-de-passe']);} 
 
-  goToLogin(){
-    this.router.navigate(['/login']);
-  } 
+  // ~~~~~~~~~~~~~~~ //TODO - DONATION ~~~~~~~~~~~~~~ //
 
-  goToForgotPassowrd(){
-    this.router.navigate(['/mot-de-passe-oublie']);
-  } 
-  
-  goToConfirmCodeSms(){
-    this.router.navigate(['/confirmer-code-sms']);
-  } 
-  
-  goToResetPassword(){
-    this.router.navigate(['/reinitialiser-mot-de-passe']);
-  } 
+  goToDonationAnonymous(){this.router.navigate(['/dons/anonyme']);}
+  goToDonationNoAnonymousPerso(){this.router.navigate(['/dons/non-anonyme/personel']);}
+  goToDonationNoAnonymousOrga(){this.router.navigate(['/dons/non-anonyme/organisation']);}
+  goToReportDonation(){this.router.navigate(['/dons/bilan-don']);}
+  goToBasketDonation(){this.router.navigate(['/dons/corbeille-don']);}
+  goToListDonationType(){this.router.navigate(['/dons/type-don']);}
+  goToListDisabledDonationType(){this.router.navigate(['/dons/type-don-inactif']);}
+  goToAddDonationType(){this.router.navigate(['/dons/ajouter-don']);}
+  goToEditDonationType(id: number){this.router.navigate(['/dons/modifier-type-don', id]);}
 
-  // ~~~~~~~~~~~~~~~ Donation ~~~~~~~~~~~~~~ //
-  goToDonationAnonymous(){
-    this.router.navigate(['/dons/anonyme']);
-  }
-  goToDonationNoAnonymousPerso(){
-    this.router.navigate(['/dons/non-anonyme/personel']);
-  }
-  goToDonationNoAnonymousOrga(){
-    this.router.navigate(['/dons/non-anonyme/organisation']);
-  }
-
-  goToReportDonation(){
-    this.router.navigate(['/dons/bilan-don']);
-  }
- 
-  goToListDonationType(){
-    this.router.navigate(['/dons/type-don']);
-  }
+  // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
-  goToListDisabledDonationType(){
-    this.router.navigate(['/dons/type-don-inactif']);
-  }
-  
-  goToAddDonationType(){
-    this.router.navigate(['/dons/ajouter-don']);
-  }
-  
-  goToEditDonationType(id: number){
-    this.router.navigate(['/dons/modifier-type-don', id]);
-  }
-  
-  goToBasketDonation(){
-    this.router.navigate(['/dons/corbeille-don']);
-  }
-
-  
-  
-  goToPageError(){
-    this.router.navigate(['/erreur']);
-  }
-
-  goToPageNotFound(){
-    this.router.navigate(['/page-introuvable']);
-  } 
-  
-  goToLockedPage(){
-    this.router.navigate(['/page-verrouillee']);
-  } 
+  goToPageError(){this.router.navigate(['/erreur']);}
+  goToPageNotFound(){this.router.navigate(['/page-introuvable']);} 
+  goToLockedPage(){this.router.navigate(['/page-verrouillee']);} 
 }
