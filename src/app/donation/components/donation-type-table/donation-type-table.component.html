@@ -24,7 +24,16 @@
         <td>{{i+1}} </td>
         <td>{{donationType.libelle}} </td>
         <td>{{donationType.montant}} </td>
-        <td>{{donationType.montant_est_fixe === 0? "non":"oui"}} </td>
+        <td *ngIf="donationType.montant_est_fixe === 0" >
+            <span>
+                <span class="badge badge-sm bg-tertiary ms-1 ">non</span>
+            </span>
+        </td>
+        <td *ngIf="donationType.montant_est_fixe != 0" >
+            <span>
+                <span class="badge badge-sm bg-success ms-1 ">oui</span>
+            </span>
+        </td>
         <!-- If -->
         <td *ngIf="listType === 'enabled'" >
             <a title="Désactivez ce type de don" (click)="disableDonationType(donationType.id)" class="btn btn-sm btn-secondary d-inline-flex align-items-center">
