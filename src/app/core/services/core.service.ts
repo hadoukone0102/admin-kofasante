@@ -39,7 +39,7 @@ export class CoreService {
 
   // ~~~~~~~~~~~~~~~~ //TODO - ADMIN ~~~~~~~~~~~~~~~~ //
 
-  goToProfile(){this.router.navigate(['/profile']);}
+  goToProfile(){this.router.navigate(['/profil']);}
   goToAdmin(){this.router.navigate(['/admin/liste']);}
   goToAddAdmin(){this.router.navigate(['/admin/ajouter']);}
   goToEditAdmin(id: string){this.router.navigate(['/admin/modifier-un-administrateur', id]);}

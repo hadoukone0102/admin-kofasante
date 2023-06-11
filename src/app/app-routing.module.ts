@@ -37,7 +37,7 @@ const routes: Routes = [
       roles: environment.allRoles_Without_HeadOfCatechesis
     }
   }, 
-  {path: 'profile', component: ProfileComponent, resolve: listProfileResolvers, 
+  {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers, 
     canActivate: [AuthGuard, AccessGuard],
     data:{
       roles: environment.allRoles
