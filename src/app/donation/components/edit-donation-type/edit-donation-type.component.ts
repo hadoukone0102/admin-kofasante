@@ -48,7 +48,7 @@ export class EditDonationTypeComponent implements OnInit{
 
   onSubmit(){
     this.isSubmitting = true;
-    this.donationTypeExists =false;
+    this.donationTypeExists = false;
     if(this.chekcboxValue){
       this.donationTypeForm.montant_est_fixe = 1;
     }
@@ -59,6 +59,8 @@ export class EditDonationTypeComponent implements OnInit{
 
     this.donationService.updateDonationType(this.donationTypeForm, this.id).subscribe(
       (data) =>{
+        // console.log("message: "+ data.status_message);
+        
         if(data.success){
           this.isSubmitting = false;
           this.coreService.goToListDonationType();

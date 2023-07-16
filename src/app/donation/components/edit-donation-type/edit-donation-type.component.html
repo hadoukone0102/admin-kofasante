@@ -24,6 +24,9 @@
                 <div *ngIf="theFirstName.touched && theFirstName.invalid">
                     <small class="text-danger">Entrez le libellé</small>
                 </div>
+                <div *ngIf="donationTypeExists">
+                    <small class="text-danger">Ce type de don existe déjà!</small>
+                </div>
             </div>  
             <div class="form-check">
                 <input class="form-check-input" type="checkbox"
