@@ -84,7 +84,7 @@
                     {{donation.montantDon}}
                 </td>
                 <td class="{{formDonationColumn.typeDon ? '':'d-none'}}">
-                    {{donation.typeDon}}
+                    {{donation.typeDon ?? donation.autreTypeDon ?? ""}}
                 </td>
                 <td *ngIf="!isAnonymous && isOrganisation" class="{{formDonationColumn.organisationDon ? '':'d-none'}}">
                     {{donation.organisationDon}}

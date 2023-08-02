@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit{
 
 
   constructor(
-    private route: ActivatedRoute,
     private coreService: CoreService,
     private authService: AuthService
     ){}
@@ -90,7 +89,7 @@ export class LoginComponent implements OnInit{
     this.isLogged = true;
 
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
 }

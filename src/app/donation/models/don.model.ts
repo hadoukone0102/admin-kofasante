@@ -1,6 +1,7 @@
 export class Don {
     id!: number
     typeDon!: string
+    autreTypeDon!: string
     montantDon!: number
     civiliteDon!: string
     nomDon!: string
@@ -25,6 +26,8 @@ export class DataDon {
     status_message!: string
     current_page!: number
     last_page!: number
+    total_dons!: number
     dons!: Don[]
   }
+
   

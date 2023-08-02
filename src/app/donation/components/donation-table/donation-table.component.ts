@@ -206,7 +206,7 @@ export class DonationTableComponent implements OnInit{
 
   /**
    * Go to previous page of table
-   * @date 5/17/2023 - 12:51:29 PM
+   * @date 5/17/2023 - 12:51:29 M
    */
   goToPrevious(){
     this.showPageWhere(-1);
@@ -262,9 +262,10 @@ export class DonationTableComponent implements OnInit{
       status_message: '',
       current_page: 0,
       last_page: -1,
+      total_dons: 0,
       dons: []
-
     }
+    
 
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
