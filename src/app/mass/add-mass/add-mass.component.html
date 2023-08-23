@@ -1,96 +1,96 @@
-<app-toggle-header></app-toggle-header>
-<app-sidebar></app-sidebar>
-<main class="content">
-    <app-header></app-header>
-    <app-page-title
-        theModule="Messe"
-        theTitle="Ajouter des messes"
-        theContent="Ajouter un ou plusieurs jours de messe">
-    </app-page-title>
-    <!-- Content -->
-    <div class="card card-body border-0 shadow mb-4">
-        <h2 class="h5 mb-4"></h2>
-        <form (ngSubmit)="onSubmit()" #editDonationType="ngForm" class="mt-4">
-            <!-- Form -->
-            <div class="form-group row mb-4">
-                    <div class="col-sm-6">
-                        <label for="libelle">Date de début</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
-                                name="startDate"
-                            >
-                        </div>  
+    <app-toggle-header></app-toggle-header>
+    <app-sidebar></app-sidebar>
+    <main class="content">
+        <app-header></app-header>
+        <app-page-title
+            theModule="Messe"
+            theTitle="Ajouter des messes"
+            theContent="Ajouter un ou plusieurs jours de messe">
+        </app-page-title>
+        <!-- Content -->
+        <div class="card card-body border-0 shadow mb-4">
+            <h2 class="h5 mb-4"></h2>
+            <form (ngSubmit)="onSubmit()" #editDonationType="ngForm" class="mt-4">
+                <!-- Form -->
+                <div class="form-group row mb-4">
+                        <div class="col-sm-6">
+                            <label for="libelle">Date de début</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
+                                    name="startDate"
+                                >
+                            </div>  
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="libelle">Date de fin</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
+                                    name="endDate"
+                                >
+                            </div>  
+                        </div>
+                    <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
+                        <small class="text-danger">Entrez le libellé</small>
+                    </div> -->
+                    <!-- <div *ngIf="donationTypeExists">
+                        <small class="text-danger">Ce type de don existe déjà!</small>
+                    </div> -->
+                </div>  
+
+                <div class="col-12 mb-4">
+                    <div class="row">
+                        <ng-container *ngFor="let field of timesFields; let i = index">
+                            <div class="col-sm-6 mb-1 mb-sm-0">
+                                <label for="role">Heure de la messe</label>
+                                <select  class="form-select w-100 mb-0" id="role" 
+                                    name="state" aria-label="State select example"
+                                >
+                                    <option value="cool">18h:00</option>
+                                    
+                                </select>
+                            </div>
+                        </ng-container>
                         
                     </div>
-                    <div class="col-sm-6">
-                        <label for="libelle">Date de fin</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
-                                name="endDate"
-                            >
-                        </div>  
-                    </div>
-                <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
-                    <small class="text-danger">Entrez le libellé</small>
-                </div> -->
-                <!-- <div *ngIf="donationTypeExists">
-                    <small class="text-danger">Ce type de don existe déjà!</small>
-                </div> -->
-            </div>  
+                </div>
 
-            <div class="col-12 mb-4">
-                <div class="row">
-                    <ng-container *ngFor="let field of timesFields; let i = index">
-                        <div class="col-sm-6 mb-1 mb-sm-0">
-                            <label for="role">Heure de la messe</label>
-                            <select  class="form-select w-100 mb-0" id="role" 
-                                name="state" aria-label="State select example"
-                            >
-                                  <option value="cool">18h:00</option>
-                                
-                            </select>
+                <div class="col-sm-6">
+                    <div class="row g-2">
+                        <div class="col d-flex align-items-end">
+                            <button type="submit" class="btn btn-paypal"
+                            [disabled]="!editDonationType.valid"
+                            (click)="addTimeField()"
+                            >Ajouter une heure</button>
                         </div>
-                    </ng-container>
-                    
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-                <div class="row g-2">
-                    <div class="col d-flex align-items-end">
-                        <button type="submit" class="btn btn-paypal"
-                        [disabled]="!editDonationType.valid"
-                        (click)="addTimeField()"
-                        >Ajouter une heure</button>
+                        <div class="col d-flex align-items-end">
+                            <button type="submit" class="btn btn-danger"
+                            [disabled]="timesFieldIsAlone()"
+                            (click)="deleteTimeField()"
+                            >Supprimer une heure</button>
+                        </div>
+                        
                     </div>
-                    <div class="col d-flex align-items-end">
-                        <button type="submit" class="btn btn-danger"
-                        [disabled]="timesFieldIsAlone()"
-                        (click)="deleteTimeField()"
-                        >Supprimer une heure</button>
+                </div>
+            
+                
+                
+                <!-- <div *ngIf="!theLastName.pristine && theLastName.invalid">
+                    <small class="text-danger">Entrez votre prénom</small>
+                </div> -->
+                <div class="d-flex mt-3">
+                    <button type="submit" class="btn btn-gray-800"
+                    [disabled]="!editDonationType.valid "
+                    >Ajouter</button>
+                    <!-- Spinner -->
+                    <div class="d-fle   x align-items-center ms-3"  *ngIf="isSubmitting">
+                        <app-spinner></app-spinner>
                     </div>
-                    
+                    <!-- End spinner -->
                 </div>
-            </div>
-           
-            
-            
-            <!-- <div *ngIf="!theLastName.pristine && theLastName.invalid">
-                <small class="text-danger">Entrez votre prénom</small>
-            </div> -->
-            <div class="d-flex mt-3">
-                <button type="submit" class="btn btn-gray-800"
-                [disabled]="!editDonationType.valid "
-                >Modifier</button>
-                <!-- Spinner -->
-                <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">
-                    <app-spinner></app-spinner>
-                </div>
-                <!-- End spinner -->
-            </div>
-        </form>
-    </div>
-    <!-- End content -->
+            </form>
+        </div>
+        <!-- End content -->
 
-    <app-footer></app-footer>
-</main>
+        <app-footer></app-footer>
+    </main>

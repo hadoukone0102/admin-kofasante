@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MassListComponent } from './mass-list.component';
+import { MassTimeFormComponent } from './mass-time-form.component';
 
-describe('MassListComponent', () => {
-  let component: MassListComponent;
-  let fixture: ComponentFixture<MassListComponent>;
+describe('MassTimeFormComponent', () => {
+  let component: MassTimeFormComponent;
+  let fixture: ComponentFixture<MassTimeFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MassListComponent ]
+      declarations: [ MassTimeFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MassListComponent);
+    fixture = TestBed.createComponent(MassTimeFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

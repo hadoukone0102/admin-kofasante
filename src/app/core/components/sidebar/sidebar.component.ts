@@ -88,6 +88,7 @@ export class SidebarComponent implements OnInit{
 
   goToAddMass(){this.coreService.goToAddMass();}
   goToMassList(){this.coreService.goToMassList();}
+  goToAddMassTime(){this.coreService.goToAddMassTime();}
   
 
 
