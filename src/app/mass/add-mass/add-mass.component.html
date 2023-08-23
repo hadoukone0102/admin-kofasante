@@ -12,14 +12,24 @@
         <h2 class="h5 mb-4"></h2>
         <form (ngSubmit)="onSubmit()" #editDonationType="ngForm" class="mt-4">
             <!-- Form -->
-            <div class="form-group mb-4">
-                <label for="libelle">Libellé</label>
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="" id="libelle" autofocus required
+            <div class="form-group row mb-4">
+                    <div class="col-sm-6">
+                        <label for="libelle">Date de début</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
+                                name="startDate"
+                            >
+                        </div>  
                         
-                        name="firstName"
-                    >
-                </div>  
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="libelle">Date de fin</label>
+                        <div class="input-group">
+                            <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
+                                name="endDate"
+                            >
+                        </div>  
+                    </div>
                 <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
                     <small class="text-danger">Entrez le libellé</small>
                 </div> -->
@@ -27,33 +37,43 @@
                     <small class="text-danger">Ce type de don existe déjà!</small>
                 </div> -->
             </div>  
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox"
-                 id="remember" name="remember"
-                 
-                >
-                <label class="form-check-label mb-0" for="remember">
-                    Fixer le montant
-                </label>
+
+            <div class="col-12 mb-4">
+                <div class="row">
+                    <ng-container *ngFor="let field of timesFields; let i = index">
+                        <div class="col-sm-6 mb-1 mb-sm-0">
+                            <label for="role">Heure de la messe</label>
+                            <select  class="form-select w-100 mb-0" id="role" 
+                                name="state" aria-label="State select example"
+                            >
+                                  <option value="cool">18h:00</option>
+                                
+                            </select>
+                        </div>
+                    </ng-container>
+                    
+                </div>
             </div>
-            <div   class="form-group mb-4">
-                <label for="amount">Montant</label>
-                <div class="input-group">
-                    <input type="number" class="form-control" placeholder="" id="amount" required
-                        
-                       
-                        name="amount"
-                        pattern="^[0-9]+$"
-                        onkeypress="return event.charCode >= 48 && event.charCode<= 57"
-                    >
-                </div>  
-                <!-- <div *ngIf="!amountIsCorrect()">
-                    <small class="text-danger">Entrez le montant</small>
-                </div> -->
-                <!-- <div *ngIf="theAmount.touched && theAmount.errors?.['pattern']">
-                    <small class="text-danger">Entrez des chiffres</small>
-                </div> -->
+
+            <div class="col-sm-6">
+                <div class="row g-2">
+                    <div class="col d-flex align-items-end">
+                        <button type="submit" class="btn btn-paypal"
+                        [disabled]="!editDonationType.valid"
+                        (click)="addTimeField()"
+                        >Ajouter une heure</button>
+                    </div>
+                    <div class="col d-flex align-items-end">
+                        <button type="submit" class="btn btn-danger"
+                        [disabled]="timesFieldIsAlone()"
+                        (click)="deleteTimeField()"
+                        >Supprimer une heure</button>
+                    </div>
+                    
+                </div>
             </div>
+           
+            
             
             <!-- <div *ngIf="!theLastName.pristine && theLastName.invalid">
                 <small class="text-danger">Entrez votre prénom</small>
