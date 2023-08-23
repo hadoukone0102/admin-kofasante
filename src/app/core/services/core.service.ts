@@ -61,6 +61,10 @@ export class CoreService {
   goToAddDonationType(){this.router.navigate(['/dons/ajouter-don']);}
   goToEditDonationType(id: number){this.router.navigate(['/dons/modifier-type-don', id]);}
 
+  // ~~~~~~~~~~~~ //TODO - MASS ~~~~~~~~~~~~ //
+
+  goToAddMass(){this.router.navigate(['/messes/ajouter-messe']);}
+
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
   goToPageError(){this.router.navigate(['/erreur']);}

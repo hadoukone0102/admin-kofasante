@@ -37,6 +37,12 @@ const routes: Routes = [
       roles: environment.allRoles_Without_HeadOfCatechesis
     }
   }, 
+  {path: 'messes', loadChildren: () => import('./mass/mass.module').then(m => m.MassModule), 
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.allRoles_Without_HeadOfCatechesis
+    }
+  }, 
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers, 
     canActivate: [AuthGuard, AccessGuard],
     data:{
