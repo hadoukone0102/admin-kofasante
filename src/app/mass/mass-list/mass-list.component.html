@@ -3,23 +3,17 @@
 <main class="content">
     <app-header></app-header>
     <app-page-title
-        theModule="Administrateurs"
-        theTitle="Liste des administrateurs"
-        theContent="Consultez la liste des Administrateurs">
+        theModule="Messe"
+        theTitle="Liste des messes"
+        theContent="Consultez la liste des messes">
     </app-page-title>
     <!-- Content -->
-    
     <div class="card border-0 shadow mb-4">
-        
         <div class="card-body">
-            
-            <app-admin-table
-                [admins$]="admins$"
-                listType="enabled"
-                >
-            </app-admin-table>
-        </div>
 
+            <app-mass-table></app-mass-table>
+
+        </div>
     </div>
     <!-- End content -->
 
