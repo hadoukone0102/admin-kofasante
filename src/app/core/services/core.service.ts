@@ -63,7 +63,7 @@ export class CoreService {
 
   // ~~~~~~~~~~~~ //TODO - MASS ~~~~~~~~~~~~ //
 
-  goToAddMass(){this.router.navigate(['/messes/ajouter-messe']);}
+  goToAddMass(){this.router.navigate(['/messes/ajouter-messes']);}
 
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
