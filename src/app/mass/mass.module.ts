@@ -8,6 +8,11 @@ import { MassListComponent } from './mass-list/mass-list.component';
 import { EditMassComponent } from './edit-mass/edit-mass.component';
 import { AddMassTimeComponent } from './add-mass-time/add-mass-time.component';
 import { MassTimeFormComponent } from './mass-time-form/mass-time-form.component';
+import { MassTimeListComponent } from './mass-time-list/mass-time-list.component';
+import { EditMassTimeComponent } from './edit-mass-time/edit-mass-time.component';
+import { MassRequestTableComponent } from './mass-request-table/mass-request-table.component';
+import { AnonymousMassRequestListComponent } from './anonymous-mass-request-list/anonymous-mass-request-list.component';
+import { NoAnonymousMassRequestListComponent } from './no-anonymous-mass-request-list/no-anonymous-mass-request-list.component';
 
 // const disabledDonationTypeResolvers = {...{disabledDonationType: DisabledDonationTypeResolver}, ...GLOBAL_RESOLVERS};
 
@@ -16,6 +21,9 @@ const massRoutes: Routes = [
   {path: 'ajouter-messes', component: AddMassComponent},
   {path: 'modifier-messes', component: EditMassComponent},
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
+  {path: 'liste-des-heures-de-messes', component: MassTimeListComponent},
+  {path: 'modifier-heures-messes', component: EditMassTimeComponent},
+  {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
 ];
 
 @NgModule({
@@ -25,7 +33,12 @@ const massRoutes: Routes = [
     MassListComponent,
     EditMassComponent,
     AddMassTimeComponent,
-    MassTimeFormComponent
+    MassTimeFormComponent,
+    MassTimeListComponent,
+    EditMassTimeComponent,
+    MassRequestTableComponent,
+    AnonymousMassRequestListComponent,
+    NoAnonymousMassRequestListComponent,
   ],
   imports: [
     CommonModule,

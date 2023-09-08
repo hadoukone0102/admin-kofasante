@@ -1,0 +1,121 @@
+<div class="row mb-4">
+    <div class="mb-2 col-8 col-sm-4  btn-group">
+        <button  title="Réinitialiser le le filtre"  class="btn btn-success d-inline-flex align-items-center" >
+            <i class="fa fa-eye me-3"></i>
+            Non anonymes
+        </button>
+        <button  title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+            <i class="fa fa-eye-slash me-3"></i>
+            Anonymes
+        </button>
+    </div>
+    <!-- <div class="mb-2 col-8 col-sm-4 btn-group">
+        <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">
+            <i class="fa fa-table me-3"></i>
+            Filtrer
+        </button>
+    </div> -->
+    <!-- <div class="mb-2 col-8 col-sm-4  btn-group">
+        <button (click)="resetFilter()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+            <i class="fa fa-broom me-3"></i>
+            Réinitialiser
+        </button>
+    </div>
+    <div *ngIf="!isExporting && listType != 'failed'" class="mb-2 col-8 col-sm-4 btn-group">
+        <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
+    </div>
+    <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-4  btn-group">
+        <button title="Masquer le boutton d'exportation" (click)="this.search()" type="button" class="btn btn-primary">Masquer</button>
+    </div> -->
+    <!-- <div *ngIf="isExporting"  class="col-8 mb-2 col-sm-4 btn-group">
+        <button type="button" class="btn btn-primary">Exporter en</button>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <span class="visually-hidden">Exporter en</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="exportToPDF()">PDF</a></li>
+          <li><a class="dropdown-item" (click)="exportToExel()">EXCEL</a></li>
+        </ul>
+      </div> -->
+
+      <!-- <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
+        <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
+            <i class="fa fa-check me-3"></i>
+            Colonnes
+        </button>
+    </div> -->
+
+      <!-- Refresh -->
+      <!-- <div class="col-8 mb-2 col-sm-4  btn-group">
+          <app-refresh [isRefreshing]="isRefreshing"
+          (toogleButton) = "handleToogleButtonFromChild($event)"
+           ></app-refresh>
+      </div> -->
+      <!-- End Refresh -->
+</div>
+
+<div  class="table-responsive">
+    <table  class="table table-centered table-nowrap mb-0 rounded">
+    <thead class="thead-light">
+        <tr>
+        <th class="border-0 rounded-start">N°</th>
+        <th class="border-0">Nom</th>
+        <th class="border-0">Prenom</th>
+        <th class="border-0">Contact</th>
+        <th class="border-0">Type de messe</th>
+        <th class="border-0">Intention</th>
+        <th class="border-0">Date</th>
+        <th  class="border-0">Action</th>
+        <th  class="border-0">Id de transaction</th>
+    </tr>
+</thead>
+<!-- ENABLED ACCOUNT -->
+<!-- <tbody *ngIf="!isDisabledAccount()" [@boomTrigger]="admins.administrateurs.length"> -->
+<tbody>
+
+    <!-- Item -->
+    <tr @lineTableAnimation >
+        <td><a  class="text-primary fw-bold">1</a> </td>
+    <td >
+        <!-- {{admin.nomAdmin}} -->Diakité
+    </td>
+    <td >
+        <!-- {{admin.prenomAdmin}} -->Doumani
+    </td>
+    <td >
+        <!-- {{admin.prenomAdmin}} -->0705669988
+    </td>
+    <td >
+        <!-- {{admin.prenomAdmin}} -->Quotidienne
+    </td>
+    <td >
+        <!-- {{admin.prenomAdmin}} -->Action de grâce
+    </td>
+    <td >
+        <!-- {{admin.prenomAdmin}} -->02/09/2023
+    </td>
+    
+    <td>
+        <a title="Voir la description de la demande" (click)="goToEditMass()"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
+            <i class="fa fa-edit" ></i>
+        </a>
+    </td>
+
+    <td >
+        <!-- {{admin.prenomAdmin}} -->ql3egQSFfafbSFS3GF
+    </td>
+    
+    </tr>
+<!-- End of Item -->
+</tbody>
+
+
+
+
+</table>
+<div >
+    <!-- <h4 *ngIf="admins.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4> -->
+</div>
+
+</div>

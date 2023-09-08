@@ -179,6 +179,26 @@
     role="list" id="submenu-mass" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
+        <a (click)="goToNoAnonymousMassRequest()" class="nav-link">
+          <span class="sidebar-text">Demandes de messes</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="multi-level collapse "
+    role="list" id="submenu-mass" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToMassTimeList()" class="nav-link">
+          <span class="sidebar-text">Liste des heures</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="multi-level collapse "
+    role="list" id="submenu-mass" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
         <a (click)="goToAddMassTime()" class="nav-link">
           <span class="sidebar-text">Ajouter une heure</span>
         </a>

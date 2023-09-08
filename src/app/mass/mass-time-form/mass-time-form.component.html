@@ -2,7 +2,7 @@
     <!-- Form -->
     <div class="form-group row mb-4">
             <div class="col">
-                <label for="libelle">Saisissez l'heure à ajouter</label>
+                <label for="libelle">Heure</label>
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="" id="libelle" autofocus required
                         name="time"
@@ -27,9 +27,15 @@
         <small class="text-danger">Entrez votre prénom</small>
     </div> -->
     <div class="d-flex mt-3">
-        <button type="submit" class="btn btn-gray-800"
+
+        <button *ngIf="action === 'add'" type="submit" class="btn btn-gray-800"
         [disabled]="!editDonationType.valid "
         >Ajouter</button>
+
+        <button *ngIf="action === 'edit'" type="submit" class="btn btn-gray-800"
+        [disabled]="!editDonationType.valid "
+        >Modifier</button>
+        
         <!-- Spinner -->
         <div class="d-fle   x align-items-center ms-3"  *ngIf="isSubmitting">
             <app-spinner></app-spinner>

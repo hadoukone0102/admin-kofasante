@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-mass-time-form',
   templateUrl: './mass-time-form.component.html'
 })
 export class MassTimeFormComponent {
+  @Input() action!: "edit"|"add";
 
   isSubmitting: boolean = false;
   timesFields: any[] = [{ id: 1 }];
