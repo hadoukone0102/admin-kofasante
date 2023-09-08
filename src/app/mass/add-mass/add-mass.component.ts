@@ -6,41 +6,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddMassComponent implements OnInit{
   isSubmitting: boolean = false;
-  timesFields: any[] = [{ id: 1 }];
-  selectedValues: string[] = ['18:00']; // Initialisez-le avec une valeur par défaut
+  selectedValue: string = ''; // Initialisez-le avec une chaîne vide
+  times: string[] = []; // Initialisez-le comme un tableau vide
+  formData = {
+    startDate: "",
+    endDate: "",
+  }
 
   ngOnInit(): void {
     // this.selectedValues[1]="18:00";
+    console.log(this.times);
+    this.noValueSelected();
   }
 
   onSubmit(){
 
+  } 
+
+   // Méthode pour ajouter une heure à la liste
+   addTime() {
+    if (this.selectedValue) {
+      this.times.push(this.selectedValue);
+    }
   }
 
-  addTimeField() {
-    console.log("avant: ");
-    console.log(this.selectedValues);
-
-    const newTimesField = { id: this.timesFields.length + 1 };
-    this.timesFields.push(newTimesField);
-    this.selectedValues.push('18:00'); // Ajoutez une valeur par défaut
-
-    console.log("après: ");
-    console.log(this.selectedValues);
+  // Méthode pour modifier une heure existante
+  setTime(index: number) {
+    this.times[index] = this.selectedValue;
   }
 
   deleteTimeField(){
-    this.timesFields.pop();
-    this.selectedValues.pop();
+    this.times.pop();
   }
 
-  timesFieldIsAlone(){
-    return this.timesFields.length === 1 ? true : false;
+  noValueSelected(){
+    return this.times.length === 0 ? true : false;
   }
 
   getSelectedValues() {
-    for (let i = 0; i < this.selectedValues.length; i++) {
-      console.log(this.selectedValues[i]);
-    }
+    // for (let i = 0; i < this.selectedValues.length; i++) {
+    //   console.log(this.selectedValues[i]);
+    // }
+    console.log(this.times.length);
+    console.log(this.noValueSelected());
   }
 }
