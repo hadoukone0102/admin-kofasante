@@ -1,11 +1,10 @@
-import { DonationNotifResolver } from "src/app/core/resolvers/donation-notif.resolver"
-const dateStart = new Date(2023, 0, 1)
 export const  environment = {
     production: false,
     // ~~~~~~~~~~~~~~~~~ API ~~~~~~~~~~~~~~~~~ //
     // apiUrlDon: 'http://192.168.1.73:8000/api',
-    apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
     apiUrlAdmin: 'https://admin-api.eglise-mukasa.ci/api',
+    apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
+    apiUrlMass: 'https://messe-api.eglise-mukasa.ci/api',
 
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //
     captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",
@@ -25,7 +24,7 @@ export const  environment = {
 // apiUrlAdmin: 'http://192.168.2.106:4200/api',
 
 /**
- * ROLES POSSIBLES
+ * POSSIBLES ROLES
  * 
  * Curé
  * Vicaire

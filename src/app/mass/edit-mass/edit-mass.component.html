@@ -33,35 +33,41 @@
 
             <div class="col-12 mb-4">
                 <div class="row">
-                    <ng-container *ngFor="let field of timesFields; let i = index">
-                        <div class="col-sm-6 mb-1 mb-sm-0">
-                            <label for="role">Heure de la messe</label>
-                            <select  class="form-select w-100 mb-0" id="role" 
-                                name="state" aria-label="State select example"
-                            >
-                                <option value="18:00">18:00</option>
-                                <option value="19:00">19:00</option>
-                                
-                            </select>
-                        </div>
-                    </ng-container>
-                    
+                  <div class="col-sm-6 mb-1 mb-sm-0">
+                    <label for="role">Heure de la messe</label>
+                    <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                            [(ngModel)]="selectedValue">
+                      <option value="" disabled>Selectionnez une heure</option>
+                      <option value="18:00">18:00</option>
+                      <option value="19:00">19:00</option>
+                      <!-- Ajoutez d'autres options ici si nécessaire -->
+                    </select>
+                  </div>
                 </div>
-            </div>
+              </div>
+              
+              <div class="col-12 mb-4">
+                <div *ngFor="let time of times; let i = index">
+                  <div class="mb-2">
+                    <span>{{ time }}</span>
+                    <button type="button" class="btn btn-paypal ms-2" (click)="setTime(i)">Modifier</button>
+                  </div>
+                </div>
+              </div>
 
-            <div class="col-sm-6">
+              <div class="col-sm-6">
                 <div class="row g-2">
-                    <div class="col d-flex align-items-end">
-                        <button type="submit" class="btn btn-paypal"
-                        [disabled]="!editDonationType.valid"
-                        (click)="addTimeField()"
-                        >Ajouter une heure</button>
+                    <div class="col-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
+                        (click)="addTime()"
+                        ><i class="fa fa-plus"></i>
+                    </button>
                     </div>
-                    <div class="col d-flex align-items-end">
-                        <button type="submit" class="btn btn-danger"
-                        [disabled]="timesFieldIsAlone()"
+                    <div class="col-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-danger" title="Supprimer une heure"
+                        [disabled]="noValueSelected()"
                         (click)="deleteTimeField()"
-                        >Supprimer une heure</button>
+                        ><i class="fa fa-minus"></i></button>
                     </div>
                     
                 </div>

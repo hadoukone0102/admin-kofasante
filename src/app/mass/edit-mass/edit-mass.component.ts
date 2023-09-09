@@ -6,22 +6,48 @@ import { Component } from '@angular/core';
 })
 export class EditMassComponent {
   isSubmitting: boolean = false;
-  timesFields: any[] = [{ id: 1 }];
+  selectedValue: string = ''; // Initialisez-le avec une chaîne vide
+  times: string[] = []; // Initialisez-le comme un tableau vide
+  formData = {
+    startDate: "",
+    endDate: "",
+  }
+
+  ngOnInit(): void {
+    // this.selectedValues[1]="18:00";
+    console.log(this.times);
+    this.noValueSelected();
+  }
 
   onSubmit(){
 
+  } 
+
+   // Méthode pour ajouter une heure à la liste
+   addTime() {
+    if (this.selectedValue) {
+      this.times.push(this.selectedValue);
+    }
   }
 
-  addTimeField() {
-    const newTimesFields = { id: this.timesFields.length + 1 };
-    this.timesFields.push(newTimesFields);
+  // Méthode pour modifier une heure existante
+  setTime(index: number) {
+    this.times[index] = this  .selectedValue;
   }
-  
+
   deleteTimeField(){
-    this.timesFields.pop();
+    this.times.pop();
   }
 
-  timesFieldIsAlone(){
-    return this.timesFields.length === 1 ? true : false;
+  noValueSelected(){
+    return this.times.length === 0 ? true : false;
+  }
+
+  getSelectedValues() {
+    // for (let i = 0; i < this.selectedValues.length; i++) {
+    //   console.log(this.selectedValues[i]);
+    // }
+    console.log(this.times.length);
+    console.log(this.noValueSelected());
   }
 }
