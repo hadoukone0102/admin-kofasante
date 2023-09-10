@@ -13,15 +13,18 @@ import { EditMassTimeComponent } from './components/edit-mass-time/edit-mass-tim
 import { MassRequestTableComponent } from './components/mass-request-table/mass-request-table.component';
 import { AnonymousMassRequestListComponent } from './components/anonymous-mass-request-list/anonymous-mass-request-list.component';
 import { NoAnonymousMassRequestListComponent } from './components/no-anonymous-mass-request-list/no-anonymous-mass-request-list.component';
+import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
+import { MassListResolver } from './resolvers/mass-list.resolver';
 
-// const disabledDonationTypeResolvers = {...{disabledDonationType: DisabledDonationTypeResolver}, ...GLOBAL_RESOLVERS};
+const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
+const listMassResolvers = {listMassResolvers: MassListResolver};
 
 const massRoutes: Routes = [
-  {path: 'liste', component: MassListComponent},
+  {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent},
   {path: 'modifier-messes', component: EditMassComponent},
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
-  {path: 'liste-des-heures-de-messes', component: MassTimeListComponent},
+  {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes', component: EditMassTimeComponent},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
 ];

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { MassService } from '../../services/mass.service';
 import { lineTableAnimation } from 'src/app/core/animations/animations';
 import { MassTimeData } from '../../models/mass-time.model';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-mass-time-list',
@@ -16,15 +17,16 @@ export class MassTimeListComponent implements OnInit{
 
   constructor(
     private coreService: CoreService,
-    private massService: MassService
+    private route: ActivatedRoute,
     ){}
 
   ngOnInit(): void {
-    this.massService.getMassesTimesList().subscribe(
-      (data) => {
+
+    this.route.data.pipe(map(data => data['listMassTimeResolver']))
+    .subscribe( (data) => {
         this.massTimeList = data.time;
       }
-    )
+    );
   }
 
   goToEditMassTime(id: number){

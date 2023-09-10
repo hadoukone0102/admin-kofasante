@@ -4,6 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { AddMassTimeModel, AddMassTimeResponseModel, MassTimeModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
+import { MassModel } from '../models/mass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,18 @@ export class MassService {
    */
   getMassesTimesList(): Observable<MassTimeModel>{
     return this.http.get<MassTimeModel>(`${environment.apiUrlMass}/time/all`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  /**
+   * Get the masses list
+   * @date 9/10/2023 - 6:31:26 PM
+   *
+   * @returns {Observable<MassModel>}
+   */
+  getMassesList(): Observable<MassModel>{
+    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/all`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
