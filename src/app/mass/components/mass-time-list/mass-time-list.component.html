@@ -25,18 +25,18 @@
             <tbody>
             
                 <!-- Item -->
-                <tr @lineTableAnimation >
-                    <td><a  class="text-primary fw-bold">1</a> </td>
+                <tr *ngFor="let massTime of massTimeList; let i = index; trackBy: trackByMassTimeId" @lineTableAnimation >
+                    <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
                 <td >
-                    <!-- {{admin.prenomAdmin}} -->8h:30
+                    {{massTime.times | customTimeFormat}}
                 </td>
                 
                 <td>
-                    <a title="Modifier" (click)="goToEditMassTime()" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
+                    <a title="Modifier" (click)="goToEditMassTime(massTime.id)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
                         <i class="fa fa-edit" ></i>
                     </a>
                     
-                    <a title="Supprimer le jour de messe et ses heures" class="btn btn-sm btn-danger d-inline-flex align-items-center">
+                    <a (click)="deleteMassTime(massTime.id)" title="Supprimer le jour de messe et ses heures" class="btn btn-sm btn-danger d-inline-flex align-items-center">
                         <i class="fa fa-trash" ></i>
                     </a>
                 </td>

@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AddMassComponent } from './add-mass/add-mass.component';
+import { AddMassComponent } from './components/add-mass/add-mass.component';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { MassTableComponent } from './mass-table/mass-table.component';
-import { MassListComponent } from './mass-list/mass-list.component';
-import { EditMassComponent } from './edit-mass/edit-mass.component';
-import { AddMassTimeComponent } from './add-mass-time/add-mass-time.component';
-import { MassTimeFormComponent } from './mass-time-form/mass-time-form.component';
-import { MassTimeListComponent } from './mass-time-list/mass-time-list.component';
-import { EditMassTimeComponent } from './edit-mass-time/edit-mass-time.component';
-import { MassRequestTableComponent } from './mass-request-table/mass-request-table.component';
-import { AnonymousMassRequestListComponent } from './anonymous-mass-request-list/anonymous-mass-request-list.component';
-import { NoAnonymousMassRequestListComponent } from './no-anonymous-mass-request-list/no-anonymous-mass-request-list.component';
+import { MassTableComponent } from './components/mass-table/mass-table.component';
+import { MassListComponent } from './components/mass-list/mass-list.component';
+import { EditMassComponent } from './components/edit-mass/edit-mass.component';
+import { AddMassTimeComponent } from './components/add-mass-time/add-mass-time.component';
+import { MassTimeFormComponent } from './components/mass-time-form/mass-time-form.component';
+import { MassTimeListComponent } from './components/mass-time-list/mass-time-list.component';
+import { EditMassTimeComponent } from './components/edit-mass-time/edit-mass-time.component';
+import { MassRequestTableComponent } from './components/mass-request-table/mass-request-table.component';
+import { AnonymousMassRequestListComponent } from './components/anonymous-mass-request-list/anonymous-mass-request-list.component';
+import { NoAnonymousMassRequestListComponent } from './components/no-anonymous-mass-request-list/no-anonymous-mass-request-list.component';
 
 // const disabledDonationTypeResolvers = {...{disabledDonationType: DisabledDonationTypeResolver}, ...GLOBAL_RESOLVERS};
 

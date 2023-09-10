@@ -10,6 +10,7 @@ import { RefreshComponent } from './components/refresh/refresh.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ModalFilterComponent } from './components/modal-filter/modal-filter.component';
 import { FormsModule } from '@angular/forms';
+import { CustomTimeFormatPipe } from './pipes/custom-time-format.pipe';
 
 
 
@@ -23,6 +24,7 @@ import { FormsModule } from '@angular/forms';
     RefreshComponent,
     SpinnerComponent,
     ModalFilterComponent,
+    CustomTimeFormatPipe,
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { FormsModule } from '@angular/forms';
     PageTitleComponent,
     RefreshComponent,
     SpinnerComponent,
-    ModalFilterComponent
+    ModalFilterComponent,
+    CustomTimeFormatPipe
   ]
 
 })
