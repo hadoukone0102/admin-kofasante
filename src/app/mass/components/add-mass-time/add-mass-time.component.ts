@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './add-mass-time.component.html'
 })
 export class AddMassTimeComponent {
-
+  
 }

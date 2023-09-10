@@ -20,7 +20,7 @@ export class MassTimeListComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
-    this.massService.getTimesList().subscribe(
+    this.massService.getMassesTimesList().subscribe(
       (data) => {
         this.massTimeList = data.time;
       }
@@ -32,7 +32,7 @@ export class MassTimeListComponent implements OnInit{
   }
 
   deleteMassTime(id: number){
-    
+
   }
 
   trackByMassTimeId(index: number, data: any): number {

@@ -6,17 +6,19 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="" id="libelle" autofocus required
                         name="time"
+                        #theTime="ngModel"
+                        [(ngModel)]="formData.time"
                     >
                 </div>  
                 
             </div>
            
-        <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
-            <small class="text-danger">Entrez le libellé</small>
-        </div> -->
-        <!-- <div *ngIf="donationTypeExists">
-            <small class="text-danger">Ce type de don existe déjà!</small>
-        </div> -->
+        <div *ngIf="theTime.touched && theTime.invalid">
+            <small class="text-danger">Entrez l'heure de messe</small>
+        </div>
+        <div *ngIf="timeExists">
+            <small class="text-danger">Cette heure existe déjà!</small>
+        </div>
     </div>  
 
     
