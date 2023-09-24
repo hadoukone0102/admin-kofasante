@@ -9,6 +9,6 @@ export class MassRequestTableComponent {
   constructor(private coreService: CoreService){}
 
   goToEditMass(){
-    this.coreService.goToEditMass();
+    // this.coreService.goToEditMass();
   }
 }

@@ -15,14 +15,16 @@ import { AnonymousMassRequestListComponent } from './components/anonymous-mass-r
 import { NoAnonymousMassRequestListComponent } from './components/no-anonymous-mass-request-list/no-anonymous-mass-request-list.component';
 import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
 import { MassListResolver } from './resolvers/mass-list.resolver';
+import { MassDayById } from './resolvers/mass-by-id.resolver';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
+const massDayByIdResolvers = {massDayByIdResolvers: MassDayById};
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent},
-  {path: 'modifier-messes', component: EditMassComponent},
+  {path: 'modifier-messes/:id', component: EditMassComponent, resolve: massDayByIdResolvers},
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes', component: EditMassTimeComponent},

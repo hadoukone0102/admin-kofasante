@@ -25,4 +25,38 @@ export interface MassModel {
     time: string
     QuestType: string[]
   }
+
+  // ~~~~~~~~~~~~~~~~ Update ~~~~~~~~~~~~~~~ //
+
+        // ~~~~~~~~~~~~~~ Data toreceive ~~~~~~~~~~~~~~ //
+        export interface DataSetMassModel {
+          masse: Masse
+        }
+        
+        export interface Masse {
+          id_days: number
+          date: string
+          days: string
+          times: Time[]
+        }
+        
+        export interface Time {
+          idMt: number
+          time: string
+          questType: string[]
+        }
+
+        // ~~~~~~~~~~~~~ Data to send ~~~~~~~~~~~~ //
+        
+          export interface HourQuest {
+            hour: string;
+            quests: string[];
+          }
+
+          export interface SetMassModel {
+            id: number
+            typeQuette: string[]
+            masses_times_id: number
+          }
+
   

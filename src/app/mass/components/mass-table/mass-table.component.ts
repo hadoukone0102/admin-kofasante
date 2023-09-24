@@ -27,8 +27,8 @@ export class MassTableComponent implements OnInit{
     this.checkAndApplyDisabled(this.massModel);
   }
 
-  goToEditMass(){
-    this.coreService.goToEditMass();
+  goToEditMass(id: number){
+    this.coreService.goToEditMass(id);
   }
 
   trackById(index: number, data: any): number {

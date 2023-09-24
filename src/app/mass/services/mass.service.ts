@@ -4,7 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { AddMassTimeModel, AddMassTimeResponseModel, MassTimeModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
-import { MassModel } from '../models/mass.model';
+import { DataSetMassModel, MassModel } from '../models/mass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +39,14 @@ export class MassService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
+  
+  getMassDayById(id: number): Observable<DataSetMassModel>{
+    return this.http.get<DataSetMassModel>(`${environment.apiUrlMass}/messes-days/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+
 
   /**
    * Add a mass time to the database
