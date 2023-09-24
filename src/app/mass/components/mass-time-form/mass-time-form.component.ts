@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AddMassTimeModel } from '../../models/mass-time.model';
+import { AddMassTimeModel, SetMassTimeModel } from '../../models/mass-time.model';
 import { MassService } from '../../services/mass.service';
 import { CoreService } from 'src/app/core/services/core.service';
 
@@ -11,6 +11,7 @@ export class MassTimeFormComponent implements OnInit{
   @Input() action!: "edit"|"add";
   
   formData!: AddMassTimeModel;
+  formDataSet!: SetMassTimeModel;
 
   isSubmitting: boolean = false;
   timeExists: boolean = false;
@@ -47,6 +48,16 @@ export class MassTimeFormComponent implements OnInit{
       );
     }else{
       //Set mass time
+      this.massService.updateMassTime(this.formDataSet).subscribe(
+        (data)=> {
+          if(data.success){
+            console.log("good");
+          }else{
+            console.log("bad");
+            
+          }
+        }
+      )
 
     }
   }

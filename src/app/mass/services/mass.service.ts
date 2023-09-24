@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
-import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeModel } from '../models/mass-time.model';
+import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
 import { DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 
@@ -62,7 +62,13 @@ export class MassService {
   }
 
   updateMassDay(data: SetMassModel): Observable<SetMassResponseModel>{
-    return this.http.post<SetMassResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
+    return this.http.put<SetMassResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  updateMassTime(data: SetMassTimeModel): Observable<SetMassTimeResponseModel>{
+    return this.http.post<SetMassTimeResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
@@ -72,12 +78,18 @@ export class MassService {
   //     catchError((error) => this.coreService.handleError(error)),
   //   );
   // }
+  
+  // deleteMass(data: DeleteMassDayModel): Observable<DeleteMassDayResponseModel>{
+  //   return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete`, data).pipe(
+  //     catchError((error) => this.coreService.handleError(error)),
+  //   );
+  // }
 
-  deleteMassTime(data: DeleteMassTimeModel): Observable<DeleteMassTimeResponseModel>{
-    return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete`, data).pipe(
-      catchError((error) => this.coreService.handleError(error)),
-    );
-  }
+  // deleteMassTime(data: DeleteMassTimeModel): Observable<DeleteMassTimeResponseModel>{
+  //   return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete`, data).pipe(
+  //     catchError((error) => this.coreService.handleError(error)),
+  //   );
+  // }
 
 
 }

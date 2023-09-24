@@ -30,6 +30,20 @@ export interface MassTimeModel {
     success: number
     message: string
   }
+
+  // ~~~~~~~~~~~~ Set mass time ~~~~~~~~~~~~ //
+  export interface SetMassTimeModel {
+    time_id: number
+    times: string
+  }
+
+  export interface SetMassTimeResponseModel {
+    message: string
+    success: number
+    status_code: number
+  }
+  
+  
   
   
   

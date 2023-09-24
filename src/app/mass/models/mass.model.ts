@@ -41,6 +41,7 @@ export interface MassModel {
         }
         
         export interface Time {
+          id_masse: number
           idMt: number
           time: string
           questType: string[]
@@ -55,8 +56,9 @@ export interface MassModel {
           }
           
           export interface SetMassResponseModel {
-            success: number
             message: string
+            success: number
+            status_code: number
           }
   // ~~~~~~~~~~~ Delete mass day ~~~~~~~~~~~ //
   export interface DeleteMassDayModel {
@@ -64,8 +66,23 @@ export interface MassModel {
   }
   
   export interface DeleteMassDayResponseModel {
-    success: number
+    messages: Message[]
+    status_code: number
+  }
+  
+  export interface Message {
     message: string
+    success: number
+  }
+  
+
+  // ~~~~~~~~~~~~~ Delete mass ~~~~~~~~~~~~~ //
+  export interface DeleteMassModel {
+    messe_id: number[]
+  }
+  
+  export interface DeleteMassResponseModel {
+    messe_id: number[]
   }
   
 
