@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DataSetMassModel, HourQuest, MassModel, SetMassModel } from '../../models/mass.model';
+import { DataSetMassModel, MassModel, SetMassModel } from '../../models/mass.model';
 import { MassService } from '../../services/mass.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { MassTimeData } from '../../models/mass-time.model';
 
 @Component({
   selector: 'app-edit-mass',
@@ -14,19 +15,8 @@ export class EditMassComponent implements OnInit{
   times: string[] = []; // Initialisez-le comme un tableau vide
   formData !: SetMassModel;
   dataSetMassModel !: DataSetMassModel;
+  massTimeList!: Array<MassTimeData>;
 
-
-  hourQuests: HourQuest[] = [
-    {
-      hour: '19:30',
-      quests: ['normal', 'normal']
-    },
-    {
-      hour: '20:30',
-      quests: ['normal', 'normal']
-    },
-    // Ajoutez d'autres heures et quêtes au besoin
-  ];
 
   constructor(private massService: MassService, private route: ActivatedRoute){}
 
@@ -38,6 +28,12 @@ export class EditMassComponent implements OnInit{
     this.route.data.pipe(map(data => data['massDayByIdResolvers']))
     .subscribe( (data) => {
         this.dataSetMassModel = data;
+      }
+    );
+
+    this.route.data.pipe(map(data => data['listMassTimeResolver']))
+    .subscribe( (data) => {
+        this.massTimeList = data.time;
       }
     );
 
@@ -76,7 +72,19 @@ export class EditMassComponent implements OnInit{
     this.formData.id = idMass;
     this.formData.masses_times_id = idMassTime;
     this.formData.typeQuette = quests
+    console.log(this.formData.typeQuette);
     
+    
+    this.massService.updateMassDay(this.formData).subscribe(
+      (data) => {
+        if(data.success){
+          console.log("c'est good bro: "+ data.message);
+        }else{
+          console.log("poto bro"+ data.message );
+          
+        }
+      }
+    )
     
   } 
 
@@ -94,7 +102,11 @@ export class EditMassComponent implements OnInit{
       if (selectedTime) {
         // console.log(this.dataSetMassModel.masse.times.indexOf(selectedTime));
         const index = this.dataSetMassModel.masse.times.indexOf(selectedTime);
-        this.dataSetMassModel.masse.times[index].time = this.selectedValue;
+        const time = this.massTimeList.find(data => data.id === parseInt(this.selectedValue) );
+        this.dataSetMassModel.masse.times[index].time = time?.times ?? "";
+        this.dataSetMassModel.masse.times[index].idMt = parseInt(this.selectedValue);
+        console.log(this.dataSetMassModel.masse.times[index].idMt );
+        
       } else {
         console.log("Aucun objet correspondant trouvé.");
       }

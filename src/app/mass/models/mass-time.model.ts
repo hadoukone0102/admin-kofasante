@@ -22,6 +22,15 @@ export interface MassTimeModel {
     time: MassTimeData
   }
   
+  // ~~~~~~~~~~~ Delete mass time ~~~~~~~~~~ //
+  export interface DeleteMassTimeModel {
+    time_id: number[]
+  }
+  export interface DeleteMassTimeResponseModel {
+    success: number
+    message: string
+  }
+  
   
   
   

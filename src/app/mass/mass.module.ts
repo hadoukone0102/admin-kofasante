@@ -19,7 +19,7 @@ import { MassDayById } from './resolvers/mass-by-id.resolver';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
-const massDayByIdResolvers = {massDayByIdResolvers: MassDayById};
+const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},

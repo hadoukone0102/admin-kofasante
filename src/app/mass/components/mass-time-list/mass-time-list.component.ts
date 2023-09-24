@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
 import { lineTableAnimation } from 'src/app/core/animations/animations';
-import { MassTimeData } from '../../models/mass-time.model';
+import { DeleteMassTimeModel, MassTimeData } from '../../models/mass-time.model';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
+import { MassService } from '../../services/mass.service';
 
 @Component({
   selector: 'app-mass-time-list',
@@ -14,10 +15,13 @@ import { map } from 'rxjs';
 })
 export class MassTimeListComponent implements OnInit{
   massTimeList!: Array<MassTimeData>;
+  deleteMassTimeModel!: DeleteMassTimeModel;
+
 
   constructor(
     private coreService: CoreService,
     private route: ActivatedRoute,
+    private massService: MassService
     ){}
 
   ngOnInit(): void {
@@ -34,7 +38,18 @@ export class MassTimeListComponent implements OnInit{
   }
 
   deleteMassTime(id: number){
-
+    this.deleteMassTimeModel.time_id.splice(0, this.deleteMassTimeModel.time_id.length)
+    this.deleteMassTimeModel.time_id.push(id);
+    // this.massService.deleteMassTime(this.deleteMassTimeModel).subscribe(
+    //   (data) => {
+    //     if (data.success) {
+    //       console.log("good");
+    //     }else{
+    //       console.log("bad");
+          
+    //     }
+    //   }
+    // )
   }
 
   trackByMassTimeId(index: number, data: any): number {

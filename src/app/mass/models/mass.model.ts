@@ -48,15 +48,25 @@ export interface MassModel {
 
         // ~~~~~~~~~~~~~ Data to send ~~~~~~~~~~~~ //
         
-          export interface HourQuest {
-            hour: string;
-            quests: string[];
-          }
-
           export interface SetMassModel {
             id: number
             typeQuette: string[]
             masses_times_id: number
           }
+          
+          export interface SetMassResponseModel {
+            success: number
+            message: string
+          }
+  // ~~~~~~~~~~~ Delete mass day ~~~~~~~~~~~ //
+  export interface DeleteMassDayModel {
+    day_id: number[]
+  }
+  
+  export interface DeleteMassDayResponseModel {
+    success: number
+    message: string
+  }
+  
 
   

@@ -13,16 +13,11 @@
         <form #editDonationType="ngForm" class="mt-4">
             <!-- Form -->
             <div class="form-group row mb-4">
-                    <div class="col-sm-6">
-                        <label for="libelle">Date de messe</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" placeholder="" id="libelle" autofocus required
-                                name="startDate"
-                            >
-                        </div>  
-                        
+                    <div class="col-12">
+                        <span for="libelle">Date de messe:</span>
+                        <h2>{{dataSetMassModel.masse.date | date:"dd/MM/yyyy"}}</h2>
                     </div>
-                    
+
                 <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
                     <small class="text-danger">Entrez le libellé</small>
                 </div> -->
@@ -35,8 +30,7 @@
                         <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
                                 [(ngModel)]="selectedValue">
                           <option value="" disabled>Selectionnez une heure</option>
-                          <option value="18:00">18:00</option>
-                          <option value="19:00">19:00</option>
+                          <option *ngFor="let massTime of massTimeList" value="{{massTime.id}}">{{massTime.times | customTimeFormat}}</option>
                           <!-- Ajoutez d'autres options ici si nécessaire -->
                         </select>
                       </div>
@@ -57,11 +51,7 @@
                   <h5>Heure</h5>
                   <span>{{ mass.time | customTimeFormat}}</span>
                   <button (click)="setTime(mass.idMt)" type="button" class="btn btn-paypal ms-2">Modifier</button>
-                  <div class="" >
-                    <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-primary mt-2">
-                      modifier
-                    </button>
-                  </div>
+                  
                 </div>
                 <div class="col-sm-6 col-12">
                   <h5>Quêtes</h5>
@@ -85,6 +75,14 @@
                             (click)="deleteTimeField()"
                             ><i class="fa fa-minus"></i></button>
                         </div>
+                    </div>
+                    <div class="" >
+                      <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-primary mt-2">
+                        Modifier
+                      </button>
+                      <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-danger ms-2 mt-2">
+                        Supprimer
+                      </button>
                     </div>
                 </div>
                 <!-- End Buttons -->

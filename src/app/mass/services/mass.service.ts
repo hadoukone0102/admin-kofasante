@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
-import { AddMassTimeModel, AddMassTimeResponseModel, MassTimeModel } from '../models/mass-time.model';
+import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
-import { DataSetMassModel, MassModel } from '../models/mass.model';
+import { DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -57,6 +57,24 @@ export class MassService {
    */
   addMassTime(data: AddMassTimeModel): Observable<AddMassTimeResponseModel>{
     return this.http.post<AddMassTimeResponseModel>(`${environment.apiUrlMass}/time/create`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  updateMassDay(data: SetMassModel): Observable<SetMassResponseModel>{
+    return this.http.post<SetMassResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  // deleteMassDay(data: DeleteMassDayModel): Observable<DeleteMassDayResponseModel>{
+  //   return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete`, data).pipe(
+  //     catchError((error) => this.coreService.handleError(error)),
+  //   );
+  // }
+
+  deleteMassTime(data: DeleteMassTimeModel): Observable<DeleteMassTimeResponseModel>{
+    return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

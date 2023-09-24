@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { lineTableAnimation } from 'src/app/core/animations/animations';
 import { CoreService } from 'src/app/core/services/core.service';
-import { MassDayData, MassModel } from '../../models/mass.model';
+import { DeleteMassDayModel, MassDayData, MassModel } from '../../models/mass.model';
 import { MassService } from '../../services/mass.service';
 
 @Component({
@@ -17,6 +17,8 @@ export class MassTableComponent implements OnInit{
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
+
+  deleteMassDayModel!: DeleteMassDayModel;
   
   constructor(
     private coreService: CoreService,
@@ -25,10 +27,31 @@ export class MassTableComponent implements OnInit{
 
   ngOnInit(): void {
     this.checkAndApplyDisabled(this.massModel);
+    this.deleteMassDayModel = {
+      day_id : []
+    }
   }
 
   goToEditMass(id: number){
     this.coreService.goToEditMass(id);
+  }
+
+  deleteMassDay(id: number){
+    if(confirm("Êtes vous sur de vouloir Supprimer ce jour de messe et toutes les messes à l'intérieur ?")){
+      this.deleteMassDayModel.day_id.splice(0, this.deleteMassDayModel.day_id.length)
+    console.log(this.deleteMassDayModel.day_id.push(id));
+    
+    // this.massService.deleteMassDay(this.deleteMassDayModel).subscribe(
+    //   (data) => {
+    //     if (data.success) {
+    //       console.log("ça passe");
+    //     }else{
+    //       console.log("ça passe pas");
+          
+    //     }
+    //   }
+    // )
+    }
   }
 
   trackById(index: number, data: any): number {
