@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MassService } from '../../services/mass.service';
 import { AddMassModel } from '../../models/mass.model';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
+import { MassTimeData, MassTimeModel } from '../../models/mass-time.model';
 
 @Component({
   selector: 'app-add-mass',
@@ -9,21 +12,15 @@ import { AddMassModel } from '../../models/mass.model';
 export class AddMassComponent implements OnInit{
   isSubmitting: boolean = false;
   timeSelected: string = ''; 
-  // formData.days_name: string[] = [];
   questTypeSelected: string = '';
-  times: string[] = ["8:00", "20:00"]; 
-  questTypes: string[] = ["Normal"]; 
-
-  monday!: string;
 
   timeIsSelected: boolean = true;
   questTypeIsSelected: boolean = true;
 
-  formData1 = {
-    startDate: "",
-    endDate: "",
-    questTypes: []
-  }
+  formHasError: boolean = false;
+  errorMessage: string = "";
+
+  massTimeList!: Array<MassTimeData>;
 
   formData: AddMassModel ={
     date_debut: "",
@@ -44,16 +41,21 @@ export class AddMassComponent implements OnInit{
   }
 
   constructor(
-    private massService: MassService
+    private massService: MassService,
+    private route: ActivatedRoute
   ){}
 
   ngOnInit(): void {
-    // this.timeSelecteds[1]="18:00";
-    console.log(this.times);
     this.noTimeSelected();
     this.noQuestTypeSelected();
     this.noDaySelected();
     this.getDayValue();
+
+    this.route.data.pipe(map(data => data['listMassTimeResolver']))
+    .subscribe( (data) => { 
+        this.massTimeList = data.time;
+      }
+    );
   }
 
   getDayValue(){
@@ -85,13 +87,16 @@ export class AddMassComponent implements OnInit{
 
   onSubmit(){
     this.isSubmitting = true;
+    this.formHasError = false;
     this.massService.addMasses(this.formData).subscribe(
       (data)=>{
-        this.isSubmitting = false;
         if(data.success){
           console.log("good");
         }else{
+          this.isSubmitting = false;
           console.log("bad: "+data.message+" "+data.success);
+          this.formHasError = true;
+          this.errorMessage = data.message;
         }
       }
     )

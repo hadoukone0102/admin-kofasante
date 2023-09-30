@@ -48,6 +48,9 @@ export class MassTimeListComponent implements OnInit{
               data => this.massTimeList = data.time,
               error => console.log("Une erreur s'est produite: "+error)
             )
+          }else{
+            console.log("bado: "+data.message);
+            
           }
         }
       )

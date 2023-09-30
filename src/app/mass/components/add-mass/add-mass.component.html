@@ -12,6 +12,11 @@
             <h2 class="h5 mb-4"></h2>
             <form (ngSubmit)="onSubmit()" #editDonationType="ngForm" class="mt-4">
                 <!-- Form -->
+                <div *ngIf="formHasError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="fas fa-bullhorn me-1"></span>
+                    <strong>Erreur!</strong> {{errorMessage}}
+                    <!-- <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                  </div>
                 <div class="form-group row mb-4">
                         <div class="col-sm-6">
                             <label for="libelle">Date de début</label>
@@ -47,8 +52,7 @@
                         <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
                                 [(ngModel)]="timeSelected">
                           <option value="" disabled>Selectionnez une heure</option>
-                          <option value="18:00">18:00</option>
-                          <option value="19:00">19:00</option>
+                          <option *ngFor="let massTime of massTimeList" value="{{massTime.times}}">{{massTime.times | customTimeFormat}}</option>
                           <!-- Ajoutez d'autres options ici si nécessaire -->
                         </select>
                         <div *ngIf="!timeIsSelected">
@@ -208,7 +212,7 @@
                 </div> -->
                 <div class="d-flex mt-3">
                     <button type="submit" class="btn btn-gray-800"
-                    [disabled]="editDonationType.invalid || noQuestTypeSelected() || noTimeSelected() || noDaySelected()"
+                    [disabled]="editDonationType.invalid || noQuestTypeSelected() || noTimeSelected() || noDaySelected() || isSubmitting"
                     >Ajouter</button>
                     <!-- Spinner -->
                     <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">

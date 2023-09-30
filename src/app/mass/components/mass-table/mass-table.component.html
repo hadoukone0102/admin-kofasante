@@ -4,8 +4,9 @@
             <tr>
             <th class="border-0 rounded-start">N°</th>
             <th class="border-0">Jours</th>
+            <th class="border-0">Dates</th>
             <th class="border-0">Heures et quêtes</th>
-            <th  class="border-0">Actions</th>
+            <th class="border-0">Actions</th>
         </tr>
     </thead>
 <!-- ENABLED ACCOUNT -->
@@ -17,6 +18,9 @@
                 <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
             <td >
                 {{mass.days_name}}
+            </td>   
+            <td >
+                {{mass.days | date:"dd/MM/yyyy"}}
             </td>   
             <td >
                 <ng-container *ngFor="let time of mass.masses">

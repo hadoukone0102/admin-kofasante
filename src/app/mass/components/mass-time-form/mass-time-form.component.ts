@@ -36,14 +36,13 @@ export class MassTimeFormComponent implements OnInit{
       //Add mass time 
       this.massService.addMassTime(this.formData).subscribe(
         (data) => {
-          this.isSubmitting = false;
           console.log(data.success);
           if (data.success) {
             this.coreService.goToMassTimeList()
           }else{
+            this.isSubmitting = false;
             this.timeExists = true;
           }
-          
         }
       );
     }else{

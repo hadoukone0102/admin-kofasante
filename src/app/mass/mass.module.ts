@@ -23,7 +23,7 @@ const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeRes
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
-  {path: 'ajouter-messes', component: AddMassComponent},
+  {path: 'ajouter-messes', component: AddMassComponent, resolve: listMassTimeResolver},
   {path: 'modifier-messes/:id', component: EditMassComponent, resolve: massDayByIdResolvers},
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
