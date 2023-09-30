@@ -18,7 +18,7 @@
                             <div class="input-group">
                                 <input type="date" class="form-control" id="startDate" required
                                     name="startDate"
-                                    [(ngModel)]="formData.startDate"
+                                    [(ngModel)]="formData.date_debut"
                                 >
                             </div>  
                             
@@ -28,7 +28,7 @@
                             <div class="input-group">
                                 <input type="date" class="form-control" id="endDdate" required
                                     name="endDate"
-                                    [(ngModel)]="formData.endDate"
+                                    [(ngModel)]="formData.date_fin"
                                 >
                             </div>  
                         </div>
@@ -58,7 +58,7 @@
                       <!-- DISPLAY TIMES LIST -->
                       <div class="col-sm-6 mb-1 mb-sm-0">
                         <label for="role">Liste des Heures de messe</label>
-                        <div *ngFor="let time of times; let i = index" class="mb-2">
+                        <div *ngFor="let time of formData.times; let i = index" class="mb-2">
                             <span>{{ time | customTimeFormat}}</span>
                             <button  (click)="setTime(i)" type="button" class="btn btn-paypal ms-2">Modifier</button>
                         </div>
@@ -66,13 +66,13 @@
                         <div class="col-sm-6 mt-2">
                             <div class="row g-2">
                                 <div class="col-3 d-flex align-items-end me-3">
-                                    <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
+                                    <button type="button" class="btn btn-paypal" title="Ajouter une heure"
                                     (click)="addTime()"
                                     ><i class="fa fa-plus"></i>
                                 </button>
                                 </div>
                                 <div class="col-3 d-flex align-items-end">
-                                    <button type="submit" class="btn btn-danger" title="Supprimer une heure"
+                                    <button type="button" class="btn btn-danger" title="Supprimer une heure"
                                     [disabled]="noTimeSelected()"
                                     (click)="deleteTime()"
                                     ><i class="fa fa-minus"></i></button>
@@ -92,8 +92,9 @@
                             <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
                                     [(ngModel)]="questTypeSelected">
                               <option value="" disabled>Selectionnez un type de quête</option>
-                              <option value="Normal">Normal</option>
-                              <option value="Spéciale">Spéciale</option>
+                              <option value="normale">normale</option>
+                              <option value="journaliere"> journaliere</option>
+                              <option value="spéciale">spéciale</option>
                               <!-- Ajoutez d'autres options ici si nécessaire -->
                             </select>
                             <div *ngIf="!questTypeIsSelected">
@@ -104,7 +105,7 @@
                           <!-- DISPLAY QUEST TYPE -->
                           <div class="col-sm-6 mb-1 mb-sm-0">
                             <label for="role">Liste des Heures de messe</label>
-                            <div *ngFor="let questType of questTypes; let i = index" class="mb-2">
+                            <div *ngFor="let questType of formData.typeQuette; let i = index" class="mb-2">
                                 <span>{{ questType }}</span>
                                 <button  (click)="setQuestType(i)" type="button" class="btn btn-paypal ms-2">Modifier</button>
                             </div>
@@ -112,13 +113,13 @@
                             <div class="col-sm-6 mt-2">
                                 <div class="row g-2">
                                     <div class="col-3 d-flex align-items-end me-3">
-                                        <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
+                                        <button type="button" class="btn btn-paypal" title="Ajouter une heure"
                                         (click)="addQuestType()"
                                         ><i class="fa fa-plus"></i>
                                     </button>
                                     </div>
                                     <div class="col-3 d-flex align-items-end">
-                                        <button type="submit" class="btn btn-danger" title="Supprimer une heure"
+                                        <button type="button" class="btn btn-danger" title="Supprimer une heure"
                                         [disabled]="noQuestTypeSelected()"
                                         (click)="deleteQuestType()"
                                         ><i class="fa fa-minus"></i></button>
@@ -208,7 +209,6 @@
                 <div class="d-flex mt-3">
                     <button type="submit" class="btn btn-gray-800"
                     [disabled]="editDonationType.invalid || noQuestTypeSelected() || noTimeSelected() || noDaySelected()"
-                    (click)="getTimesSelected()"
                     >Ajouter</button>
                     <!-- Spinner -->
                     <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">

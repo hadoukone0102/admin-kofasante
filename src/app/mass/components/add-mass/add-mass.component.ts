@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MassService } from '../../services/mass.service';
+import { AddMassModel } from '../../models/mass.model';
 
 @Component({
   selector: 'app-add-mass',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddMassComponent implements OnInit{
   isSubmitting: boolean = false;
   timeSelected: string = ''; 
-  daysSelected: string[] = [];
+  // formData.days_name: string[] = [];
   questTypeSelected: string = '';
   times: string[] = ["8:00", "20:00"]; 
   questTypes: string[] = ["Normal"]; 
@@ -17,10 +19,19 @@ export class AddMassComponent implements OnInit{
   timeIsSelected: boolean = true;
   questTypeIsSelected: boolean = true;
 
-  formData = {
+  formData1 = {
     startDate: "",
     endDate: "",
+    questTypes: []
   }
+
+  formData: AddMassModel ={
+    date_debut: "",
+    date_fin: "",
+    times: [],
+    days_name: [],
+    typeQuette: [],
+  } 
 
   dayData = {
     monday: true,
@@ -32,57 +43,75 @@ export class AddMassComponent implements OnInit{
     sunday: true
   }
 
+  constructor(
+    private massService: MassService
+  ){}
+
   ngOnInit(): void {
     // this.timeSelecteds[1]="18:00";
     console.log(this.times);
     this.noTimeSelected();
     this.noQuestTypeSelected();
+    this.noDaySelected();
     this.getDayValue();
   }
 
   getDayValue(){
     //we empty the table
-    this.daysSelected.splice(0, this.daysSelected.length);
+    this.formData.days_name.splice(0, this.formData.days_name.length);
 
     if(this.dayData.monday){
-      this.daysSelected.push("lundi");
+      this.formData.days_name.push("lundi");
     }
     if(this.dayData.tuesday){
-      this.daysSelected.push("mardi");
+      this.formData.days_name.push("mardi");
     }
     if(this.dayData.wednesday){
-      this.daysSelected.push("mercredi");
+      this.formData.days_name.push("mercredi");
     }
     if(this.dayData.thursday){
-      this.daysSelected.push("jeudi");
+      this.formData.days_name.push("jeudi");
     }
     if(this.dayData.friday){
-      this.daysSelected.push("vendredi");
+      this.formData.days_name.push("vendredi");
     }
     if(this.dayData.saturday){
-      this.daysSelected.push("samedi");
+      this.formData.days_name.push("samedi");
     }
     if(this.dayData.sunday){
-      this.daysSelected.push("dimanche");
+      this.formData.days_name.push("dimanche");
     }
   }
 
   onSubmit(){
-
+    this.isSubmitting = true;
+    this.massService.addMasses(this.formData).subscribe(
+      (data)=>{
+        this.isSubmitting = false;
+        if(data.success){
+          console.log("good");
+        }else{
+          console.log("bad: "+data.message+" "+data.success);
+        }
+      }
+    )
+    console.log(this.formData);
+    
   } 
 
    // Méthode pour ajouter une heure à la liste
    addTime() {
     if (this.timeSelected) {
-      this.times.push(this.timeSelected);
+      this.formData.times.push(this.timeSelected);
       this.timeIsSelected = true;
     }else{
       this.timeIsSelected = false;
     }
   }
+
    addQuestType() {
     if (this.questTypeSelected) {
-      this.questTypes.push(this.questTypeSelected);
+      this.formData.typeQuette.push(this.questTypeSelected);
       this.questTypeIsSelected = true;
     }else{
       this.questTypeIsSelected = false;
@@ -92,7 +121,7 @@ export class AddMassComponent implements OnInit{
   // Méthode pour modifier une heure existante
   setTime(index: number) {
     if (this.timeSelected) {
-      this.times[index] = this.timeSelected;
+      this.formData.times[index] = this.timeSelected;
       this.timeIsSelected = true;
     }else{
       this.timeIsSelected = false;
@@ -101,7 +130,7 @@ export class AddMassComponent implements OnInit{
   
   setQuestType(index: number) {
     if (this.questTypeSelected) {
-      this.questTypes[index] = this.questTypeSelected;
+      this.formData.typeQuette[index] = this.questTypeSelected;
       this.questTypeIsSelected = true;
     }else{
       this.questTypeIsSelected = false;
@@ -109,28 +138,28 @@ export class AddMassComponent implements OnInit{
   }
 
   deleteTime(){
-    this.times.pop();
+    this.formData.times.pop();
   }
   
   deleteQuestType(){
-    this.questTypes.pop();
+    this.formData.typeQuette.pop();
   }
 
   noTimeSelected(){
-    return this.times.length === 0 ? true : false;
+    return this.formData.times.length === 0 ? true : false;
   }
   noQuestTypeSelected(){
-    return this.questTypes.length === 0 ? true : false;
+    return this.formData.typeQuette.length === 0 ? true : false;
   }
   noDaySelected(){
-    return this.daysSelected.length === 0 ? true : false;
+    return this.formData.days_name.length === 0 ? true : false;
   }
 
   getTimesSelected() {
     // for (let i = 0; i < this.timeSelecteds.length; i++) {
     //   console.log(this.timeSelecteds[i]);
     // }
-    console.log(this.times.length);
+    console.log(this.formData.times.length);
     console.log(this.noTimeSelected());
   }
 }

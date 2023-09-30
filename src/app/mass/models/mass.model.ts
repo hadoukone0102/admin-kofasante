@@ -26,6 +26,22 @@ export interface MassModel {
     QuestType: string[]
   }
 
+  // ~~~~~~~~~~~~~~~~~ Add ~~~~~~~~~~~~~~~~~ //
+  export interface AddMassModel {
+    date_debut: string
+    date_fin: string
+    times: string[]
+    days_name: string[]
+    typeQuette: string[]
+  }
+
+  export interface AddMassResponseModel {
+    message: string
+    success: number
+    status_code: number
+  }
+  
+
   // ~~~~~~~~~~~~~~~~ Update ~~~~~~~~~~~~~~~ //
 
         // ~~~~~~~~~~~~~~ Data toreceive ~~~~~~~~~~~~~~ //
