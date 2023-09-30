@@ -73,17 +73,17 @@ export class MassService {
     );
   }
   
-  // deleteMassDay(data: DeleteMassDayModel): Observable<DeleteMassDayResponseModel>{
-  //   return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete`, data).pipe(
-  //     catchError((error) => this.coreService.handleError(error)),
-  //   );
-  // }
+  deleteMassDay(id: number): Observable<DeleteMassDayResponseModel>{
+    return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
   
-  // deleteMass(data: DeleteMassDayModel): Observable<DeleteMassDayResponseModel>{
-  //   return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete`, data).pipe(
-  //     catchError((error) => this.coreService.handleError(error)),
-  //   );
-  // }
+  deleteMass(id: number): Observable<DeleteMassDayResponseModel>{
+    return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/messes/delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
 
   deleteMassTime(id: number): Observable<DeleteMassTimeResponseModel>{
     return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete/${id}`).pipe(

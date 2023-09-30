@@ -66,23 +66,16 @@ export interface MassModel {
   }
   
   export interface DeleteMassDayResponseModel {
-    messages: Message[]
+    message: string
+    success: number
     status_code: number
   }
   
-  export interface Message {
+  // ~~~~~~~~~~~~~ Delete mass ~~~~~~~~~~~~~ //
+  export interface DeleteMassResponseModel {
     message: string
     success: number
-  }
-  
-
-  // ~~~~~~~~~~~~~ Delete mass ~~~~~~~~~~~~~ //
-  export interface DeleteMassModel {
-    messe_id: number[]
-  }
-  
-  export interface DeleteMassResponseModel {
-    messe_id: number[]
+    status_code: number
   }
   
 

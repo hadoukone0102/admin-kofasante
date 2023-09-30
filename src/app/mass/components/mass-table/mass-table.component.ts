@@ -30,6 +30,7 @@ export class MassTableComponent implements OnInit{
     this.deleteMassDayModel = {
       day_id : []
     }
+    console.table(this.massModel.masses)
   }
 
   goToEditMass(id: number){
@@ -37,20 +38,17 @@ export class MassTableComponent implements OnInit{
   }
 
   deleteMassDay(id: number){
-    if(confirm("Êtes vous sur de vouloir Supprimer ce jour de messe et toutes les messes à l'intérieur ?")){
-      this.deleteMassDayModel.day_id.splice(0, this.deleteMassDayModel.day_id.length)
-    console.log(this.deleteMassDayModel.day_id.push(id));
-    
-    // this.massService.deleteMassDay(this.deleteMassDayModel).subscribe(
-    //   (data) => {
-    //     if (data.success) {
-    //       console.log("ça passe");
-    //     }else{
-    //       console.log("ça passe pas");
+    if(confirm("Êtes vous sûr de vouloir Supprimer ce jour de messe et toutes les messes à l'intérieur ?")){
+    this.massService.deleteMassDay(id).subscribe(
+      (data) => {
+        if (data.success) {
+          console.log("ça passe: "+ data.message);
+        }else{
+          console.log("ça passe pas"+ data.message);
           
-    //     }
-    //   }
-    // )
+        }
+      }
+    )
     }
   }
 

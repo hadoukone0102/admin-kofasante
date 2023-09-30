@@ -4,10 +4,14 @@ import { MassService } from '../../services/mass.service';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { MassTimeData } from '../../models/mass-time.model';
+import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-edit-mass',
-  templateUrl: './edit-mass.component.html'
+  templateUrl: './edit-mass.component.html',
+  animations: [
+    zoomEnterAnimation,
+  ]
 })
 export class EditMassComponent implements OnInit{
   isSubmitting: boolean = false;
@@ -113,8 +117,27 @@ export class EditMassComponent implements OnInit{
     }
   }
 
-  deleteTimeField(){
-    this.times.pop();
+  deleteMass(id: number){
+    if (confirm("Voulez vous vraiment supprimer cette messe ?")) {
+      this.massService.deleteMass(id).subscribe(
+        (data)=>{
+          if(data.success){
+            this.massService.getMassDayById(this.dataSetMassModel.masse.id_days).subscribe(
+              (data)=>{
+                this.dataSetMassModel = data
+              }
+            )
+            console.log("good: "+data.message);
+          }else{
+            console.log("bad: "+data.message);
+          }
+        } 
+      );
+    }
+  }
+
+  trackById(index: number, data: any): number {
+    return data.idMt; // Remplacez "id" par la propriété unique de votre administrateur
   }
 
   noValueSelected(){

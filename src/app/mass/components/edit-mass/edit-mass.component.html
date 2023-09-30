@@ -18,13 +18,6 @@
                         <h2>{{dataSetMassModel.masse.date | date:"dd/MM/yyyy"}}</h2>
                     </div>
 
-                <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
-                    <small class="text-danger">Entrez le libellé</small>
-                </div> -->
-                <!-- <div *ngIf="donationTypeExists">
-                    <small class="text-danger">Ce type de don existe déjà!</small>
-                </div> -->
-                
                       <div class="col-sm-6 mb-1 mb-sm-0">
                         <label for="role">Heure de la messe</label>
                         <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
@@ -46,7 +39,7 @@
                 </div>
               </div> -->
 
-              <div class="col-12 row mb-4 border" *ngFor="let mass of dataSetMassModel.masse.times">
+              <div class="col-12 row mb-4 border" *ngFor="let mass of dataSetMassModel.masse.times; trackBy: trackById " @zoomEnterAnimation>
                 <div class="col-sm-6 col-12  mb-2">
                   <h5>Heure</h5>
                   <span>{{ mass.time | customTimeFormat}}</span>
@@ -63,24 +56,24 @@
                   <!-- Buttons -->
                   <div class="col-sm-6 mb-2">
                     <div class="row g-2">
-                        <div class="col-3 d-flex align-items-end">
+                        <div class="col-3 d-flex align-items-end me-3">
                             <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
                             (click)="addTime()"
                             ><i class="fa fa-plus"></i>
                         </button>
                         </div>
-                        <div class="col-3 d-flex align-items-end">
+                        <div class="col-3 d-flex align-items-end ms-1">
                             <button type="submit" class="btn btn-danger" title="Supprimer une heure"
                             [disabled]="noValueSelected()"
-                            (click)="deleteTimeField()"
+                            (click)="deleteMass(mass.id_masse)"
                             ><i class="fa fa-minus"></i></button>
                         </div>
                     </div>
                     <div class="" >
-                      <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-primary mt-2">
+                      <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-primary me-2 mt-2">
                         Modifier
                       </button>
-                      <button (click)="onSubmit(dataSetMassModel.masse.id_days,mass.idMt,mass.questType)" class="btn btn-danger ms-2 mt-2">
+                      <button (click)="deleteMass(mass.id_masse)" class="btn btn-danger mt-2">
                         Supprimer
                       </button>
                     </div>
@@ -101,7 +94,7 @@
                     <div class="col-3 d-flex align-items-end">
                         <button type="submit" class="btn btn-danger" title="Supprimer une heure"
                         [disabled]="noValueSelected()"
-                        (click)="deleteTimeField()"
+                        (click)="deleteMass(1)"
                         ><i class="fa fa-minus"></i></button>
                     </div>
                     
