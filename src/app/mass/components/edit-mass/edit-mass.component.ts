@@ -123,13 +123,8 @@ export class EditMassComponent implements OnInit{
         (data)=>{
           if(data.success){
             this.massService.getMassDayById(this.dataSetMassModel.masse.id_days).subscribe(
-              (data)=>{
-                this.dataSetMassModel = data
-              }
+              (data)=> this.dataSetMassModel = data
             )
-            console.log("good: "+data.message);
-          }else{
-            console.log("bad: "+data.message);
           }
         } 
       );
@@ -137,7 +132,7 @@ export class EditMassComponent implements OnInit{
   }
 
   trackById(index: number, data: any): number {
-    return data.idMt; // Remplacez "id" par la propriété unique de votre administrateur
+    return data.idMt+data.time; // Remplacez "id" par la propriété unique de votre administrateur
   }
 
   noValueSelected(){

@@ -6,17 +6,65 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddMassComponent implements OnInit{
   isSubmitting: boolean = false;
-  selectedValue: string = ''; // Initialisez-le avec une chaîne vide
-  times: string[] = []; // Initialisez-le comme un tableau vide
+  timeSelected: string = ''; 
+  daysSelected: string[] = [];
+  questTypeSelected: string = '';
+  times: string[] = ["8:00", "20:00"]; 
+  questTypes: string[] = ["Normal"]; 
+
+  monday!: string;
+
+  timeIsSelected: boolean = true;
+  questTypeIsSelected: boolean = true;
+
   formData = {
     startDate: "",
     endDate: "",
   }
 
+  dayData = {
+    monday: true,
+    tuesday: true,
+    wednesday: true,
+    thursday: true,
+    friday: true,
+    saturday: true,
+    sunday: true
+  }
+
   ngOnInit(): void {
-    // this.selectedValues[1]="18:00";
+    // this.timeSelecteds[1]="18:00";
     console.log(this.times);
-    this.noValueSelected();
+    this.noTimeSelected();
+    this.noQuestTypeSelected();
+    this.getDayValue();
+  }
+
+  getDayValue(){
+    //we empty the table
+    this.daysSelected.splice(0, this.daysSelected.length);
+
+    if(this.dayData.monday){
+      this.daysSelected.push("lundi");
+    }
+    if(this.dayData.tuesday){
+      this.daysSelected.push("mardi");
+    }
+    if(this.dayData.wednesday){
+      this.daysSelected.push("mercredi");
+    }
+    if(this.dayData.thursday){
+      this.daysSelected.push("jeudi");
+    }
+    if(this.dayData.friday){
+      this.daysSelected.push("vendredi");
+    }
+    if(this.dayData.saturday){
+      this.daysSelected.push("samedi");
+    }
+    if(this.dayData.sunday){
+      this.daysSelected.push("dimanche");
+    }
   }
 
   onSubmit(){
@@ -25,29 +73,64 @@ export class AddMassComponent implements OnInit{
 
    // Méthode pour ajouter une heure à la liste
    addTime() {
-    if (this.selectedValue) {
-      this.times.push(this.selectedValue);
+    if (this.timeSelected) {
+      this.times.push(this.timeSelected);
+      this.timeIsSelected = true;
+    }else{
+      this.timeIsSelected = false;
+    }
+  }
+   addQuestType() {
+    if (this.questTypeSelected) {
+      this.questTypes.push(this.questTypeSelected);
+      this.questTypeIsSelected = true;
+    }else{
+      this.questTypeIsSelected = false;
     }
   }
 
   // Méthode pour modifier une heure existante
   setTime(index: number) {
-    this.times[index] = this.selectedValue;
+    if (this.timeSelected) {
+      this.times[index] = this.timeSelected;
+      this.timeIsSelected = true;
+    }else{
+      this.timeIsSelected = false;
+    }
+  }
+  
+  setQuestType(index: number) {
+    if (this.questTypeSelected) {
+      this.questTypes[index] = this.questTypeSelected;
+      this.questTypeIsSelected = true;
+    }else{
+      this.questTypeIsSelected = false;
+    }
   }
 
-  deleteTimeField(){
+  deleteTime(){
     this.times.pop();
   }
-
-  noValueSelected(){
-    return this.times.length === 0 ? true : false;
+  
+  deleteQuestType(){
+    this.questTypes.pop();
   }
 
-  getSelectedValues() {
-    // for (let i = 0; i < this.selectedValues.length; i++) {
-    //   console.log(this.selectedValues[i]);
+  noTimeSelected(){
+    return this.times.length === 0 ? true : false;
+  }
+  noQuestTypeSelected(){
+    return this.questTypes.length === 0 ? true : false;
+  }
+  noDaySelected(){
+    return this.daysSelected.length === 0 ? true : false;
+  }
+
+  getTimesSelected() {
+    // for (let i = 0; i < this.timeSelecteds.length; i++) {
+    //   console.log(this.timeSelecteds[i]);
     // }
     console.log(this.times.length);
-    console.log(this.noValueSelected());
+    console.log(this.noTimeSelected());
   }
 }
