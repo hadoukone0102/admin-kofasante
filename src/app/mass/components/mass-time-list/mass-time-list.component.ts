@@ -38,18 +38,20 @@ export class MassTimeListComponent implements OnInit{
   }
 
   deleteMassTime(id: number){
-    this.deleteMassTimeModel.time_id.splice(0, this.deleteMassTimeModel.time_id.length)
-    this.deleteMassTimeModel.time_id.push(id);
-    // this.massService.deleteMassTime(this.deleteMassTimeModel).subscribe(
-    //   (data) => {
-    //     if (data.success) {
-    //       console.log("good");
-    //     }else{
-    //       console.log("bad");
-          
-    //     }
-    //   }
-    // )
+    // this.deleteMassTimeModel.time_id.splice(0, this.deleteMassTimeModel.time_id.length)
+    // this.deleteMassTimeModel.time_id.push(id);
+    if(confirm("Voulez vous vraiment supprimer cette heure ?")){
+      this.massService.deleteMassTime(id).subscribe(
+        (data) => {
+          if (data.success) {
+            this.massService.getMassesTimesList().subscribe(
+              data => this.massTimeList = data.time,
+              error => console.log("Une erreur s'est produite: "+error)
+            )
+          }
+        }
+      )
+    }
   }
 
   trackByMassTimeId(index: number, data: any): number {

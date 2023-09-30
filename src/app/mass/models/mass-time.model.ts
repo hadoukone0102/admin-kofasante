@@ -29,6 +29,7 @@ export interface MassTimeModel {
   export interface DeleteMassTimeResponseModel {
     success: number
     message: string
+    status_code: number
   }
 
   // ~~~~~~~~~~~~ Set mass time ~~~~~~~~~~~~ //

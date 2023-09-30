@@ -85,11 +85,11 @@ export class MassService {
   //   );
   // }
 
-  // deleteMassTime(data: DeleteMassTimeModel): Observable<DeleteMassTimeResponseModel>{
-  //   return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete`, data).pipe(
-  //     catchError((error) => this.coreService.handleError(error)),
-  //   );
-  // }
+  deleteMassTime(id: number): Observable<DeleteMassTimeResponseModel>{
+    return this.http.delete<DeleteMassTimeResponseModel>(`${environment.apiUrlMass}/times/delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
 
 
 }
