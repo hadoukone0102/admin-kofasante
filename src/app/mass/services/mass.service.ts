@@ -68,7 +68,7 @@ export class MassService {
   }
 
   updateMassDay(data: SetMassModel): Observable<SetMassResponseModel>{
-    return this.http.put<SetMassResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
+    return this.http.post<SetMassResponseModel>(`${environment.apiUrlMass}/messes/updata`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

@@ -99,6 +99,7 @@ showConsole(val: string){
   // console.log("keyup the new mama: "+val);
   
 }
+
 showConsoleChange(val: string){
   
   // console.log("change the new mama: "+val);
