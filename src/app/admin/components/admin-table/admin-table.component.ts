@@ -19,7 +19,7 @@ export class AdminTableComponent implements OnInit{
   @Input() admins$!: Observable<DataAdmin>;
   admins!: DataAdmin;
 
-  @Input() disabledAccounts$!: Observable<DataDisabledAccount>;
+  @Input()  disabledAccounts$!: Observable<DataDisabledAccount>;
   disabledAccounts!: DataDisabledAccount;
 
   constructor(

@@ -21,6 +21,10 @@ export class EditMassComponent implements OnInit{
   dataSetMassModel !: DataSetMassModel;
   massTimeList!: Array<MassTimeData>;
 
+  setButtonText: string = "Modifier";
+
+  isButtonDisabled: { [key: string]: {state :boolean, setButtonText: string, deleteButtonText: string} } = {};
+
 
   constructor(private massService: MassService, private route: ActivatedRoute){}
 
@@ -40,6 +44,14 @@ export class EditMassComponent implements OnInit{
         this.massTimeList = data.time;
       }
     );
+
+    this.dataSetMassModel.masse.times.forEach((mass) => {
+      this.isButtonDisabled[mass.id_masse] =  { 
+        state: false, 
+        setButtonText: 'Modifier',
+        deleteButtonText: 'Supprimer'
+       }; // Initialisation à false
+    });
 
     this.formData = {
       id : 0,
@@ -66,10 +78,6 @@ export class EditMassComponent implements OnInit{
     //     ]
     //   }
     // }
-
-    
-
-    
   }
 
   onSubmit(idMass:number, idMassTime:number, quests:string[]){
@@ -78,14 +86,18 @@ export class EditMassComponent implements OnInit{
     this.formData.typeQuette = quests
     console.log(this.formData.typeQuette);
     
+    this.isButtonDisabled[idMass].state = true;
+    this.isButtonDisabled[idMass].setButtonText = "Modifier...";
+
+    
     
     this.massService.updateMassDay(this.formData).subscribe(
       (data) => {
+        this.isButtonDisabled[idMass].state = false;
+        this.isButtonDisabled[idMass].setButtonText = "Modifier";
         if(data.success){
-          console.log("c'est good bro: "+ data.message);
         }else{
           console.log("poto bro"+ data.message );
-          
         }
       }
     )
@@ -117,11 +129,17 @@ export class EditMassComponent implements OnInit{
     }
   }
 
-  deleteMass(id: number){
+  deleteMass(idMass: number){
     if (confirm("Voulez vous vraiment supprimer cette messe ?")) {
-      this.massService.deleteMass(id).subscribe(
+      this.isButtonDisabled[idMass].state = true;
+      this.isButtonDisabled[idMass].deleteButtonText = "Supprimer...";
+
+      this.massService.deleteMass(idMass).subscribe(
         (data)=>{
           if(data.success){
+            this.isButtonDisabled[idMass].state = false;
+            this.isButtonDisabled[idMass].deleteButtonText = "Supprimer";
+            
             this.massService.getMassDayById(this.dataSetMassModel.masse.id_days).subscribe(
               (data)=> this.dataSetMassModel = data
             )

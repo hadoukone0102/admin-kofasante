@@ -40,7 +40,7 @@
               </div> -->
 
               <div class="col-12 row mb-4 border" *ngFor="let mass of dataSetMassModel.masse.times; trackBy: trackById " @zoomEnterAnimation>
-                <div class="col-sm-6 col-12  mb-2">
+                <div class="col-sm-6 col-12 mb-2">
                   <h5>Heure</h5>
                   <span>{{ mass.time | customTimeFormat}}</span>
                   <button (click)="setTime(mass.idMt)" type="button" class="btn btn-paypal ms-2">Modifier</button>
@@ -48,13 +48,13 @@
                 </div>
                 <div class="col-sm-6 col-12">
                   <h5>Quêtes</h5>
-                  <div *ngFor="let quest of mass.questType" class="col-6 mb-2">
+                  <div *ngFor="let quest of mass.questType" class="col-12 mb-2">
                     <span>{{ quest }}</span>
                     <button type="button" class="btn btn-paypal ms-2">Modifier</button>
                   </div>
                   
                   <!-- Buttons -->
-                  <div class="col-sm-6 mb-2">
+                  <div class="col-12 mb-2">
                     <div class="row g-2">
                         <div class="col-3 d-flex align-items-end me-3">
                             <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
@@ -69,12 +69,21 @@
                             ><i class="fa fa-minus"></i></button>
                         </div>
                     </div>
-                    <div class="" >
-                      <button (click)="onSubmit(mass.id_masse,mass.idMt,mass.questType)" class="btn btn-primary me-2 mt-2">
-                        Modifier
+                    <div class=" col-12" >
+                      <button (click)="onSubmit(mass.id_masse,mass.idMt,mass.questType)" class="btn btn-primary me-2 mt-2"
+                      [disabled]="isButtonDisabled[mass.id_masse].state" style="width: 8em;"
+                      >
+                        {{isButtonDisabled[mass.id_masse].setButtonText}}
                       </button>
-                      <button (click)="deleteMass(mass.id_masse)" class="btn btn-danger mt-2">
-                        Supprimer
+                      <!-- Spinner -->
+                        <!-- <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">
+                          <app-spinner></app-spinner>
+                        </div> -->
+                      <!-- End spinner -->
+                      <button (click)="deleteMass(mass.id_masse)" class="btn btn-danger mt-2"
+                      [disabled]="isButtonDisabled[mass.id_masse].state" style="width: 8.2em;"
+                      >
+                      {{isButtonDisabled[mass.id_masse].deleteButtonText}}
                       </button>
                     </div>
                 </div>
