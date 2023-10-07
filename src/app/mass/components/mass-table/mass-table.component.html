@@ -1,3 +1,53 @@
+<!-- FILTER -->
+<div class="row mb-4">
+    <div class="mb-2 col-8 col-sm-4 btn-group">
+        <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">
+            <i class="fa fa-table me-3"></i>
+            Filtrer
+        </button>
+    </div>
+    <div class="mb-2 col-8 col-sm-4  btn-group">
+        <button (click)="resetFilter()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+            <i class="fa fa-broom me-3"></i>
+            Réinitialiser
+        </button>
+    </div>
+    <div *ngIf="!isExporting && listType != 'failed'" class="mb-2 col-8 col-sm-4 btn-group">
+        <button title="Affichez toute la liste pour exporter"  (click)="export()" type="button" class="btn btn-primary">Exporter</button>
+    </div>
+    <div  *ngIf="isExporting"  class="col-8 mb-2 col-sm-4  btn-group">
+        <button title="Masquer le boutton d'exportation" (click)="this.search()" type="button" class="btn btn-primary">Masquer</button>
+    </div>
+    <div *ngIf="isExporting"  class="col-8 mb-2 col-sm-4 btn-group">
+        <button type="button" class="btn btn-primary">Exporter en</button>
+        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+          <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          <span class="visually-hidden">Exporter en</span>
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" (click)="exportToPDF()">PDF</a></li>
+          <li><a class="dropdown-item" (click)="exportToExel()">EXCEL</a></li>
+        </ul>
+      </div>
+
+      <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
+        <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
+            <i class="fa fa-check me-3"></i>
+            Colonnes
+        </button>
+    </div>
+
+      <!-- Refresh -->
+      <div class="col-8 mb-2 col-sm-4  btn-group">
+          <app-refresh [isRefreshing]="isRefreshing"
+          (toogleButton) = "handleToogleButtonFromChild($event)"
+           ></app-refresh>
+      </div>
+      <!-- End Refresh -->
+</div>
+
+<!-- END FILTER -->
+
 <div  class="table-responsive">
     <table  class="table table-centered table-nowrap mb-0 rounded">
     <thead class="thead-light">
@@ -72,5 +122,12 @@
 
     <!-- <h4 *ngIf="admins.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4> -->
 </div>
+
+<app-modal-filter
+    [searchBarValue]="searchBarValue"
+    [dateStartValue]="dateStartValue"
+    [dateEndValue]="dateEndValue"
+   (dataFilterToParent) = "handleDataFilterFromChild($event)"
+   ></app-modal-filter>
 
 </div>
