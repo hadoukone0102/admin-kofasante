@@ -14,6 +14,7 @@ import { MassService } from '../../services/mass.service';
 export class MassTableComponent implements OnInit{
   @Input() massModel!: MassModel;
   
+  // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
@@ -45,7 +46,6 @@ export class MassTableComponent implements OnInit{
           console.log("ça passe: "+ data.message);
         }else{
           console.log("ça passe pas"+ data.message);
-          
         }
       }
     )
@@ -64,6 +64,8 @@ export class MassTableComponent implements OnInit{
    * @param {DataDon} data
    */
   checkAndApplyDisabled(data: MassModel){
+    console.log("Page courante: "+ data.last_page);
+    
     //NOTE - "1" means that it should be disabled and "..." that it should be enabled
     if((data.current_page === 1) && (data.current_page != data.last_page)){
       //("1/...")
@@ -116,7 +118,7 @@ export class MassTableComponent implements OnInit{
   showPageWhere(pageIndex: number){
     this.newPage= this.massModel.current_page + pageIndex;
 
-    this.massService.getMassesList().subscribe(
+    this.massService.getMassesList(this.newPage.toString()).subscribe(
       (data)=>{
         this.massModel = data;  
         this.checkAndApplyDisabled(data);

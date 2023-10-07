@@ -90,10 +90,10 @@ export class AddMassComponent implements OnInit{
     this.formHasError = false;
     this.massService.addMasses(this.formData).subscribe(
       (data)=>{
+        this.isSubmitting = false;
         if(data.success){
           console.log("good");
         }else{
-          this.isSubmitting = false;
           console.log("bad: "+data.message+" "+data.success);
           this.formHasError = true;
           this.errorMessage = data.message;

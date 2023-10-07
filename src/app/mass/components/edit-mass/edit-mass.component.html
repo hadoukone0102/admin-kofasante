@@ -57,13 +57,13 @@
                   <div class="col-12 mb-2">
                     <div class="row g-2">
                         <div class="col-3 d-flex align-items-end me-3">
-                            <button type="submit" class="btn btn-paypal" title="Ajouter une heure"
+                            <button type="submit" class="btn btn-paypal" title="Ajouter une quête"
                             (click)="addTime()"
                             ><i class="fa fa-plus"></i>
                         </button>
                         </div>
                         <div class="col-3 d-flex align-items-end ms-1">
-                            <button type="submit" class="btn btn-danger" title="Supprimer une heure"
+                            <button type="submit" class="btn btn-danger" title="Supprimer une quête"
                             [disabled]="noValueSelected()"
                             (click)="deleteMass(mass.id_masse)"
                             ><i class="fa fa-minus"></i></button>
@@ -100,12 +100,12 @@
                         ><i class="fa fa-plus"></i>
                     </button>
                     </div>
-                    <div class="col-3 d-flex align-items-end">
+                    <!-- <div class="col-3 d-flex align-items-end">
                         <button type="submit" class="btn btn-danger" title="Supprimer une heure"
                         [disabled]="noValueSelected()"
                         (click)="deleteMass(1)"
                         ><i class="fa fa-minus"></i></button>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>

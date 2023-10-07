@@ -34,8 +34,8 @@ export class MassService {
    *
    * @returns {Observable<MassModel>}
    */
-  getMassesList(): Observable<MassModel>{
-    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/all`).pipe(
+  getMassesList(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassModel>{
+    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/all?search=${search}&startDate=${dateStart}&page=${page}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
