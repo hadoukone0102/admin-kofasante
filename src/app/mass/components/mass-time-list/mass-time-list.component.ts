@@ -17,6 +17,9 @@ export class MassTimeListComponent implements OnInit{
   massTimeList!: Array<MassTimeData>;
   deleteMassTimeModel!: DeleteMassTimeModel;
 
+  pageHasError: boolean = false;
+  errorMessage!: string;
+
 
   constructor(
     private coreService: CoreService,
@@ -41,6 +44,7 @@ export class MassTimeListComponent implements OnInit{
     // this.deleteMassTimeModel.time_id.splice(0, this.deleteMassTimeModel.time_id.length)
     // this.deleteMassTimeModel.time_id.push(id);
     if(confirm("Voulez vous vraiment supprimer cette heure ?")){
+      this.pageHasError = false;
       this.massService.deleteMassTime(id).subscribe(
         (data) => {
           if (data.success) {
@@ -49,8 +53,8 @@ export class MassTimeListComponent implements OnInit{
               error => console.log("Une erreur s'est produite: "+error)
             )
           }else{
-            console.log("bado: "+data.message);
-            
+            this.errorMessage = data.message;
+            this.pageHasError = true;
           }
         }
       )
