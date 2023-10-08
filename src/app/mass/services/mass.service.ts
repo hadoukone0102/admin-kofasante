@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
-import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
+import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeByIdModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
 import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 
@@ -34,8 +34,18 @@ export class MassService {
    *
    * @returns {Observable<MassModel>}
    */
-  getMassesList(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassModel>{
-    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/all?search=${search}&startDate=${dateStart}&page=${page}`).pipe(
+  getMassesList(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = ""): Observable<MassModel>{
+    let requestUrl = `search=${search}&startDate=${dateStart}&page=${page}`
+    if(dateEnd != ""){
+      requestUrl = `search=${search}&startDate=${dateStart}&endDate=${dateEnd}&page=${page}`
+    }
+    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/all?${requestUrl}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  getMassesFullList(search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = ""): Observable<MassModel>{
+    return this.http.get<MassModel>(`${environment.apiUrlMass}/messes/bigAll?search=${search}&startDate=${dateStart}&endDate=${dateEnd}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
@@ -45,8 +55,12 @@ export class MassService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-
-
+  
+  getMassTimeById(id: number): Observable<MassTimeByIdModel>{
+    return this.http.get<MassTimeByIdModel>(`${environment.apiUrlMass}/times/show/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
 
   /**
    * Add a mass time to the database
@@ -74,7 +88,7 @@ export class MassService {
   }
   
   updateMassTime(data: SetMassTimeModel): Observable<SetMassTimeResponseModel>{
-    return this.http.post<SetMassTimeResponseModel>(`${environment.apiUrlMass}/messes/update`, data).pipe(
+    return this.http.put<SetMassTimeResponseModel>(`${environment.apiUrlMass}/time/update`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

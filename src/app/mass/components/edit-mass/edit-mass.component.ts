@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { MassTimeData } from '../../models/mass-time.model';
 import { zoomEnterAnimation } from 'src/app/core/animations/animations';
+import { sharedMassData } from '../../sharedMassData';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-edit-mass',
@@ -26,7 +28,11 @@ export class EditMassComponent implements OnInit{
   isButtonDisabled: { [key: string]: {state :boolean, setButtonText: string, deleteButtonText: string} } = {};
 
 
-  constructor(private massService: MassService, private route: ActivatedRoute){}
+  constructor(
+    private massService: MassService, 
+    private route: ActivatedRoute,
+    private coreService: CoreService
+    ){}
 
   ngOnInit(): void {
     // this.selectedValues[1]="18:00";
@@ -164,4 +170,10 @@ export class EditMassComponent implements OnInit{
     console.log(this.times.length);
     console.log(this.noValueSelected());
   }
+
+  addMass(){
+    sharedMassData.dataFromEditMass.massDate=this.dataSetMassModel.masse.date;
+    sharedMassData.dataFromEditMass.idDay=this.dataSetMassModel.masse.id_days;
+    this.coreService.goToAddMass();
+    }
 }

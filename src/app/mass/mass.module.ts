@@ -16,10 +16,12 @@ import { NoAnonymousMassRequestListComponent } from './components/no-anonymous-m
 import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
 import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
+import { MassTimeByIdResolver } from './resolvers/mass-time-by-id.resolver';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
 const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
+const massTimeByIdResolvers = {massTimeByIdResolvers: MassTimeByIdResolver};
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
@@ -27,7 +29,7 @@ const massRoutes: Routes = [
   {path: 'modifier-messes/:id', component: EditMassComponent, resolve: massDayByIdResolvers},
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
-  {path: 'modifier-heures-messes', component: EditMassTimeComponent},
+  {path: 'modifier-heures-messes/:id', component: EditMassTimeComponent, resolve: massTimeByIdResolvers},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
 ];
 

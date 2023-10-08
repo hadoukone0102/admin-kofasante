@@ -4,6 +4,8 @@ import { AddMassModel } from '../../models/mass.model';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { MassTimeData, MassTimeModel } from '../../models/mass-time.model';
+import { sharedMassData } from '../../sharedMassData';
+import { CoreService } from 'src/app/core/services/core.service';
 
 @Component({
   selector: 'app-add-mass',
@@ -21,6 +23,8 @@ export class AddMassComponent implements OnInit{
   errorMessage: string = "";
 
   massTimeList!: Array<MassTimeData>;
+
+  dateFromEditMass: string = "";
 
   formData: AddMassModel ={
     date_debut: "",
@@ -42,7 +46,8 @@ export class AddMassComponent implements OnInit{
 
   constructor(
     private massService: MassService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private coreService: CoreService
   ){}
 
   ngOnInit(): void {
@@ -56,6 +61,17 @@ export class AddMassComponent implements OnInit{
         this.massTimeList = data.time;
       }
     );
+
+    if(sharedMassData.dataFromEditMass.massDate != ""){
+      this.dateFromEditMass = sharedMassData.dataFromEditMass.massDate;
+      this.formData.date_debut = sharedMassData.dataFromEditMass.massDate;
+      this.formData.date_fin = sharedMassData.dataFromEditMass.massDate;
+    }
+  }
+
+  ngOnDestroy() {
+    sharedMassData.dataFromEditMass.massDate = "";
+    sharedMassData.dataFromEditMass.idDay = 0;
   }
 
   getDayValue(){
@@ -92,7 +108,11 @@ export class AddMassComponent implements OnInit{
       (data)=>{
         this.isSubmitting = false;
         if(data.success){
-          console.log("good");
+          if (sharedMassData.dataFromEditMass.massDate === "") {
+            this.coreService.goToMassList()
+          }else{
+            this.coreService.goToEditMass(sharedMassData.dataFromEditMass.idDay)
+          }
         }else{
           console.log("bad: "+data.message+" "+data.success);
           this.formHasError = true;

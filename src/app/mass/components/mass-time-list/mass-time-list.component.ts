@@ -34,7 +34,7 @@ export class MassTimeListComponent implements OnInit{
   }
 
   goToEditMassTime(id: number){
-    this.coreService.goToEditMassTime();
+    this.coreService.goToEditMassTime(id);
   }
 
   deleteMassTime(id: number){

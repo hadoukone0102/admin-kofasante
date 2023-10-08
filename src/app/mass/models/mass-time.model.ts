@@ -10,10 +10,12 @@ export interface MassTimeModel {
     updated_at: string
   }
 
-  // ~~~~~~~~~~~~ Add Mass time ~~~~~~~~~~~~ //
-  export interface AddMassTimeModel {
-    time: string
-  }
+  // ~~~~~~~~~~~~~~~~~ ADD ~~~~~~~~~~~~~~~~~ //
+
+      // ~~~~~~~~~~~~ Add Mass time ~~~~~~~~~~~~ //
+        export interface AddMassTimeModel {
+          time: string
+        }
             // ~~~~~~~~~~~~~ Add reponse ~~~~~~~~~~~~~ //
   export interface AddMassTimeResponseModel {
     message: string
@@ -22,6 +24,8 @@ export interface MassTimeModel {
     time: MassTimeData
   }
   
+// ~~~~~~~~~~~~~~~~ DELETE ~~~~~~~~~~~~~~~ //
+
   // ~~~~~~~~~~~ Delete mass time ~~~~~~~~~~ //
   export interface DeleteMassTimeModel {
     time_id: number[]
@@ -32,17 +36,34 @@ export interface MassTimeModel {
     status_code: number
   }
 
-  // ~~~~~~~~~~~~ Set mass time ~~~~~~~~~~~~ //
-  export interface SetMassTimeModel {
-    time_id: number
-    times: string
-  }
+// ~~~~~~~~~~~~ SET  ~~~~~~~~~~~~ //
 
-  export interface SetMassTimeResponseModel {
-    message: string
-    success: number
-    status_code: number
-  }
+       // ~~~~~~~~~ Get mass time by id ~~~~~~~~~ //
+       export interface MassTimeByIdModel {
+        time: Times
+        message: string
+        success: number
+        status_code: number
+      }
+      
+      export interface Times {
+        id: number
+        times: string
+        created_at: string
+        updated_at: string
+      }
+
+      // ~~~~~~~~~~~~ Set mass time ~~~~~~~~~~~~ //
+      export interface SetMassTimeModel {
+        time_id: number
+        times: string
+      }
+
+      export interface SetMassTimeResponseModel {
+        message: string
+        success: number
+        status_code: number
+      }
   
   
   

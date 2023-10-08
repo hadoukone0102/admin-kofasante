@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { lineTableAnimation } from 'src/app/core/animations/animations';
+import { linePaginateAnimation, lineTableAnimation } from 'src/app/core/animations/animations';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DeleteMassDayModel, MassDayData, MassModel } from '../../models/mass.model';
 import { MassService } from '../../services/mass.service';
@@ -15,23 +15,28 @@ import { DataFilter } from 'src/app/core/models/filter-model';
   selector: 'app-mass-table',
   templateUrl: './mass-table.component.html',
   animations:[
-    lineTableAnimation,
+    linePaginateAnimation,
   ]
 })
 export class MassTableComponent implements OnInit{
   // ~~~~~~~~~~ Decorated variables ~~~~~~~~~ //
   @Input() donationListParent!: DataDon;
+  @Input() maxDate!: string; //ano ? perso ? orga ? all ? failed
   @Input() listType!: string; //ano ? perso ? orga ? all ? failed
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
+
   @Input() massModel!: MassModel;
 
   // ~~~~~~~~~~~ Search variables ~~~~~~~~~~ //
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
-  dateStartValue: string = "";
+  dateStartValue: string = environment.dateStartForSearch;
   dateEndValue: string = "";
+  dateIsCorrect: boolean = true;
+
+  today: string = environment.todayDate;
   
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
@@ -49,6 +54,8 @@ export class MassTableComponent implements OnInit{
   // ~~~~~~~~~~~ Refresh variable ~~~~~~~~~~ //
   isRefreshing!: boolean;
 
+  spinner: boolean = false;
+
   deleteMassDayModel!: DeleteMassDayModel;
   
   constructor(
@@ -61,8 +68,11 @@ export class MassTableComponent implements OnInit{
     this.deleteMassDayModel = {
       day_id : []
     }
-    console.table(this.massModel.masses)
+    console.table(this.massModel.masses);
+    this.dateEndValue = this.maxDate;
+    console.log("maxdate: "+this.maxDate);
   }
+  
 
   goToEditMass(id: number){
     this.coreService.goToEditMass(id);
@@ -82,6 +92,9 @@ export class MassTableComponent implements OnInit{
     }
   }
 
+  
+  
+
   trackById(index: number, data: any): number {
     return data.days_id; // Remplacez "id" par la propriété unique de votre administrateur
   }
@@ -90,15 +103,25 @@ export class MassTableComponent implements OnInit{
   // ================= //ANCHOR - FILTER ================== //
   // ====================================================== //
   resetFilter(){
+    this.getMaxDate()
     this.searchBarValue = '';
     this.dateStartValue = environment.dateStartForSearch;
-    this.dateEndValue = environment.todayDate;
+    this.dateEndValue = this.maxDate;
+
     this.search();
     //this.sendDataToParent();//send data to report for update accumulations
   }
 
   search(){
-    
+    this.isRefreshing = true;
+    this.isExporting = false;
+    this.massService.getMassesList("1",this.searchBarValue ,this.dateStartValue, this.dateEndValue).subscribe(
+      (data) => {
+        this.massModel = data;
+        this.checkAndApplyDisabled(data);
+        this.isRefreshing = false;
+      }
+    );
   }
 
   handleToogleButtonFromChild(toogleButton: boolean){
@@ -111,8 +134,29 @@ export class MassTableComponent implements OnInit{
     this.dateStartValue = dataFilter.dateStartValue;
     this.dateEndValue = dataFilter.dateEndValue;
     this.search();
+    console.log(dataFilter);
+    
     // this.sendDataToParent();//send data to report for update accumulations
   }
+
+  getMaxDate(){
+    let maxDate: Date | null = null;
+    this.massService.getMassesList().subscribe(
+      (data) => {
+        // Parcourez les données pour trouver la date maximale
+        data.masses.forEach((massDayData) => {
+            const currentDate = new Date(massDayData.days);
+    
+            if (maxDate === null || currentDate > maxDate) {
+              maxDate = currentDate;
+            }
+          });
+          this.maxDate = maxDate!.toISOString().substring(0, 10);
+    
+          console.log("La date maximale est :", maxDate!.toISOString().substring(0, 10));
+      }
+    )
+    }
 
   // ====================================================== //
   // ================== //ANCHOR - PRINT ================== //
@@ -203,7 +247,31 @@ export class MassTableComponent implements OnInit{
     * @date 5/17/2023 - 12:42:01 PM
     */
   export(){
-    
+    this.massModel.masses = [];
+    this.isExporting = true;
+    this.spinner = true;
+
+    this.pdfOrientation = 'portrait';
+    this.pdfTitle = 'Liste des messes';
+    this.pdfFileName = 'liste_des_messes.pdf';
+    this.excelFileName = 'liste_des_messes.xlsx';
+
+    this.massService.getMassesFullList(this.searchBarValue, this.dateStartValue, this.dateEndValue).subscribe(
+      (data) => {
+        this.massModel = data;
+        this.checkAndApplyDisabled(data);
+        this.spinner = false;
+        // this.isExporting = false;
+      }
+    )
+
+    // this.donationTest$.subscribe((data) => {
+    //   this.donationList = data.dons;
+    //   this.donationListParent =  data;
+    //   this.checkAndApplyDisabled(data);
+    //   this.isExporting = true;
+
+    // });
   }
 
 

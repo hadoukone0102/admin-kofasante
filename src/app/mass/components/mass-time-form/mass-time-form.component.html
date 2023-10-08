@@ -16,8 +16,8 @@
         <div *ngIf="theTime.touched && theTime.invalid">
             <small class="text-danger">Entrez l'heure de messe</small>
         </div>
-        <div *ngIf="timeExists">
-            <small class="text-danger">Cette heure existe déjà!</small>
+        <div *ngIf="formHasError">
+            <small class="text-danger">{{errorMessage}}</small>
         </div>
     </div>  
 

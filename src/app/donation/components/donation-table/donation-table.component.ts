@@ -266,7 +266,6 @@ export class DonationTableComponent implements OnInit{
       dons: []
     }
     
-
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
       this.pdfOrientation = 'portrait';

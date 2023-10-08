@@ -68,7 +68,7 @@ export class CoreService {
   goToEditMass(id: number){this.router.navigate(['/messes/modifier-messes', id]);}
   goToAddMassTime(){this.router.navigate(['/messes/ajouter-heure-messe']);}
   goToMassTimeList(){this.router.navigate(['/liste-des-heures-de-messes']);}
-  goToEditMassTime(){this.router.navigate(['/modifier-heures-messes']);}
+  goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}
   goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
 
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
