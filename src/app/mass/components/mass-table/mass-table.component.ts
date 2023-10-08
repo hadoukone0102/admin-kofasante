@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { linePaginateAnimation, lineTableAnimation } from 'src/app/core/animations/animations';
 import { CoreService } from 'src/app/core/services/core.service';
-import { DeleteMassDayModel, MassDayData, MassModel } from '../../models/mass.model';
+import { MassModel } from '../../models/mass.model';
 import { MassService } from '../../services/mass.service';
 import { DataDon } from 'src/app/donation/models/don.model';
 import { Subject } from 'rxjs';
@@ -41,7 +41,7 @@ export class MassTableComponent implements OnInit{
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
-  newPage!: number;
+  newPage: number = 1;
 
   // ~~~~~~~~~~~ Print variables ~~~~~~~~~~~ //
   styleString: string ='';
@@ -55,9 +55,10 @@ export class MassTableComponent implements OnInit{
   isRefreshing!: boolean;
 
   spinner: boolean = false;
+  // ~~~~~~~~~~~~ Error message ~~~~~~~~~~~~ //
+  pageHasError: boolean = false;
+  errorMessage!: string;
 
-  deleteMassDayModel!: DeleteMassDayModel;
-  
   constructor(
     private coreService: CoreService,
     private massService: MassService
@@ -65,9 +66,7 @@ export class MassTableComponent implements OnInit{
 
   ngOnInit(): void {
     this.checkAndApplyDisabled(this.massModel);
-    this.deleteMassDayModel = {
-      day_id : []
-    }
+    
     console.table(this.massModel.masses);
     this.dateEndValue = this.maxDate;
     console.log("maxdate: "+this.maxDate);
@@ -80,12 +79,17 @@ export class MassTableComponent implements OnInit{
 
   deleteMassDay(id: number){
     if(confirm("Êtes vous sûr de vouloir Supprimer ce jour de messe et toutes les messes à l'intérieur ?")){
+      this.pageHasError = false;
     this.massService.deleteMassDay(id).subscribe(
       (data) => {
         if (data.success) {
-          console.log("ça passe: "+ data.message);
+          this.massService.getMassesList(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+          .subscribe((data) => {
+            this.massModel = data;
+          })
         }else{
-          console.log("ça passe pas"+ data.message);
+          this.pageHasError = true;
+          this.errorMessage = data.message;
         }
       }
     )

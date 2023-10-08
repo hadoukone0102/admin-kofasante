@@ -4,7 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeByIdModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
-import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
+import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class MassService {
   }
   
   deleteMassDay(id: number): Observable<DeleteMassDayResponseModel>{
-    return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/delete/${id}`).pipe(
+    return this.http.delete<DeleteMassDayResponseModel>(`${environment.apiUrlMass}/days/deleteWithmasse/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

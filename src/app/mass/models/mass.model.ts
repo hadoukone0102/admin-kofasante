@@ -77,9 +77,6 @@ export interface MassModel {
             status_code: number
           }
   // ~~~~~~~~~~~ Delete mass day ~~~~~~~~~~~ //
-  export interface DeleteMassDayModel {
-    day_id: number[]
-  }
   
   export interface DeleteMassDayResponseModel {
     message: string

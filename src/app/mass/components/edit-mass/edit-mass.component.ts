@@ -27,6 +27,11 @@ export class EditMassComponent implements OnInit{
 
   isButtonDisabled: { [key: string]: {state :boolean, setButtonText: string, deleteButtonText: string} } = {};
 
+  // ~~~~~~~~~~~~ Error message ~~~~~~~~~~~~ //
+  pageHasError: boolean = false;
+  errorMessage!: string;
+  successfulOperation: boolean = false;
+
 
   constructor(
     private massService: MassService, 
@@ -90,20 +95,22 @@ export class EditMassComponent implements OnInit{
     this.formData.id = idMass;
     this.formData.masses_times_id = idMassTime;
     this.formData.typeQuette = quests
-    console.log(this.formData.typeQuette);
     
     this.isButtonDisabled[idMass].state = true;
     this.isButtonDisabled[idMass].setButtonText = "Modifier...";
-
-    
+    this.successfulOperation = false;
+    this.pageHasError = false;
     
     this.massService.updateMassDay(this.formData).subscribe(
       (data) => {
         this.isButtonDisabled[idMass].state = false;
         this.isButtonDisabled[idMass].setButtonText = "Modifier";
         if(data.success){
+          this.successfulOperation = true;
         }else{
-          console.log("poto bro"+ data.message );
+          this.pageHasError = true;
+          this.errorMessage =data.message
+
         }
       }
     )
@@ -139,16 +146,21 @@ export class EditMassComponent implements OnInit{
     if (confirm("Voulez vous vraiment supprimer cette messe ?")) {
       this.isButtonDisabled[idMass].state = true;
       this.isButtonDisabled[idMass].deleteButtonText = "Supprimer...";
+      this.pageHasError = false;
+      this.successfulOperation = false;
 
       this.massService.deleteMass(idMass).subscribe(
         (data)=>{
+          this.isButtonDisabled[idMass].state = false;
+          this.isButtonDisabled[idMass].deleteButtonText = "Supprimer";
           if(data.success){
-            this.isButtonDisabled[idMass].state = false;
-            this.isButtonDisabled[idMass].deleteButtonText = "Supprimer";
-            
+            this.successfulOperation = true;
             this.massService.getMassDayById(this.dataSetMassModel.masse.id_days).subscribe(
               (data)=> this.dataSetMassModel = data
             )
+          }else{
+            this.pageHasError = true;
+            this.errorMessage = data.message;
           }
         } 
       );

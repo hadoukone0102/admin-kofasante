@@ -41,6 +41,12 @@
 
 <!-- END FILTER -->
 
+<div *ngIf="pageHasError" class="alert alert-danger alert-dismissible fade show" role="alert">
+    <span class="fas fa-bullhorn me-1"></span>
+    <strong>Erreur!</strong> {{errorMessage}}
+    <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
 <div  class="table-responsive">
     <table id="exportTable" class="table table-centered table-nowrap mb-0 rounded">
     <thead class="thead-light">

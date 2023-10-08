@@ -39,6 +39,17 @@
                 </div>
               </div> -->
 
+              <div *ngIf="successfulOperation" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span class="fas fa-bullhorn me-1"></span>
+                <strong>Success</strong> Opération réussie
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div *ngIf="pageHasError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="fas fa-bullhorn me-1"></span>
+                <strong>Erreur!</strong> {{errorMessage}}
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
               <div class="col-12 row mb-4 border" *ngFor="let mass of dataSetMassModel.masse.times; trackBy: trackById " @zoomEnterAnimation>
                 <div class="col-sm-6 col-12 mb-2">
                   <h5>Heure</h5>
