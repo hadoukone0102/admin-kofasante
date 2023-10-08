@@ -72,28 +72,28 @@
 </thead>
 <!-- ENABLED ACCOUNT -->
 <!-- <tbody *ngIf="!isDisabledAccount()" [@boomTrigger]="admins.administrateurs.length"> -->
-<tbody>
+<tbody *ngFor="let request of massRequests.demande_messe">
 
     <!-- Item -->
-    <tr @lineTableAnimation >
-        <td><a  class="text-primary fw-bold">1</a> </td>
+    <tr >
+        <td><a  class="text-primary fw-bold">{{request.id}}</a> </td>
     <td >
-        <!-- {{admin.nomAdmin}} -->Diakité
+        <!-- {{admin.nomAdmin}} -->{{ request.lastNameMr }}
     </td>
     <td >
-        <!-- {{admin.prenomAdmin}} -->Doumani
+        <!-- {{admin.prenomAdmin}} -->{{ request.firstNameMr }}
     </td>
     <td >
-        <!-- {{admin.prenomAdmin}} -->0705669988
+        <!-- {{admin.prenomAdmin}} -->{{request.contactMr}}
     </td>
     <td >
-        <!-- {{admin.prenomAdmin}} -->Quotidienne
+        <!-- {{admin.prenomAdmin}} -->{{request.labelMt}}
     </td>
     <td >
-        <!-- {{admin.prenomAdmin}} -->Action de grâce
+        <!-- {{admin.prenomAdmin}} -->{{request.type_demande}}
     </td>
     <td >
-        <!-- {{admin.prenomAdmin}} -->02/09/2023
+        <!-- {{admin.prenomAdmin}} -->{{request.masses_days}}
     </td>
     
     <td>
@@ -103,7 +103,7 @@
     </td>
 
     <td >
-        <!-- {{admin.prenomAdmin}} -->ql3egQSFfafbSFS3GF
+        <!-- {{admin.prenomAdmin}} -->{{request.transaction_id}}
     </td>
     
     </tr>

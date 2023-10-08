@@ -6,6 +6,10 @@ export const  environment = {
     apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
     apiUrlMass: 'https://messe-api.eglise-mukasa.ci/api',
 
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~mass request~~~~~~~~~~~~~~~~~~~
+    requestMassIsanonymous:'https://messe-api.eglise-mukasa.ci/api/requestmesse/isanonymous',
+    requestMassNoanonymous: 'https://messe-api.eglise-mukasa.ci/api/requestmesse/Noanonymous',
+    
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //
     captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",
     captchaKeyDev: "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw",
