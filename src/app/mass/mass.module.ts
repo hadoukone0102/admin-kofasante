@@ -16,6 +16,7 @@ import { NoAnonymousMassRequestListComponent } from './components/no-anonymous-m
 import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
 import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
+import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-anonymous-request.component';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -29,6 +30,7 @@ const massRoutes: Routes = [
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes', component: EditMassTimeComponent},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
+  {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
 ];
 
 @NgModule({
@@ -44,6 +46,7 @@ const massRoutes: Routes = [
     MassRequestTableComponent,
     AnonymousMassRequestListComponent,
     NoAnonymousMassRequestListComponent,
+    MassAnonymousRequestComponent,
   ],
   imports: [
     CommonModule,

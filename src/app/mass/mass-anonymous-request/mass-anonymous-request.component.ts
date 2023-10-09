@@ -1,40 +1,37 @@
 import { Component } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { ChildMassRequest, MassRequest } from '../mass-request-models/mass-request.model';
-import { MassRequestService } from '../mass-request-services/mass-request.service';
-@Component({
-  selector: 'app-mass-request-table',
-  templateUrl: './mass-request-table.component.html'
-})
-export class MassRequestTableComponent {
-  // ~~~~~~~~~~~~~~~Model mass request~~~~~~~~~~~~~~~~~~
-  massRequests!:MassRequest;
-  childMassRequests: ChildMassRequest[]=[];
+import { MassRequestService } from '../components/mass-request-services/mass-request.service';
+import { anonymosMass } from '../components/mass-request-models/mass-request.model';
 
+@Component({
+  selector: 'app-mass-anonymous-request',
+  templateUrl: './mass-anonymous-request.component.html',
+})
+export class MassAnonymousRequestComponent {
+  // ~~~~~~~~~~~~~~~~~~~~Model~~~~~~~~~~~~~~~~~~~~~~~~
+  massAnonyResquest!:anonymosMass;
   // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
-
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
-    ){}
-
-
-    ngOnInit(){
-      this.massRequestService.getMassRequests().subscribe(
-        (data)=>{
-          this.massRequests = data;  
-          //console.log(this.massRequests.demande_messe);
-        }
-      )
-      this.checkAndApplyDisabled(this.massRequests);
-    }
-
-    goToEditMass(id: number){
-    this.coreService.goToEditMass(id);
+  ){}
+  
+  ngOnInit(){
+    this.massRequestService.getResquestMassAnonymous().subscribe(
+      (data)=>{
+        this.massAnonyResquest = data;  
+        console.log(this.massAnonyResquest.demande_messe);
+      }
+    )
+    // this.checkAndApplyDisabled(this.massRequests);
   }
+
+  goToEditMass(id: number){
+  this.coreService.goToEditMass(id);
+}
 
   /**
    * Disable or enable the buttons to go to the next or previous page 
@@ -43,7 +40,7 @@ export class MassRequestTableComponent {
    *
    * @param {DataDon} data
    */
-  checkAndApplyDisabled(data: MassRequest){
+  checkAndApplyDisabled(data: anonymosMass){
     //NOTE - "1" means that it should be disabled and "..." that it should be enabled
     if((data.current_page === 1) && (data.current_page != data.last_page)){
       //("1/...")
@@ -93,18 +90,27 @@ export class MassRequestTableComponent {
    * @param {number} pageIndex
    */
   showPageWhere(pageIndex: number){
-    this.newPage= this.massRequests.current_page + pageIndex;
+    this.newPage= this.massAnonyResquest.current_page + pageIndex;
 
-    this.massRequestService.getMassRequests().subscribe(
+    this.massRequestService.getResquestMassAnonymous().subscribe(
       (data)=>{
-        this.massRequests = data;  
+        this.massAnonyResquest = data;  
         this.checkAndApplyDisabled(data);
       }
     )
   }
 
+/**
+ * to redirec page
+ */
+goToNoAnonymousMassRequest(){
+  this.coreService.goToNoAnonymousMassRequest();
+}
+  
+/**
+ * to redirec page
+ */
   goToAnonymousMassRequest(){
     this.coreService.goToAnonymousMassRequest();
   }
-  
 }
