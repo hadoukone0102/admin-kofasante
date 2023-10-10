@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { MassRequest, anonymosMass } from '../mass-request-models/mass-request.model';
+import { ChildMassRequest, MassRequest, anonymosMass } from '../mass-request-models/mass-request.model';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 
@@ -25,6 +25,17 @@ export class MassRequestService {
       catchError((error) => this.coreService.handleError(error)),
       )
       }
+      
+    /**
+     * delete...
+     * @returns data for mess in ChildMassRequest
+     */
+  getMass():Observable<ChildMassRequest>{
+    const requestMassNoanony = environment.requestMassNoanonymous;
+    return this.http.get<ChildMassRequest>(requestMassNoanony).pipe(
+      catchError((error)=>this.coreService.handleError(error)),
+    )
+  }
 
       /**
        * 

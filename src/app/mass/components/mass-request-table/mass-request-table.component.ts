@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { ChildMassRequest, MassRequest } from '../mass-request-models/mass-request.model';
+import { ChildMassRequest, MassRequest, Masses } from '../mass-request-models/mass-request.model';
 import { MassRequestService } from '../mass-request-services/mass-request.service';
 @Component({
   selector: 'app-mass-request-table',
@@ -8,7 +8,10 @@ import { MassRequestService } from '../mass-request-services/mass-request.servic
 })
 export class MassRequestTableComponent {
   // ~~~~~~~~~~~~~~~Model mass request~~~~~~~~~~~~~~~~~~
-  massRequests!:MassRequest;
+  @Input() massRequests!:MassRequest;
+
+  @Input() Masses!:ChildMassRequest;
+ 
   childMassRequests: ChildMassRequest[]=[];
 
   // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
@@ -21,16 +24,25 @@ export class MassRequestTableComponent {
     private massRequestService: MassRequestService,
     ){}
 
-
     ngOnInit(){
       this.massRequestService.getMassRequests().subscribe(
         (data)=>{
           this.massRequests = data;  
-          //console.log(this.massRequests.demande_messe);
+          console.log(this.massRequests.demande_messe);
         }
       )
-      this.checkAndApplyDisabled(this.massRequests);
+      this.massRequestService.getMass().subscribe(
+        (data)=>{
+          this.Masses = data;
+          console.log(this.Masses.masses);
+        }
+      )
+      //this.checkAndApplyDisabled(this.massRequests);
     }
+    
+    getUniqueDates(dates: string[]): string[] {
+      return Array.from(new Set(dates)); // Utilisez un ensemble pour garantir des dates uniques
+    }    
 
     goToEditMass(id: number){
     this.coreService.goToEditMass(id);

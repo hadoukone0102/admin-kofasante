@@ -1,4 +1,5 @@
 export interface MassRequest {
+    [x: string]: any
     message: string
     succes: number
     status_code: number
@@ -21,19 +22,25 @@ export interface MassRequest {
     startDateMr: string
     descriptionMr: any
     labelMt: string
+    transaction_id: string
+    templateER: string
+    type_demande: string
+    lastNameDefunt_1: string
+    firstNameDefunt_1: string
+    lastNameDefunt_2: string
+    firstNameDefunt_2: string
+    lastNameDefunt_3: string
+    firstNameDefunt_3: string
+    masses: Masses[]
+  }
+  
+  export interface Masses {
+    masses_id: number
     masses_times: string
     masses_days: string
     name_masses_days: string
-    transaction_id: string
-    templateER?: string
-    type_demande?: string
-    lastNameDefunt_1?: string
-    firstNameDefunt_1?: string
-    lastNameDefunt_2?: string
-    firstNameDefunt_2?: string
-    lastNameDefunt_3?: string
-    firstNameDefunt_3?: string
   }
+
   // anonymos mass request 
 
   export interface anonymosMass {
@@ -51,23 +58,30 @@ export interface MassRequest {
   
   export interface RequestAnonymosMass {
     id: number
-    lastNameMr: string
-    firstNameMr: string
-    contactMr: string
-    codeMr: any
-    isAnonymous: number
-    startDateMr: string
-    descriptionMr: any
-    labelMt: string
-    masses_times: string
-    masses_days: string
-    name_masses_days: string
-    transaction_id: string
-    templateER: string
-    type_demande: string
-    lastNameDefunt_1?: string
-    firstNameDefunt_1?: string
-    lastNameDefunt_2?: string
-    firstNameDefunt_2?: string
-  }
+  lastNameMr: string
+  firstNameMr: string
+  contactMr: string
+  codeMr: any
+  isAnonymous: number
+  startDateMr: string
+  descriptionMr: any
+  labelMt: string
+  transaction_id: string
+  templateER?: string
+  type_demande?: string
+  lastNameDefunt_1?: string
+  firstNameDefunt_1?: string
+  lastNameDefunt_2?: string
+  firstNameDefunt_2?: string
+  lastNameDefunt_3?: string
+  firstNameDefunt_3?: string
+  masses: Mass[]
+}
+
+export interface Mass {
+  masses_id: number
+  masses_times: string
+  masses_days: string
+  name_masses_days: string
+}
   
