@@ -118,5 +118,27 @@ export class MassRequestTableComponent {
   goToAnonymousMassRequest(){
     this.coreService.goToAnonymousMassRequest();
   }
+
+
+  //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  resetFilter(){
+
+  }
+
+  export(){
+
+  }
+
+  search(){
+
+  }
   
+  exportToPDF(){
+
+  }
+
+  exportToExel(){
+    
+  }
 }
