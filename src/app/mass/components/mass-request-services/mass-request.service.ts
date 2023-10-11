@@ -48,5 +48,39 @@ export class MassRequestService {
     )
   }
 
+  /**
+   * Rechercher des messes en fonction du nom ou du prénom
+   * @param {string} searchValue - La valeur à rechercher (nom ou prénom)
+   * @param {string} dateStart - Date de début de recherche
+   * @param {string} dateEnd - Date de fin de recherche
+   * @returns Les données des demandes de messe correspondantes
+   */
+  searchMassRequests(searchValue: string, dateStart: string, dateEnd: string): Observable<MassRequest> {
+    // Vous devez adapter l'URL de recherche en fonction de votre API réelle
+    const searchUrl = `${environment.requestMassNoanonymous}?search=${searchValue}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    
+    return this.http.get<MassRequest>(searchUrl).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
   }
+
+   /**
+   * Rechercher des messes anonyme en fonction du type
+   * @param {string} searchValue - La valeur à rechercher (nom ou prénom) =>type
+   * @param {string} dateStart - Date de début de recherche
+   * @param {string} dateEnd - Date de fin de recherche
+   * @returns Les données des demandes de messe correspondantes
+   */
+   searchMassRequestsAnonymous(searchValue: string, dateStart: string, dateEnd: string): Observable<anonymosMass> {
+    // Vous devez adapter l'URL de recherche en fonction de votre API réelle
+    const searchUrl = `${environment.requestMassIsanonymous}?search=${searchValue}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    
+    return this.http.get<anonymosMass>(searchUrl).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+
+
+}
   

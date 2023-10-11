@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   templateUrl: './refresh.component.html',
   styleUrls: ['./refresh.component.css']
 })
+
 export class RefreshComponent {
   @Input() isRefreshing: boolean = false;
   @Output() toogleButton: EventEmitter<boolean> = new EventEmitter<boolean>();

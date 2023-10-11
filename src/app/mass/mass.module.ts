@@ -17,6 +17,8 @@ import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
 import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
 import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-anonymous-request.component';
+import { MassModalFilterComponent } from './components/mass-modal/mass-modal-filter/mass-modal-filter.component';
+import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -47,6 +49,8 @@ const massRoutes: Routes = [
     AnonymousMassRequestListComponent,
     NoAnonymousMassRequestListComponent,
     MassAnonymousRequestComponent,
+    MassModalFilterComponent,
+    MassModalColumnComponent,
   ],
   imports: [
     CommonModule,
