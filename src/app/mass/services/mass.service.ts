@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
 import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
+import { Basket, MassBasket } from '../models/basket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -97,5 +98,38 @@ export class MassService {
     );
   }
 
+// ajouter par kone
+
+  getBasketlistMass():Observable<Basket>{
+    const BasketMass = environment.BasketMass;
+    return this.http.get<Basket>(BasketMass).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  /**
+   * Rechercher des messes en fonction du nom ou du prénom
+   * @param {string} searchValue - La valeur à rechercher (nom ou prénom)
+   * @param {string} dateStart - Date de début de recherche
+   * @param {string} dateEnd - Date de fin de recherche
+   * @returns Les données des demandes de messe correspondantes
+   */
+  searchBasketMass(searchValue: string, dateStart: string, dateEnd: string): Observable<Basket> {
+    // Vous devez adapter l'URL de recherche en fonction de votre API réelle
+    const searchUrl = `${environment.BasketMass}?search=${searchValue}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    
+    return this.http.get<Basket>(searchUrl).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+   // Ajoutez cette méthode pour récupérer les données en fonction de la page
+   getMassDataForPage(page: number): Observable<Basket> {
+    const basketUrl = environment.BasketMass; // Remplacez par votre URL
+    const params = new HttpParams().set('page', page.toString()); // Paramètre pour la page
+    return this.http.get<Basket>(basketUrl, { params }).pipe(
+      catchError(error => this.coreService.handleError(error))
+    );
+  }
 
 }

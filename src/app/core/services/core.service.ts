@@ -71,7 +71,8 @@ export class CoreService {
   goToEditMassTime(){this.router.navigate(['/modifier-heures-messes']);}
   goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
   goToAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-anonyme']);}
-
+  // ajouter par kone
+  goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
 
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   

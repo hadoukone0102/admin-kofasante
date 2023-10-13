@@ -18,6 +18,8 @@ import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
 import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-anonymous-request.component';
 import { MassModalFilterComponent } from './components/mass-modal/mass-modal-filter/mass-modal-filter.component';
+import { ListBasketMassComponent } from './components/mass-basket/mass-basket-table/list-basket-mass/list-basket-mass.component';
+import { MassBasketTableComponent } from './components/mass-basket/mass-basket-table/mass-basket-table.component';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -32,6 +34,7 @@ const massRoutes: Routes = [
   {path: 'modifier-heures-messes', component: EditMassTimeComponent},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
+  {path: 'corbeille-messe', component: ListBasketMassComponent},
 ];
 
 @NgModule({
@@ -49,6 +52,8 @@ const massRoutes: Routes = [
     NoAnonymousMassRequestListComponent,
     MassAnonymousRequestComponent,
     MassModalFilterComponent,
+    ListBasketMassComponent,
+    MassBasketTableComponent,
   ],
   imports: [
     CommonModule,

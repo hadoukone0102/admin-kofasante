@@ -189,6 +189,16 @@
     role="list" id="submenu-mass" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
+        <a (click)="goToBasketMass()" class="nav-link">
+          <span class="sidebar-text">Corbeille</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="multi-level collapse "
+    role="list" id="submenu-mass" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
         <a (click)="goToMassTimeList()" class="nav-link">
           <span class="sidebar-text">Liste des heures</span>
         </a>

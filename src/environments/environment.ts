@@ -9,7 +9,7 @@ export const  environment = {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~mass request~~~~~~~~~~~~~~~~~~~
     requestMassIsanonymous:'https://messe-api.eglise-mukasa.ci/api/requestmesse/isanonymous',
     requestMassNoanonymous: 'https://messe-api.eglise-mukasa.ci/api/requestmesse/Noanonymous',
-
+    BasketMass: 'https://messe-api.eglise-mukasa.ci/api/requestmesse/failed',
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //
     captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",
     captchaKeyDev: "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw",
