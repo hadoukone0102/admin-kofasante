@@ -20,6 +20,8 @@ import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-ano
 import { MassModalFilterComponent } from './components/mass-modal/mass-modal-filter/mass-modal-filter.component';
 import { ListBasketMassComponent } from './components/mass-basket/mass-basket-table/list-basket-mass/list-basket-mass.component';
 import { MassBasketTableComponent } from './components/mass-basket/mass-basket-table/mass-basket-table.component';
+import { ReportMassComponent } from './components/ReportMass/report-mass/report-mass.component';
+import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -35,6 +37,7 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
   {path: 'corbeille-messe', component: ListBasketMassComponent},
+  {path: 'Bilan-Messe', component: ReportMassComponent},
 ];
 
 @NgModule({
@@ -54,6 +57,8 @@ const massRoutes: Routes = [
     MassModalFilterComponent,
     ListBasketMassComponent,
     MassBasketTableComponent,
+    ReportMassComponent,
+    AllMassReportComponent,
   ],
   imports: [
     CommonModule,

@@ -92,6 +92,6 @@ export class SidebarComponent implements OnInit{
   goToMassTimeList(){this.coreService.goToMassTimeList();}
   goToNoAnonymousMassRequest(){this.coreService.goToNoAnonymousMassRequest();}
   goToBasketMass(){this.coreService.goToBasketMass();}
-
+  goToReportMass(){this.coreService.goToReportMass();}
 
 }

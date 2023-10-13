@@ -3,9 +3,9 @@
 <main class="content">
     <app-header></app-header>
     <app-page-title
-        theModule="Dons"
-        theTitle="Bilan des dons"
-        theContent="Faites le bilan des dons">
+        theModule="Messes"
+        theTitle="Bilan des Messes"
+        theContent="Faites le bilan des Messes">
     </app-page-title>
     <!-- Content -->
     <!--End Donation statistics -->
@@ -20,22 +20,51 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Anonyme</h2>
-                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_anonymes}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{MassReport.status}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Anonyme</h2>
-                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_anonymes}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_anonymes}}</h3> -->
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                      {{"Montant: "+ accumulation.cumul_prix_dons_anonymes+"F"}}
+                      <!-- {{"Montant: "+ accumulation.cumul_prix_dons_anonymes+"F"}} -->
                     </small> 
                   </div>
                 </div>
               </div>
             </div>
           </a>
+
+
+          <a  (click)="showAnonymousList()" @zoomEnterAnimation class="col-12 col-sm-4 col-xl-4 mb-4">
+            <div class="card border-0 shadow">
+              <div class="card-body">
+                <div class="row d-block d-xl-flex align-items-center">
+                  <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                    <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0">
+                      <i class="fa fa-heart"></i>
+                    </div>
+                    <div class="d-sm-none">
+                      <h2 class="h5">Non Anonyme</h2>
+                      <h3 class="fw-extrabold mb-1">{{MassReport.total_messe_nonanonymes}}</h3>
+                    </div>
+                  </div>
+                  <div class="col-12 col-xl-7 px-xl-0">
+                    <div class="d-none d-sm-block">
+                      <h2 class="h6 text-gray-400 mb-0">Non Anonyme</h2>
+                      <!-- <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_anonymes}}</h3> -->
+                    </div>
+                    <small class="d-flex align-items-center text-gray-500">
+                      <!-- {{"Montant: "+ accumulation.cumul_prix_dons_anonymes+"F"}} -->
+                    </small> 
+                  </div>
+                </div>
+              </div>
+            </div>
+          </a>
+
           <a (click)="showNoAnonymousPersoList()" @zoomEnterAnimation class="col-12 col-sm-4 col-xl-4 mb-4">
             <div class="card border-0 shadow">
               <div class="card-body">
@@ -46,16 +75,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Personel</h2>
-                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_non_anonymes_perso}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_non_anonymes_perso}}</h3> -->
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Personel</h2>
-                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_perso}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_perso}}</h3> -->
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_perso+"F"}}
+                        <!-- {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_perso+"F"}} -->
                     </small> 
                   </div>
                 </div>
@@ -72,16 +101,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Organisation</h2>
-                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons_non_anonymes_orga}}</h3>
+                      <h3 class="fw-extrabold mb-1">{{MassReport.cumul_prix_messe}}</h3>
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Organisation</h2>
-                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_orga}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-2">{{accumulation.total_dons_non_anonymes_orga}}</h3> -->
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_orga+"F"}}
+                        <!-- {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_orga+"F"}} -->
                     </small> 
                   </div>
                 </div>
@@ -98,16 +127,16 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Total</h2>
-                      <h3 class="fw-extrabold mb-1">{{accumulation.total_dons}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-1">{{accumulation.total_dons}}</h3> -->
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Total</h2>
-                      <h3 class="fw-extrabold mb-2">{{accumulation.total_dons}}</h3>
+                      <!-- <h3 class="fw-extrabold mb-2">{{accumulation.total_dons}}</h3> -->
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                        {{"Montant: "+accumulation.cumul_prix_dons+"F"}}
+                        <!-- {{"Montant: "+accumulation.cumul_prix_dons+"F"}} -->
                     </small> 
                   </div>
                 </div>
@@ -118,7 +147,7 @@
     <!--End Donation statistics -->
 
     <!-- Donation table -->
-    <div *ngIf="donations$ | async as donations">
+    <!-- <div *ngIf="donations$ | async as donations">
         <app-donation-table [listType]="type"
             [donationListParent]="donations"
             (searchBarValueToParent) = "handleSearchBarValueFromChild($event)"
@@ -126,6 +155,12 @@
             (dateEndValueToParent) = "handleDateEndValueFromChild($event)"
             >
         </app-donation-table>
+    </div> -->
+
+    <div class="bg-white p-3">
+        <app-all-mass-report>
+
+        </app-all-mass-report>
     </div>
     <!-- End Donation table -->
 
