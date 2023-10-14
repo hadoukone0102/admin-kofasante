@@ -43,6 +43,12 @@ const routes: Routes = [
       roles: environment.allRoles_Without_HeadOfCatechesis
     }
   }, 
+  {path: 'quetes', loadChildren: () => import('./quest/quest.module').then(m => m.QuestModule), 
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.allRoles_Without_HeadOfCatechesis
+    }
+  }, 
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers, 
     canActivate: [AuthGuard, AccessGuard],
     data:{

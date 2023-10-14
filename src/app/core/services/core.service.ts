@@ -71,6 +71,11 @@ export class CoreService {
   goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}
   goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
 
+  // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
+  goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
+  goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
+  goToAddQuestType(){this.router.navigate(['/quetes/ajouter-type-quete']);}
+
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
   goToPageError(){this.router.navigate(['/erreur']);}

@@ -92,6 +92,9 @@ export class SidebarComponent implements OnInit{
   goToMassTimeList(){this.coreService.goToMassTimeList();}
   goToNoAnonymousMassRequest(){this.coreService.goToNoAnonymousMassRequest();}
   
+  // ~~~~~~~~~~~~ //TODO - Quest ~~~~~~~~~~~ //
+  goToQuestTypeList(){this.coreService.goToQuestTypeList();}
+  goToAddQuestType(){this.coreService.goToAddQuestType();}
 
 
 }

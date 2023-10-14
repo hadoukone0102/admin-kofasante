@@ -12,7 +12,7 @@ export class EditMassTimeComponent implements OnInit{
   massTimeByIdModel!: MassTimeByIdModel;
 
 
-  constructor(private massService: MassService, private route: ActivatedRoute){}
+  constructor(private route: ActivatedRoute){}
 
   ngOnInit(): void {
     this.route.data.pipe(map(data => data['massTimeByIdResolvers']))

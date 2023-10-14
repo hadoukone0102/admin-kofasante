@@ -25,7 +25,6 @@ export class MassTimeFormComponent implements OnInit{
     ){}
 
   ngOnInit(): void {
-    console.log(this.action);
     if (this.action === "add") {
       this.formData = {
         time: ""
@@ -52,7 +51,6 @@ export class MassTimeFormComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log("in the submmit");
     this.isSubmitting = true;
     this.formHasError = false;
     if (this.action === "add") {
