@@ -17,7 +17,9 @@ export class AddMassComponent implements OnInit{
   questTypeSelected: string = '';
 
   timeIsSelected: boolean = true;
+  timeIsInList: boolean = false;
   questTypeIsSelected: boolean = true;
+  questTypeIsInList: boolean = false;
 
   formHasError: boolean = false;
   errorMessage: string = "";
@@ -126,20 +128,32 @@ export class AddMassComponent implements OnInit{
 
    // Méthode pour ajouter une heure à la liste
    addTime() {
-    if (this.timeSelected) {
-      this.formData.times.push(this.timeSelected);
-      this.timeIsSelected = true;
+    //If time selected is already in the list
+    if (this.formData.times.includes(this.timeSelected)) {
+      this.timeIsInList = true;
     }else{
-      this.timeIsSelected = false;
+      this.timeIsInList = false;
+      if (this.timeSelected) { //if select input is not empty
+        this.formData.times.push(this.timeSelected);
+        this.timeIsSelected = true;
+      }else{
+        this.timeIsSelected = false;
+      }
     }
   }
 
    addQuestType() {
-    if (this.questTypeSelected) {
-      this.formData.typeQuette.push(this.questTypeSelected);
-      this.questTypeIsSelected = true;
+    //If questType selected is already in the list
+    if (this.formData.typeQuette.includes(this.questTypeSelected)) {
+      this.questTypeIsInList = true;
     }else{
-      this.questTypeIsSelected = false;
+      this.questTypeIsInList = false;
+      if (this.questTypeSelected) { //if select input is not empty
+        this.formData.typeQuette.push(this.questTypeSelected);
+        this.questTypeIsSelected = true;
+      }else{
+        this.questTypeIsSelected = false;
+      }
     }
   }
 
