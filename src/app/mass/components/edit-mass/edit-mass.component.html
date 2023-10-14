@@ -19,18 +19,33 @@
                     </div>
 
                       <div class="col-sm-6 mb-1 mb-sm-0">
-                        <label for="role">Heure de la messe</label>
-                        <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
-                                [(ngModel)]="selectedValue">
-                          <option value="" disabled>Selectionnez une heure</option>
-                          <option *ngFor="let massTime of massTimeList" value="{{massTime.id}}">{{massTime.times | customTimeFormat}}</option>
-                        </select>
-                        <div *ngIf="!timeIsSelected">
-                          <small class="text-danger">Aucune heure n'a été sélectionnée</small>
+                          <label for="role">Heure de la messe</label>
+                          <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                  [(ngModel)]="selectedValue">
+                            <option value="" disabled>Selectionnez une heure</option>
+                            <option *ngFor="let massTime of massTimeList" value="{{massTime.id}}">{{massTime.times | customTimeFormat}}</option>
+                          </select>
+                          <div *ngIf="!timeIsSelected">
+                            <small class="text-danger">Aucune heure n'a été sélectionnée</small>
+                        </div>
+                          <div *ngIf="timeIsInList">
+                            <small class="text-danger">Cette heure a déjà été selectionnée</small>
+                        </div>
                       </div>
-                        <div *ngIf="timeIsInList">
-                          <small class="text-danger">Cette heure a déjà été selectionnée</small>
-                      </div>
+
+                      <div class="col-sm-6 mb-1 mb-sm-0">
+                          <label for="role">Type de quête</label>
+                          <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                  [(ngModel)]="questTypeSelected">
+                            <option value="" disabled>Selectionnez un type de quête</option>
+                            <option *ngFor="let questType of questTypeModel.questType" value="{{questType.labelQt}}">{{questType.labelQt}}</option>
+                          </select>
+                          <div *ngIf="!questTypeIsSelected">
+                            <small class="text-danger">Aucun type de quête n'a été sélectionné</small>
+                        </div>
+                          <div *ngIf="questTypeIsInList">
+                            <small class="text-danger">Cet type de quête a déjà été selectionné</small>
+                        </div>
                       </div>
             </div>  
 
@@ -66,7 +81,7 @@
                   <h5>Quêtes</h5>
                   <div *ngFor="let quest of mass.questType" class="col-12 mb-2">
                     <span>{{ quest }}</span>
-                    <button type="button" class="btn btn-paypal ms-2">Modifier</button>
+                    <button (click)="setQuestType(mass.idMt, quest)" type="button" class="btn btn-paypal ms-2">Modifier</button>
                   </div>
                   
                   <!-- Buttons -->

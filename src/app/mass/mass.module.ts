@@ -17,10 +17,14 @@ import { MassTimeListResolver } from './resolvers/mass-time-list.resolver';
 import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
 import { MassTimeByIdResolver } from './resolvers/mass-time-by-id.resolver';
+import { QuestTypeListResolver } from '../quest/resolvers/quest-type-list.resolver';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
-const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
+const massDayByIdResolvers = {
+  massDayByIdResolvers: MassDayById, 
+  listMassTimeResolver: MassTimeListResolver, 
+  listQuestTypeResolver: QuestTypeListResolver};
 const massTimeByIdResolvers = {massTimeByIdResolvers: MassTimeByIdResolver};
 
 const massRoutes: Routes = [

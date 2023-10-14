@@ -7,6 +7,7 @@ import { MassTimeData } from '../../models/mass-time.model';
 import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { sharedMassData } from '../../sharedMassData';
 import { CoreService } from 'src/app/core/services/core.service';
+import { QuestTypeModel } from 'src/app/quest/models/quest-type.model';
 
 @Component({
   selector: 'app-edit-mass',
@@ -17,11 +18,14 @@ import { CoreService } from 'src/app/core/services/core.service';
 })
 export class EditMassComponent implements OnInit{
   isSubmitting: boolean = false;
-  selectedValue: string = ''; // Initialisez-le avec une chaîne vide
   times: string[] = []; // Initialisez-le comme un tableau vide
   formData !: SetMassModel;
   dataSetMassModel !: DataSetMassModel;
   massTimeList!: Array<MassTimeData>;
+  questTypeModel!: QuestTypeModel;
+
+  selectedValue: string = ''; // Initialisez-le avec une chaîne vide
+  questTypeSelected: string = '';
 
   setButtonText: string = "Modifier";
 
@@ -36,6 +40,7 @@ export class EditMassComponent implements OnInit{
   timeIsInList: boolean = false;
   timeIsSelected: boolean = true;
   questTypeIsInList: boolean = false;
+  questTypeIsSelected: boolean = true;
 
 
   constructor(
@@ -58,6 +63,12 @@ export class EditMassComponent implements OnInit{
     this.route.data.pipe(map(data => data['listMassTimeResolver']))
     .subscribe( (data) => {
         this.massTimeList = data.time;
+      }
+    );
+    
+    this.route.data.pipe(map(data => data['listQuestTypeResolver']))
+    .subscribe( (data) => {
+        this.questTypeModel = data;
       }
     );
 
@@ -112,6 +123,7 @@ export class EditMassComponent implements OnInit{
   // Méthode pour modifier une heure existante
   setTime(idMtToFind: number) {
     //If time selected is already in the list
+    console.log("idTIME; "+idMtToFind);
     this.timeIsInList = this.dataSetMassModel.masse.times.some(times => times.idMt === parseInt(this.selectedValue));
     if (!this.timeIsInList) {
       if(this.selectedValue.length != 0){
@@ -130,6 +142,41 @@ export class EditMassComponent implements OnInit{
         }
       }else{
         this.timeIsSelected = false;
+      }
+    }
+    
+  }
+  setQuestType(idMtToFind: number, quesTypeToModify: string) {
+    //If time selected is already in the list
+    console.log("id; "+idMtToFind);
+    
+    const selectedTime = this.dataSetMassModel.masse.times.find(data => data.idMt === idMtToFind)
+    this.questTypeIsInList = selectedTime?.questType.includes(this.questTypeSelected) ?? false;
+    console.log("boom: "+this.questTypeSelected);
+    
+    if (!this.questTypeIsInList) {
+      if(this.questTypeSelected.length != 0){
+        this.questTypeIsSelected = true;
+        if (selectedTime) {
+          // console.log(this.dataSetMassModel.masse.times.indexOf(selectedTime));
+          const index = this.dataSetMassModel.masse.times.indexOf(selectedTime);
+
+            const questTypeTable = this.dataSetMassModel.masse.times[index].questType;
+            this.dataSetMassModel.masse.times[index].questType = [];
+
+            questTypeTable.forEach(data => {
+              if (data != quesTypeToModify) {
+                this.dataSetMassModel.masse.times[index].questType.push(data)
+              }
+            });
+            this.dataSetMassModel.masse.times[index].questType.push(this.questTypeSelected);
+          
+        } else {
+          this.questTypeIsSelected = false;
+          // console.log("Aucun objet correspondant trouvé.");
+        }
+      }else{
+        this.questTypeIsSelected = false;
       }
     }
     
