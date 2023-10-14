@@ -134,6 +134,7 @@
     [searchBarValue]="searchBarValue"
     [dateStartValue]="dateStartValue"
     [dateEndValue]="dateEndValue === ''? today: dateEndValue"
+    listType="mass"
    (dataFilterToParent) = "handleDataFilterFromChild($event)"
    ></app-modal-filter>
 
