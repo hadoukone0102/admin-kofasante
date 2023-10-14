@@ -24,8 +24,13 @@
                                 [(ngModel)]="selectedValue">
                           <option value="" disabled>Selectionnez une heure</option>
                           <option *ngFor="let massTime of massTimeList" value="{{massTime.id}}">{{massTime.times | customTimeFormat}}</option>
-                          <!-- Ajoutez d'autres options ici si nécessaire -->
                         </select>
+                        <div *ngIf="!timeIsSelected">
+                          <small class="text-danger">Aucune heure n'a été sélectionnée</small>
+                      </div>
+                        <div *ngIf="timeIsInList">
+                          <small class="text-danger">Cette heure a déjà été selectionnée</small>
+                      </div>
                       </div>
             </div>  
 

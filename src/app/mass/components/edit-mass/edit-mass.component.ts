@@ -32,6 +32,11 @@ export class EditMassComponent implements OnInit{
   errorMessage!: string;
   successfulOperation: boolean = false;
 
+  // ~~~~~~~~~~~~~~~ Boolean ~~~~~~~~~~~~~~~ //
+  timeIsInList: boolean = false;
+  timeIsSelected: boolean = true;
+  questTypeIsInList: boolean = false;
+
 
   constructor(
     private massService: MassService, 
@@ -69,26 +74,6 @@ export class EditMassComponent implements OnInit{
       typeQuette: [],
       masses_times_id: 0
     };
-    // this.dataSetMassModel = {
-    //   masse : {
-    //     id_days: 0,
-    //     date: "",
-    //     days: "",
-    //     times: [
-    //       {
-    //         idMt: 4,
-    //         time: "10:00",
-    //         questType: ["normal", "spéciale"]
-    //       },
-    //       {
-    //         idMt: 3,
-    //         time: "15:35",
-    //         questType: ["normal", "Bateau"]
-    //       },
-
-    //     ]
-    //   }
-    // }
   }
 
   onSubmit(idMass:number, idMassTime:number, quests:string[]){
@@ -126,20 +111,28 @@ export class EditMassComponent implements OnInit{
 
   // Méthode pour modifier une heure existante
   setTime(idMtToFind: number) {
-    if(this.selectedValue.length != 0){
-      const selectedTime = this.dataSetMassModel.masse.times.find(timeObj => timeObj.idMt === idMtToFind);
-      if (selectedTime) {
-        // console.log(this.dataSetMassModel.masse.times.indexOf(selectedTime));
-        const index = this.dataSetMassModel.masse.times.indexOf(selectedTime);
-        const time = this.massTimeList.find(data => data.id === parseInt(this.selectedValue) );
-        this.dataSetMassModel.masse.times[index].time = time?.times ?? "";
-        this.dataSetMassModel.masse.times[index].idMt = parseInt(this.selectedValue);
-        console.log(this.dataSetMassModel.masse.times[index].idMt );
-        
-      } else {
-        console.log("Aucun objet correspondant trouvé.");
+    //If time selected is already in the list
+    this.timeIsInList = this.dataSetMassModel.masse.times.some(times => times.idMt === parseInt(this.selectedValue));
+    if (!this.timeIsInList) {
+      if(this.selectedValue.length != 0){
+        this.timeIsSelected = true;
+        const selectedTime = this.dataSetMassModel.masse.times.find(timeObj => timeObj.idMt === idMtToFind);
+        if (selectedTime) {
+          // console.log(this.dataSetMassModel.masse.times.indexOf(selectedTime));
+          const index = this.dataSetMassModel.masse.times.indexOf(selectedTime);
+          const time = this.massTimeList.find(data => data.id === parseInt(this.selectedValue) );
+          this.dataSetMassModel.masse.times[index].time = time?.times ?? "";
+          this.dataSetMassModel.masse.times[index].idMt = parseInt(this.selectedValue);
+          // console.log(this.dataSetMassModel.masse.times[index].idMt );
+          
+        } else {
+          console.log("Aucun objet correspondant trouvé.");
+        }
+      }else{
+        this.timeIsSelected = false;
       }
     }
+    
   }
 
   deleteMass(idMass: number){
