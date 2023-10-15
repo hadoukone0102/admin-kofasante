@@ -10,20 +10,36 @@ import { MassRequestService } from '../../mass-request-services/mass-request.ser
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { MassReport, AllMassRequest } from '../models/mass-report-model.model';
+import { MassReport, AllMassRequest, AllmassResquestChild } from '../models/mass-report-model.model';
 import { MassReportServicesService } from '../../ReportMass/services/mass-report-services.service'
-import { linePaginateAnimation } from 'src/app/core/animations/animations';
+import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-all-mass-report',
   templateUrl: './all-mass-report.component.html',
   styleUrls: ['./all-mass-report.component.css'],
   animations:[
-    linePaginateAnimation
+    linePaginateAnimation,
+    zoomEnterAnimation
   ]
 })
 export class AllMassReportComponent {
-  allMass!:AllMassRequest;
+
+  
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~perso~~~~~~~~~~~~~~~~~~~~~~
+@Input() MassReport!:MassReport;
+messesAnonymous$!: Observable<MassRequest>;
+messesNoAnonymous$!: Observable<anonymosMass>;
+allMass$!:Observable<AllMassRequest>;
+accumulation!: MassReport;
+type!: string;
+
+todayDate!:string;
+// variable de recherche
+
+
+filteredMasses: AllmassResquestChild[] = []; 
+allMass!:AllMassRequest;
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
@@ -55,10 +71,103 @@ excelFileName: string = "Demande-noAnonyme";
       (data)=>{
         this.allMass = data;
         this.checkAndApplyDisabled(data);
+        console.log(this.allMass);
       }
     )
+
+    //###############################################""""
+
+    this.massrservices.GetMassReport().subscribe(
+      (datas)=>{
+        this.MassReport = datas;
+      }
+    )
+
+    const now = new Date();
+    this.todayDate = now.toISOString().substring(0, 10); 
+    this.dateEndValue = this.todayDate;
+    this.dateStartValue = this.todayDate;
+
     this.checkAndApplyDisabled(this.allMass);
+
   }
+
+  //############################################"
+  
+  
+   /**
+   * get anonymous mass list
+   * @date 14/10/23 22:18
+   */
+
+   showAnonymousList(){
+    this.type ='anonymous';
+    this.messesNoAnonymous$ = this.massrservices.getMassAnonymousWhere();
+     this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 1);
+     console.log(this.filteredMasses);
+  }
+
+  
+  /**
+   * get Isanonymous mass list
+   * @date 14/10/23 22:18
+   */
+  showNoAnonymousList(){
+    this.type = 'NoAnonymous'
+    this.massrservices.getMassNoAnonymousWhere();
+    this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 0);
+  }
+
+   /**
+   * Get the list of all Mass
+   * @date 14/10/2023 - 22:46
+   */
+   showAllMassList(){
+    this.type = "all";
+    this.allMass$ = this.massrservices.getAllMassWhere();
+    this.filteredMasses = this.allMass.demande_messe;
+  }
+
+  getAccumlationMass(){
+    this.massrservices.getAccumulationMass(this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    .subscribe(data => {
+        this.accumulation = data;
+      });
+  }
+
+/**
+   * @date 14/10/2023 - 22:46
+   *
+   * @param {string} searchBarValue
+   */
+handleSearchBarValueFromChild(searchBarValue: string) {
+  this.searchBarValue = searchBarValue;
+  this.getAccumlationMass();
+}
+
+/**
+   * @date 14/10/2023 - 22:46
+   *
+   * @param {string} searchBarValue
+   */
+handleDateStartValueFromChild(dateStartValue: string) {
+  this.dateStartValue = dateStartValue;
+  this.getAccumlationMass();
+}
+
+/**
+   * @date 14/10/2023 - 22:46
+   *
+   * @param {string} searchBarValue
+   */
+handleDateEndValueFromChild(dateEndValue: string) {
+  this.dateEndValue = dateEndValue;
+  this.getAccumlationMass();
+}
+
+  
+  
+  //#####################################################""
 
     /**
    * Disable or enable the buttons to go to the next or previous page 
