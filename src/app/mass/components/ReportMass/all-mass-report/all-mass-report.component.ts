@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from '../../mass-modal/mass-modal-filter/filter-model.model';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -13,6 +13,7 @@ import * as XLSX from 'xlsx';
 import { MassReport, AllMassRequest, AllmassResquestChild } from '../models/mass-report-model.model';
 import { MassReportServicesService } from '../../ReportMass/services/mass-report-services.service'
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-all-mass-report',
@@ -60,21 +61,27 @@ pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
 pdfTitle: string ='Liste des demandes des Messes';
 pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
-  isRefreshing!: boolean;
-
+isRefreshing!: boolean;
+isShow:boolean=true;
   constructor(
     private massrservices: MassReportServicesService,
+    private route: ActivatedRoute,
   ){}
 
   ngOnInit(){
-    this.massrservices.getAllMassRequest().subscribe(
-      (data)=>{
-        this.allMass = data;
-        this.checkAndApplyDisabled(data);
-        console.log(this.allMass);
-      }
-    )
-
+    this.route.data.pipe(map(data=>data['MassReportResolver']))
+    .subscribe( (data)=>{
+      this.allMass =data
+    }
+    );
+    // this.massrservices.getAllMassRequest().subscribe(
+    //   (data)=>{
+    //     this.allMass = data;
+    //     this.checkAndApplyDisabled(data);
+    //     console.log(this.allMass);
+    //   }
+    // )
+    
     //###############################################""""
 
     this.massrservices.GetMassReport().subscribe(
@@ -101,10 +108,11 @@ excelFileName: string = "Demande-noAnonyme";
    */
 
    showAnonymousList(){
+    this.isShow = false;
     this.type ='anonymous';
     this.messesNoAnonymous$ = this.massrservices.getMassAnonymousWhere();
      this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 1);
-     console.log(this.filteredMasses);
+    //  console.log(this.filteredMasses);
   }
 
   
@@ -113,6 +121,7 @@ excelFileName: string = "Demande-noAnonyme";
    * @date 14/10/23 22:18
    */
   showNoAnonymousList(){
+    this.isShow = false;
     this.type = 'NoAnonymous'
     this.massrservices.getMassNoAnonymousWhere();
     this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 0);
@@ -123,6 +132,7 @@ excelFileName: string = "Demande-noAnonyme";
    * @date 14/10/2023 - 22:46
    */
    showAllMassList(){
+    this.isShow = false;
     this.type = "all";
     this.allMass$ = this.massrservices.getAllMassWhere();
     this.filteredMasses = this.allMass.demande_messe;

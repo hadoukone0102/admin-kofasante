@@ -5,3 +5,6 @@
 .NoAnymous{
     background-color: #c0c0d2;
 }
+.null{
+    visibility: hidden;
+}

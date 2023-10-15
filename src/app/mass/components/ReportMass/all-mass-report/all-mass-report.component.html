@@ -159,15 +159,47 @@
                 <th  class="border-0">Id de transaction</th>
             </tr>
         </thead>
-        <tbody *ngFor="let basket of filteredMasses; let i = index" >
-            <tr [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}">
+        <tbody @zoomEnterAnimation>
+            <ng-container *ngIf="isShow">
+                <tr *ngFor="let basket of allMass.demande_messe; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @linePaginateAnimation>
+                    <td>{{i+1}}</td>
+                    <td>
+                        <span *ngIf="basket.isAnonymous === 1">null</span>
+                        <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
+                      </td>
+                    <td>
+                        <span *ngIf="basket.isAnonymous === 1">null</span>
+                        <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
+                    </td>
+                    <td>{{basket.contactMr}}</td>
+                    <td>{{basket.labelMt}}</td>
+                    <td>{{basket.type_demande}}</td>
+    
+                        <td>
+                            <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
+                                <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
+                                    {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                                </option>
+                            </select>
+                        </td>
+            
+                    <td>{{basket.transaction_id}}</td>
+                </tr>
+            </ng-container>
+            <tr  *ngFor="let basket of filteredMasses; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @zoomEnterAnimation>
                 <td>{{i+1}}</td>
-                <td>{{basket.firstNameMr}}</td>
-                <td>{{basket.firstNameMr}}</td>
+                <td>
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
+                  </td>
+                <td>
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
+                </td>
                 <td>{{basket.contactMr}}</td>
                 <td>{{basket.labelMt}}</td>
                 <td>{{basket.type_demande}}</td>
-               
+
                     <td>
                         <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
                             <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
@@ -178,6 +210,9 @@
         
                 <td>{{basket.transaction_id}}</td>
             </tr>
+              
+             
+          
         </tbody>
     </table>
     <div >

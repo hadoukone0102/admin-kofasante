@@ -22,11 +22,12 @@ import { ListBasketMassComponent } from './components/mass-basket/mass-basket-ta
 import { MassBasketTableComponent } from './components/mass-basket/mass-basket-table/mass-basket-table.component';
 import { ReportMassComponent } from './components/ReportMass/report-mass/report-mass.component';
 import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
+import { MassReportResolver } from './resolvers/mass-report.resolver';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
 const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
-
+const ReportMassRequest = {ReportMassRequest: MassReportResolver}
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent, resolve: listMassTimeResolver},
