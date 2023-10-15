@@ -41,7 +41,7 @@ export class AllMassReportComponent {
 styleString: string ='';
 isExporting!: boolean;
 pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
-pdfTitle: string="Liste des Demandes de Messe";
+pdfTitle: string ='Liste des demandes des Messes';
 pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
   isRefreshing!: boolean;
@@ -265,7 +265,26 @@ handleDataFilterFromChild(dataFilter: FilterMassData) {
   }
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Fin de la fonction pour exporter en PDF ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/**
+   * Export data from table to Excel
+   * @date 5/17/2023 - 12:41:09 PM
+   */
+exportToExel(){
+  /* pass here the table id */
+  let element = document.getElementById('exportTable');
+  const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
 
-  exportToExel(){}
+  /* generate workbook and add the worksheet */
+  const wb: XLSX.WorkBook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+  /* save to file */  
+  XLSX.writeFile(wb, this.excelFileName);
+}
+
+Export:boolean= false;
+ActionExport(){
+  this.Export = true;
+}
 
 }

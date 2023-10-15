@@ -37,32 +37,32 @@ constructor(
 ){}
 
 ngOnInit(): void{
-  
+  this.MassReportServicesService.GetMassReport().subscribe(
+    (data)=>{
+      this.MassReport = data;
+      console.log(this.MassReport);
+    }
+  )
   const now = new Date();
   this.todayDate = now.toISOString().substring(0, 10); 
   this.dateEndValue = this.todayDate;
   this.dateStartValue = this.todayDate;
 
-  // this.MassReportServicesService.GetMassReport().subscribe(
-  //   (data)=>{
-  //     this.MassReport = data;
-  //     console.log(this.MassReport);
-  //   }
-  // )
+ 
 
 //initialisation 
-  this.accumulation = {
-    status: '',
-    status_code: 0,
-    status_message: '',
-    total_messe: 0,
-    cumul_prix_messe: 0,
-    total_messe_anonymes: 0,
-    cumul_prix_messes_anonymes: 0,
-    total_messe_nonanonymes: 0,
-    cumul_prix_messes_nonanonymes: 0,
+  // this.accumulation = {
+  //   status: '',
+  //   status_code: 0,
+  //   status_message: '',
+  //   total_messe: this.accumulation.total_messe,
+  //   cumul_prix_messe: this.accumulation.cumul_prix_messe,
+  //   total_messe_anonymes: this.accumulation.total_messe_anonymes,
+  //   cumul_prix_messes_anonymes: this.accumulation.cumul_prix_messes_anonymes,
+  //   total_messe_nonanonymes: this.accumulation.total_messe_nonanonymes,
+  //   cumul_prix_messes_nonanonymes: this.accumulation.cumul_prix_messes_nonanonymes,
 
-  }
+  // }
   
 }
   /**
