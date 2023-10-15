@@ -250,12 +250,14 @@
         [dateEndValue]="dateEndValue"
         (dataFilterToParent) = "handleDataFilterFromChild($event)"
     ></app-mass-modal-filter>
-    <!-- 
-    <app-mass-modal-column>
-
+    
+    <app-mass-modal-column
+        [listType]="listType"
+        (formDonationColumnToParent) = "handleDataColumnFromChild($event)"
+    >
     </app-mass-modal-column> 
   
--->
+
 
 
     </div>

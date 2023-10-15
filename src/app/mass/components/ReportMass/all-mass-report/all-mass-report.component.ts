@@ -14,6 +14,7 @@ import { MassReport, AllMassRequest, AllmassResquestChild } from '../models/mass
 import { MassReportServicesService } from '../../ReportMass/services/mass-report-services.service'
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { ActivatedRoute } from '@angular/router';
+import { FormDonationColumn } from 'src/app/donation/models/form-donation-column.model';
 
 @Component({
   selector: 'app-all-mass-report',
@@ -50,6 +51,7 @@ allMass!:AllMassRequest;
   dateStartValue: string = "";
   dateEndValue: string = "";
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ for modal element ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  @Input() listType!: string;
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
@@ -63,6 +65,8 @@ pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
 isRefreshing!: boolean;
 isShow:boolean=true;
+  // ~~~~~~~~~~ Columns valriabled ~~~~~~~~~ //
+  formDonationColumn!: FormDonationColumn;
   constructor(
     private massrservices: MassReportServicesService,
     private route: ActivatedRoute,
@@ -265,7 +269,11 @@ loadDataForCurrentPage(page: number) {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  /**
+ 
+handleDataColumnFromChild(dataColumn: FormDonationColumn) {
+  this.formDonationColumn = dataColumn ;
+ }  
+/**
    * @date 13/10/2023
    */
   resetFilter(){

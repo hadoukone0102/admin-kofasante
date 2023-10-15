@@ -23,6 +23,7 @@ import { MassBasketTableComponent } from './components/mass-basket/mass-basket-t
 import { ReportMassComponent } from './components/ReportMass/report-mass/report-mass.component';
 import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
 import { MassReportResolver } from './resolvers/mass-report.resolver';
+import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -60,6 +61,7 @@ const massRoutes: Routes = [
     MassBasketTableComponent,
     ReportMassComponent,
     AllMassReportComponent,
+    MassModalColumnComponent,
   ],
   imports: [
     CommonModule,
