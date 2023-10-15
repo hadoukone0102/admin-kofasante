@@ -6,6 +6,7 @@ import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, Delete
 import { environment } from 'src/environments/environment';
 import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 import { Basket, MassBasket } from '../models/basket.model';
+import { AllMassRequest } from '../components/ReportMass/models/mass-report-model.model';
 
 @Injectable({
   providedIn: 'root'
@@ -130,6 +131,15 @@ export class MassService {
     return this.http.get<Basket>(basketUrl, { params }).pipe(
       catchError(error => this.coreService.handleError(error))
     );
+  }
+
+  //liste de tous les messes
+
+  getAllMassRequest():Observable<AllMassRequest>{
+    const AllMassRequestVariable = environment.LinkForAllMassRequest;
+    return this.http.get<AllMassRequest>(AllMassRequestVariable).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
   }
 
 }
