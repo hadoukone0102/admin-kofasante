@@ -2,12 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
 import { ChildMassRequest, MassRequest, Masses } from '../mass-request-models/mass-request.model';
 import { MassRequestService } from '../mass-request-services/mass-request.service';
-import { Subject } from 'rxjs';
+import { Subject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from '../mass-modal/mass-modal-filter/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-mass-request-table',
   templateUrl: './mass-request-table.component.html'
@@ -47,16 +48,24 @@ excelFileName: string = "Demande-noAnonyme";
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
+    private route: ActivatedRoute,
     ){}
 
     ngOnInit(){
       this.sendDataToParent();
-      this.massRequestService.getMassRequests().subscribe(
-        (data)=>{
+      this.route.data.pipe(map(data=>data['massNoAnonymousRequestResolver']))
+        .subscribe((data)=>{
           this.massRequests = data;  
           console.log(this.massRequests.demande_messe);
         }
-      )
+        );
+        
+      // this.massRequestService.getMassRequests().subscribe(
+      //   (data)=>{
+      //     this.massRequests = data;  
+      //     console.log(this.massRequests.demande_messe);
+      //   }
+      // )
       this.massRequestService.getMass().subscribe(
         (data)=>{
           this.Masses = data;
@@ -67,7 +76,7 @@ excelFileName: string = "Demande-noAnonyme";
     }
     
     getUniqueDates(dates: string[]): string[] {
-      return Array.from(new Set(dates)); // Utilisez un ensemble pour garantir des dates uniques
+      return Array.from(new Set(dates)); //    Utilisez un ensemble pour garantir des dates uniques
     }    
 
     goToEditMass(id: number){

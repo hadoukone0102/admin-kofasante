@@ -63,7 +63,6 @@
                 <th class="border-0">Type de messe</th>
                 <th class="border-0">Intention</th>
                 <th class="border-0">Date</th>
-                <th  class="border-0">Action</th>
                 <th  class="border-0">Id de transaction</th>
             </tr>
         </thead>
@@ -94,14 +93,9 @@
           <option *ngFor="let masse of request.masses" [value]="masse.masses_days">{{ masse.masses_days }}, {{masse.name_masses_days}}, {{masse.masses_times}}</option>
         </select>
       </td>
-    <td>
-        <a title="Voir la description de la demande" (click)="goToEditMass(request.id)"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
-            <i class="fa fa-edit" ></i>
-        </a>
-    </td>
 
     <td >
-        <!-- {{admin.prenomAdmin}} -->{{request.transaction_id}}
+        {{request.transaction_id}}
     </td>
     
     </tr>

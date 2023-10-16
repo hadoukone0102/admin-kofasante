@@ -8,12 +8,7 @@
                     <div class="text-center text-md-center mb-4 mt-md-0">
                         <h1 class="mb-0 h4">Selectionnez les colonnes à afiicher</h1>
                     </div>
-                    <!-- Spinner -->
-                    <!-- <div  class="d-flex align-items-center justify-content-center">
-                        <div  class="spinner-border text-info " role="status">
-                        <span class="visually-hidden">Loading...</span>
-                        </div>
-                    </div> -->
+                   
                     <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
                         <!-- Form -->
                         <div class="row">
@@ -30,15 +25,7 @@
                                       N°
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="amount" name="amount"
-                                    [(ngModel)]="formDonationColumn.montantDon"
-                                    [disabled]="isAnonymous"
-                                    >
-                                    <label class="form-check-label" for="amount">
-                                      Montant
-                                    </label>
-                                </div>
+                                
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="type" name="type"
                                     [(ngModel)]="formDonationColumn.typeDon"
@@ -48,15 +35,7 @@
                                       Type
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="organisation" name="organisation"
-                                    [(ngModel)]="formDonationColumn.organisationDon"
-                                    [disabled]="isAnonymous"
-                                    >
-                                    <label class="form-check-label" for="organisation">
-                                      Organisation
-                                    </label>
-                                </div>
+                                
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="date" name="date"
                                     [(ngModel)]="formDonationColumn.dateDon"
@@ -92,41 +71,7 @@
                                       Contact
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="payer" name="payer"
-                                    [(ngModel)]="formDonationColumn.payeurDon"
-                                    >
-                                    <label class="form-check-label" for="payer">
-                                      Payeur
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="civility" name="civility"
-                                    [(ngModel)]="formDonationColumn.civiliteDon"
-                                    [disabled]="isAnonymous"
-                                    >
-                                    <label class="form-check-label" for="civility">
-                                      Civilité
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="city" name="city"
-                                    [(ngModel)]="formDonationColumn.villeDon"
-                                    [disabled]="isAnonymous"
-                                    >
-                                    <label class="form-check-label" for="city">
-                                      Ville
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="country" name="country"
-                                    [(ngModel)]="formDonationColumn.paysDon"
-                                    [disabled]="isAnonymous"
-                                    >
-                                    <label class="form-check-label" for="country">
-                                      Pays
-                                    </label>
-                                </div>
+                                
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="transactionId"  name="transactionId" 
                                     [(ngModel)]="formDonationColumn.transactionId"

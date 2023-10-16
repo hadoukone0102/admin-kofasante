@@ -26,6 +26,8 @@ import { ReportMassComponent } from './components/ReportMass/report-mass/report-
 import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
 import { MassReportResolver } from './resolvers/mass-report.resolver';
 import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
+import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request.resolver';
+import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-request.resolver';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -35,7 +37,9 @@ const massDayByIdResolvers = {
   listMassTimeResolver: MassTimeListResolver, 
   listQuestTypeResolver: QuestTypeListResolver};
 const massTimeByIdResolvers = {massTimeByIdResolvers: MassTimeByIdResolver};
-const reportMassRequest = {reportMassRequest: MassReportResolver}
+const reportMassRequest = {reportMassRequest: MassReportResolver};
+const massAnonymousRequestResolver = {massAnonymousRequestResolver: MassAnonymousRequestResolver};
+const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAnonymousRequestResolver}
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
@@ -44,8 +48,8 @@ const massRoutes: Routes = [
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes/:id', component: EditMassTimeComponent, resolve: massTimeByIdResolvers},
-  {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
-  {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
+  {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent,resolve: massNoAnonymousRequestResolver},
+  {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
   {path: 'corbeille-messe', component: ListBasketMassComponent},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
 ];

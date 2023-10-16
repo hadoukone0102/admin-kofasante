@@ -14,7 +14,6 @@ export class MassModalColumnComponent {
   //Disable or enable checkbox depending list type
   isAnonymous!: boolean;
   isOrganisation!: boolean;
-
   formDonationColumn!: FormDonationColumn;
 
   ngOnInit(): void {

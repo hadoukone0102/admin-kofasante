@@ -2,12 +2,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
 import { MassRequestService } from '../components/mass-request-services/mass-request.service';
 import { anonymosMass } from '../components/mass-request-models/mass-request.model';
-import { Subject } from 'rxjs';
+import { Subject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from '../components/mass-modal/mass-modal-filter/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-mass-anonymous-request',
@@ -44,15 +45,17 @@ excelFileName: string = "Demande-Anonyme";
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
+    private route: ActivatedRoute,
   ){}
   
   ngOnInit(){
-    this.massRequestService.getResquestMassAnonymous().subscribe(
-      (data)=>{
+
+    this.route.data.pipe(map(data=>data['massAnonymousRequestResolver']))
+      .subscribe((data)=>{
         this.massAnonyResquest = data;  
         console.log(this.massAnonyResquest.demande_messe);
       }
-    )
+      );
     // this.checkAndApplyDisabled(this.massRequests);
   }
 
