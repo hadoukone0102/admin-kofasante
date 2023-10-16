@@ -23,6 +23,7 @@
                                 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="number" name="number"
+                                    [(ngModel)]="formDonationColumn.number"
                                     
                                     >
                                     <label class="form-check-label" for="number">
@@ -31,6 +32,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="amount" name="amount"
+                                    [(ngModel)]="formDonationColumn.montantDon"
                                     >
                                     <label class="form-check-label" for="amount">
                                       Montant
@@ -38,7 +40,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="type" name="type"
-                                    
+                                    [(ngModel)]="formDonationColumn.typeDon"
                                     >
                                     <label class="form-check-label" for="type">
                                       Type
@@ -46,7 +48,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="organisation" name="organisation"
-                                    
+                                    [(ngModel)]="formDonationColumn.organisationDon"
+                                    [disabled]="isAnonymous || (!isAnonymous && !isOrganisation)"
                                     >
                                     <label class="form-check-label" for="organisation">
                                       Organisation
@@ -54,7 +57,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="date" name="date"
-                                    
+                                    [(ngModel)]="formDonationColumn.dateDon"
                                     >
                                     <label class="form-check-label" for="date">
                                       Date
@@ -62,7 +65,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="lastName" name="lastName"
-                                   
+                                    [(ngModel)]="formDonationColumn.nomDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="lastName">
                                       Nom
@@ -70,7 +74,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="firstName" name="firstName"
-                                    
+                                    [(ngModel)]="formDonationColumn.prenomDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="firstName">
                                       Prénom
@@ -78,7 +83,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="contact" name="contact"
-                                    
+                                    [(ngModel)]="formDonationColumn.contactDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="contact">
                                       Contact
@@ -86,7 +92,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="payer" name="payer"
-                                    
+                                    [(ngModel)]="formDonationColumn.payeurDon"
                                     >
                                     <label class="form-check-label" for="payer">
                                       Payeur
@@ -94,7 +100,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="civility" name="civility"
-                                   
+                                    [(ngModel)]="formDonationColumn.civiliteDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="civility">
                                       Civilité
@@ -102,7 +109,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="city" name="city"
-                                    
+                                    [(ngModel)]="formDonationColumn.villeDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="city">
                                       Ville
@@ -110,7 +118,8 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="country" name="country"
-                                   
+                                    [(ngModel)]="formDonationColumn.paysDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="country">
                                       Pays
@@ -118,7 +127,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="transactionId"  name="transactionId" 
-                                    
+                                    [(ngModel)]="formDonationColumn.transactionId"
                                     >
                                     <label class="form-check-label" for="transactionId">
                                       Id de transaction

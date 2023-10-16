@@ -126,7 +126,7 @@
                 </div>
 
                 <!--  *ngIf="listType != 'failed'"  -->
-                <div  class="mb-2 col-8 col-sm-4  btn-group">
+                <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
                     <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
                         <i class="fa fa-check me-3"></i>
                         Colonnes
@@ -149,8 +149,8 @@
     <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
         <thead class="thead-light">
             <tr>
-                <th class="border-0 rounded-start">N°</th>
-                <th class="border-0">Nom</th>
+              <th class="border-0 rounded-start">N°</th>
+              <th class="border-0">Nom</th>
                 <th class="border-0">Prenom</th>
                 <th class="border-0">Contact</th>
                 <th class="border-0">Type de messe</th>
@@ -162,7 +162,9 @@
         <tbody @zoomEnterAnimation>
             <ng-container *ngIf="isShow">
                 <tr *ngFor="let basket of allMass.demande_messe; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @linePaginateAnimation>
-                    <td>{{i+1}}</td>
+                  <td>
+                    <a class=" fw-bold">{{i+1}}</a> 
+                </td>
                     <td>
                         <span *ngIf="basket.isAnonymous === 1">null</span>
                         <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
@@ -255,9 +257,7 @@
         [listType]="listType"
         (formDonationColumnToParent) = "handleDataColumnFromChild($event)"
     >
-    </app-mass-modal-column> 
-  
-
+    </app-mass-modal-column>
 
 
     </div>

@@ -28,7 +28,8 @@ import { MassModalColumnComponent } from './components/mass-modal/mass-modal-col
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
 const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
-const ReportMassRequest = {ReportMassRequest: MassReportResolver}
+const reportMassRequest = {reportMassRequest: MassReportResolver}
+
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent, resolve: listMassTimeResolver},
@@ -39,7 +40,7 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
   {path: 'corbeille-messe', component: ListBasketMassComponent},
-  {path: 'Bilan-Messe', component: ReportMassComponent},
+  {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
 ];
 
 @NgModule({

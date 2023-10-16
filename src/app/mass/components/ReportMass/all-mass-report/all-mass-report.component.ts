@@ -15,6 +15,7 @@ import { MassReportServicesService } from '../../ReportMass/services/mass-report
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { ActivatedRoute } from '@angular/router';
 import { FormDonationColumn } from 'src/app/donation/models/form-donation-column.model';
+import { FormMassColumn } from '../models/form-mass-column.model';
 
 @Component({
   selector: 'app-all-mass-report',
@@ -46,6 +47,13 @@ allMass!:AllMassRequest;
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
+  isAnonymous!: boolean;
+  // ~~~~~~~~~~ Boolean variables ~~~~~~~~~~ //
+  dateIsCorrect!: boolean;
+  isOrganisation!: boolean;
+  isAll!: boolean;
+  isFailed!: boolean;
+  noData!: boolean;
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   searchBarValue: string = "";
   dateStartValue: string = "";
@@ -72,12 +80,17 @@ isShow:boolean=true;
     private route: ActivatedRoute,
   ){}
 
+
+
   ngOnInit(){
-    this.route.data.pipe(map(data=>data['MassReportResolver']))
+    this.route.data.pipe(map(data=>data['reportMassRequest']))
     .subscribe( (data)=>{
       this.allMass =data
     }
     );
+
+
+
     // this.massrservices.getAllMassRequest().subscribe(
     //   (data)=>{
     //     this.allMass = data;
@@ -413,5 +426,81 @@ Export:boolean= false;
 ActionExport(){
   this.Export = true;
 }
+
+/**
+   * Allows to display only columns for the list of anonymous donatitons
+   * @date 5/17/2023 - 12:55:09 PM
+   */
+showAnonymous(){
+  this.isAnonymous = true;
+  //Initialisation
+  this.formDonationColumn = {
+    number: true,
+    montantDon: true,
+    typeDon: true,
+    organisationDon: false,
+    civiliteDon: false,
+    nomDon: false,
+    prenomDon: false,
+    contactDon: false,
+    payeurDon: true,
+    paysDon: false,
+    villeDon: false,
+    transactionId: true,
+    dateDon: true
+  }
+}
+
+ /**
+   * Allows to display only columns for the list of non-anonymous donatitons made 
+   * on a personal basis
+   * @date 5/17/2023 - 12:58:07 PM
+   */
+ showNoAnonymousPerso(){
+  this.isAnonymous = false;
+  this.isOrganisation = false;
+  //Initialisation
+  this.formDonationColumn = {
+    number: true,
+    montantDon: true,
+    typeDon: true,
+    organisationDon: false,
+    civiliteDon: true,
+    nomDon: true,
+    prenomDon: true,
+    contactDon: true,
+    payeurDon: true,
+    paysDon: true,
+    villeDon: true,
+    transactionId: true,
+    dateDon: true
+  }
+}
+
+/**
+ * Allows to display only columns for the list of non-anonymous donatitons made by organizations
+ * @date 5/17/2023 - 12:59:34 PM
+ */
+showNoAnonymousOrga(){
+  this.isAnonymous = false;
+  this.isOrganisation = true;
+   //Initialisation
+   this.formDonationColumn = {
+    number: true,
+    montantDon: true,
+    typeDon: true,
+    organisationDon: true,
+    civiliteDon: true,
+    nomDon: true,
+    prenomDon: true,
+    contactDon: true,
+    payeurDon: true,
+    paysDon: true,
+    villeDon: true,
+    transactionId: true,
+    dateDon: true
+  }
+}
+
 
 }
