@@ -1,0 +1,258 @@
+<!-- Content -->
+    <!--End Donation statistics -->
+    <div class="row">
+        <a  (click)="showAnonymousList()" @zoomEnterAnimation class="col-12 col-sm-4 col-xl-4 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <div class="row d-block d-xl-flex align-items-center">
+                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                  <div class="icon-shape icon-shape-secondary rounded me-4 me-sm-0">
+                    <i class="fa fa-heart"></i>
+                  </div>
+                  <div class="d-sm-none">
+                    <h2 class="h5">Anonyme</h2>
+                    <h3 class="fw-extrabold mb-1">{{MassReport.total_messe_anonymes}}</h3>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-7 px-xl-0">
+                  <div class="d-none d-sm-block">
+                    <h2 class="h6 text-gray-400 mb-0">Anonyme</h2>
+                    <h3 class="fw-extrabold mb-2">{{MassReport.total_messe_anonymes}}</h3>
+                  </div>
+                  <small class="d-flex align-items-center text-gray-500">
+                    <!-- {{"Montant: "+ accumulation.cumul_prix_dons_anonymes+"F"}} -->
+                  </small> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a (click)="showNoAnonymousList()" @zoomEnterAnimation class="col-12 col-sm-4 col-xl-4 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <div class="row d-block d-xl-flex align-items-center">
+                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                  <div class="icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="d-sm-none">
+                    <h2 class="h5">Non Anonyme</h2>
+                    <h3 class="fw-extrabold mb-1"> {{MassReport.total_messe_nonanonymes}}  </h3>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-7 px-xl-0">
+                  <div class="d-none d-sm-block">
+                    <h2 class="h6 text-gray-400 mb-0">Non Anonyme</h2>
+                    <h3 class="fw-extrabold mb-2">{{MassReport.total_messe_nonanonymes}}</h3>
+                  </div>
+                  <small class="d-flex align-items-center text-gray-500">
+                      <!-- {{"Montant: "+accumulation.cumul_prix_dons_non_anonymes_perso+"F"}} -->
+                  </small> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <a (click)="showAllMassList()" @zoomEnterAnimation class="col-12 col-sm-4 col-xl-4 mb-4">
+          <div class="card border-0 shadow">
+            <div class="card-body">
+              <div class="row d-block d-xl-flex align-items-center">
+                <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
+                  <div class="icon-shape icon-shape-success rounded me-4 me-sm-0">
+                    <i class="fa fa-users"></i>
+                  </div>
+                  <div class="d-sm-none">
+                    <h2 class="h5">Total</h2>
+                    <h3 class="fw-extrabold mb-1">{{MassReport.total_messe}}</h3>
+                  </div>
+                </div>
+                <div class="col-12 col-xl-7 px-xl-0">
+                  <div class="d-none d-sm-block">
+                    <h2 class="h6 text-gray-400 mb-0">Total</h2>
+                    <h3 class="fw-extrabold mb-2">{{MassReport.total_messe}}</h3>
+                  </div>
+                  <small class="d-flex align-items-center text-gray-500">
+                      {{"Montant: "+MassReport.cumul_prix_messe+"F"}}
+                  </small> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </a>
+  </div>
+  <!--End Donation statistics -->
+
+<div class="card border-0 shadow mb-4">
+    <div class="card-body">
+        <div class="row mb-4">
+            
+            <div class="row mb-4">
+                <div class="mb-2 col-8 col-sm-4 btn-group">
+                    <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">
+                        <i class="fa fa-table me-3"></i>
+                        Filtrer
+                    </button>
+                </div>
+
+                <div class="mb-2 col-8 col-sm-4  btn-group">
+                    <button (click)="resetFilter()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+                        <i class="fa fa-broom me-3"></i>
+                        Réinitialiser
+                    </button>
+                </div>
+
+                <div class="mb-2 col-8 col-sm-4  btn-group">
+                    <button (click)="ActionExport()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+                        <i class="fa fa-broom me-3"></i>
+                        Exporter
+                    </button>
+                </div>
+
+                <div *ngIf="Export" class="col-8 mb-2 col-sm-4 btn-group">
+                    <button type="button" class="btn btn-primary">Exporter en</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <svg class="icon icon-xs" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    <span class="visually-hidden">Exporter en</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" (click)="exportToPDF()">PDF</a></li>
+                    <li><a class="dropdown-item" (click)="exportToExel()">EXCEL</a></li>
+                    <!-- <li><a class="dropdown-item" (click)="exportToCSV()">CSV</a></li> -->
+                    <!-- <li><hr class="dropdown-divider"></li> -->
+                    <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+                    </ul>
+                </div>
+
+                <!--  *ngIf="listType != 'failed'"  -->
+                <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
+                    <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
+                        <i class="fa fa-check me-3"></i>
+                        Colonnes
+                    </button>
+                </div>
+
+                <!-- Refresh -->
+                <div class="col-8 mb-2 col-sm-4  btn-group">
+                    <app-refresh [isRefreshing]="isRefreshing"
+                    (toogleButton) = "handleToogleButtonFromChild($event)"
+                    ></app-refresh>
+                </div>
+                <!-- End Refresh -->
+            </div>
+        </div>
+    </div>
+    <!-- Le tableau des affichages  -->
+    <div  class="table-responsive">
+
+    <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
+        <thead class="thead-light" >
+            <tr>
+              <th [ngClass]="{'d-none': !formDonationColumn.number}" class="border-0 rounded-start">N°</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.nomDon}" class="border-0">Nom</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.prenomDon}" class="border-0">Prenom</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.contactDon}" class="border-0">Contact</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.typeDon}" class="border-0">Type de messe</th>
+              <th class="border-0">Intention</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.dateDon}" class="border-0">Date</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.transactionId}"  class="border-0">Id de transaction</th>
+            </tr>
+        </thead>
+        <tbody @zoomEnterAnimation>
+            <ng-container *ngIf="isShow">
+              <tr *ngFor="let basket of allMass.demande_messe; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @linePaginateAnimation>
+                  <td *ngIf="formDonationColumn.number">
+                    <a class=" fw-bold">{{i+1}}</a> 
+                </td>
+                <td *ngIf="formDonationColumn.nomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.prenomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.contactDon">{{basket.contactMr}}</td>
+                <td >{{basket.labelMt}}</td>
+                <td *ngIf="formDonationColumn.typeDon">{{basket.type_demande}}</td>
+                <td *ngIf="formDonationColumn.dateDon">
+                    <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
+                        <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
+                            {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                        </option>
+                    </select>
+                </td>
+                  <td *ngIf="formDonationColumn.transactionId">{{basket.transaction_id}}</td>
+            </tr>
+          </ng-container>
+            <tr  *ngFor="let basket of filteredMasses; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @zoomEnterAnimation>
+                <td  *ngIf="formDonationColumn.number">{{i+1}}</td>
+                <td *ngIf="formDonationColumn.nomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.prenomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.contactDon" >{{basket.contactMr}}</td>
+                <td>{{basket.labelMt}}</td>
+                <td *ngIf="formDonationColumn.typeDon">{{basket.type_demande}}</td>
+                <td *ngIf="formDonationColumn.dateDon">
+                    <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
+                        <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
+                            {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                        </option>
+                    </select>
+                </td>
+                <td *ngIf="formDonationColumn.transactionId">{{basket.transaction_id}}</td>
+            </tr>     
+
+        </tbody>
+    </table>
+    <div >
+        
+    <div >
+        <div *ngIf=" allMass.last_page != 0 && allMass.last_page != undefined && allMass.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+            <p>
+                Affichage de {{allMass.current_page}}/{{allMass.last_page}} pages
+            </p>
+            <nav  aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item {{isFirstPage}}">
+                    <a (click)="goToPrevious()" class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                    </li>
+                    <li class="page-item"><a class="page-link">{{allMass.current_page}}</a></li>
+                    <li  class="page-item {{isLastPage}}">
+                    <a (click)="goToNext()" class="page-link"  aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <h4 *ngIf="allMass.total_massesRe === 0" class="text-center mt-2">Aucune donnée dans la table</h4>
+    </div>
+        <!-- <h4 *ngIf="admins.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4> -->
+    </div>
+
+    <app-mass-modal-filter
+        [searchBarValue]="searchBarValue"
+        [dateStartValue]="dateStartValue"
+        [dateEndValue]="dateEndValue"
+        (dataFilterToParent) = "handleDataFilterFromChild($event)"
+    ></app-mass-modal-filter>
+    
+    <app-mass-modal-column
+        [listType]="listType"
+        (formDonationColumnToParent) = "handleDataColumnFromChild($event)"
+    >
+    </app-mass-modal-column>
+
+
+    </div>
+    
+</div>

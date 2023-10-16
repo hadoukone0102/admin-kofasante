@@ -10,6 +10,7 @@ import { ConfirmCodeSmsComponent } from './admin/components/confirm-code-sms/con
 import { ResetPasswordComponent } from './admin/components/reset-password/reset-password.component';
 import { AccessGuard } from './admin/guards/access.guard';
 import { IsResettingPasswordGuard } from './admin/guards/is-resetting-password.guard';
+import { AnonymousMassRequestListComponent } from './mass/components/anonymous-mass-request-list/anonymous-mass-request-list.component';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};

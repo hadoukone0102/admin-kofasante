@@ -18,6 +18,15 @@ import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
 import { MassTimeByIdResolver } from './resolvers/mass-time-by-id.resolver';
 import { QuestTypeListResolver } from '../quest/resolvers/quest-type-list.resolver';
+import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-anonymous-request.component';
+import { MassModalFilterComponent } from './components/mass-modal/mass-modal-filter/mass-modal-filter.component';
+import { ListBasketMassComponent } from './components/mass-basket/mass-basket-table/list-basket-mass/list-basket-mass.component';
+import { MassBasketTableComponent } from './components/mass-basket/mass-basket-table/mass-basket-table.component';
+import { ReportMassComponent } from './components/ReportMass/report-mass/report-mass.component';
+import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
+import { MassReportResolver } from './resolvers/mass-report.resolver';
+import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
+
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
 const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -26,6 +35,7 @@ const massDayByIdResolvers = {
   listMassTimeResolver: MassTimeListResolver, 
   listQuestTypeResolver: QuestTypeListResolver};
 const massTimeByIdResolvers = {massTimeByIdResolvers: MassTimeByIdResolver};
+const reportMassRequest = {reportMassRequest: MassReportResolver}
 
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
@@ -35,6 +45,9 @@ const massRoutes: Routes = [
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes/:id', component: EditMassTimeComponent, resolve: massTimeByIdResolvers},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent},
+  {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent},
+  {path: 'corbeille-messe', component: ListBasketMassComponent},
+  {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
 ];
 
 @NgModule({
@@ -50,6 +63,13 @@ const massRoutes: Routes = [
     MassRequestTableComponent,
     AnonymousMassRequestListComponent,
     NoAnonymousMassRequestListComponent,
+    MassAnonymousRequestComponent,
+    MassModalFilterComponent,
+    ListBasketMassComponent,
+    MassBasketTableComponent,
+    ReportMassComponent,
+    AllMassReportComponent,
+    MassModalColumnComponent,
   ],
   imports: [
     CommonModule,

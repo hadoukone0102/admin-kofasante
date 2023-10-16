@@ -1,0 +1,31 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Messes"
+        theTitle="Bilan des Messes"
+        theContent="Faites le bilan des Messes">
+    </app-page-title>
+    
+
+    <!-- Donation table -->
+    <!-- <div *ngIf="donations$ | async as donations">
+        <app-donation-table [listType]="type"
+            [donationListParent]="donations"
+            (searchBarValueToParent) = "handleSearchBarValueFromChild($event)"
+            (dateStartValueToParent) = "handleDateStartValueFromChild($event)"
+            (dateEndValueToParent) = "handleDateEndValueFromChild($event)"
+            >
+        </app-donation-table>
+    </div> -->
+
+    <div>
+        <app-all-mass-report>
+        </app-all-mass-report>
+    </div>
+    <!-- End Donation table -->
+
+    <!-- End content -->
+    <app-footer></app-footer>
+</main>

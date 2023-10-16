@@ -65,9 +65,9 @@
             <!-- Item -->
             <tr *ngFor="let mass of massModel.masses; let i = index; trackBy: trackById" @linePaginateAnimation >
                 <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
-            <td >
+            <td>
                 {{mass.days_name}}
-            </td>   
+            </td>  
             <td >
                 {{mass.days | date:"dd/MM/yyyy"}}
             </td>   

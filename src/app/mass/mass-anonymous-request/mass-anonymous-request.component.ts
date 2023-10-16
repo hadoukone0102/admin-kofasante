@@ -1,25 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { ChildMassRequest, MassRequest, Masses } from '../mass-request-models/mass-request.model';
-import { MassRequestService } from '../mass-request-services/mass-request.service';
+import { MassRequestService } from '../components/mass-request-services/mass-request.service';
+import { anonymosMass } from '../components/mass-request-models/mass-request.model';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FilterMassData } from '../mass-modal/mass-modal-filter/filter-model.model';
+import { FilterMassData } from '../components/mass-modal/mass-modal-filter/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+
 @Component({
-  selector: 'app-mass-request-table',
-  templateUrl: './mass-request-table.component.html'
+  selector: 'app-mass-anonymous-request',
+  templateUrl: './mass-anonymous-request.component.html',
 })
-export class MassRequestTableComponent {
-  // ~~~~~~~~~~~~~~~Model mass request~~~~~~~~~~~~~~~~~~
-  @Input() massRequests!:MassRequest;
-
-  @Input() Masses!:ChildMassRequest;
- 
-  childMassRequests: ChildMassRequest[]=[];
-
+export class MassAnonymousRequestComponent {
+  // ~~~~~~~~~~~~~~~~~~~~Model~~~~~~~~~~~~~~~~~~~~~~~~
+  massAnonyResquest!:anonymosMass;
   // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
   isFirstPage!: string;
   isLastPage!: string;
@@ -42,37 +38,27 @@ isExporting!: boolean;
 pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
 pdfTitle: string="Liste des Demandes de Messe";
 pdfFileName!: string;
-excelFileName: string = "Demande-noAnonyme";
+excelFileName: string = "Demande-Anonyme";
+
 
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
-    ){}
-
-    ngOnInit(){
-      this.sendDataToParent();
-      this.massRequestService.getMassRequests().subscribe(
-        (data)=>{
-          this.massRequests = data;  
-          console.log(this.massRequests.demande_messe);
-        }
-      )
-      this.massRequestService.getMass().subscribe(
-        (data)=>{
-          this.Masses = data;
-          console.log(this.Masses.masses);
-        }
-      )
-      this.checkAndApplyDisabled(this.massRequests);
-    }
-    
-    getUniqueDates(dates: string[]): string[] {
-      return Array.from(new Set(dates)); // Utilisez un ensemble pour garantir des dates uniques
-    }    
-
-    goToEditMass(id: number){
-    this.coreService.goToEditMass(id);
+  ){}
+  
+  ngOnInit(){
+    this.massRequestService.getResquestMassAnonymous().subscribe(
+      (data)=>{
+        this.massAnonyResquest = data;  
+        console.log(this.massAnonyResquest.demande_messe);
+      }
+    )
+    // this.checkAndApplyDisabled(this.massRequests);
   }
+
+  goToEditMass(id: number){
+  this.coreService.goToEditMass(id);
+}
 
   /**
    * Disable or enable the buttons to go to the next or previous page 
@@ -81,7 +67,7 @@ excelFileName: string = "Demande-noAnonyme";
    *
    * @param {DataDon} data
    */
-  checkAndApplyDisabled(data: MassRequest){
+  checkAndApplyDisabled(data: anonymosMass){
     //NOTE - "1" means that it should be disabled and "..." that it should be enabled
     if((data.current_page === 1) && (data.current_page != data.last_page)){
       //("1/...")
@@ -131,23 +117,33 @@ excelFileName: string = "Demande-noAnonyme";
    * @param {number} pageIndex
    */
   showPageWhere(pageIndex: number){
-    this.newPage= this.massRequests.current_page + pageIndex;
+    this.newPage= this.massAnonyResquest.current_page + pageIndex;
 
-    this.massRequestService.getMassRequests().subscribe(
+    this.massRequestService.getResquestMassAnonymous().subscribe(
       (data)=>{
-        this.massRequests = data;  
+        this.massAnonyResquest = data;  
         this.checkAndApplyDisabled(data);
       }
     )
   }
 
+/**
+ * to redirec page
+ */
+goToNoAnonymousMassRequest(){
+  this.coreService.goToNoAnonymousMassRequest();
+}
+  
+/**
+ * to redirec page
+ */
   goToAnonymousMassRequest(){
     this.coreService.goToAnonymousMassRequest();
   }
 
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-resetFilter(){
+  resetFilter(){
     this.searchBarValue = '';
     this.dateStartValue = environment.dateStartForSearch;
     this.dateEndValue = environment.todayDate;
@@ -179,9 +175,9 @@ resetFilter(){
     this.sendDataToParent();
     this.isRefreshing = true;
 
-    this.massRequestService.searchMassRequests(this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    this.massRequestService.searchMassRequestsAnonymous(this.searchBarValue, this.dateStartValue, this.dateEndValue)
       .subscribe((data) => {
-        this.massRequests = data;
+        this.massAnonyResquest = data;
         this.checkAndApplyDisabled(data);
         this.isRefreshing = false;
       });

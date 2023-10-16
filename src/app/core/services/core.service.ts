@@ -70,6 +70,10 @@ export class CoreService {
   goToMassTimeList(){this.router.navigate(['/liste-des-heures-de-messes']);}
   goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}
   goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
+  goToAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-anonyme']);}
+  // ajouter par kone
+  goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
+  goToReportMass(){this.router.navigate(['/bilan-messe'])}
 
   // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
   goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
