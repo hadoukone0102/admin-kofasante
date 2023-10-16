@@ -235,6 +235,7 @@ export class DonationTableComponent implements OnInit{
   
   handleDataColumnFromChild(dataColumn: FormDonationColumn) {
    this.formDonationColumn = dataColumn ;
+   console.log(this.formDonationColumn);
   }
  
   resetFilter(){

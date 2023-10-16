@@ -88,19 +88,9 @@ isShow:boolean=true;
       this.allMass =data
     }
     );
-
-
-
-    // this.massrservices.getAllMassRequest().subscribe(
-    //   (data)=>{
-    //     this.allMass = data;
-    //     this.checkAndApplyDisabled(data);
-    //     console.log(this.allMass);
-    //   }
-    // )
+    this.showAnonymous();
     
     //###############################################""""
-
     this.massrservices.GetMassReport().subscribe(
       (datas)=>{
         this.MassReport = datas;
@@ -284,7 +274,8 @@ loadDataForCurrentPage(page: number) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
 handleDataColumnFromChild(dataColumn: FormDonationColumn) {
-  this.formDonationColumn = dataColumn ;
+  this.formDonationColumn = dataColumn;
+  console.log(this.formDonationColumn.nomDon);
  }  
 /**
    * @date 13/10/2023
@@ -438,14 +429,14 @@ showAnonymous(){
     number: true,
     montantDon: true,
     typeDon: true,
-    organisationDon: false,
-    civiliteDon: false,
-    nomDon: false,
-    prenomDon: false,
-    contactDon: false,
+    organisationDon: true,
+    civiliteDon: true,
+    nomDon: true,
+    prenomDon: true,
+    contactDon: true,
     payeurDon: true,
     paysDon: false,
-    villeDon: false,
+    villeDon: true,
     transactionId: true,
     dateDon: true
   }
@@ -464,13 +455,13 @@ showAnonymous(){
     number: true,
     montantDon: true,
     typeDon: true,
-    organisationDon: false,
+    organisationDon: true,
     civiliteDon: true,
     nomDon: true,
     prenomDon: true,
     contactDon: true,
     payeurDon: true,
-    paysDon: true,
+    paysDon: false,
     villeDon: true,
     transactionId: true,
     dateDon: true
@@ -495,7 +486,7 @@ showNoAnonymousOrga(){
     prenomDon: true,
     contactDon: true,
     payeurDon: true,
-    paysDon: true,
+    paysDon: false,
     villeDon: true,
     transactionId: true,
     dateDon: true

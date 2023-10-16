@@ -33,6 +33,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="amount" name="amount"
                                     [(ngModel)]="formDonationColumn.montantDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="amount">
                                       Montant
@@ -41,6 +42,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="type" name="type"
                                     [(ngModel)]="formDonationColumn.typeDon"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="type">
                                       Type
@@ -49,7 +51,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="organisation" name="organisation"
                                     [(ngModel)]="formDonationColumn.organisationDon"
-                                    [disabled]="isAnonymous || (!isAnonymous && !isOrganisation)"
+                                    [disabled]="isAnonymous"
                                     >
                                     <label class="form-check-label" for="organisation">
                                       Organisation
@@ -137,7 +139,6 @@
                                     <div class="col-6">
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-success"
-                                            
                                             >Appliquer</button>
                                         </div>
                                     </div>

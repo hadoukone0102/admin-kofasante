@@ -147,74 +147,68 @@
     <div  class="table-responsive">
 
     <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
-        <thead class="thead-light">
+        <thead class="thead-light" >
             <tr>
-              <th class="border-0 rounded-start">N°</th>
-              <th class="border-0">Nom</th>
-                <th class="border-0">Prenom</th>
-                <th class="border-0">Contact</th>
-                <th class="border-0">Type de messe</th>
-                <th class="border-0">Intention</th>
-                <th class="border-0">Date</th>
-                <th  class="border-0">Id de transaction</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.number}" class="border-0 rounded-start">N°</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.nomDon}" class="border-0">Nom</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.prenomDon}" class="border-0">Prenom</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.contactDon}" class="border-0">Contact</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.typeDon}" class="border-0">Type de messe</th>
+              <th class="border-0">Intention</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.dateDon}" class="border-0">Date</th>
+              <th [ngClass]="{'d-none': !formDonationColumn.transactionId}"  class="border-0">Id de transaction</th>
             </tr>
         </thead>
         <tbody @zoomEnterAnimation>
             <ng-container *ngIf="isShow">
-                <tr *ngFor="let basket of allMass.demande_messe; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @linePaginateAnimation>
-                  <td>
+              <tr *ngFor="let basket of allMass.demande_messe; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @linePaginateAnimation>
+                  <td *ngIf="formDonationColumn.number">
                     <a class=" fw-bold">{{i+1}}</a> 
                 </td>
-                    <td>
-                        <span *ngIf="basket.isAnonymous === 1">null</span>
-                        <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
-                      </td>
-                    <td>
-                        <span *ngIf="basket.isAnonymous === 1">null</span>
-                        <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
-                    </td>
-                    <td>{{basket.contactMr}}</td>
-                    <td>{{basket.labelMt}}</td>
-                    <td>{{basket.type_demande}}</td>
-    
-                        <td>
-                            <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
-                                <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
-                                    {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
-                                </option>
-                            </select>
-                        </td>
-            
-                    <td>{{basket.transaction_id}}</td>
-                </tr>
-            </ng-container>
-            <tr  *ngFor="let basket of filteredMasses; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @zoomEnterAnimation>
-                <td>{{i+1}}</td>
-                <td>
+                <td *ngIf="formDonationColumn.nomDon">
                     <span *ngIf="basket.isAnonymous === 1">null</span>
                     <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
-                  </td>
-                <td>
+                </td>
+                <td *ngIf="formDonationColumn.prenomDon">
                     <span *ngIf="basket.isAnonymous === 1">null</span>
                     <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
                 </td>
-                <td>{{basket.contactMr}}</td>
-                <td>{{basket.labelMt}}</td>
-                <td>{{basket.type_demande}}</td>
-
-                    <td>
-                        <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
-                            <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
-                                {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
-                            </option>
-                        </select>
-                    </td>
-        
-                <td>{{basket.transaction_id}}</td>
+                <td *ngIf="formDonationColumn.contactDon">{{basket.contactMr}}</td>
+                <td >{{basket.labelMt}}</td>
+                <td *ngIf="formDonationColumn.typeDon">{{basket.type_demande}}</td>
+                <td *ngIf="formDonationColumn.dateDon">
+                    <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
+                        <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
+                            {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                        </option>
+                    </select>
+                </td>
+                  <td *ngIf="formDonationColumn.transactionId">{{basket.transaction_id}}</td>
             </tr>
-              
-             
-          
+          </ng-container>
+            <tr  *ngFor="let basket of filteredMasses; let i = index" [ngClass]="{'gray-row': basket.isAnonymous===1, 'NoAnymous': basket.isAnonymous!==1}" @zoomEnterAnimation>
+                <td  *ngIf="formDonationColumn.number">{{i+1}}</td>
+                <td *ngIf="formDonationColumn.nomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.lastNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.prenomDon">
+                    <span *ngIf="basket.isAnonymous === 1">null</span>
+                    <span *ngIf="basket.isAnonymous !== 1">{{basket.firstNameMr}}</span>
+                </td>
+                <td *ngIf="formDonationColumn.contactDon" >{{basket.contactMr}}</td>
+                <td>{{basket.labelMt}}</td>
+                <td *ngIf="formDonationColumn.typeDon">{{basket.type_demande}}</td>
+                <td *ngIf="formDonationColumn.dateDon">
+                    <select [ngClass]="{'gray-row': basket.isAnonymous === 1, 'NoAnymous': basket.isAnonymous!==1}">
+                        <option *ngFor="let masse of basket.masses" [value]="masse.masses_days">
+                            {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                        </option>
+                    </select>
+                </td>
+                <td *ngIf="formDonationColumn.transactionId">{{basket.transaction_id}}</td>
+            </tr>     
+            
         </tbody>
     </table>
     <div >

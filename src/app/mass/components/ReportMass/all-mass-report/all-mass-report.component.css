@@ -8,3 +8,6 @@
 .null{
     visibility: hidden;
 }
+.d-none{
+    display: none;
+}
