@@ -50,10 +50,20 @@ export class MassReportServicesService {
    * @param {string} dateStart - Date de début de recherche
    * @param {string} dateEnd - Date de fin de recherche
    * @returns Les données des demandes de messe correspondantes
+   *  this.isAnonymous, this.isOrganisation, this.isAll
    */
    searchBasketMass(searchValue: string, dateStart: string, dateEnd: string): Observable<AllMassRequest> {
     // Vous devez adapter l'URL de recherche en fonction de votre API réelle
     const searchUrl = `${environment.LinkForAllMassRequest}?search=${searchValue}&dateStart=${dateStart}&dateEnd=${dateEnd}`;
+    
+    return this.http.get<AllMassRequest>(searchUrl).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  searchElementOfMass(searchValue: string, dateStart: string, dateEnd: string, isAnonymous: string, isOrganisation:string, isAll:string): Observable<AllMassRequest> {
+    // Vous devez adapter l'URL de recherche en fonction de votre API réelle
+    const searchUrl = `${environment.LinkForAllMassRequest}?search=${searchValue}&dateStart=${dateStart}&dateEnd=${dateEnd}&dateEnd=${isAnonymous}&dateEnd=${isOrganisation}&dateEnd=${isAll}`;
     
     return this.http.get<AllMassRequest>(searchUrl).pipe(
       catchError((error) => this.coreService.handleError(error))

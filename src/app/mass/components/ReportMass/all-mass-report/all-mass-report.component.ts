@@ -42,6 +42,7 @@ todayDate!:string;
 
 
 filteredMasses: AllmassResquestChild[] = []; 
+originalData: AllmassResquestChild[] = [];
 allMass!:AllMassRequest;
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
@@ -85,7 +86,8 @@ isShow:boolean=true;
   ngOnInit(){
     this.route.data.pipe(map(data=>data['reportMassRequest']))
     .subscribe( (data)=>{
-      this.allMass =data
+      this.allMass =data;
+      this.filteredMasses = data
     }
     );
     this.showAnonymous();
@@ -113,13 +115,14 @@ isShow:boolean=true;
    * get anonymous mass list
    * @date 14/10/23 22:18
    */
-
+  paginate:boolean= false;
    showAnonymousList(){
     this.isShow = false;
+    this.paginate= true;
     this.type ='anonymous';
     this.messesNoAnonymous$ = this.massrservices.getMassAnonymousWhere();
      this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 1);
-    //  console.log(this.filteredMasses);
+     this.search();
   }
 
   
@@ -128,10 +131,12 @@ isShow:boolean=true;
    * @date 14/10/23 22:18
    */
   showNoAnonymousList(){
+    this.paginate= true;
     this.isShow = false;
     this.type = 'NoAnonymous'
     this.massrservices.getMassNoAnonymousWhere();
     this.filteredMasses = this.allMass.demande_messe.filter(basket => basket.isAnonymous === 0);
+    this.search();
   }
 
    /**
@@ -139,10 +144,12 @@ isShow:boolean=true;
    * @date 14/10/2023 - 22:46
    */
    showAllMassList(){
+    this.paginate= true;
     this.isShow = false;
     this.type = "all";
     this.allMass$ = this.massrservices.getAllMassWhere();
     this.filteredMasses = this.allMass.demande_messe;
+    this.search();
   }
 
   getAccumlationMass(){
@@ -285,7 +292,8 @@ handleDataColumnFromChild(dataColumn: FormDonationColumn) {
     this.dateStartValue = environment.dateStartForSearch;
     this.dateEndValue = environment.todayDate;
     this.search();
-    this.sendDataToParent();//send data to report for update accumulations
+    this.sendDataToParent();
+    window.location.reload();
   }
    /**
    * Send filter data to parent component
