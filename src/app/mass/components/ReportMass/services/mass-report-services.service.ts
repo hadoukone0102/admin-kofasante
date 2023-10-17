@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { environment } from 'src/environments/environment';
-import { MassReport, AllMassRequest } from '../../ReportMass/models/mass-report-model.model'
+import { MassReport, AllMassRequest, ExportMass } from '../../ReportMass/models/mass-report-model.model'
 import { MassRequest, anonymosMass } from '../../mass-request-models/mass-request.model';
 import { Basket } from 'src/app/mass/models/basket.model';
 @Injectable({
@@ -23,6 +23,17 @@ export class MassReportServicesService {
     const MassReport = environment.MassReport;
     return this.http.get<MassReport>(MassReport).pipe(
       catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+  /**
+   * 
+   * @returns data for mass request
+   */
+
+  GetMassExport():Observable<ExportMass>{
+    const exportMass = environment.massReportForExport;
+    return this.http.get<ExportMass>(exportMass).pipe(
+      catchError((error)=>this.coreService.handleError(error)),
     )
   }
   /**

@@ -28,6 +28,7 @@ import { MassReportResolver } from './resolvers/mass-report.resolver';
 import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
 import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request.resolver';
 import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-request.resolver';
+import { ExportMassReqResolver } from './resolvers/export-mass-req.resolver';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -37,7 +38,9 @@ const massDayByIdResolvers = {
   listMassTimeResolver: MassTimeListResolver, 
   listQuestTypeResolver: QuestTypeListResolver};
 const massTimeByIdResolvers = {massTimeByIdResolvers: MassTimeByIdResolver};
-const reportMassRequest = {reportMassRequest: MassReportResolver};
+const reportMassRequest = {
+  exportMassReqResolver: ExportMassReqResolver,
+  reportMassRequest: MassReportResolver};
 const massAnonymousRequestResolver = {massAnonymousRequestResolver: MassAnonymousRequestResolver};
 const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAnonymousRequestResolver}
 

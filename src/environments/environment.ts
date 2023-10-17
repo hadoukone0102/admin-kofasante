@@ -13,6 +13,7 @@ export const  environment = {
     LinkForAllMassRequest:'https://messe-api.eglise-mukasa.ci/api/requestmesse/All',
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ mass report ~~~~~~~~~~~~~~~~~~~~~~~
     MassReport: 'https://messe-api.eglise-mukasa.ci/api/requestmesse/bilan',
+    massReportForExport : 'https://messe-api.eglise-mukasa.ci/api/requestmesse/bigAll',
 
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //
     captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",

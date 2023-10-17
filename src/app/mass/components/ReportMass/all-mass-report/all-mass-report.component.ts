@@ -10,7 +10,7 @@ import { MassRequestService } from '../../mass-request-services/mass-request.ser
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
-import { MassReport, AllMassRequest, AllmassResquestChild } from '../models/mass-report-model.model';
+import { MassReport, AllMassRequest, AllmassResquestChild, ExportMass } from '../models/mass-report-model.model';
 import { MassReportServicesService } from '../../ReportMass/services/mass-report-services.service'
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { ActivatedRoute } from '@angular/router';
@@ -44,6 +44,8 @@ todayDate!:string;
 filteredMasses: AllmassResquestChild[] = []; 
 originalData: AllmassResquestChild[] = [];
 allMass!:AllMassRequest;
+exportMass!:ExportMass;
+
   // ~~~~~~~~~ Pagination variables ~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
@@ -90,6 +92,12 @@ isShow:boolean=true;
       this.filteredMasses = data
     }
     );
+
+    this.route.data.pipe(map(data=>data['exportMassReqResolver']))
+      .subscribe((data)=>{
+        this.exportMass = data
+        console.log(this.exportMass);
+      })
     this.showAnonymous();
     
     //###############################################""""
@@ -422,8 +430,17 @@ exportToExel(){
 }
 
 Export:boolean= false;
+IsHidden:boolean = true;
 ActionExport(){
   this.Export = true;
+  this.IsHidden = false;
+  console.log("masquer" + this.IsHidden,this.Export)
+}
+
+MasquerList(){
+  this.IsHidden = true;
+  this.Export = false;
+  console.log("masquer" + this.IsHidden,this.Export);
 }
 
 /**
