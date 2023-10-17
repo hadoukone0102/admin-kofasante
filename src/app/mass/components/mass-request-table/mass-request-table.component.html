@@ -132,12 +132,12 @@
     <!-- <h4 *ngIf="admins.administrateurs.length === 0" class="text-center mt-2">Aucune donnée dans la table</h4> -->
 </div>
 
-<app-mass-modal-filter
-[searchBarValue]="searchBarValue"
-[dateStartValue]="dateStartValue"
-[dateEndValue]="dateEndValue"
-(dataFilterToParent) = "handleDataFilterFromChild($event)"
-></app-mass-modal-filter>
+<app-modal-filter
+    [searchBarValue]="searchBarValue"
+    [dateStartValue]="dateStartValue"
+    [dateEndValue]="dateEndValue"
+   (dataFilterToParent) = "handleDataFilterFromChild($event)"
+   ></app-modal-filter>
 
 
 </div>

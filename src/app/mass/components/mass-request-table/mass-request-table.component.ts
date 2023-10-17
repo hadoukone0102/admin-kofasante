@@ -31,8 +31,8 @@ export class MassRequestTableComponent {
   // ~~~~~~~~~~~ Search variables ~~~~~~~~~~ //
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
-  dateStartValue: string = "";
-  dateEndValue: string = "";
+  dateStartValue: string = environment.dateStartForSearch;
+  dateEndValue: string = environment.todayDate;
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ for modal element ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
@@ -70,7 +70,7 @@ excelFileName: string = "Demande-noAnonyme";
         (data)=>{
           this.Masses = data;
           console.log(this.Masses.masses);
-        }
+          }
       )
       this.checkAndApplyDisabled(this.massRequests);
     }
