@@ -89,7 +89,6 @@ isShow:boolean=true;
     this.route.data.pipe(map(data=>data['reportMassRequest']))
     .subscribe( (data)=>{
       this.allMass =data;
-      this.filteredMasses = data
     }
     );
 
