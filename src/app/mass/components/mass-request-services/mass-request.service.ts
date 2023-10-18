@@ -107,9 +107,13 @@ export class MassRequestService {
     return this.http.get<MassRequest>(`${environment.massUrl}/requestmesse/Noanonymous?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error) => this.coreService.handleError(error)))
   }
-
   getAllMass(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassRequest>{
     return this.http.get<MassRequest>(`${environment.LinkForAllMassRequest}?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)))
+  }
+
+  getAllMassGeneral(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.massReportForExport}?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
       catchError((error) => this.coreService.handleError(error)))
   }
 
@@ -127,6 +131,33 @@ export class MassRequestService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
+
+   /**
+   * @date 
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<MassRequest>}
+   */
+   getAllMassForExport(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.massUrl}/requestmesse/bigAll?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  /**
+   * basket
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<MassRequest>}
+   */
+  getBasketMassWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.BasketMass}?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)))
+  }
+
 
 }
   

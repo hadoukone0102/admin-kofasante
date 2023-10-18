@@ -32,7 +32,7 @@ export class BilanComponent {
     this.messe$ =  this.route.data.pipe(
       map(data => data['reportMassRequest']),
     );
-      
+
     const now = new Date();
     this.todayDate = now.toISOString().substring(0, 10); 
     this.dateEndValue = this.todayDate;
@@ -106,10 +106,5 @@ export class BilanComponent {
     this.getAccumlationMass();
   }
 
-
-
-  showNoAnonymousPersoList(){}
-  showNoAnonymousOrgaList(){}
-  showAllDonationsList(){}
 
 }

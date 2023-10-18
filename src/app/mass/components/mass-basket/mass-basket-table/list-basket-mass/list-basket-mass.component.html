@@ -8,10 +8,12 @@
         theContent="Consultez la liste des transations échouées">
     </app-page-title>
     <!-- Content -->
-    <div class="bg-white p-4">
-        <app-mass-basket-table >
-            
-        </app-mass-basket-table>
+    <div *ngIf="messe$ | async as messe" class="bg-white p-4">
+
+        <app-mass-request-table [listType]="type"
+            [messeListParent]="messe"
+        >
+        </app-mass-request-table>
     </div>
     <!-- End content -->
 

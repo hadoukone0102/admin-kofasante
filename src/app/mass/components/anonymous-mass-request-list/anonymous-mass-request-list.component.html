@@ -9,9 +9,12 @@
     </app-page-title>
     <!-- Content -->
     <div class="card border-0 shadow mb-4">
-        <div class="card-body">
-            <app-mass-anonymous-request></app-mass-anonymous-request>
-            <!-- <app-mass-request-table></app-mass-request-table> -->
+        <div *ngIf="messe$ | async as messe" class="card-body">
+            <!-- <app-mass-anonymous-request></app-mass-anonymous-request> -->
+            <app-mass-request-table [listType]="type"
+                [messeListParent]="messe"
+                >
+            </app-mass-request-table>
         </div>
     </div>
     <!-- End content -->

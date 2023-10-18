@@ -29,6 +29,7 @@ import { MassModalColumnComponent } from './components/mass-modal/mass-modal-col
 import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request.resolver';
 import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-request.resolver';
 import { ExportMassReqResolver } from './resolvers/export-mass-req.resolver';
+import { BasketResolver } from './resolvers/basket.resolver';
 import { BilanComponent } from './components/bilan/bilan.component';
 
 
@@ -43,8 +44,8 @@ const reportMassRequest = {
   exportMassReqResolver: ExportMassReqResolver,
   reportMassRequest: MassReportResolver};
 const massAnonymousRequestResolver = {massAnonymousRequestResolver: MassAnonymousRequestResolver};
-const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAnonymousRequestResolver}
-
+const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAnonymousRequestResolver};
+const basketResolver = {basketResolver: BasketResolver};
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent, resolve: listMassTimeResolver},
@@ -54,7 +55,7 @@ const massRoutes: Routes = [
   {path: 'modifier-heures-messes/:id', component: EditMassTimeComponent, resolve: massTimeByIdResolvers},
   {path: 'demande-de-messe-non-anonyme', component: NoAnonymousMassRequestListComponent,resolve: massNoAnonymousRequestResolver},
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
-  {path: 'corbeille-messe', component: ListBasketMassComponent},
+  {path: 'corbeille-messe', component: ListBasketMassComponent, resolve: basketResolver},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
   //je fais un test
   {path: 'test', component: BilanComponent, resolve: reportMassRequest},

@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="mb-2 col-8 col-sm-4  btn-group">
-        <button  title="Réinitialiser le le filtre"  class="btn btn-success d-inline-flex align-items-center" >
+        <button (click)="goToNoAnonymousMassRequest()" title="Réinitialiser le le filtre"  class="btn btn-success d-inline-flex align-items-center" >
             <i class="fa fa-eye me-3"></i>
             Non anonymes
         </button>
@@ -24,6 +24,19 @@
                 Réinitialiser
             </button>
         </div>
+        <div *ngIf="!Export" class="mb-2 col-8 col-sm-4  btn-group">
+            <button (click)=" export()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+                <i class="fa fa-broom me-3"></i>
+                Exporter
+            </button>
+        </div>
+
+        <div *ngIf="Export"  class="mb-2 col-8 col-sm-4  btn-group">
+          <button (click)="MasquerList()" title="Réinitialiser le le filtre"  class="btn btn-github d-inline-flex align-items-center" >
+              <i class="fa fa-broom me-3"></i>
+              Masquer
+          </button>
+        </div>
 
         <div  class="col-8 mb-2 col-sm-4 btn-group">
             <button type="button" class="btn btn-primary">Exporter en</button>
@@ -38,6 +51,13 @@
               <!-- <li><hr class="dropdown-divider"></li> -->
               <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
             </ul>
+        </div>
+
+        <div *ngIf="listType != 'failed'" class="mb-2 col-8 col-sm-4  btn-group">
+            <button title="Choisissez les colonnes à afficher"  class="btn btn-paypal d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-select-column">
+                <i class="fa fa-check me-3"></i>
+                Colonnes
+            </button>
         </div>
 
         <!-- Refresh -->
@@ -56,14 +76,14 @@
     <table id="exportTable"  class="table table-centered table-nowrap mb-0 rounded">
         <thead class="thead-light">
             <tr>
-                <th class="border-0 rounded-start">N°</th>
-                <th class="border-0">Nom</th>
-                <th class="border-0">Prenom</th>
-                <th class="border-0">Contact</th>
-                <th class="border-0">Type de messe</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.number}"  class="border-0 rounded-start">N°</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.nomDon}" class="border-0">Nom</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.prenomDon}" class="border-0">Prenom</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.contactDon}" class="border-0">Contact</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.typeDon}" class="border-0">Type de messe</th>
                 <th class="border-0">Intention</th>
-                <th class="border-0">Date</th>
-                <th  class="border-0">Id de transaction</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.dateDon}" class="border-0">Date</th>
+                <th [ngClass]="{'d-none': !formDonationColumn.transactionId}" class="border-0">Id de transaction</th>
             </tr>
         </thead>
 <!-- ENABLED ACCOUNT -->
@@ -71,32 +91,35 @@
 <tbody *ngFor="let request of messeList let i=index;">
 
     <!-- Item -->
-    <tr >
-        <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
-    <td >
-        {{ request.lastNameMr }}
-    </td>
-    <td >
-        {{ request.firstNameMr }}
-    </td>
-    <td >
-        {{request.contactMr}}
-    </td>
-    <td >
-      {{request.labelMt}}
-    </td>
-    <td>
-        {{request.type_demande}}
-    </td>
-    <td>
-        <select>
-          <option *ngFor="let masse of request.masses" [value]="masse.masses_days">{{ masse.masses_days }}, {{masse.name_masses_days}}, {{masse.masses_times}}</option>
-        </select>
-      </td>
-
-    <td >
-        {{request.transaction_id}}
-    </td>
+    <tr [ngClass]="{'bg-secondary':request.isAnonymous===1, 'bg-tertiary text-white': request.isAnonymous!==1}" @linePaginateAnimation>
+        <td *ngIf="formDonationColumn.number">
+            {{i+1}}
+        </td>
+        <td  *ngIf="formDonationColumn.nomDon">
+            {{ request.lastNameMr }}
+        </td>
+        <td *ngIf="formDonationColumn.prenomDon">
+            {{ request.firstNameMr }}
+        </td>
+        <td *ngIf="formDonationColumn.contactDon">
+            {{request.contactMr}}
+        </td>
+        <td >
+        {{request.labelMt}}
+        </td>
+        <td *ngIf="formDonationColumn.typeDon">
+            {{request.type_demande}}
+        </td>
+        <td  *ngIf="formDonationColumn.dateDon">
+            <select [ngClass]="{'bg-secondary':request.isAnonymous===1, 'bg-tertiary text-white': request.isAnonymous!==1}">
+                <option *ngFor="let masse of request.masses" [value]="masse.masses_days">
+                    {{ (masse.masses_days | date:'dd/MM/yyyy') || masse.masses_days }}
+                </option>
+            </select>
+        </td>
+        <td *ngIf="formDonationColumn.transactionId">
+            {{request.transaction_id}}
+        </td>
     
     </tr>
 <!-- End of Item -->
@@ -137,7 +160,12 @@
     [dateStartValue]="dateStartValue"
     [dateEndValue]="dateEndValue"
    (dataFilterToParent) = "handleDataFilterFromChild($event)"
-   ></app-modal-filter>
+></app-modal-filter>
 
+<app-mass-modal-column
+[listType]="listType"
+(formDonationColumnToParent) = "handleDataColumnFromChild($event)"
+>
+</app-mass-modal-column>
 
 </div>

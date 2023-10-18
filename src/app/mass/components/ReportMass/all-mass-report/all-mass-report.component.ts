@@ -290,7 +290,8 @@ loadDataForCurrentPage(page: number) {
 handleDataColumnFromChild(dataColumn: FormDonationColumn) {
   this.formDonationColumn = dataColumn;
   console.log(this.formDonationColumn.nomDon);
- }  
+}
+  
 /**
    * @date 13/10/2023
    */

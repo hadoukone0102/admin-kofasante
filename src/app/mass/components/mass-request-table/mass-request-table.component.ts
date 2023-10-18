@@ -7,20 +7,26 @@ import { environment } from 'src/environments/environment';
 import { FilterMassData } from '../mass-modal/mass-modal-filter/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
+import { MassService} from '../../services/mass.service'
 import autoTable from 'jspdf-autotable';
 import { ActivatedRoute } from '@angular/router';
+import { FormDonationColumn } from 'src/app/donation/models/form-donation-column.model';
+import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 @Component({
   selector: 'app-mass-request-table',
-  templateUrl: './mass-request-table.component.html'
+  templateUrl: './mass-request-table.component.html',
+  animations:[
+    linePaginateAnimation,
+    zoomEnterAnimation
+  ]
 })
 export class MassRequestTableComponent {
   // ~~~~~~~~~~~~~~~Model mass request~~~~~~~~~~~~~~~~~~
   @Input() massRequests!:MassRequest;
-
   @Input() Masses!:ChildMassRequest;
  
   childMassRequests: ChildMassRequest[]=[];
-
+  type!:string; 
   // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
   isFirstPage!: string;
   isLastPage!: string;
@@ -44,6 +50,8 @@ pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
 pdfTitle: string="Liste des Demandes de Messe";
 pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
+isAnonymous!: boolean;
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Input() messeListParent!: MassRequest;
@@ -51,18 +59,23 @@ excelFileName: string = "Demande-noAnonyme";
 
   // ~~~~~~~~~~ Donation variables ~~~~~~~~~ //
   messe$!: Observable<MassRequest>;
-  // donationTest$!: Observable<DataDon>;
-  // donationListTest!: Array<ChildMassRequest>;
+  messeTest$!: Observable<MassRequest>;
+  messeListTest!: Array<ChildMassRequest>;
   messeList!: Array<ChildMassRequest>;
+  formDonationColumn!: FormDonationColumn;
 
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
     private route: ActivatedRoute,
+    private MassService: MassService,
     ){}
+
 
     ngOnInit(){
       this.sendDataToParent();
+      this.showAnonymous();
+      this.showTableOfType(this.listType); 
       this.route.data.pipe(map(data=>data['massNoAnonymousRequestResolver']))
         .subscribe((data)=>{
           this.massRequests = data;  
@@ -86,6 +99,23 @@ excelFileName: string = "Demande-noAnonyme";
       )
       this.checkAndApplyDisabled(this.massRequests);
     }
+
+    //for extene page
+
+     /**
+   * Show table matching donation type
+   * @date 5/17/2023 - 12:50:42 PM
+   *
+   * @param {string} type
+   */
+  showTableOfType(type: string){
+    if(type === "anonymous"){
+      this.showAnonymous();
+    }
+    else if(type === "noAnonymousPerso"){
+      this.showNoAnonymous();
+    }
+  }
     
     getUniqueDates(dates: string[]): string[] {
       return Array.from(new Set(dates)); //    Utilisez un ensemble pour garantir des dates uniques
@@ -151,21 +181,54 @@ excelFileName: string = "Demande-noAnonyme";
    *
    * @param {number} pageIndex
    */
-  showPageWhere(pageIndex: number){
-    this.newPage= this.massRequests.current_page + pageIndex;
+  // showPageWhere(pageIndex: number){
+  //   this.newPage= this.massRequests.current_page + pageIndex;
 
-    this.massRequestService.getMassRequests().subscribe(
-      (data)=>{
-        this.massRequests = data;  
-        this.checkAndApplyDisabled(data);
-      }
-    )
+  //   this.massRequestService.getMassRequests().subscribe(
+  //     (data)=>{
+  //       this.massRequests = data;  
+  //       this.checkAndApplyDisabled(data);
+  //     }
+  //   )
+  // }
+
+  showPageWhere(pageIndex: number){
+    this.newPage= this.messeListParent.current_page + pageIndex;
+
+    if(this.listType === "anonymous"){
+      this.messeTest$ =  this.massRequestService.getMassAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else if(this.listType === "noAnonymous")
+    {
+      this.messeTest$ =  this.massRequestService.getMassNoAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else if(this.listType === "all")
+    {
+      this.messeTest$ = this.massRequestService.getAllMassGeneral(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    else{//failed (Corbeille)
+      this.messeTest$ = this.massRequestService.getBasketMassWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    }
+    
+    this.messeTest$.subscribe((data) => {
+      this.messeList = data.demande_messe;
+      this.messeListParent =  data;
+      this.checkAndApplyDisabled(data);
+    });
   }
+
+
+
+
+
 
   goToAnonymousMassRequest(){
     this.coreService.goToAnonymousMassRequest();
   }
 
+  goToNoAnonymousMassRequest(){
+    this.coreService.goToNoAnonymousMassRequest();
+  }
 
   //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Search ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 resetFilter(){
@@ -191,9 +254,6 @@ resetFilter(){
     this.sendDataToParent(); //send data to report for update accumulations
   }
 
-  export(){
-
-  }
 
   search() {
     // this.hideExportationButton();
@@ -211,6 +271,7 @@ resetFilter(){
 /**
  * result of search
  */
+
 handleDataFilterFromChild(dataFilter: FilterMassData) {
   this.searchBarValue = dataFilter.searchBarValue;
   this.dateStartValue = dataFilter.dateStartValue;
@@ -306,4 +367,141 @@ exportToExel(){
   /* save to file */  
   XLSX.writeFile(wb, this.excelFileName);
 }
+
+/**
+ * for btn export
+ */
+Export:boolean= false;
+IsHidden:boolean = true;
+ActionExport(){
+  // this.Export = true;
+  // this.IsHidden = false;
+  this.type= "all";
+ // this.messeList = this.massRequestService.getAllMassForExport();
 }
+
+ /**
+    * Show all data matching filter criteria without pagination for exportation
+    * @date 5/17/2023 - 12:42:01 PM
+    */
+ export(){
+  //clear table
+  this.messeList = [];
+  this.messeListParent = {
+    message: '',
+    succes: 0,
+    status_code: 0,
+    current_page: 0,
+    last_page: -1,
+    total_massesRe: 0,
+    total_massesRe_page: 0,
+    cumul_montant_page: 0,
+    cumul_montants: 0,
+    demande_messe:[],
+  }
+  
+  if(this.listType === "anonymous"){
+    this.messeTest$ =   this.massRequestService.getMassAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    this.pdfOrientation = 'portrait';
+    this.pdfTitle = 'Liste des dons anonyme';
+    this.pdfFileName = 'liste_des_dons_anonyme.pdf';
+    this.excelFileName = 'liste_des_dons_anonyme.xlsx';
+  }
+  else if(this.listType === "noAnonymousPerso")
+  {
+    this.messeTest$ =   this.massRequestService.getMassNoAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
+    this.pdfOrientation = 'landscape';
+    this.pdfTitle = 'Liste des dons non anonyme faits à titre personnel';
+    this.pdfFileName = 'Dons_non_anonyme_personnel.pdf';
+    this.excelFileName = 'Dons_non_anonyme_personnel.xlsx';
+  }
+  else //all
+  {
+    this.messeTest$ = this.massRequestService.getAllMassGeneral();
+    this.pdfOrientation = 'landscape';
+    this.pdfTitle = 'Liste de tous les dons';
+    this.pdfFileName = 'Liste_complète_des_dons.pdf';
+    this.excelFileName = 'Liste_complète_des_dons.xlsx';
+  }
+
+  this.messeTest$.subscribe((data) => {
+    this.messeList = data.demande_messe;
+    this.messeListParent =  data;
+    console.log(this.messeList);
+    console.log(this.messeListParent);
+    this.checkAndApplyDisabled(data);
+    this.isExporting = true;
+
+  });
+}
+
+MasquerList(){
+  this.IsHidden = true;
+  this.Export = false;
+  console.log("masquer" + this.IsHidden,this.Export);
+}
+
+
+handleDataColumnFromChild(dataColumn: FormDonationColumn) {
+  this.formDonationColumn = dataColumn;
+  console.log(this.formDonationColumn);
+}
+ 
+  /**
+   * Allows to display only columns for the list of anonymous donatitons
+   * @date 5/17/2023 - 12:55:09 PM
+   * 
+   */
+showAnonymous(){
+  this.isAnonymous = true;
+  //Initialisation
+  this.formDonationColumn = {
+    number: true,
+    montantDon: true,
+    typeDon: true,
+    organisationDon: true,
+    civiliteDon: true,
+    nomDon: true,
+    prenomDon: true,
+    contactDon: true,
+    payeurDon: true,
+    paysDon: false,
+    villeDon: true,
+    transactionId: true,
+    dateDon: true
+  }
+}
+showNoAnonymous(){
+  this.isAnonymous = false;
+  //Initialisation
+  this.formDonationColumn = {
+    number: true,
+    montantDon: true,
+    typeDon: true,
+    organisationDon: true,
+    civiliteDon: true,
+    nomDon: true,
+    prenomDon: true,
+    contactDon: true,
+    payeurDon: true,
+    paysDon: false,
+    villeDon: true,
+    transactionId: true,
+    dateDon: true
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
