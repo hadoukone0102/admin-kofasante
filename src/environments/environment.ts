@@ -6,6 +6,8 @@ export const  environment = {
     apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
     apiUrlMass: 'https://messe-api.eglise-mukasa.ci/api',
 
+    //je fais un test
+    massUrl: 'https://messe-api.eglise-mukasa.ci/api',
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~mass request~~~~~~~~~~~~~~~~~~~
     requestMassIsanonymous:'https://messe-api.eglise-mukasa.ci/api/requestmesse/isanonymous',
     requestMassNoanonymous: 'https://messe-api.eglise-mukasa.ci/api/requestmesse/Noanonymous',

@@ -68,7 +68,7 @@
         </thead>
 <!-- ENABLED ACCOUNT -->
 <!-- <tbody *ngIf="!isDisabledAccount()" [@boomTrigger]="admins.administrateurs.length"> -->
-<tbody *ngFor="let request of massRequests.demande_messe; let i=index;">
+<tbody *ngFor="let request of messeList let i=index;">
 
     <!-- Item -->
     <tr >
@@ -106,9 +106,9 @@
 <div >
     
 <div >
-    <div *ngIf=" massRequests.last_page != 0 && massRequests.last_page != undefined && massRequests.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+    <div *ngIf=" messeListParent.last_page != 0 && messeListParent.last_page != undefined && messeListParent.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
         <p>
-            Affichage de {{massRequests.current_page}}/{{massRequests.last_page}} pages
+            Affichage de {{messeListParent.current_page}}/{{messeListParent.last_page}} pages
         </p>
         <nav  aria-label="Page navigation example">
             <ul class="pagination">
@@ -117,7 +117,7 @@
                     <span aria-hidden="true">&laquo;</span>
                 </a>
                 </li>
-                <li class="page-item"><a class="page-link">{{massRequests.current_page}}</a></li>
+                <li class="page-item"><a class="page-link">{{messeListParent.current_page}}</a></li>
                 <li  class="page-item {{isLastPage}}">
                 <a (click)="goToNext()" class="page-link"  aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>

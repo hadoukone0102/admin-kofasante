@@ -216,7 +216,7 @@
                 <td *ngIf="formDonationColumn.transactionId">{{basket.transaction_id}}</td>
             </tr> 
         </tbody>
-        <tbody  *ngIf="Export" @zoomEnterAnimation>
+        <tbody *ngIf="Export" @zoomEnterAnimation>
             <ng-container>
                 <tr *ngFor="let export of exportMass.demande_messe; let a=index" [ngClass]="{'gray-row': export.isAnonymous===1, 'NoAnymous': export.isAnonymous!==1}" @linePaginateAnimation>
                   <td *ngIf="formDonationColumn.number">{{a+1}}</td>

@@ -29,6 +29,7 @@ import { MassModalColumnComponent } from './components/mass-modal/mass-modal-col
 import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request.resolver';
 import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-request.resolver';
 import { ExportMassReqResolver } from './resolvers/export-mass-req.resolver';
+import { BilanComponent } from './components/bilan/bilan.component';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -55,6 +56,8 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
   {path: 'corbeille-messe', component: ListBasketMassComponent},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
+  //je fais un test
+  {path: 'test', component: BilanComponent, resolve: reportMassRequest},
 ];
 
 @NgModule({
@@ -77,6 +80,7 @@ const massRoutes: Routes = [
     ReportMassComponent,
     AllMassReportComponent,
     MassModalColumnComponent,
+    BilanComponent,
   ],
   imports: [
     CommonModule,

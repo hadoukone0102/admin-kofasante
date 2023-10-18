@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { ChildMassRequest, MassRequest, anonymosMass } from '../mass-request-models/mass-request.model';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
+import { MassReport } from '../ReportMass/models/mass-report-model.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,7 +81,52 @@ export class MassRequestService {
     );
   }
 
+  // mes services de test
 
+  /**
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<MassRequest>}
+   */
+  getMassAnonymousWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.massUrl}/requestmesse/isanonymous?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)))
+  }
+
+   /**
+   * @param {string} [page='1']
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<MassRequest>}
+   */
+
+  getMassNoAnonymousWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.massUrl}/requestmesse/Noanonymous?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)))
+  }
+
+  getAllMass(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<MassRequest>{
+    return this.http.get<MassRequest>(`${environment.LinkForAllMassRequest}?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)))
+  }
+
+  /**
+   * Get the cumulative price and donations number for a periode
+   * @date 5/17/2023 - 9:12:20 AM
+   *
+   * @param {string} search
+   * @param {string} dateStart
+   * @param {string} dateEnd
+   * @returns {Observable<MassReport>}
+   */
+  getAccumulationMass(search: string, dateStart: string, dateEnd: string): Observable<MassReport>{
+    return this.http.get<MassReport>(`${environment.MassReport}?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
 
 }
   

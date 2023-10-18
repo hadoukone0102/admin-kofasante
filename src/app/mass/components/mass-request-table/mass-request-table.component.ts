@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
 import { ChildMassRequest, MassRequest, Masses } from '../mass-request-models/mass-request.model';
 import { MassRequestService } from '../mass-request-services/mass-request.service';
-import { Subject, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from '../mass-modal/mass-modal-filter/filter-model.model';
 import jsPDF from 'jspdf';
@@ -45,6 +45,16 @@ pdfTitle: string="Liste des Demandes de Messe";
 pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@Input() messeListParent!: MassRequest;
+@Input() listType!: string; 
+
+  // ~~~~~~~~~~ Donation variables ~~~~~~~~~ //
+  messe$!: Observable<MassRequest>;
+  // donationTest$!: Observable<DataDon>;
+  // donationListTest!: Array<ChildMassRequest>;
+  messeList!: Array<ChildMassRequest>;
+
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
@@ -59,6 +69,8 @@ excelFileName: string = "Demande-noAnonyme";
           console.log(this.massRequests.demande_messe);
         }
         );
+
+        this.messeList = this.messeListParent.demande_messe;
         
       // this.massRequestService.getMassRequests().subscribe(
       //   (data)=>{

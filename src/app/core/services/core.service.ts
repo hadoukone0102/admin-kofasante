@@ -74,7 +74,9 @@ export class CoreService {
   // ajouter par kone
   goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
   goToReportMass(){this.router.navigate(['/bilan-messe'])}
-
+//je fais un test
+  UnTest(){this.router.navigate(['/test'])};
+  
   // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
   goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
   goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
