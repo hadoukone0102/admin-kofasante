@@ -57,7 +57,7 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
   {path: 'corbeille-messe', component: ListBasketMassComponent, resolve: basketResolver},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
-  //je fais un test
+  //je fais un tes
   {path: 'test', component: BilanComponent, resolve: reportMassRequest},
 ];
 
