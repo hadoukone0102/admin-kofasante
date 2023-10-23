@@ -60,7 +60,7 @@
                                         #theSearchBar="ngModel"
                                         name="dateEnd"
                                         (change)="startIsLessThanEnd()"
-                                        [max]="today.toISOString().split('T')[0]"
+                                        [max]="maxDate.toISOString().split('T')[0]"
                                     >
                                 </div>
                                 <div *ngIf="!dateIsCorrect" class="text-danger">

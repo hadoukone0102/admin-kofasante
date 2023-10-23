@@ -1,0 +1,91 @@
+<!-- Modal Content -->
+<div class="modal fade " id="modal-form-filter" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0 bg-tertiary">
+                <div class="card p-3 p-lg-4">
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center text-md-center mb-4 mt-md-0">
+                        <h1 class="mb-0 h4">Filtrez vos recherches</h1>
+                    </div>
+                    <!-- Spinner -->
+                    <div *ngIf="isSubmitting" class="d-flex align-items-center justify-content-center">
+                        <div  class="spinner-border text-info " role="status">
+                        <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
+                        <!-- Form -->
+                        <div class="row">
+                            
+                            <div class="form-group mb-4 col-12">
+                                <label for="oldPassword">Recherche</label>
+                                <div class="input-group">
+                                    <span  class="input-group-text" id="basic-addon2">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="" id="searchBar" autofocus required
+                                        [(ngModel)]="dataFilter.searchBarValue"
+                                        #theSearchBar="ngModel"
+                                        name="searchBar"
+                                    >
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                            <!-- Form -->
+                            <div class="form-group mb-4 col">
+                                <label for="oldPassword">Date de début</label>
+                                <div class="input-group">
+                                    <span  class="input-group-text" id="basic-addon2">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <input type="date" class="form-control" placeholder="" id="dateStart" autofocus required
+                                        [(ngModel)]="dataFilter.dateStartValue"
+                                        #theSearchBar="ngModel"
+                                        name="dateStart"
+                                        (change)="startIsLessThanEnd()"
+                                        [max]="convertStringToDate(dateEndValue).toISOString().split('T')[0]"
+                                    >
+                                </div>
+                            </div>
+                            <!-- End of Form -->
+                            <div class="form-group mb-4 col">
+                                <label for="oldPassword">Date de fin</label>
+                                <div class="input-group">
+                                    <span  class="input-group-text" id="basic-addon2">
+                                        <i class="fa fa-search"></i>
+                                    </span>
+                                    <input type="date" class="form-control" placeholder="" id="dateEnd" autofocus required
+                                        [(ngModel)]="dataFilter.dateEndValue"
+                                        #theSearchBar="ngModel"
+                                        name="dateEnd"
+                                        (change)="startIsLessThanEnd()"
+                                        [max]="today.toISOString().split('T')[0]"
+                                    >
+                                </div>
+                                <div *ngIf="!dateIsCorrect" class="text-danger">
+                                    <small>La date de début doit être inférieur à la date de fin</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-success"
+                                    [disabled]="!dateIsCorrect"
+                                    >Appliquer</button>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="d-grid">
+                                    <a class="btn btn-github" data-bs-dismiss="modal" aria-label="Close"
+                                   
+                                    >Fermer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

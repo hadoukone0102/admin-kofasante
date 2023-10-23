@@ -1,0 +1,102 @@
+<!-- Modal Content -->
+<div class="modal fade " id="modal-select-column" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered " role="document">
+        <div class="modal-content">
+            <div class="modal-body p-0 bg-tertiary">
+                <div class="card p-3 p-lg-4">
+                    <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div class="text-center text-md-center mb-4 mt-md-0">
+                        <h1 class="mb-0 h4">Selectionnez les colonnes à afficher</h1>
+                    </div>
+                   
+                    <form (ngSubmit)="onSubmit()" #editProfile="ngForm" class="mt-4">
+                        <!-- Form -->
+                        <div class="row">
+
+                            <div class="col">
+                                <!-- Checkboxes -->
+                                
+                                <!-- <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="number" name="number"
+                                    [(ngModel)]="formQuestColumn.number"
+                                    >
+                                    <label class="form-check-label" for="number">
+                                      N°
+                                    </label>
+                                </div>
+                                 -->
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="type" name="type"
+                                    [(ngModel)]="formQuestColumn.amountQuest"
+                                    >
+                                    <label class="form-check-label" for="type">
+                                      Montants
+                                    </label>
+                                </div>
+                                
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="date" name="date"
+                                    [(ngModel)]="formQuestColumn.quest_types"
+                                    >
+                                    <label class="form-check-label" for="date">
+                                      Type de quête
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="lastName" name="lastName"
+                                    [(ngModel)]="formQuestColumn.days"
+                                    >
+                                    <label class="form-check-label" for="lastName">
+                                      date
+                                    </label>
+                                </div>
+                                <!-- <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="firstName" name="firstName"
+                                    [(ngModel)]="formQuestColumn.prenomDon"
+                                    [disabled]="isAnonymous"
+                                    >
+                                    <label class="form-check-label" for="firstName">
+                                      Prénom
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="contact" name="contact"
+                                    [(ngModel)]="formQuestColumn.contactDon"
+                                    [disabled]="isAnonymous"
+                                    >
+                                    <label class="form-check-label" for="contact">
+                                      Contact
+                                    </label>
+                                </div> --> 
+                                <!-- <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="transactionId"  name="transactionId" 
+                                    [(ngModel)]="formQuestColumn.transactionId"
+                                    >
+                                    <label class="form-check-label" for="transactionId">
+                                      Id de transaction
+                                    </label>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="d-grid">
+                                            <button type="submit" class="btn btn-success"
+                                            >Appliquer</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="d-grid">
+                                            <a class="btn btn-github" data-bs-dismiss="modal" aria-label="Close"
+                                            >Fermer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

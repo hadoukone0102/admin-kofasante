@@ -1,0 +1,23 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Quête"
+        theTitle="Corbeille des quêtes"
+        theContent="Consultez la liste des quêtes échouées">
+    </app-page-title>
+    <!-- Content -->
+
+    <div class="card border-0 shadow mb-4">
+        <div class="card-body">
+            <app-quest-list-table>
+
+            </app-quest-list-table>
+        </div>
+    </div>
+    
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

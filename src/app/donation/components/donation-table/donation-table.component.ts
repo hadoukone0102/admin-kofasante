@@ -235,6 +235,7 @@ export class DonationTableComponent implements OnInit{
   
   handleDataColumnFromChild(dataColumn: FormDonationColumn) {
    this.formDonationColumn = dataColumn ;
+   console.log(this.formDonationColumn);
   }
  
   resetFilter(){
@@ -266,7 +267,6 @@ export class DonationTableComponent implements OnInit{
       dons: []
     }
     
-
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
       this.pdfOrientation = 'portrait';
@@ -345,13 +345,14 @@ export class DonationTableComponent implements OnInit{
     }
     else if(this.listType === "all")
     { 
+
       this.searchTerms.next(this.searchBarValue);
-    
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
         distinctUntilChanged(),
         switchMap((term) => this.donationService.getDonationsWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
+      
     }
     else{//failed
       this.searchTerms.next(this.searchBarValue);
@@ -404,7 +405,6 @@ export class DonationTableComponent implements OnInit{
       this.donationList = data.dons;
       this.donationListParent =  data;
       this.checkAndApplyDisabled(data);
-      
     });
   }
 
@@ -473,7 +473,9 @@ export class DonationTableComponent implements OnInit{
       paysDon: false,
       villeDon: false,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 
@@ -499,7 +501,9 @@ export class DonationTableComponent implements OnInit{
       paysDon: true,
       villeDon: true,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 
@@ -524,7 +528,9 @@ export class DonationTableComponent implements OnInit{
       paysDon: true,
       villeDon: true,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 
@@ -558,7 +564,9 @@ export class DonationTableComponent implements OnInit{
       paysDon: true,
       villeDon: true,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 

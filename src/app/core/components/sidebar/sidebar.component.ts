@@ -55,63 +55,52 @@ export class SidebarComponent implements OnInit{
     return false;
   }
 
+  // ====================================================== //
+  // ======================= ROUTES ======================= //
+  // ====================================================== //
+
   goToDashboard(){this.coreService.goToDashboard();}
+  goToDonationNoAnonymousPerso(){this.coreService.goToDonationNoAnonymousPerso();}
 
-  goToDonationAnonymous(){
-    this.coreService.goToDonationAnonymous();
-  }
+  // ~~~~~~~~~~ //TODO - Donation ~~~~~~~~~~ //
 
-  goToDonationNoAnonymousPerso(){
-    this.coreService.goToDonationNoAnonymousPerso();
-  }
-  
-  goToDonationNoAnonymousOrga(){
-    this.coreService.goToDonationNoAnonymousOrga();
-  }
+  goToDonationAnonymous(){this.coreService.goToDonationAnonymous();}
+  goToDonationNoAnonymousOrga(){this.coreService.goToDonationNoAnonymousOrga();}
+  goToReportDonation(){this.coreService.goToReportDonation()}
+  goToListDonationType(){this.coreService.goToListDonationType();}
+  goToListDisabledDonationType(){this.coreService.goToListDisabledDonationType();}
+  goToAddDonationType(){this.coreService.goToAddDonationType();}
+  goToBasketDonation(){this.coreService.goToBasketDonation()}
 
-  goToReportDonation(){
-    this.coreService.goToReportDonation()
-  }
+  // ~~~~~~~~~~~~ //TODO - Admin ~~~~~~~~~~~ //
 
-  goToListDonationType(){
-    this.coreService.goToListDonationType();
-  }
-  
-  goToListDisabledDonationType(){
-    this.coreService.goToListDisabledDonationType();
-  }
-  
-  goToAddDonationType(){
-   this.coreService.goToAddDonationType();
-  }
-  
-  goToBasketDonation(){
-    this.coreService.goToBasketDonation()
-  }
-
-  goToProfile(){
-    this.coreService.goToProfile();
-  }
-
-  goToAdmin(){
-    this.coreService.goToAdmin();
-  }
- 
-  goToDisabledAccount(){
-    this.coreService.goToDisabledAccount();
-  }
-
-  goToAddAdmin(){
-    this.coreService.goToAddAdmin();
-  }
-
-  goToLogin(){
-    this.coreService.goToLogin();
-  }
-
+  goToProfile(){this.coreService.goToProfile();}
+  goToAdmin(){this.coreService.goToAdmin();}
+  goToDisabledAccount(){this.coreService.goToDisabledAccount();}
+  goToAddAdmin(){this.coreService.goToAddAdmin();}
+  goToLogin(){this.coreService.goToLogin();}
   logout(){
     if(confirm("Etes Vous sûr de vouloir vous déconnecter ?"))
       this.authService.logout();
   }
 
+  // ~~~~~~~~~~~~ //TODO - Mass ~~~~~~~~~~~~ //
+
+  goToAddMass(){this.coreService.goToAddMass();}
+  goToMassList(){this.coreService.goToMassList();}
+  goToAddMassTime(){this.coreService.goToAddMassTime();}
+  goToMassTimeList(){this.coreService.goToMassTimeList();}
+  goToNoAnonymousMassRequest(){this.coreService.goToNoAnonymousMassRequest();}
+  goToBasketMass(){this.coreService.goToBasketMass();}
+  goToReportMass(){this.coreService.goToReportMass();}
+
+  // je fais un test
+  UnTest(){this.coreService.UnTest();}
+  
+  // ~~~~~~~~~~~~ //TODO - Quest ~~~~~~~~~~~ //
+  goToQuestTypeList(){this.coreService.goToQuestTypeList();}
+  goToAddQuestType(){this.coreService.goToAddQuestType();}
+  goToQuestList(){this.coreService.goToQuestList();}
+  goToReportQuestList(){this.coreService.goToReportQuestList();}
+  goToBasketQuest(){this.coreService.goToBasketQuest();}
 }

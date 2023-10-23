@@ -9,6 +9,7 @@ export interface Admin {
   updated_at: string
   codeConfirmAdmin: any
 }
+
 export interface DataAdmin {
     status_code: number
     error: boolean

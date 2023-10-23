@@ -19,7 +19,7 @@ export class AdminTableComponent implements OnInit{
   @Input() admins$!: Observable<DataAdmin>;
   admins!: DataAdmin;
 
-  @Input() disabledAccounts$!: Observable<DataDisabledAccount>;
+  @Input()  disabledAccounts$!: Observable<DataDisabledAccount>;
   disabledAccounts!: DataDisabledAccount;
 
   constructor(
@@ -76,7 +76,7 @@ trackByDisabledAccountId(index: number, disabledAccount: any): number {
    * @param {string} id
    */
   disabledAdmin(id: string){
-    if(confirm("Etes vous sur de vouloir désactiver ce compte ?")){
+    if(confirm("Êtes vous sur de vouloir désactiver ce compte ?")){
       this.adminService.disabledAdmin(id).subscribe(data =>{
         this.admins$ = this.adminService.getAdmins();
         this.admins$.subscribe(

@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit{
     this.isLogged = true;
 
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
 }
@@ -99,6 +99,7 @@ showConsole(val: string){
   // console.log("keyup the new mama: "+val);
   
 }
+
 showConsoleChange(val: string){
   
   // console.log("change the new mama: "+val);

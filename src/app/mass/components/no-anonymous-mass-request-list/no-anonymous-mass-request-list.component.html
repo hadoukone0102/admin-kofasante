@@ -1,0 +1,25 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Messe"
+        theTitle="Liste des demandes de messes non anonymes"
+        theContent="Consultez la liste des demandes de messes">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card border-0 shadow mb-4">
+        <div *ngIf="messe$ | async as messe" class="card-body">
+
+            <app-mass-request-table [listType]="type"
+            [showBouton]="valeur"
+            [messeListParent]="messe"
+            >
+            </app-mass-request-table>
+
+        </div>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

@@ -1,0 +1,168 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Messe"
+        theTitle="Modifiez les messes"
+        theContent="Modifiez le jour et les heures de messes">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card card-body border-0 shadow mb-4">
+        <h2 class="h5 mb-4"></h2>
+        <form #editDonationType="ngForm" class="mt-4">
+            <!-- Form -->
+            <div class="form-group row mb-4">
+                    <div class="col-12">
+                        <span for="libelle">Date de messe:</span>
+                        <h2>{{dataSetMassModel.masse.date | date:"dd/MM/yyyy"}}</h2>
+                    </div>
+
+                      <div class="col-sm-6 mb-1 mb-sm-0">
+                          <label for="role">Heure de la messe</label>
+                          <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                  [(ngModel)]="selectedValue">
+                            <option value="" disabled>Selectionnez une heure</option>
+                            <option *ngFor="let massTime of massTimeList" value="{{massTime.id}}">{{massTime.times | customTimeFormat}}</option>
+                          </select>
+                          <div *ngIf="!timeIsSelected">
+                            <small class="text-danger">Aucune heure n'a été sélectionnée</small>
+                        </div>
+                          <div *ngIf="timeIsInList">
+                            <small class="text-danger">Cette heure a déjà été selectionnée</small>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-6 mb-1 mb-sm-0">
+                          <label for="role">Type de quête</label>
+                          <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                  [(ngModel)]="questTypeSelected">
+                            <option value="" disabled>Selectionnez un type de quête</option>
+                            <option *ngFor="let questType of questTypeModel.questType" value="{{questType.labelQt}}">{{questType.labelQt}}</option>
+                          </select>
+                          <div *ngIf="!questTypeIsSelected">
+                            <small class="text-danger">Aucun type de quête n'a été sélectionné</small>
+                        </div>
+                          <div *ngIf="questTypeIsInList">
+                            <small class="text-danger">Cet type de quête a déjà été selectionné</small>
+                        </div>
+                      </div>
+            </div>  
+
+              
+              <!-- <div class="col-12 mb-4">
+                <div *ngFor="let time of times; let i = index">
+                  <div class="mb-2">
+                    <span>{{ time }}</span>
+                    <button type="button" class="btn btn-paypal ms-2" (click)="setTime(i)">Modifier</button>
+                  </div>
+                </div>
+              </div> -->
+
+              <div *ngIf="successfulOperation" class="alert alert-success alert-dismissible fade show" role="alert">
+                <span class="fas fa-bullhorn me-1"></span>
+                <strong>Success</strong> Opération réussie
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div *ngIf="pageHasError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <span class="fas fa-bullhorn me-1"></span>
+                <strong>Erreur!</strong> {{errorMessage}}
+                <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+
+              <div class="col-12 row mb-4 border" *ngFor="let mass of dataSetMassModel.masse.times; trackBy: trackById " @zoomEnterAnimation>
+                <div class="col-sm-6 col-12 mb-2">
+                  <h5>Heure</h5>
+                  <span>{{ mass.time | customTimeFormat}}</span>
+                  <button (click)="setTime(mass.idMt)" type="button" class="btn btn-paypal ms-2">Modifier</button>
+                  
+                </div>
+                <div class="col-sm-6 col-12">
+                  <h5>Quêtes</h5>
+                  <div *ngFor="let quest of mass.questType" class="col-12 mb-2">
+                    <span>{{ quest }}</span>
+                    <button (click)="setQuestType(mass.idMt, quest)" type="button" class="btn btn-paypal ms-2">Modifier</button>
+                  </div>
+                  
+                  <!-- Buttons -->
+                  <div class="col-12 mb-2">
+                    <div class="row g-2">
+                        <div class="col-3 d-flex align-items-end me-3">
+                            <button type="submit" class="btn btn-paypal" title="Ajouter une quête"
+                            (click)="addTime()"
+                            ><i class="fa fa-plus"></i>
+                        </button>
+                        </div>
+                        <div class="col-3 d-flex align-items-end ms-1">
+                            <button type="submit" class="btn btn-danger" title="Supprimer une quête"
+                            [disabled]="noValueSelected()"
+                            (click)="deleteMass(mass.id_masse)"
+                            ><i class="fa fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <div class=" col-12" >
+                      <button (click)="onSubmit(mass.id_masse,mass.idMt,mass.questType)" class="btn btn-primary me-2 mt-2"
+                      [disabled]="isButtonDisabled[mass.id_masse].state" style="width: 8em;"
+                      >
+                        {{isButtonDisabled[mass.id_masse].setButtonText}}
+                      </button>
+                      <!-- Spinner -->
+                        <!-- <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">
+                          <app-spinner></app-spinner>
+                        </div> -->
+                      <!-- End spinner -->
+                      <button (click)="deleteMass(mass.id_masse)" class="btn btn-danger mt-2"
+                      [disabled]="isButtonDisabled[mass.id_masse].state" style="width: 8.2em;"
+                      >
+                      {{isButtonDisabled[mass.id_masse].deleteButtonText}}
+                      </button>
+                    </div>
+                </div>
+                <!-- End Buttons -->
+                </div>
+              </div>
+              
+
+              <div class="col-sm-6">
+                <div class="row g-2">
+                    <div class="col-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary" title="Ajouter une messe"
+                        (click)="addMass()"
+                        >Ajouter
+                    </button>
+                    </div>
+                    <!-- <div class="col-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-danger" title="Supprimer une heure"
+                        [disabled]="noValueSelected()"
+                        (click)="deleteMass(1)"
+                        ><i class="fa fa-minus"></i></button>
+                    </div> -->
+                    
+                </div>
+            </div>
+        
+            
+            
+            <!-- <div *ngIf="!theLastName.pristine && theLastName.invalid">
+                <small class="text-danger">Entrez votre prénom</small>
+            </div> -->
+            
+            <!-- BUTTON UPDATE -->
+
+            <!-- <div class="d-flex mt-3">
+                <button type="submit" class="btn btn-gray-800"
+                [disabled]="!editDonationType.valid "
+                >Modifier</button>
+
+                <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">
+                    <app-spinner></app-spinner>
+                </div>
+                
+            </div> -->
+            <!-- End Button update -->
+        </form>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

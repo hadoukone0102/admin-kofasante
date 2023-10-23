@@ -1,0 +1,238 @@
+    <app-toggle-header></app-toggle-header>
+    <app-sidebar></app-sidebar>
+    <main class="content">
+        <app-header></app-header>
+        <app-page-title
+            theModule="Messe"
+            theTitle="Ajouter des messes"
+            theContent="Ajouter un ou plusieurs jours de messe">
+        </app-page-title>
+        <!-- Content -->
+        <div class="card card-body border-0 shadow mb-4">
+            <h2 class="h5 mb-4"></h2>
+            <form (ngSubmit)="onSubmit()" #editDonationType="ngForm" class="mt-4">
+                <!-- Form -->
+                <div *ngIf="formHasError" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span class="fas fa-bullhorn me-1"></span>
+                    <strong>Erreur!</strong> {{errorMessage}}
+                    <!-- <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button> -->
+                  </div>
+                  <div *ngIf="dateFromEditMass != ''" class="col-12">
+                    <span for="libelle">Date de messe:</span>
+                    <h2>{{dateFromEditMass | date:"dd/MM/yyyy"}}</h2>
+                </div>
+                <div *ngIf="dateFromEditMass === ''" class="form-group row mb-4">
+                        <div class="col-sm-6">
+                            <label for="libelle">Date de début</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="startDate" required
+                                    name="startDate"
+                                    [(ngModel)]="formData.date_debut"
+                                >
+                            </div>  
+                            
+                        </div>
+                        <div class="col-sm-6">
+                            <label for="libelle">Date de fin</label>
+                            <div class="input-group">
+                                <input type="date" class="form-control" id="endDdate" required
+                                    name="endDate"
+                                    [(ngModel)]="formData.date_fin"
+                                >
+                            </div>  
+                        </div>
+                    <!-- <div *ngIf="theFirstName.touched && theFirstName.invalid">
+                        <small class="text-danger">Entrez le libellé</small>
+                    </div> -->
+                    <!-- <div *ngIf="donationTypeExists">
+                        <small class="text-danger">Ce type de don existe déjà!</small>
+                    </div> -->
+                </div>  
+
+                <div class="col-12 mb-4">
+                    <div class="row">
+                      <div class="col-sm-6 mb-1 mb-sm-0">
+                        <label for="role">Heure de la messe</label>
+                        <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                [(ngModel)]="timeSelected">
+                          <option value="" disabled>Selectionnez une heure</option>
+                          <option *ngFor="let massTime of massTimeList" value="{{massTime.times}}">{{massTime.times | customTimeFormat}}</option>
+                          <!-- Ajoutez d'autres options ici si nécessaire -->
+                        </select>
+                        <div *ngIf="!timeIsSelected">
+                            <small class="text-danger">Aucune heure n'a été sélectionnée</small>
+                        </div>
+                        <div *ngIf="timeIsInList">
+                            <small class="text-danger">Cette heure a déjà été selectionnée</small>
+                        </div>
+                      </div>
+                      <!-- DISPLAY TIMES LIST -->
+                      <div class="col-sm-6 mb-1 mb-sm-0">
+                        <label for="role">Liste des Heures de messe</label>
+                        <div *ngFor="let time of formData.times; let i = index" class="mb-2">
+                            <span>{{ time | customTimeFormat}}</span>
+                            <button  (click)="setTime(i)" type="button" class="btn btn-paypal ms-2">Modifier</button>
+                        </div>
+                        <!-- Buttons -->
+                        <div class="col-sm-6 mt-2">
+                            <div class="row g-2">
+                                <div class="col-3 d-flex align-items-end me-3">
+                                    <button type="button" class="btn btn-paypal" title="Ajouter une heure"
+                                    (click)="addTime()"
+                                    ><i class="fa fa-plus"></i>
+                                </button>
+                                </div>
+                                <div class="col-3 d-flex align-items-end">
+                                    <button type="button" class="btn btn-danger" title="Supprimer une heure"
+                                    [disabled]="noTimeSelected()"
+                                    (click)="deleteTime()"
+                                    ><i class="fa fa-minus"></i></button>
+                                </div>
+                                
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- QUESTE TYPE -->
+                  <div class="col-12 mb-4">
+                    <div class="row">
+                        <div class="col-sm-6 mb-1 mb-sm-0">
+                            <label for="role">Types de quête</label>
+                            <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
+                                    [(ngModel)]="questTypeSelected">
+                              <option value="" disabled>Selectionnez un type de quête</option>
+                              <option value="normale">normale</option>
+                              <option value="journaliere"> journaliere</option>
+                              <option value="spéciale">spéciale</option>
+                              <!-- Ajoutez d'autres options ici si nécessaire -->
+                            </select>
+                            <div *ngIf="!questTypeIsSelected">
+                                <small class="text-danger">Aucun type de quête n'a été sélectionné</small>
+                            </div>
+                            <div *ngIf="questTypeIsInList">
+                                <small class="text-danger">Ce type de quête a déjà été sélectionné</small>
+                            </div>
+                          </div>
+    
+                          <!-- DISPLAY QUEST TYPE -->
+                          <div class="col-sm-6 mb-1 mb-sm-0">
+                            <label for="role">Liste des Heures de messe</label>
+                            <div *ngFor="let questType of formData.typeQuette; let i = index" class="mb-2">
+                                <span>{{ questType }}</span>
+                                <button  (click)="setQuestType(i)" type="button" class="btn btn-paypal ms-2">Modifier</button>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="col-sm-6 mt-2">
+                                <div class="row g-2">
+                                    <div class="col-3 d-flex align-items-end me-3">
+                                        <button type="button" class="btn btn-paypal" title="Ajouter une heure"
+                                        (click)="addQuestType()"
+                                        ><i class="fa fa-plus"></i>
+                                    </button>
+                                    </div>
+                                    <div class="col-3 d-flex align-items-end">
+                                        <button type="button" class="btn btn-danger" title="Supprimer une heure"
+                                        [disabled]="noQuestTypeSelected()"
+                                        (click)="deleteQuestType()"
+                                        ><i class="fa fa-minus"></i></button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                  
+                  <!-- DAYS -->
+                  <div *ngIf="dateFromEditMass === ''" class="col-12 mb-4">
+                    <div class="row mt-2">
+                        <label class="col-12">Jours concernés</label>
+                      <div class="col form-check">
+                        <input value="lundi" class="form-check-input" type="checkbox" id="monday" name="monday"
+                        [(ngModel)]="dayData.monday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="monday">
+                          Lundi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="mardi" class="form-check-input" type="checkbox" id="tuesday" name="tuesday"
+                        [(ngModel)]="dayData.tuesday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="tuesday">
+                          Mardi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="mercredi" class="form-check-input" type="checkbox" id="wednesday" name="wednesday"
+                        [(ngModel)]="dayData.wednesday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="wednesday">
+                          Mercredi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="jeudi" class="form-check-input" type="checkbox" id="thursday" name="thursday"
+                        [(ngModel)]="dayData.thursday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="thursday">
+                          Jeudi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="vendredi" class="form-check-input" type="checkbox" id="friday" name="friday"
+                        [(ngModel)]="dayData.friday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="friday">
+                          Vendredi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="samedi" class="form-check-input" type="checkbox" id="saturday" name="saturday"
+                        [(ngModel)]="dayData.saturday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="saturday">
+                          Samedi
+                        </label>
+                    </div>
+                      <div class="col form-check">
+                        <input value="dimanche" class="form-check-input" type="checkbox" id="sunday" name="sunday"
+                        [(ngModel)]="dayData.sunday"
+                        (change)="getDayValue()"
+                        >
+                        <label class="form-check-label" for="sunday">
+                          Dimanche
+                        </label>
+                    </div>
+                  </div>
+                  </div>
+            
+                
+                
+                <!-- <div *ngIf="!theLastName.pristine && theLastName.invalid">
+                    <small class="text-danger">Entrez votre prénom</small>
+                </div> -->
+                <div class="d-flex mt-3">
+                    <button type="submit" class="btn btn-gray-800"
+                    [disabled]="editDonationType.invalid || noQuestTypeSelected() || noTimeSelected() || noDaySelected() || isSubmitting"
+                    >Ajouter</button>
+                    <!-- Spinner -->
+                    <div class="d-flex align-items-center ms-3"  *ngIf="isSubmitting">
+                        <app-spinner></app-spinner>
+                    </div>
+                    <!-- End spinner -->
+                </div>
+            </form>
+        </div>
+        <!-- End content -->
+
+        <app-footer></app-footer>
+    </main>

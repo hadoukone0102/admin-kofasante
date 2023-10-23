@@ -8,10 +8,12 @@ import { DashboardService } from './services/dashboard.service';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
 import { GLOBAL_RESOLVERS, environment } from 'src/environments/environment';
 import { AuthGuard } from '../admin/guards/auth.guard';
+import { MassRequestResolver } from './resolvers/mass-request.resolver';
 
 const listDashboardResolvers = {...{
   dashboard: DashboardResolver,
   adminInfo: AdminInfoResolver,
+  massRequestInfo: MassRequestResolver,
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [

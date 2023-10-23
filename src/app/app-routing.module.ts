@@ -10,6 +10,7 @@ import { ConfirmCodeSmsComponent } from './admin/components/confirm-code-sms/con
 import { ResetPasswordComponent } from './admin/components/reset-password/reset-password.component';
 import { AccessGuard } from './admin/guards/access.guard';
 import { IsResettingPasswordGuard } from './admin/guards/is-resetting-password.guard';
+import { AnonymousMassRequestListComponent } from './mass/components/anonymous-mass-request-list/anonymous-mass-request-list.component';
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
@@ -32,6 +33,18 @@ const routes: Routes = [
     }
   }, 
   {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule), 
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.allRoles_Without_HeadOfCatechesis
+    }
+  }, 
+  {path: 'messes', loadChildren: () => import('./mass/mass.module').then(m => m.MassModule), 
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.allRoles_Without_HeadOfCatechesis
+    }
+  }, 
+  {path: 'quetes', loadChildren: () => import('./quest/quest.module').then(m => m.QuestModule), 
     canActivate: [AuthGuard, AccessGuard],
     data:{
       roles: environment.allRoles_Without_HeadOfCatechesis

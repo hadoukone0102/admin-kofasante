@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { DataDonationInfo } from '../models/donationInfo.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminInfo } from '../models/admin-info.model';
+import { MassRequestInfoModel } from '../models/mass-request-info.model';
 
 @Injectable()
 export class DashboardService {
@@ -26,6 +27,12 @@ export class DashboardService {
   getAdminInfo(): Observable<DataAdminInfo>{
     return this.http.get<DataAdminInfo>(`${environment.apiUrlAdmin}/total`).pipe(
       catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  getMassRequestInfo(): Observable<MassRequestInfoModel>{
+    return this.http.get<MassRequestInfoModel>(`${environment.apiUrlMass}/requestmesse/total `).pipe(
+      catchError((error) => this.coreService.handleError(error)),
     );
   }
 }

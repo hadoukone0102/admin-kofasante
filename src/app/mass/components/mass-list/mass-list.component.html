@@ -1,0 +1,24 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Messe"
+        theTitle="Liste des messes"
+        theContent="Consultez la liste des messes">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card border-0 shadow mb-4">
+        <div class="card-body">
+
+            <app-mass-table
+            [maxDate]="maxDate"
+            [massModel]="massModel"
+            ></app-mass-table>
+
+        </div>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

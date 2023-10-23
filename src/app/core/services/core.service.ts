@@ -61,9 +61,30 @@ export class CoreService {
   goToAddDonationType(){this.router.navigate(['/dons/ajouter-don']);}
   goToEditDonationType(id: number){this.router.navigate(['/dons/modifier-type-don', id]);}
 
+  // ~~~~~~~~~~~~ //TODO - MASS ~~~~~~~~~~~~ //
+
+  goToMassList(){this.router.navigate(['/messes/liste']);}
+  goToAddMass(){this.router.navigate(['/messes/ajouter-messes']);}
+  goToEditMass(id: number){this.router.navigate(['/messes/modifier-messes', id]);}
+  goToAddMassTime(){this.router.navigate(['/messes/ajouter-heure-messe']);}
+  goToMassTimeList(){this.router.navigate(['/liste-des-heures-de-messes']);}
+  goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}
+  goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
+  goToAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-anonyme']);}
+  goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
+  goToReportMass(){this.router.navigate(['/bilan-messe'])}
+  UnTest(){this.router.navigate(['/test'])};
+  
+  // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
+  goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
+  goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
+  goToAddQuestType(){this.router.navigate(['/quetes/ajouter-type-quete']);}
+  goToQuestList(){this.router.navigate(['/quetes/list-quete']);}
+  goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
+  goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
   goToPageError(){this.router.navigate(['/erreur']);}
   goToPageNotFound(){this.router.navigate(['/page-introuvable']);} 
-  goToLockedPage(){this.router.navigate(['/page-verrouillee']);} 
+  goToLockedPage(){this.router.navigate(['/page-verrouillee']);}
 }

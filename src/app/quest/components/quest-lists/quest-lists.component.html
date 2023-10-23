@@ -1,0 +1,24 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Quête"
+        theTitle="Liste des quêtes"
+        theContent="Consultez la liste des quêtes">
+    </app-page-title>
+    <!-- Content -->
+
+    <div class="card border-0 shadow mb-4">
+        <div *ngIf=" quest$ |async as quest" class="card-body">
+            <app-quest-list-table [listType]="type" 
+                [questListParent]="quest"
+            >
+            </app-quest-list-table>
+        </div>
+    </div>
+    
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

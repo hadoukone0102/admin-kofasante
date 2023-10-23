@@ -11,6 +11,7 @@ import { PagesModule } from './pages/pages.module';
 import { GlobalModule } from './global/global.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
+import { MassModule } from './mass/mass.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor
     BrowserModule,
     FormsModule,
     DonationModule,
+    MassModule,
     CoreModule,
     AdminModule,
     PagesModule,

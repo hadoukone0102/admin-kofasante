@@ -10,6 +10,7 @@ export class ModalFilterComponent implements OnInit{
   @Input() searchBarValue: string = "";
   @Input() dateStartValue: string = "";
   @Input() dateEndValue: string = "";
+  @Input() listType: string = "";
 
   dataFilter!: DataFilter;
   @Output() dataFilterToParent: EventEmitter<DataFilter> = new EventEmitter<DataFilter>();
@@ -17,7 +18,7 @@ export class ModalFilterComponent implements OnInit{
   isSubmitting: boolean = false;
 
   // ~~~~~~~~~ Today date variables ~~~~~~~~ //
-  today: Date = new Date();
+  maxDate: Date = new Date();
 
   dateIsCorrect!: boolean;
 
@@ -28,6 +29,9 @@ export class ModalFilterComponent implements OnInit{
       dateEndValue : this.dateEndValue
     }
     this.dateIsCorrect = true;
+    if(this.listType === "mass"){
+      this.maxDate = new Date(this.dateEndValue);
+    }
   }
 
   /**

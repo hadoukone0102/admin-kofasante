@@ -7,6 +7,7 @@ import { style, transition, trigger,animate } from '@angular/animations';
 import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
+import { MassRequestInfoModel } from '../../models/mass-request-info.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +22,8 @@ export class DashboardComponent implements OnInit{
 
   adminInfo$!: Observable<DataAdminInfo>;
   adminInfo!: DataAdminInfo;
+
+  massRequestInfo!: MassRequestInfoModel;
 
   adminType!: string|null;
 
@@ -41,6 +44,10 @@ export class DashboardComponent implements OnInit{
     );
     
     this.adminInfo$.subscribe((data) => this.adminInfo = data);
+
+    this.route.data.pipe(map(data => data['massRequestInfo'])).subscribe(
+      (data) => this.massRequestInfo = data
+    );
 
     this.adminType = sessionStorage.getItem('type');
     //roles initialization

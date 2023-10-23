@@ -9,6 +9,7 @@ import {
 import { Observable, catchError, throwError } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { CoreService } from 'src/app/core/services/core.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -17,7 +18,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
 
-    const token = this.authService.getToken();
+    let token = null;
+    if (request.url.includes("admin-api.eglise-mukasa.ci")) 
+      token = this.authService.getToken(); //Token for admin api
+    else if(request.url.includes("messe-api.eglise-mukasa.ci"))
+      token = environment.massToken; //Token for mass api
+    
 
     if(token !== null){
       //Clone the request to modify by insert token
