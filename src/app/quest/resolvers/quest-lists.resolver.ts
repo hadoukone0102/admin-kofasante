@@ -6,16 +6,16 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { QuestService } from '../services/quest.service';
-import { Quette } from '../models/quest-type.model';
+import { QuestOriginal, Quette } from '../models/quest-type.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuestListsResolver implements Resolve<Quette> {
+export class QuestListsResolver implements Resolve<QuestOriginal> {
   constructor(
     private questService: QuestService,
   ){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Quette> {
-    return this.questService.getQuestListWhere();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<QuestOriginal> {
+    return this.questService.getQuestWithMass();
   }
 }

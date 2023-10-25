@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestService } from '../../services/quest.service';
-import { Child, FormQuestColumn, Quette } from '../../models/quest-type.model';
+import { Child, FormQuestColumn, Quest, QuestOriginal, QuestOriginalChild, Quette } from '../../models/quest-type.model';
 import { Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from 'src/app/mass/models/filter-model.model';
@@ -15,11 +15,15 @@ import autoTable from 'jspdf-autotable';
 })
 export class QuestListTableComponent {
 //~~~~~~~~~~~receve data ~~~~~~~~~~~~~~~
-@Input() questListParent!:Quette;
+// @Input() questListParent!:Quette;
 // @Input() questType!: string;
+// questResult!:Array<Child>;
+
+@Input() questListParent!:QuestOriginal;
 @Input() listType!: string; 
-questResult!:Array<Child>;
+questResult!:Array<QuestOriginalChild>;
 formQuestColumn!: FormQuestColumn;
+MyQuest!:Array<Quest>
 // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
 isFirstPage!: string;
 isLastPage!: string;
@@ -42,13 +46,32 @@ pdfTitle: string="Liste des Quêtes";
 pdfFileName!: string;
 excelFileName: string = "Quêtes";
 
+ //~~~~~~~~~~~~~~~~~~~~~~~ for modal notification ~~~~~~~~~~~~~~~~ééé
+ messe_id!: number;
+ days!: string;
+ total_Quest!:string;
 
 constructor(
   private questService: QuestService,
 ){}
 
 ngOnInit():void{
-  this.questResult = this.questListParent.quettes;
+  this.questResult = this.questListParent.masses;
+  console.log(this.questResult);
+}
+
+ /**
+     * 
+     * @param id id de l'element selectionner
+     * @param templateER le message de l'intention
+     */
+ setSelectedRequest(messe_id: number, days: string, total_Quest:string) {
+  this.messe_id = messe_id;
+  this.days = days;
+  this.total_Quest = total_Quest;
+}
+selectedQuest(MyQuest:QuestOriginalChild){
+  this.MyQuest = MyQuest.Quest;
 }
 
  /**

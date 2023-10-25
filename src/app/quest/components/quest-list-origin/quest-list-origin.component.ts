@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { QuestOriginal, Quette } from '../../models/quest-type.model';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-quest-lists',
-  templateUrl: './quest-lists.component.html',
-  styleUrls: ['./quest-lists.component.css']
+  selector: 'app-quest-list-origin',
+  templateUrl: './quest-list-origin.component.html',
+  styleUrls: ['./quest-list-origin.component.css']
 })
-export class QuestListsComponent {
+export class QuestListOriginComponent {
   // quest$!: Observable<Quette>;
   quest$!:Observable<QuestOriginal>
   type!:string;

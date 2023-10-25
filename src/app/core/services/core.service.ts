@@ -80,6 +80,7 @@ export class CoreService {
   goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
   goToAddQuestType(){this.router.navigate(['/quetes/ajouter-type-quete']);}
   goToQuestList(){this.router.navigate(['/quetes/list-quete']);}
+  goToQuest(){this.router.navigate(['/quetes/quest'])}
   goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
   goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //

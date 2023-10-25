@@ -101,6 +101,7 @@ export class SidebarComponent implements OnInit{
   goToQuestTypeList(){this.coreService.goToQuestTypeList();}
   goToAddQuestType(){this.coreService.goToAddQuestType();}
   goToQuestList(){this.coreService.goToQuestList();}
+  goToQuest(){this.coreService.goToQuest();}
   goToReportQuestList(){this.coreService.goToReportQuestList();}
   goToBasketQuest(){this.coreService.goToBasketQuest();}
 }

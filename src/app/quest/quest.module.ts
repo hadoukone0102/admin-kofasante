@@ -15,6 +15,7 @@ import { QuestBasketComponent } from './components/quest-basket/quest-basket.com
 import { QuestListsComponent } from './components/quest-lists/quest-lists.component';
 import { QuestListsResolver } from './resolvers/quest-lists.resolver';
 import { QuestModalColumnComponent } from './components/quest-modal/quest-modal-column/quest-modal-column.component';
+import { QuestListOriginComponent } from './components/quest-list-origin/quest-list-origin.component';
 
 const listQuestTypeResolver = {listQuestTypeResolver: QuestTypeListResolver};
 // const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -29,6 +30,7 @@ const questRoutes: Routes = [
   {path: 'list-quete', component: QuestListsComponent, resolve: questListsResolver},
   {path: 'bilan', component: QuestReportComponent},
   {path: 'corbeille', component: QuestBasketComponent},
+  {path: 'quest', component: QuestListOriginComponent, resolve: questListsResolver},
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ const questRoutes: Routes = [
     QuestReportComponent,
     QuestBasketComponent,
     QuestListsComponent,
-    QuestModalColumnComponent
+    QuestModalColumnComponent,
+    QuestListOriginComponent
   ],
   imports: [
     CommonModule,

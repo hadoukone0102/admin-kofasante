@@ -58,21 +58,27 @@
     <table id="exportTable"  class="table table-centered table-nowrap mb-0 rounded">
         <thead class="thead-light">
             <th class="border-0 rounded-start">N°</th>
-            <th class="border-0">Types</th>
-            <th class="border-0">Montants</th>
             <th class="border-0">Date</th>
+            <th class="border-0">Jours</th>
+            <th class="border-0">Heur</th>
+            <th class="border-0">Nombres de Quetes</th>
+            <th class="border-0">Montants</th>
         </thead>
         <tbody *ngFor="let quest of questResult; let i=index">
             <tr>
                 <td>{{i+1}}</td>
-                <td>{{ quest.quest_types}}</td>
-                <td>{{ quest.amountQuest}}</td>
                 <td>{{ quest.days}}</td>
+                <td>{{ quest.days_name}}</td>
+                <td>{{quest.time}}</td>
+                <td (click)="selectedQuest(quest)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{quest.total_Quest}}</td>
+                <td data-bs-toggle="modal" (click)="setSelectedRequest(quest.messe_id, quest.days, quest.time)" data-bs-target="#staticBackdrop">{{ quest.amount_total}}</td>
             </tr>
+           
         </tbody>
     </table>
 </div>
-<div *ngIf=" questListParent.last_page != 0 && questListParent.last_page != undefined && questListParent.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+
+<!-- <div *ngIf=" questListParent.last_page != 0 && questListParent.last_page != undefined && questListParent.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
     <p>
         Affichage de {{questListParent.current_page}}/{{questListParent.last_page}} pages
     </p>
@@ -91,7 +97,7 @@
             </li>
         </ul>
     </nav>
-</div>
+</div> -->
 
 
 <app-modal-filter
@@ -106,3 +112,38 @@
     (formDonationColumnToParent) = "handleDataColumnFromChild($event)"
 >
 </app-quest-modal-column>
+
+ <!--modal for detail-->
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Detail de Quetes du {{days}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table table-centered table-nowrap mb-0 rounded">
+                <thead class="thead-light">
+                    <th>N°</th>
+                    <th>Montant</th>
+                    <th>Types</th>
+                </thead>
+               <tbody>
+                <ng-container *ngFor="let quests of MyQuest; let plus = index">
+                    <tr>
+                        <td>{{plus + 1}}</td>
+                        <td>{{quests.amountQuest}}</td>
+                        <td>{{quests.quest_types}}</td>
+                    </tr>
+                </ng-container>
+               </tbody>
+            </table>
+            
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        </div>
+    </div>
+    </div>
+</div>
+<!--modal for detail-->

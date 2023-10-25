@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { AddQuestTypeModel, AddQuestTypeResponseModel, DeleteQuestTypeResponseModel, QuestTypeByIdModel, QuestTypeModel, Quette, SetQuesTypeModel, SetQuesTypeResponseModel } from '../models/quest-type.model';
+import { AddQuestTypeModel, AddQuestTypeResponseModel, DeleteQuestTypeResponseModel, QuestOriginal, QuestTypeByIdModel, QuestTypeModel, Quette, SetQuesTypeModel, SetQuesTypeResponseModel } from '../models/quest-type.model';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError } from 'rxjs';
 
@@ -57,5 +57,16 @@ export class QuestService {
         catchError((error)=>this.coreService.handleError(error)),
       )
     }
+
+      //~~~~~~~~~~~~~~~~~~~~~~~~~for original link ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~é
+      /**
+       * @date 25/10/23 10:25
+       * @returns @observable
+       */
+      getQuestWithMass():Observable<QuestOriginal>{
+        return this.http.get<QuestOriginal>(`${environment.apiUrlQuestWithMass}`).pipe(
+          catchError((error)=>this.coreService.handleError(error)),
+        )
+      }
     
 }

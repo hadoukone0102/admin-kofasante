@@ -98,5 +98,33 @@ export interface Child {
     heure: boolean
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Origin quest Link~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export interface QuestOriginal {
+  status: string
+  status_code: number
+  status_message: string
+  total: number
+  masses: QuestOriginalChild[]
+}
+
+export interface QuestOriginalChild {
+  messe_id: number
+  days_id: number
+  days: string
+  days_name: string
+  time: string
+  amount_total: number
+  total_Quest: number
+  Quest: Quest[]
+}
+
+export interface Quest {
+  id: number
+  amountQuest: string
+  quest_types: string
+  masses_id: number
+}
+
+
 
   
