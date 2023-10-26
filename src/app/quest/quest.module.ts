@@ -16,6 +16,7 @@ import { QuestListsComponent } from './components/quest-lists/quest-lists.compon
 import { QuestListsResolver } from './resolvers/quest-lists.resolver';
 import { QuestModalColumnComponent } from './components/quest-modal/quest-modal-column/quest-modal-column.component';
 import { QuestListOriginComponent } from './components/quest-list-origin/quest-list-origin.component';
+import { DetailModalComponent } from './components/quest-modal/detail-modal/detail-modal.component';
 
 const listQuestTypeResolver = {listQuestTypeResolver: QuestTypeListResolver};
 // const listMassResolvers = {listMassResolvers: MassListResolver};
@@ -44,7 +45,8 @@ const questRoutes: Routes = [
     QuestBasketComponent,
     QuestListsComponent,
     QuestModalColumnComponent,
-    QuestListOriginComponent
+    QuestListOriginComponent,
+    DetailModalComponent
   ],
   imports: [
     CommonModule,

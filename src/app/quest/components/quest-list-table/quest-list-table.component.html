@@ -65,15 +65,14 @@
             <th class="border-0">Montants</th>
         </thead>
         <tbody *ngFor="let quest of questResult; let i=index">
-            <tr>
+            <tr (click)="selectedQuest(quest,quest.days)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 <td>{{i+1}}</td>
                 <td>{{ quest.days}}</td>
                 <td>{{ quest.days_name}}</td>
                 <td>{{quest.time}}</td>
-                <td (click)="selectedQuest(quest)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{quest.total_Quest}}</td>
-                <td data-bs-toggle="modal" (click)="setSelectedRequest(quest.messe_id, quest.days, quest.time)" data-bs-target="#staticBackdrop">{{ quest.amount_total}}</td>
+                <td >{{quest.total_Quest}}</td>
+                <td>{{ quest.amount_total}}F cfa</td>
             </tr>
-           
         </tbody>
     </table>
 </div>
@@ -113,37 +112,13 @@
 >
 </app-quest-modal-column>
 
- <!--modal for detail-->
- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-        <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Detail de Quetes du {{days}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <table class="table table-centered table-nowrap mb-0 rounded">
-                <thead class="thead-light">
-                    <th>N°</th>
-                    <th>Montant</th>
-                    <th>Types</th>
-                </thead>
-               <tbody>
-                <ng-container *ngFor="let quests of MyQuest; let plus = index">
-                    <tr>
-                        <td>{{plus + 1}}</td>
-                        <td>{{quests.amountQuest}}</td>
-                        <td>{{quests.quest_types}}</td>
-                    </tr>
-                </ng-container>
-               </tbody>
-            </table>
-            
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-        </div>
-    </div>
-    </div>
-</div>
-<!--modal for detail-->
+<!-- les details d'une quetes -->
+    <app-detail-modal
+    [receveData]="MyQuest"
+    >
+    </app-detail-modal>
+
+
+<!-- les details d'une quetes -->
+
+ 

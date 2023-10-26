@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestService } from '../../services/quest.service';
 import { Child, FormQuestColumn, Quest, QuestOriginal, QuestOriginalChild, Quette } from '../../models/quest-type.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from 'src/app/mass/models/filter-model.model';
 import jsPDF from 'jspdf';
@@ -20,7 +20,8 @@ export class QuestListTableComponent {
 // questResult!:Array<Child>;
 
 @Input() questListParent!:QuestOriginal;
-@Input() listType!: string; 
+@Input() listType!: string;
+ ModalComponent$!:Observable<QuestOriginalChild>;
 questResult!:Array<QuestOriginalChild>;
 formQuestColumn!: FormQuestColumn;
 MyQuest!:Array<Quest>
@@ -50,6 +51,7 @@ excelFileName: string = "Quêtes";
  messe_id!: number;
  days!: string;
  total_Quest!:string;
+@Output() modalQuestToParent: EventEmitter<QuestOriginalChild> = new EventEmitter<QuestOriginalChild>;
 
 constructor(
   private questService: QuestService,
@@ -65,13 +67,19 @@ ngOnInit():void{
      * @param id id de l'element selectionner
      * @param templateER le message de l'intention
      */
+
+// actionDadaBindingStart(){
+//   this.modalQuestToParent.emit(this.MyQuest);
+//   this.MyQuest
+// }
  setSelectedRequest(messe_id: number, days: string, total_Quest:string) {
   this.messe_id = messe_id;
   this.days = days;
   this.total_Quest = total_Quest;
 }
-selectedQuest(MyQuest:QuestOriginalChild){
+selectedQuest(MyQuest:QuestOriginalChild, days:string){
   this.MyQuest = MyQuest.Quest;
+  this.days = days;
 }
 
  /**
