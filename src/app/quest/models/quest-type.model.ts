@@ -96,6 +96,8 @@ export interface Child {
     days: boolean
     name_days: boolean
     heure: boolean
+    total_Quest:boolean
+    number:boolean
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Origin quest Link~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -104,7 +106,11 @@ export interface QuestOriginal {
   status_code: number
   status_message: string
   total: number
-  masses: QuestOriginalChild[]
+  total_page: number
+  per_page: number
+  current_page: number
+  last_page: number
+  MassesWithQuests: QuestOriginalChild[]
 }
 
 export interface QuestOriginalChild {

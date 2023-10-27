@@ -147,7 +147,7 @@ isRefreshing!: boolean;
    * depending on the current and last page
    * @date 10/08/2023 - 17:00:43 PM
    *
-   * @param {DataDon} data
+   * @param {DataMass} data
    */
   checkAndApplyDisabled(data: MassRequest){
     //NOTE - "1" means that it should be disabled and "..." that it should be enabled
@@ -178,7 +178,7 @@ isRefreshing!: boolean;
 
    /**
    * Go to previous page of table
-   * @date 
+   * @date
    */
    goToPrevious(){
     this.showPageWhere(-1);

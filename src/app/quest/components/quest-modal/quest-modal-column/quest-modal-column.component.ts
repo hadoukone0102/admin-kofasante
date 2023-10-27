@@ -51,6 +51,8 @@ export class QuestModalColumnComponent {
       days: true,
       name_days: true,
       heure: true,
+      number:true,
+      total_Quest:true
     }
   }
 

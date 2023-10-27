@@ -64,9 +64,21 @@ export class QuestService {
        * @returns @observable
        */
       getQuestWithMass():Observable<QuestOriginal>{
-        return this.http.get<QuestOriginal>(`${environment.apiUrlQuestWithMass}`).pipe(
+        return this.http.get<QuestOriginal>(`${environment.apiUrlQuestWithMass}/Quest/groupbyMesse`).pipe(
           catchError((error)=>this.coreService.handleError(error)),
         )
       }
+ 
+    /**
+     * @param {string} [page='1']
+     * @param {string} search
+     * @param {string} dateStart
+     * @param {string} dateEnd
+     * @returns {Observable<QuestOriginal>}
+     */
+    getMassAnonymousWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<QuestOriginal>{
+      return this.http.get<QuestOriginal>(`${environment.apiUrlQuestWithMass}/Quest/groupbyMesse?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+        catchError((error) => this.coreService.handleError(error)))
+    }
     
 }

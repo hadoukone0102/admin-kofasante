@@ -9,6 +9,7 @@ import { Quest, QuestOriginalChild } from 'src/app/quest/models/quest-type.model
 export class DetailModalComponent {
 @Input() ModalComponent!:QuestOriginalChild;
 @Input() receveData!:Array<Quest>
+@Input() dateMesse!: string;
 constructor(){}
 
 ngOnInit():void{

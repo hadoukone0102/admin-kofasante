@@ -1,23 +1,35 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { QuestService } from '../../services/quest.service';
 import { Child, FormQuestColumn, Quest, QuestOriginal, QuestOriginalChild, Quette } from '../../models/quest-type.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, debounceTime, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { FilterMassData } from 'src/app/mass/models/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
   selector: 'app-quest-list-table',
   templateUrl: './quest-list-table.component.html',
-  styleUrls: ['./quest-list-table.component.css']
+  styleUrls: ['./quest-list-table.component.css'],
+  animations:[
+    linePaginateAnimation,
+    zoomEnterAnimation
+  ]
 })
 export class QuestListTableComponent {
 //~~~~~~~~~~~receve data ~~~~~~~~~~~~~~~
+
 // @Input() questListParent!:Quette;
 // @Input() questType!: string;
 // questResult!:Array<Child>;
+
+// ~~~~~~~~~~ quest variables ~~~~~~~~~ //
+quest$!: Observable<QuestOriginal>;
+questTest$!: Observable<QuestOriginal>;
+questListTest!: Array<QuestOriginalChild>;
+questList!: Array<QuestOriginalChild>;
 
 @Input() questListParent!:QuestOriginal;
 @Input() listType!: string;
@@ -25,6 +37,7 @@ export class QuestListTableComponent {
 questResult!:Array<QuestOriginalChild>;
 formQuestColumn!: FormQuestColumn;
 MyQuest!:Array<Quest>
+
 // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
 isFirstPage!: string;
 isLastPage!: string;
@@ -46,7 +59,9 @@ pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
 pdfTitle: string="Liste des Quêtes";
 pdfFileName!: string;
 excelFileName: string = "Quêtes";
-
+//~~~~~~~~~~~~~~~~~~~~~~~boolean~~~~~~~~~~~~~~~~~~~~~~~~é
+isExporting!: boolean;
+showBtnExport:boolean = false;
  //~~~~~~~~~~~~~~~~~~~~~~~ for modal notification ~~~~~~~~~~~~~~~~ééé
  messe_id!: number;
  days!: string;
@@ -58,20 +73,105 @@ constructor(
 ){}
 
 ngOnInit():void{
-  this.questResult = this.questListParent.masses;
-  console.log(this.questResult);
+  this.ShowSheckData();
+  this.questResult = this.questListParent.MassesWithQuests;
+  // console.log(this.questResult);
+  // console.log(this.questListParent);
+}
+
+ /**
+   * Disable or enable the buttons to go to the next or previous page 
+   * depending on the current and last page
+   * @date 10/08/2023 - 17:00:43 PM
+   *
+   * @param {DataDon} data
+   */
+
+ checkAndApplyDisabled(data: QuestOriginal){
+  //NOTE - "1" means that it should be disabled and "..." that it should be enabled
+  if((data.current_page === 1) && (data.current_page != data.last_page)){
+    //("1/...")
+    this.isFirstPage = "disabled";
+    this.isLastPage = "";
+  }else{
+    if((data.current_page === 1) && (data.current_page === data.last_page)){
+      //("1/1")
+      this.isFirstPage = "disabled";
+      this.isLastPage = "disabled";
+    }
+    else{
+      if((data.current_page != 1) && (data.current_page != data.last_page)){
+        //(".../...")
+        this.isFirstPage  = "";
+        this.isLastPage = "";
+      }
+      else{
+          //(".../1")
+          this.isFirstPage  = "";
+          this.isLastPage = "disabled";
+      }
+    }
+  }
 }
 
  /**
      * 
      * @param id id de l'element selectionner
      * @param templateER le message de l'intention
-     */
+  */
 
 // actionDadaBindingStart(){
 //   this.modalQuestToParent.emit(this.MyQuest);
 //   this.MyQuest
 // }
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~paginator~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ /**
+   * Go to previous page of table
+   * @date
+   */
+ goToPrevious(){
+  this.showPageWhere(-1);
+}
+
+/**
+ * Go to next page of table
+ * @date 
+ */
+goToNext(){
+  this.showPageWhere(1);
+}
+
+/**
+ * Get the data matching of the current page of pagination
+ * @date 
+ *
+ * @param {number} pageIndex
+ */
+
+showPageWhere(pageIndex: number){
+  this.newPage= this.questListParent.current_page + pageIndex;
+
+  if(this.listType === "simpl"){
+    this.questTest$ =  this.questService.getMassAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+  }
+  // else if(this.listType === "all")
+  // {
+  //   this.questTest$ = this.questService.getAllMassGeneral(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+  // }
+  // else{
+  //   this.questTest$ = this.questService.getBasketMassWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+  // }
+  
+  this.questTest$.subscribe((data) => {
+    this.questList = data.MassesWithQuests;
+    this.questListParent =  data;
+    this.checkAndApplyDisabled(data);
+  });
+}
+
+
  setSelectedRequest(messe_id: number, days: string, total_Quest:string) {
   this.messe_id = messe_id;
   this.days = days;
@@ -110,7 +210,21 @@ handleDataFilterFromChild(dataFilter: FilterMassData) {
 
 handleDataColumnFromChild(dataColumn: FormQuestColumn) {
   this.formQuestColumn = dataColumn;
-  console.log(this.formQuestColumn);
+  // console.log(this.formQuestColumn);
+}
+show:boolean = false;
+ShowSheckData(){
+  this.show = true;
+  this.formQuestColumn ={
+    amountQuest: true,
+      quest_types: true,
+      masses_id: true,
+      days: true,
+      name_days: true,
+      heure: true,
+      number:true,
+      total_Quest:true
+  }
 }
 
 resetFilter(){
@@ -120,11 +234,106 @@ resetFilter(){
   this.search();
   this.sendDataToParent();//send data to report for update accumulations
 }
-search(){}
-export(){}
-MasquerList(){}
-goToPrevious(){}
-goToNext(){}
+ /**
+    * Show all data matching filter criteria without pagination for exportation
+    * @date 27/10/2023 - 12:42:01 PM
+    * 
+    */
+ export(){
+  // show export btn
+  this.showBtnExport = true;
+  //clear table
+  this.questList = [];
+  this.questListParent = {
+    status: '',
+    status_code: 0,
+    status_message: '',
+    total: 0,
+    total_page: 0,
+    per_page: 0,
+    current_page: 0,
+    last_page: 0,
+    MassesWithQuests:[]
+  }
+  
+    this.questTest$ = this.questService.getQuestWithMass();
+    this.pdfOrientation = 'landscape';
+    this.pdfTitle = 'Liste de toutes les quêts';
+    this.pdfFileName = 'Liste_complète_des_quêtes.pdf';
+    this.excelFileName = 'Liste_complète_des_quêtes.xlsx';
+
+  this.questTest$.subscribe((data) => {
+    this.questList = data.MassesWithQuests;
+    this.questListParent =  data;
+    // console.log(this.questList);
+    // console.log(this.questListParent);
+    // this.checkAndApplyDisabled(data);
+    this.isExporting = true;
+
+  });
+
+}
+
+MasquerList(){
+  this.showBtnExport = false;
+  this.questTest$ = this.questService.getQuestWithMass();
+  this.questTest$.subscribe((data)=>{
+    this.questList = data.MassesWithQuests;
+    this.questListParent=data;
+  })
+}
+ /**
+   * Get data matching filter criteria
+   * @date 27/10/2023 - 10:32 PM
+   */
+ search(){
+  // this.hideExportationButton();
+  this.sendDataToParent();
+  this.isRefreshing = true;
+  if (this.listType === "all") {//Anonymous
+    this.searchTerms.next(this.searchBarValue);
+
+    this.quest$ = this.searchTerms.pipe(
+      debounceTime(300),
+      switchMap((term) => this.questService.getMassAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
+    );
+  }
+  // else if(this.listType === "noAnonymous") //non-anonymous 
+  // {
+  //   this.searchTerms.next(this.searchBarValue);
+  //     this.messe$ = this.searchTerms.pipe(
+  //       debounceTime(300),
+  //       distinctUntilChanged(),
+  //       switchMap((term) => this.massRequestService.getMassNoAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
+  //     );
+  // }
+  // else if(this.listType === "all")
+  // { 
+  //   this.searchTerms.next(this.searchBarValue);
+  //   this.messe$ = this.searchTerms.pipe(
+  //     debounceTime(300),
+  //     distinctUntilChanged(),
+  //     switchMap((term) => this.massRequestService.getAllMassGeneral('1',term, this.dateStartValue, this.dateEndValue))
+  //   );
+  // }
+  // else{//failed
+  //   this.searchTerms.next(this.searchBarValue);
+  //   this.messe$ = this.searchTerms.pipe(
+  //     debounceTime(300),
+  //     distinctUntilChanged(),
+  //     switchMap((term) => this.massRequestService.getBasketMassWhere('1',term, this.dateStartValue, this.dateEndValue))
+  //   );
+  // }
+
+  //Getting data from API depending filter criteria
+  this.quest$.subscribe((data) => {
+    this.questList = data.MassesWithQuests;
+    this.questListParent = data;
+    this.checkAndApplyDisabled(data);
+    this.isRefreshing = false;
+  });
+}
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~for Exportation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    /**

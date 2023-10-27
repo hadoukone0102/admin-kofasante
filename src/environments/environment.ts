@@ -6,8 +6,7 @@ export const  environment = {
     apiUrlDon: 'https://donation-api.eglise-mukasa.ci/api',
     apiUrlMass: 'https://messe-api.eglise-mukasa.ci/api',
     apiUrlQuete: 'https://messe-api.eglise-mukasa.ci/api',
-    apiUrlQuestWithMass:'https://messe-api.eglise-mukasa.ci/api/Quest/groupbyMesse', 
-    //references => https://messe-api.eglise-mukasa.ci/api/Quest/groupbyMesse
+    apiUrlQuestWithMass:'https://messe-api.eglise-mukasa.ci/api',//references => https://messe-api.eglise-mukasa.ci/api/Quest/groupbyMesse
     //je fais un test
     massUrl: 'https://messe-api.eglise-mukasa.ci/api',
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~mass request~~~~~~~~~~~~~~~~~~~
