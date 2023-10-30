@@ -130,6 +130,28 @@ export interface Quest {
   quest_types: string
   masses_id: number
 }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Basket for quest ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  export interface QuestBasket {
+    status: string
+    status_code: number
+    status_message: string
+    current_page: number
+    last_page: number
+    total_quette: number
+    cumul_montant: number
+    quettes: BasketQuette[]
+  }
+  
+  export interface BasketQuette {
+    id: number
+    amountQuest: string
+    quest_types: string
+    masses_id: number
+    days: string
+    name_days: string
+    heure: string
+  }
+  
 
 
 

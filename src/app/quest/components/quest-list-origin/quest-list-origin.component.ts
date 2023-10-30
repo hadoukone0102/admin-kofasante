@@ -19,7 +19,7 @@ export class QuestListOriginComponent {
   ngOnInit():void{
     this.type='all';
     this.quest$ = this.route.data.pipe(
-      map(data=>data['questListsResolver']),
+      map(data=>data['questListOriginalResolver']),
     );
   }
 }

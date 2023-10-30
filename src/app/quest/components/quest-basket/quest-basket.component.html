@@ -10,10 +10,12 @@
     <!-- Content -->
 
     <div class="card border-0 shadow mb-4">
-        <div class="card-body">
-            <app-quest-list-table>
-
-            </app-quest-list-table>
+        <div *ngIf=" quest$ |async as quest" class="card-body">
+            <app-quest-main
+                [listType]="type"
+                [questListParent]="quest"
+            >
+            </app-quest-main>
         </div>
     </div>
     

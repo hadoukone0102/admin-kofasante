@@ -1,40 +1,40 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { QuestService } from '../../services/quest.service';
-import { Child, FormQuestColumn, Quest, QuestBasket, QuestOriginal, QuestOriginalChild, Quette } from '../../models/quest-type.model';
-import { Observable, Subject, debounceTime, switchMap } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { FilterMassData } from 'src/app/mass/models/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
+import { Observable, Subject, debounceTime, switchMap } from 'rxjs';
+import { FilterMassData } from 'src/app/mass/models/filter-model.model';
+import { environment } from 'src/environments/environment';
+import { QuestOriginal, QuestOriginalChild, FormQuestColumn, Quest, Quette, Child } from '../../models/quest-type.model';
+import { QuestService } from '../../services/quest.service';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 
 @Component({
-  selector: 'app-quest-list-table',
-  templateUrl: './quest-list-table.component.html',
-  styleUrls: ['./quest-list-table.component.css'],
+  selector: 'app-quest-main',
+  templateUrl: './quest-main.component.html',
+  styleUrls: ['./quest-main.component.css'],
   animations:[
     linePaginateAnimation,
     zoomEnterAnimation
   ]
 })
-export class QuestListTableComponent {
-//~~~~~~~~~~~receve data ~~~~~~~~~~~~~~~
+export class QuestMainComponent {
+  //~~~~~~~~~~~receve data ~~~~~~~~~~~~~~~
 
 // @Input() questListParent!:Quette;
 // @Input() questType!: string;
 // questResult!:Array<Child>;
 
 // ~~~~~~~~~~ quest variables ~~~~~~~~~ //
-quest$!: Observable<QuestOriginal>;
-questTest$!: Observable<QuestOriginal>;
-questListTest!: Array<QuestOriginalChild>;
-questList!: Array<QuestOriginalChild>;
+quest$!: Observable<Quette>;
+questTest$!: Observable<Quette>;
+questListTest!: Array<Child>;
+questList!: Array<Child>;
 
-@Input() questListParent!:QuestOriginal;
+@Input() questListParent!:Quette;
 @Input() listType!: string;
- ModalComponent$!:Observable<QuestOriginalChild>;
-questResult!:Array<QuestOriginalChild>;
+ ModalComponent$!:Observable<Child>;
+questResult!:Array<Child>;
 formQuestColumn!: FormQuestColumn;
 MyQuest!:Array<Quest>
 
@@ -74,18 +74,10 @@ constructor(
 
 ngOnInit():void{
   this.ShowSheckData();
-  this.questResult = this.questListParent.MassesWithQuests;
-  // console.log(this.questResult);
+  this.questResult = this.questListParent.quettes;
+  console.log(this.questResult);
   // console.log(this.questListParent);
 }
-
-// mainObject(message:string){
-//   if(message === 'all'){
-//    this.questResult = this.questListParent.
-//   }else if(message === 'basket'){
-//     @Input questListParent!:QuestBasket;
-//   }
-
 
  /**
    * Disable or enable the buttons to go to the next or previous page 
@@ -95,7 +87,7 @@ ngOnInit():void{
    * @param {DataDon} data
    */
 
- checkAndApplyDisabled(data: QuestOriginal){
+ checkAndApplyDisabled(data: Quette){
   //NOTE - "1" means that it should be disabled and "..." that it should be enabled
   if((data.current_page === 1) && (data.current_page != data.last_page)){
     //("1/...")
@@ -162,7 +154,7 @@ showPageWhere(pageIndex: number){
   this.newPage= this.questListParent.current_page + pageIndex;
 
   if(this.listType === "simpl"){
-    this.questTest$ =  this.questService.getMassAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+    this.questTest$ =  this.questService.getQuestLits(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
   }
   // else if(this.listType === "all")
   // {
@@ -173,7 +165,7 @@ showPageWhere(pageIndex: number){
   // }
   
   this.questTest$.subscribe((data) => {
-    this.questList = data.MassesWithQuests;
+    this.questList = data.quettes;
     this.questListParent =  data;
     this.checkAndApplyDisabled(data);
   });
@@ -256,26 +248,22 @@ resetFilter(){
     status: '',
     status_code: 0,
     status_message: '',
-    total: 0,
-    total_page: 0,
-    per_page: 0,
-    current_page: 0,
+    current_page: -1,
     last_page: 0,
-    MassesWithQuests:[]
+    total_quette: 0,
+    cumul_montant: 0,
+    quettes: []
   }
   
-    this.questTest$ = this.questService.getQuestWithMass();
+    this.questTest$ = this.questService.getQuestLits();
     this.pdfOrientation = 'landscape';
     this.pdfTitle = 'Liste de toutes les quêts';
     this.pdfFileName = 'Liste_complète_des_quêtes.pdf';
     this.excelFileName = 'Liste_complète_des_quêtes.xlsx';
 
   this.questTest$.subscribe((data) => {
-    this.questList = data.MassesWithQuests;
+    this.questList = data.quettes;
     this.questListParent =  data;
-    // console.log(this.questList);
-    // console.log(this.questListParent);
-    // this.checkAndApplyDisabled(data);
     this.isExporting = true;
 
   });
@@ -284,9 +272,9 @@ resetFilter(){
 
 MasquerList(){
   this.showBtnExport = false;
-  this.questTest$ = this.questService.getQuestWithMass();
+  this.questTest$ = this.questService.getQuestLits();
   this.questTest$.subscribe((data)=>{
-    this.questList = data.MassesWithQuests;
+    this.questList = data.quettes;
     this.questListParent=data;
   })
 }
@@ -300,10 +288,9 @@ MasquerList(){
   this.isRefreshing = true;
   if (this.listType === "all") {//Anonymous
     this.searchTerms.next(this.searchBarValue);
-
     this.quest$ = this.searchTerms.pipe(
       debounceTime(300),
-      switchMap((term) => this.questService.getMassAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
+      switchMap((term) => this.questService.getQuestLits('1',term, this.dateStartValue, this.dateEndValue))
     );
   }
   // else if(this.listType === "noAnonymous") //non-anonymous 
@@ -335,7 +322,7 @@ MasquerList(){
 
   //Getting data from API depending filter criteria
   this.quest$.subscribe((data) => {
-    this.questList = data.MassesWithQuests;
+    this.questList = data.quettes;
     this.questListParent = data;
     this.checkAndApplyDisabled(data);
     this.isRefreshing = false;
@@ -430,6 +417,5 @@ exportToExel(){
   /* save to file */  
   XLSX.writeFile(wb, this.excelFileName);
 }
-
 
 }

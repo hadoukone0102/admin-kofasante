@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QuestListsComponent {
   // quest$!: Observable<Quette>;
-  quest$!:Observable<QuestOriginal>
+  quest$!:Observable<Quette>
   type!:string;
   constructor(
     private route: ActivatedRoute,

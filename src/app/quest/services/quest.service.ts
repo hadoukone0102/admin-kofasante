@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { AddQuestTypeModel, AddQuestTypeResponseModel, DeleteQuestTypeResponseModel, QuestOriginal, QuestTypeByIdModel, QuestTypeModel, Quette, SetQuesTypeModel, SetQuesTypeResponseModel } from '../models/quest-type.model';
+import { AddQuestTypeModel, AddQuestTypeResponseModel, DeleteQuestTypeResponseModel, QuestBasket, QuestOriginal, QuestTypeByIdModel, QuestTypeModel, Quette, SetQuesTypeModel, SetQuesTypeResponseModel } from '../models/quest-type.model';
 import { environment } from 'src/environments/environment';
 import { Observable, catchError } from 'rxjs';
 
@@ -81,4 +81,40 @@ export class QuestService {
         catchError((error) => this.coreService.handleError(error)))
     }
     
+    /**
+     * basket for quest
+     */
+
+    // getBasketQuest():Observable<Quette>{
+    //   return this.http.get<Quette>(`${environment.apiUrlQuete}/Quest/failed`).pipe(
+    //     catchError((error) => this.coreService.handleError(error)),
+    //   )
+    // }
+
+    // for list and basket
+
+    /**
+     * @param {string} [page='1']
+     * @param {string} search
+     * @param {string} dateStart
+     * @param {string} dateEnd
+     * @returns {Observable<Quette>}
+     */
+    getQuestLits(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<Quette>{
+      return this.http.get<Quette>(`${environment.apiUrlQuestWithMass}/Quest/all?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+        catchError((error) => this.coreService.handleError(error)))
+    }
+
+    /**
+     * @param {string} [page='1']
+     * @param {string} search
+     * @param {string} dateStart
+     * @param {string} dateEnd
+     * @returns {Observable<Quette>}
+     */
+    getBasketQuest(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate):Observable<Quette>{
+      return this.http.get<Quette>(`${environment.apiUrlQuete}/Quest/failed?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
+        catchError((error) => this.coreService.handleError(error)))
+    }
+
 }

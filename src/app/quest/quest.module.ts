@@ -17,12 +17,17 @@ import { QuestListsResolver } from './resolvers/quest-lists.resolver';
 import { QuestModalColumnComponent } from './components/quest-modal/quest-modal-column/quest-modal-column.component';
 import { QuestListOriginComponent } from './components/quest-list-origin/quest-list-origin.component';
 import { DetailModalComponent } from './components/quest-modal/detail-modal/detail-modal.component';
+import { BasketQuestResolver } from './resolvers/basket-quest.resolver';
+import { QuestMainComponent } from './components/quest-main/quest-main.component';
+import { QuestListOriginalResolver } from './resolvers/quest-list-original.resolver';
 
 const listQuestTypeResolver = {listQuestTypeResolver: QuestTypeListResolver};
 // const listMassResolvers = {listMassResolvers: MassListResolver};
 // const massDayByIdResolvers = {massDayByIdResolvers: MassDayById, listMassTimeResolver: MassTimeListResolver};
 const questTypeByIdResolvers = {questTypeByIdResolvers: QuestTypeByIdResolver};
-const questListsResolver = { questListsResolver: QuestListsResolver}
+const questListsResolver = { questListsResolver: QuestListsResolver};
+const questListOriginalResolver = { questListOriginalResolver : QuestListOriginalResolver};
+const basketQuestResolver = { basketQuestResolver: BasketQuestResolver};
 
 const questRoutes: Routes = [
   {path: 'liste', component: QuestTypeListComponent, resolve: listQuestTypeResolver},
@@ -30,8 +35,8 @@ const questRoutes: Routes = [
   {path: 'modifier-type-quete/:id', component: EditQuestTypeComponent, resolve: questTypeByIdResolvers},
   {path: 'list-quete', component: QuestListsComponent, resolve: questListsResolver},
   {path: 'bilan', component: QuestReportComponent},
-  {path: 'corbeille', component: QuestBasketComponent},
-  {path: 'quest', component: QuestListOriginComponent, resolve: questListsResolver},
+  {path: 'corbeille', component: QuestBasketComponent, resolve: basketQuestResolver},
+  {path: 'quest', component: QuestListOriginComponent, resolve: questListOriginalResolver},
 ];
 
 @NgModule({
@@ -46,7 +51,8 @@ const questRoutes: Routes = [
     QuestListsComponent,
     QuestModalColumnComponent,
     QuestListOriginComponent,
-    DetailModalComponent
+    DetailModalComponent,
+    QuestMainComponent
   ],
   imports: [
     CommonModule,
