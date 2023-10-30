@@ -58,18 +58,18 @@
     <table id="exportTable"  class="table table-centered table-nowrap mb-0 rounded">
         <thead class="thead-light">
             <th [ngClass]="{'d-none': !formQuestColumn.number}" class="border-0 rounded-start">N°</th>
-            <th  class="border-0">Date</th>
-            <th  class="border-0">Jours</th>
-            <th  class="border-0">types</th>
-            <th  class="border-0">Montants</th>
+            <th [ngClass]="{'d-none': !formQuestColumn.days}" class="border-0">Date</th>
+            <th [ngClass]="{'d-none': !formQuestColumn.name_days}" class="border-0">Jours</th>
+            <th [ngClass]="{'d-none': !formQuestColumn.quest_types}" class="border-0">types</th>
+            <th [ngClass]="{'d-none': !formQuestColumn.amountQuest}" class="border-0">Montants</th>
         </thead>
         <tbody >
             <tr *ngFor="let quetes of questResult; let i= index" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @linePaginateAnimation>
                 <td *ngIf="formQuestColumn.number">{{i+1}}</td>
-                <td>{{quetes.days}}</td>
-                <td>{{quetes.name_days}}</td>
-                <td>{{quetes.quest_types}}</td>
-                <td>{{quetes.amountQuest}}</td>
+                <td  *ngIf="formQuestColumn.days">{{quetes.days}}</td>
+                <td  *ngIf="formQuestColumn.name_days">{{quetes.name_days}}</td>
+                <td  *ngIf="formQuestColumn.quest_types">{{quetes.quest_types}}</td>
+                <td  *ngIf="formQuestColumn.amountQuest">{{quetes.amountQuest}}</td>
             </tr>
         </tbody>
     </table>
