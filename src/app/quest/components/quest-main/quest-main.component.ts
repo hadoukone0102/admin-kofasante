@@ -156,10 +156,10 @@ showPageWhere(pageIndex: number){
   if(this.listType === "simpl"){
     this.questTest$ =  this.questService.getQuestLits(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
   }
-  // else if(this.listType === "all")
-  // {
-  //   this.questTest$ = this.questService.getAllMassGeneral(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
-  // }
+  else if(this.listType === "basket")
+  {
+    this.questTest$ = this.questService.getBasketQuest(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
+  }
   // else{
   //   this.questTest$ = this.questService.getBasketMassWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
   // }
@@ -210,7 +210,7 @@ handleDataFilterFromChild(dataFilter: FilterMassData) {
 
 handleDataColumnFromChild(dataColumn: FormQuestColumn) {
   this.formQuestColumn = dataColumn;
-  // console.log(this.formQuestColumn);
+  console.log(this.formQuestColumn);
 }
 show:boolean = false;
 ShowSheckData(){
@@ -254,7 +254,7 @@ resetFilter(){
     cumul_montant: 0,
     quettes: []
   }
-  
+    
     this.questTest$ = this.questService.getQuestLits();
     this.pdfOrientation = 'landscape';
     this.pdfTitle = 'Liste de toutes les quêts';
