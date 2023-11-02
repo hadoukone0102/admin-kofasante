@@ -66,7 +66,7 @@
         <tbody >
             <tr *ngFor="let quetes of questResult; let i= index" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @linePaginateAnimation>
                 <td *ngIf="formQuestColumn.number">{{i+1}}</td>
-                <td  *ngIf="formQuestColumn.days">{{quetes.days}}</td>
+                <td  *ngIf="formQuestColumn.days">{{quetes.days | date:'dd/MM/yyyy'}}</td>
                 <td  *ngIf="formQuestColumn.name_days">{{quetes.name_days}}</td>
                 <td  *ngIf="formQuestColumn.quest_types">{{quetes.quest_types}}</td>
                 <td  *ngIf="formQuestColumn.amountQuest">{{quetes.amountQuest}}</td>
