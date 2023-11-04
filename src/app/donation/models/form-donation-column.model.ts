@@ -12,4 +12,6 @@ export interface FormDonationColumn{
     villeDon: boolean;
     transactionId: boolean;
     dateDon: boolean;
+    intention:boolean;
+    templateER:boolean,
 }

@@ -66,5 +66,93 @@ export interface DeleteQuestTypeResponseModel {
   }
   
   
+// ~~~~~~~~~~~~~~~~~~~~~LISTE QUEST ~~~~~~~~~~~~~~~~~~~~~~
+
+export interface Quette {
+  status: string
+  status_code: number
+  status_message: string
+  current_page: number
+  last_page: number
+  total_quette: number
+  cumul_montant: number
+  quettes: Child[]
+}
+
+export interface Child {
+  id: number
+  amountQuest: string
+  quest_types: string
+  masses_id: number
+  days: string
+  name_days: string
+  heure: string
+}
+  //~~~~~~~~~~~~~~~~~~~~ form blobal pour cacher les colonne ~~~~~~~~~~~~~~~~~~~~~~~
+  export interface FormQuestColumn{
+    amountQuest: boolean
+    quest_types: boolean
+    masses_id: boolean
+    days: boolean
+    name_days: boolean
+    heure: boolean
+    total_Quest:boolean
+    number:boolean
+}
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~Origin quest Link~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+export interface QuestOriginal {
+  status: string
+  status_code: number
+  status_message: string
+  total: number
+  total_page: number
+  per_page: number
+  current_page: number
+  last_page: number
+  MassesWithQuests: QuestOriginalChild[]
+}
+
+export interface QuestOriginalChild {
+  messe_id: number
+  days_id: number
+  days: string
+  days_name: string
+  time: string
+  amount_total: number
+  total_Quest: number
+  Quest: Quest[]
+}
+
+export interface Quest {
+  id: number
+  amountQuest: string
+  quest_types: string
+  masses_id: number
+}
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Basket for quest ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  export interface QuestBasket {
+    status: string
+    status_code: number
+    status_message: string
+    current_page: number
+    last_page: number
+    total_quette: number
+    cumul_montant: number
+    quettes: BasketQuette[]
+  }
   
+  export interface BasketQuette {
+    id: number
+    amountQuest: string
+    quest_types: string
+    masses_id: number
+    days: string
+    name_days: string
+    heure: string
+  }
+  
+
+
+
   

@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { DataFilter } from 'src/app/core/models/filter-model';
-import { FilterMassData } from './filter-model.model';
+import { FilterMassData } from '../../../models/filter-model.model';
 
 @Component({
   selector: 'app-mass-modal-filter',

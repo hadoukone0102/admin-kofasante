@@ -62,7 +62,9 @@ export class ModalSelectColumnComponent implements OnInit{
       paysDon: false,
       villeDon: false,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 
@@ -88,7 +90,9 @@ export class ModalSelectColumnComponent implements OnInit{
       paysDon: true,
       villeDon: true,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 
@@ -113,7 +117,9 @@ export class ModalSelectColumnComponent implements OnInit{
       paysDon: true,
       villeDon: true,
       transactionId: true,
-      dateDon: true
+      dateDon: true,
+      intention:true,
+      templateER:false,
     }
   }
 }

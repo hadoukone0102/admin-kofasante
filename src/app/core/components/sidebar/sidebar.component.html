@@ -195,10 +195,8 @@
       </li>
     </ul>
   </div>
-
-  
   <!-- un test-->
-
+<!-- 
   <div class="multi-level collapse "
     role="list" id="submenu-mass" aria-expanded="false">
     <ul class="flex-column nav">
@@ -208,10 +206,8 @@
         </a>
       </li>
     </ul>
-  </div>
-
+  </div> -->
   <!--un test-->
-
   <div class="multi-level collapse "
     role="list" id="submenu-mass" aria-expanded="false">
     <ul class="flex-column nav">
@@ -286,8 +282,34 @@
     role="list" id="submenu-quest" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
-        <a (click)="goToNoAnonymousMassRequest()" class="nav-link">
-          <span class="sidebar-text">Demandes de messes</span>
+        <a (click)="goToQuestList()" class="nav-link">
+          <span class="sidebar-text">Liste des Quêtes</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+<!-- le second api qui affiche les quêtes en fonction des messes !-->
+
+  <!-- <div class="multi-level collapse "
+    role="list" id="submenu-quest" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToQuest()" class="nav-link">
+          <span class="sidebar-text">Bilan</span>
+        </a>
+      </li>
+    </ul>
+  </div> -->
+  
+<!-- le second api qui affiche les quêtes en fonction des messes !-->
+
+  <div class="multi-level collapse "
+    role="list" id="submenu-quest" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToQuest()" class="nav-link">
+          <span class="sidebar-text">Bilan</span>
         </a>
       </li>
     </ul>
@@ -296,18 +318,8 @@
     role="list" id="submenu-quest" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
-        <a (click)="goToMassTimeList()" class="nav-link">
-          <span class="sidebar-text">Liste des heures</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddMassTime()" class="nav-link">
-          <span class="sidebar-text">Ajouter une heure</span>
+        <a (click)="goToBasketQuest()" class="nav-link">
+          <span class="sidebar-text">Corbeille</span>
         </a>
       </li>
     </ul>

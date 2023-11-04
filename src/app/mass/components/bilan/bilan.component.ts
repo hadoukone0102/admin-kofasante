@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { MassRequest } from '../mass-request-models/mass-request.model';
+import { MassRequest } from '../../models/mass-request.model';
 import { Observable, map } from 'rxjs';
-import { MassReport } from '../ReportMass/models/mass-report-model.model';
-import { MassRequestService } from '../mass-request-services/mass-request.service';
+import { MassReport } from '../../models/mass-report-model.model';
+import { MassRequestService } from '../../services/mass-request.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

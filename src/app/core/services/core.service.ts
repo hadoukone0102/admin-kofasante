@@ -71,20 +71,21 @@ export class CoreService {
   goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}
   goToNoAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-non-anonyme']);}
   goToAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-anonyme']);}
-  // ajouter par kone
   goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
   goToReportMass(){this.router.navigate(['/bilan-messe'])}
-//je fais un test
   UnTest(){this.router.navigate(['/test'])};
   
   // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
   goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
   goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
   goToAddQuestType(){this.router.navigate(['/quetes/ajouter-type-quete']);}
-
+  goToQuestList(){this.router.navigate(['/quetes/list-quete']);}
+  goToQuest(){this.router.navigate(['/quetes/quest'])}
+  goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
+  goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
   goToPageError(){this.router.navigate(['/erreur']);}
   goToPageNotFound(){this.router.navigate(['/page-introuvable']);} 
-  goToLockedPage(){this.router.navigate(['/page-verrouillee']);} 
+  goToLockedPage(){this.router.navigate(['/page-verrouillee']);}
 }

@@ -18,12 +18,9 @@ import { MassListResolver } from './resolvers/mass-list.resolver';
 import { MassDayById } from './resolvers/mass-by-id.resolver';
 import { MassTimeByIdResolver } from './resolvers/mass-time-by-id.resolver';
 import { QuestTypeListResolver } from '../quest/resolvers/quest-type-list.resolver';
-import { MassAnonymousRequestComponent } from './mass-anonymous-request/mass-anonymous-request.component';
 import { MassModalFilterComponent } from './components/mass-modal/mass-modal-filter/mass-modal-filter.component';
 import { ListBasketMassComponent } from './components/mass-basket/mass-basket-table/list-basket-mass/list-basket-mass.component';
-import { MassBasketTableComponent } from './components/mass-basket/mass-basket-table/mass-basket-table.component';
 import { ReportMassComponent } from './components/ReportMass/report-mass/report-mass.component';
-import { AllMassReportComponent } from './components/ReportMass/all-mass-report/all-mass-report.component';
 import { MassReportResolver } from './resolvers/mass-report.resolver';
 import { MassModalColumnComponent } from './components/mass-modal/mass-modal-column/mass-modal-column.component';
 import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request.resolver';
@@ -57,7 +54,7 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
   {path: 'corbeille-messe', component: ListBasketMassComponent, resolve: basketResolver},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
-  //je fais un tes
+  //je fais un test
   {path: 'test', component: BilanComponent, resolve: reportMassRequest},
 ];
 
@@ -74,12 +71,9 @@ const massRoutes: Routes = [
     MassRequestTableComponent,
     AnonymousMassRequestListComponent,
     NoAnonymousMassRequestListComponent,
-    MassAnonymousRequestComponent,
     MassModalFilterComponent,
     ListBasketMassComponent,
-    MassBasketTableComponent,
     ReportMassComponent,
-    AllMassReportComponent,
     MassModalColumnComponent,
     BilanComponent,
   ],

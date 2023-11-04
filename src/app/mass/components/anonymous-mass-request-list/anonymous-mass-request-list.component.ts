@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChildMassRequest, MassRequest } from '../mass-request-models/mass-request.model';
+import {ChildMassRequest, MassRequest } from '../../models/mass-request.model';
 import { Observable, map } from 'rxjs';
 
 @Component({
@@ -11,12 +11,14 @@ export class AnonymousMassRequestListComponent {
   messe$!: Observable<MassRequest>;
   type!: string;
   maxDate!: string;
+  valeur!:boolean;
   constructor(
     private route: ActivatedRoute,
   ){}
 
   ngOnInit():void{
     this.type="anonymous"
+    this.valeur = true;
     this.messe$ = this.route.data.pipe(
       map(data =>data['massAnonymousRequestResolver']),
     );

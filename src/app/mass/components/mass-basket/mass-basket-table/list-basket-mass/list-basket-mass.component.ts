@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { MassRequest } from '../../../mass-request-models/mass-request.model';
+import { MassRequest } from '../../../../models/mass-request.model';
 
 @Component({
   selector: 'app-list-basket-mass',

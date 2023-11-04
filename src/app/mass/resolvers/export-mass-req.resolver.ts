@@ -5,8 +5,8 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { MassReportServicesService } from '../components/ReportMass/services/mass-report-services.service';
-import { ExportMass } from '../components/ReportMass/models/mass-report-model.model';
+import { MassReportServicesService } from '../services/mass-report-services.service';
+import { ExportMass } from '../models/mass-report-model.model';
 
 @Injectable({
   providedIn: 'root'

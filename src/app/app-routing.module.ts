@@ -14,6 +14,7 @@ import { AnonymousMassRequestListComponent } from './mass/components/anonymous-m
 
 const listProfileResolvers = {...GLOBAL_RESOLVERS};
 // const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
+
 /**
  * ROLES POSSIBLES
  * 

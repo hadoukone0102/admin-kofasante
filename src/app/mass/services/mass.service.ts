@@ -6,7 +6,7 @@ import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, Delete
 import { environment } from 'src/environments/environment';
 import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
 import { Basket, MassBasket } from '../models/basket.model';
-import { AllMassRequest } from '../components/ReportMass/models/mass-report-model.model';
+import { AllMassRequest } from '../models/mass-report-model.model';
 
 @Injectable({
   providedIn: 'root'

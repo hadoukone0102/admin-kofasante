@@ -3,9 +3,9 @@
 <main class="content">
     <app-header></app-header>
     <app-page-title
-        theModule="Dons"
-        theTitle="Bilan des dons"
-        theContent="Faites le bilan des dons">
+        theModule="Messe"
+        theTitle="Bilan des demandes de messe"
+        theContent="Faites le bilan des messes">
     </app-page-title>
     <!-- Content -->
     <!--End Donation statistics -->
@@ -29,7 +29,7 @@
                       <h3 class="fw-extrabold mb-2">{{accumulation.total_messe_anonymes}}</h3>
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
-                      {{"Montant: "+ accumulation.total_messe_anonymes+"F"}}
+                      <!-- {{"Montant: "+ accumulation.total_messe_anonymes+"F"}} -->
                     </small> 
                   </div>
                 </div>
@@ -73,13 +73,21 @@
                     </div>
                     <div class="d-sm-none">
                       <h2 class="h5">Total</h2>
+<<<<<<< HEAD
                       <h3 class="fw-extrabold mb-1">{{accumulation.cumul_prix_messes_nonanonymes}}</h3>
+=======
+                      <h3 class="fw-extrabold mb-1">{{accumulation.total_messe}}</h3>
+>>>>>>> 39e5cf91efafaebd58c4e79e00d0563c644137ac
                     </div>
                   </div>
                   <div class="col-12 col-xl-7 px-xl-0">
                     <div class="d-none d-sm-block">
                       <h2 class="h6 text-gray-400 mb-0">Total</h2>
+<<<<<<< HEAD
                       <h3 class="fw-extrabold mb-2">{{accumulation.cumul_prix_messes_nonanonymes}}</h3>
+=======
+                      <h3 class="fw-extrabold mb-2">{{accumulation.total_messe}}</h3>
+>>>>>>> 39e5cf91efafaebd58c4e79e00d0563c644137ac
                     </div>
                     <small class="d-flex align-items-center text-gray-500">
                         {{"Montant: "+accumulation.cumul_prix_messes_nonanonymes+"F"}}
@@ -90,6 +98,7 @@
             </div>
           </a>
     </div>
+<<<<<<< HEAD
     <!--End Donation statistics -->
 
     <!-- Donation table -->
@@ -114,6 +123,22 @@
             (dateEndValueToParent) = "handleDateEndValueFromChild($event)"
             >
     -->
+=======
+    <!--End mass statistics -->
+
+    <!-- mass table -->
+    <div class="card border-0 shadow mb-4">
+      <div  *ngIf="messe$ | async as messe" class="card-body">
+          <app-mass-request-table [listType]="type"
+              [messeListParent]="messe"
+              (searchBarValueToParent) = "handleSearchBarValueFromChild($event)"
+              (dateStartValueToParent) = "handleDateStartValueFromChild($event)"
+              (dateEndValueToParent) = "handleDateEndValueFromChild($event)"
+          >
+          </app-mass-request-table>
+      </div>
+   </div>
+>>>>>>> 39e5cf91efafaebd58c4e79e00d0563c644137ac
     <!-- End content -->
     <app-footer></app-footer>
 </main>

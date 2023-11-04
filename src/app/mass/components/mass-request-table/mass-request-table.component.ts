@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CoreService } from 'src/app/core/services/core.service';
-import { ChildMassRequest, MassRequest, Masses } from '../mass-request-models/mass-request.model';
-import { MassRequestService } from '../mass-request-services/mass-request.service';
-import { Observable, Subject, map } from 'rxjs';
+import { ChildMassRequest, MassRequest, Masses } from '../../models/mass-request.model';
+import { MassRequestService } from '../../services/mass-request.service';
+import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FilterMassData } from '../mass-modal/mass-modal-filter/filter-model.model';
+import { FilterMassData } from '../../models/filter-model.model';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import { MassService} from '../../services/mass.service'
@@ -32,8 +32,6 @@ export class MassRequestTableComponent {
   isLastPage!: string;
   newPage!: number;
 
-  // ~~~~~~~~~~~ Refresh variable ~~~~~~~~~~ //
-  isRefreshing!: boolean;
   // ~~~~~~~~~~~ Search variables ~~~~~~~~~~ //
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
@@ -46,17 +44,22 @@ export class MassRequestTableComponent {
   @Output() dateEndValueToParent: EventEmitter<string> = new EventEmitter<string>();
 // ~~~~~~~~~~~ Print variables ~~~~~~~~~~~ //
 styleString: string ='';
-isExporting!: boolean;
 pdfOrientation: "landscape" | "p" | "portrait" | "l" | undefined;
 pdfTitle: string="Liste des Demandes de Messe";
 pdfFileName!: string;
 excelFileName: string = "Demande-noAnonyme";
-isAnonymous!: boolean;
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @Input() messeListParent!: MassRequest;
 @Input() listType!: string; 
+
+@Input() showBouton!:boolean;
+// ~~~~~~~~~~~~~~~~~~~boolean value ~~~~~~~~~~~~~~~~~~~~
+afficher!:boolean;
+isAnonymous!: boolean;
+isExporting!: boolean;
+showBtnExport:boolean = false;
+// ~~~~~~~~~~~ Refresh variable ~~~~~~~~~~ //
+isRefreshing!: boolean;
 
   // ~~~~~~~~~~ Donation variables ~~~~~~~~~ //
   messe$!: Observable<MassRequest>;
@@ -65,6 +68,10 @@ isAnonymous!: boolean;
   messeList!: Array<ChildMassRequest>;
   formDonationColumn!: FormDonationColumn;
 
+  //~~~~~~~~~~~~~~~~~~~~~~~ for modal notification ~~~~~~~~~~~~~~~~ééé
+  selectedRequestIntention!: string;
+  selectedTemplateER!: string;
+
   constructor(
     private coreService: CoreService,
     private massRequestService: MassRequestService,
@@ -72,39 +79,45 @@ isAnonymous!: boolean;
     private MassService: MassService,
     ){}
 
-
     ngOnInit(){
       this.sendDataToParent();
       this.showAnonymous();
-      this.showTableOfType(this.listType); 
-      this.route.data.pipe(map(data=>data['massNoAnonymousRequestResolver']))
-        .subscribe((data)=>{
-          this.massRequests = data;  
-        }
-        );
-
-        this.messeList = this.messeListParent.demande_messe;
-        
-      // this.massRequestService.getMassRequests().subscribe(
-      //   (data)=>{
-      //     this.massRequests = data;  
-      //     console.log(this.massRequests.demande_messe);
-      //   }
-      // )
-      this.massRequestService.getMass().subscribe(
-        (data)=>{
-          this.Masses = data;
-          console.log(this.Masses.masses);
-          }
-      )
-      this.checkAndApplyDisabled(this.massRequests);
       
       if (this.maxDate) {
         this.dateEndValue = this.maxDate;
       }
-    }
+    
 
     //for extene page
+      this.showTableOfType(this.listType);
+      this.showBoutonOption(this.showBouton); 
+
+      // this.route.data.pipe(map(data=>data['massNoAnonymousRequestResolver']))
+      //   .subscribe((data)=>{
+      //     this.massRequests = data;  
+      //     console.log(this.massRequests.demande_messe);
+      //   }
+      //   );
+
+        this.messeList = this.messeListParent.demande_messe;
+        
+      this.massRequestService.getMass().subscribe(
+        (data)=>{
+          this.Masses = data;
+          }
+      )
+      this.checkAndApplyDisabled(this.massRequests);
+    }
+    /**
+     * 
+     * @param id id de l'element selectionner
+     * @param templateER le message de l'intention
+     */
+    setSelectedRequest(intention: string, templateER: string) {
+      this.selectedRequestIntention = intention;
+      this.selectedTemplateER = templateER;
+    }
+    
 
      /**
    * Show table matching donation type
@@ -112,6 +125,14 @@ isAnonymous!: boolean;
    *
    * @param {string} type
    */
+
+  showBoutonOption(valeur:boolean){
+    if(valeur === true){
+      this.afficher = true
+    }else if(valeur === false){
+      this.afficher = false;
+    }
+  }
   showTableOfType(type: string){
     if(type === "anonymous"){
       this.showAnonymous();
@@ -167,7 +188,7 @@ isAnonymous!: boolean;
 
    /**
    * Go to previous page of table
-   * @date 
+   * @date
    */
    goToPrevious(){
     this.showPageWhere(-1);
@@ -187,17 +208,6 @@ isAnonymous!: boolean;
    *
    * @param {number} pageIndex
    */
-  // showPageWhere(pageIndex: number){
-  //   this.newPage= this.massRequests.current_page + pageIndex;
-
-  //   this.massRequestService.getMassRequests().subscribe(
-  //     (data)=>{
-  //       this.massRequests = data;  
-  //       this.checkAndApplyDisabled(data);
-  //     }
-  //   )
-  // }
-
   showPageWhere(pageIndex: number){
     this.newPage= this.messeListParent.current_page + pageIndex;
 
@@ -261,7 +271,7 @@ resetFilter(){
   }
 
 
-  search() {
+  /*search() {
     // this.hideExportationButton();
     this.sendDataToParent();
     this.isRefreshing = true;
@@ -274,12 +284,72 @@ resetFilter(){
         this.checkAndApplyDisabled(data);
         this.isRefreshing = false;
       });
-  }
+  }*/
   
+   /**
+   * Hide  exportation button
+   * @date 19/10/2023 - 10:32 PM
+   */
+   hideExportationButton(){
+    this.isExporting =false;
+  }
+
+  /**
+   * Get data matching filter criteria
+   * @date 19/10/2023 - 10:32 PM
+   */
+  search(){
+    this.hideExportationButton();
+    this.sendDataToParent();
+    this.isRefreshing = true;
+    if (this.listType === "anonymous") {//Anonymous
+      this.searchTerms.next(this.searchBarValue);
+  
+      this.messe$ = this.searchTerms.pipe(
+        debounceTime(300),
+        switchMap((term) => this.massRequestService.getMassAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
+      );
+    }
+    else if(this.listType === "noAnonymous") //non-anonymous 
+    {
+      this.searchTerms.next(this.searchBarValue);
+        this.messe$ = this.searchTerms.pipe(
+          debounceTime(300),
+          distinctUntilChanged(),
+          switchMap((term) => this.massRequestService.getMassNoAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
+        );
+    }
+    else if(this.listType === "all")
+    { 
+      this.searchTerms.next(this.searchBarValue);
+      this.messe$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.massRequestService.getAllMassGeneral('1',term, this.dateStartValue, this.dateEndValue))
+      );
+    }
+    else{//failed
+      this.searchTerms.next(this.searchBarValue);
+      this.messe$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.massRequestService.getBasketMassWhere('1',term, this.dateStartValue, this.dateEndValue))
+      );
+    }
+
+    //Getting data from API depending filter criteria
+    this.messe$.subscribe((data) => {
+      this.messeList = data.demande_messe;
+      this.messeListParent = data;
+      this.checkAndApplyDisabled(data);
+      this.isRefreshing = false;
+    });
+  }
+
+
 /**
  * result of search
  */
-
 handleDataFilterFromChild(dataFilter: FilterMassData) {
   this.searchBarValue = dataFilter.searchBarValue;
   this.dateStartValue = dataFilter.dateStartValue;
@@ -393,6 +463,8 @@ ActionExport(){
     * @date 5/17/2023 - 12:42:01 PM
     */
  export(){
+  // show export btn
+  this.showBtnExport = true;
   //clear table
   this.messeList = [];
   this.messeListParent = {
@@ -414,6 +486,9 @@ ActionExport(){
     this.pdfTitle = 'Liste des dons anonyme';
     this.pdfFileName = 'liste_des_dons_anonyme.pdf';
     this.excelFileName = 'liste_des_dons_anonyme.xlsx';
+    this.pdfTitle = 'Liste des messe anonyme';
+    this.pdfFileName = 'liste_des_messes_anonyme.pdf';
+    this.excelFileName = 'liste_des_messes_anonyme.xlsx';
   }
   else if(this.listType === "noAnonymousPerso")
   {
@@ -422,6 +497,9 @@ ActionExport(){
     this.pdfTitle = 'Liste des dons non anonyme faits à titre personnel';
     this.pdfFileName = 'Dons_non_anonyme_personnel.pdf';
     this.excelFileName = 'Dons_non_anonyme_personnel.xlsx';
+    this.pdfTitle = 'Liste des messes non anonyme faits à titre personnel';
+    this.pdfFileName = 'messes_non_anonyme_personnel.pdf';
+    this.excelFileName = 'messes_non_anonyme_personnel.xlsx';
   }
   else //all
   {
@@ -430,6 +508,9 @@ ActionExport(){
     this.pdfTitle = 'Liste de tous les dons';
     this.pdfFileName = 'Liste_complète_des_dons.pdf';
     this.excelFileName = 'Liste_complète_des_dons.xlsx';
+    this.pdfTitle = 'Liste de toutes les Messes';
+    this.pdfFileName = 'Liste_complète_des_messes.pdf';
+    this.excelFileName = 'Liste_complète_des_messes.xlsx';
   }
 
   this.messeTest$.subscribe((data) => {
@@ -447,6 +528,12 @@ MasquerList(){
   this.IsHidden = true;
   this.Export = false;
   console.log("masquer" + this.IsHidden,this.Export);
+  this.showBtnExport = false;
+  this.messeTest$ = this.massRequestService.getAllMass();
+  this.messeTest$.subscribe((data)=>{
+    this.messeList = data.demande_messe;
+    this.messeListParent=data;
+  })
 }
 
 
@@ -476,7 +563,9 @@ showAnonymous(){
     paysDon: false,
     villeDon: true,
     transactionId: true,
-    dateDon: true
+    dateDon: true,
+    intention: true,
+    templateER:false,
   }
 }
 showNoAnonymous(){
@@ -495,7 +584,9 @@ showNoAnonymous(){
     paysDon: false,
     villeDon: true,
     transactionId: true,
-    dateDon: true
+    dateDon: true,
+    intention: true,
+    templateER:false,
   }
 }
 
