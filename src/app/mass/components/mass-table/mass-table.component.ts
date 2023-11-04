@@ -67,9 +67,7 @@ export class MassTableComponent implements OnInit{
   ngOnInit(): void {
     this.checkAndApplyDisabled(this.massModel);
     
-    console.table(this.massModel.masses);
     this.dateEndValue = this.maxDate;
-    console.log("maxdate: "+this.maxDate);
   }
   
 

@@ -27,7 +27,7 @@ export class MassRequestTableComponent {
  
   childMassRequests: ChildMassRequest[]=[];
   type!:string; 
-  // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~ //
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
@@ -39,6 +39,7 @@ export class MassRequestTableComponent {
   searchBarValue: string = "";
   dateStartValue: string = environment.dateStartForSearch;
   dateEndValue: string = environment.todayDate;
+  @Input() maxDate!: string|null;
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~ for modal element ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   @Output() searchBarValueToParent: EventEmitter<string> = new EventEmitter<string>();
   @Output() dateStartValueToParent: EventEmitter<string> = new EventEmitter<string>();
@@ -79,7 +80,6 @@ isAnonymous!: boolean;
       this.route.data.pipe(map(data=>data['massNoAnonymousRequestResolver']))
         .subscribe((data)=>{
           this.massRequests = data;  
-          console.log(this.massRequests.demande_messe);
         }
         );
 
@@ -98,6 +98,10 @@ isAnonymous!: boolean;
           }
       )
       this.checkAndApplyDisabled(this.massRequests);
+      
+      if (this.maxDate) {
+        this.dateEndValue = this.maxDate;
+      }
     }
 
     //for extene page
@@ -133,27 +137,29 @@ isAnonymous!: boolean;
    * @param {DataDon} data
    */
   checkAndApplyDisabled(data: MassRequest){
-    //NOTE - "1" means that it should be disabled and "..." that it should be enabled
-    if((data.current_page === 1) && (data.current_page != data.last_page)){
-      //("1/...")
-      this.isFirstPage = "disabled";
-      this.isLastPage = "";
-    }else{
-      if((data.current_page === 1) && (data.current_page === data.last_page)){
-        //("1/1")
+    if (data) {
+      //NOTE - "1" means that it should be disabled and "..." that it should be enabled
+      if((data.current_page === 1) && (data.current_page != data.last_page)){
+        //("1/...")
         this.isFirstPage = "disabled";
-        this.isLastPage = "disabled";
-      }
-      else{
-        if((data.current_page != 1) && (data.current_page != data.last_page)){
-          //(".../...")
-          this.isFirstPage  = "";
-          this.isLastPage = "";
+        this.isLastPage = "";
+      }else{
+        if((data.current_page === 1) && (data.current_page === data.last_page)){
+          //("1/1")
+          this.isFirstPage = "disabled";
+          this.isLastPage = "disabled";
         }
         else{
-            //(".../1")
+          if((data.current_page != 1) && (data.current_page != data.last_page)){
+            //(".../...")
             this.isFirstPage  = "";
-            this.isLastPage = "disabled";
+            this.isLastPage = "";
+          }
+          else{
+              //(".../1")
+              this.isFirstPage  = "";
+              this.isLastPage = "disabled";
+          }
         }
       }
     }
@@ -263,6 +269,8 @@ resetFilter(){
     this.massRequestService.searchMassRequests(this.searchBarValue, this.dateStartValue, this.dateEndValue)
       .subscribe((data) => {
         this.massRequests = data;
+        this.messeList = data.demande_messe;
+        this.messeListParent = data;
         this.checkAndApplyDisabled(data);
         this.isRefreshing = false;
       });
