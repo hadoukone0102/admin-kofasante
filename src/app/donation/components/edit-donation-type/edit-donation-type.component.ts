@@ -11,7 +11,6 @@ import { DonationService } from '../../services/donation.service';
 })
 export class EditDonationTypeComponent implements OnInit{
   donationTypeByIdModel!: DonationTypeByIdModel;
-
   id!: number;
 
   donationTypeForm!: AddDontationTypeModel;
@@ -35,7 +34,7 @@ export class EditDonationTypeComponent implements OnInit{
         this.donationTypeByIdModel = data;
         this.chekcboxValue = this.donationTypeByIdModel.type_don.montant_est_fixe === 1? true : false;
         this.id = this.donationTypeByIdModel.type_don.id;
-
+        
         this.donationTypeForm = {
           libelle: this.donationTypeByIdModel.type_don.libelle,
           montant: this.donationTypeByIdModel.type_don.montant,

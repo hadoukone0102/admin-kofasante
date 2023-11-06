@@ -90,6 +90,34 @@ export interface MassModel {
     success: number
     status_code: number
   }
+
+// -------------- for discount -----------------
+
+export interface discount {
+  status: string
+  status_code: number
+  status_message: string
+  id: number
+  libelle: string
+  montant: string
+  active: number
+}
+  // child
+    export interface DiscountElements {
+      id: boolean
+      libelle: boolean
+      montant: boolean
+      active: boolean
+    }
+
+    export interface DiscountUpdate{
+      id:number
+      libelle: string
+      montant: string
+      active: number
+    }
+
+
   
 
   

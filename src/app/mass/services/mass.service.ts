@@ -4,7 +4,7 @@ import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { AddMassTimeModel, AddMassTimeResponseModel, DeleteMassTimeModel, DeleteMassTimeResponseModel, MassTimeByIdModel, MassTimeModel, SetMassTimeModel, SetMassTimeResponseModel } from '../models/mass-time.model';
 import { environment } from 'src/environments/environment';
-import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayResponseModel, MassModel, SetMassModel, SetMassResponseModel } from '../models/mass.model';
+import { AddMassModel, AddMassResponseModel, DataSetMassModel, DeleteMassDayResponseModel, DiscountElements, MassModel, SetMassModel, SetMassResponseModel, discount, DiscountUpdate } from '../models/mass.model';
 import { Basket, MassBasket } from '../models/basket.model';
 import { AllMassRequest } from '../models/mass-report-model.model';
 
@@ -159,5 +159,32 @@ export class MassService {
       catchError((error) => this.coreService.handleError(error)),
     )
   }
+
+  getDiscountMasslist():Observable<discount>{
+    const the_discount = environment.apiUrlMass;
+    return this.http.get<discount>(`${environment.apiUrlMass}/promos-defunct`).pipe(
+      catchError((error)=> this.coreService.handleError(error)),
+    )
+  }
+
+  /**
+   * 
+   * @param data status of request
+   * @param id of elements
+   * @returns update element
+   * 
+   */
+  updateMassDiscount(data: DiscountElements, id:number): Observable<discount>{
+    return this.http.put<discount>(`${environment.apiUrlMass}/promos-defunct/update/${id}`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  updatePromotionStatus(data: DiscountUpdate, id:number): Observable<discount> {
+    return this.http.put<discount>(`${environment.apiUrlMass}/promos-defunct/update/${id}`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
 
 }
