@@ -19,10 +19,12 @@ export class MassService {
     ) { }
 
   /**
+   * 
    * Get the masses times list
    * @date 9/10/2023 - 4:50:58 PM
    *
    * @returns {Observable<MassTimeModel>}
+   * 
    */
   getMassesTimesList(): Observable<MassTimeModel>{
     return this.http.get<MassTimeModel>(`${environment.apiUrlMass}/time/all`).pipe(

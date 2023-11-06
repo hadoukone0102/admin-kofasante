@@ -28,6 +28,8 @@ import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-re
 import { ExportMassReqResolver } from './resolvers/export-mass-req.resolver';
 import { BasketResolver } from './resolvers/basket.resolver';
 import { BilanComponent } from './components/bilan/bilan.component';
+import { AddMassDiscountComponent } from './components/add-mass-discount/add-mass-discount.component';
+import { DiscountMassListComponent } from './components/discount-mass-list/discount-mass-list.component';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -54,8 +56,8 @@ const massRoutes: Routes = [
   {path: 'demande-de-messe-anonyme', component: AnonymousMassRequestListComponent, resolve: massAnonymousRequestResolver},
   {path: 'corbeille-messe', component: ListBasketMassComponent, resolve: basketResolver},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
-  //je fais un test
-  {path: 'test', component: BilanComponent, resolve: reportMassRequest},
+  {path: 'promotion', component: AddMassDiscountComponent},
+  {path: 'liste-promotion', component: DiscountMassListComponent},
 ];
 
 @NgModule({
@@ -76,6 +78,8 @@ const massRoutes: Routes = [
     ReportMassComponent,
     MassModalColumnComponent,
     BilanComponent,
+    AddMassDiscountComponent,
+    DiscountMassListComponent,
   ],
   imports: [
     CommonModule,

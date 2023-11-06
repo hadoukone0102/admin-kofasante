@@ -73,7 +73,8 @@ export class CoreService {
   goToAnonymousMassRequest(){this.router.navigate(['/demande-de-messe-anonyme']);}
   goToBasketMass(){this.router.navigate(['/corbeille-messe']);}
   goToReportMass(){this.router.navigate(['/bilan-messe'])}
-  UnTest(){this.router.navigate(['/test'])};
+  gotToDiscount(){this.router.navigate(['/promotion'])};
+  gotToDiscountList(){this.router.navigate(['/liste-promotion']);}
   
   // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
   goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}

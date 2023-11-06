@@ -93,9 +93,8 @@ export class SidebarComponent implements OnInit{
   goToNoAnonymousMassRequest(){this.coreService.goToNoAnonymousMassRequest();}
   goToBasketMass(){this.coreService.goToBasketMass();}
   goToReportMass(){this.coreService.goToReportMass();}
-
-  // je fais un test
-  UnTest(){this.coreService.UnTest();}
+  gotToDiscount(){this.coreService.gotToDiscount();}
+  gotToDiscountList(){this.coreService.gotToDiscountList();}
   
   // ~~~~~~~~~~~~ //TODO - Quest ~~~~~~~~~~~ //
   goToQuestTypeList(){this.coreService.goToQuestTypeList();}
