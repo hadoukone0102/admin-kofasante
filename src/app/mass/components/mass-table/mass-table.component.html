@@ -65,13 +65,13 @@
             <!-- Item -->
             <tr *ngFor="let mass of massModel.masses; let i = index; trackBy: trackById" @linePaginateAnimation >
                 <td><a  class="text-primary fw-bold">{{i+1}}</a> </td>
-            <td>
-                {{mass.days_name}}
-            </td>  
-            <td >
-                {{mass.days | date:"dd/MM/yyyy"}}
-            </td>   
-            <td >
+                <td>
+                    {{mass.days_name}}
+                </td>  
+                <td >
+                    {{mass.days | date:"dd/MM/yyyy"}}
+                </td>  
+                <td >
                 <ng-container *ngFor="let time of mass.masses">
                     <strong>{{time.time | customTimeFormat}}</strong> [
                         <em *ngFor="let quest of time.QuestType">
@@ -79,17 +79,17 @@
                         </em>
                     ],
                 </ng-container>
-            </td>
-            
-            <td *ngIf="!isExporting">
-                <a title="Modifier" (click)="goToEditMass(mass.days_id)"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
-                    <i class="fa fa-edit" ></i>
-                </a>
+                </td>
                 
-                <a (click)="deleteMassDay(mass.days_id)" title="Supprimer le jour de messe et ses heures" class="btn btn-sm btn-danger d-inline-flex align-items-center">
-                    <i class="fa fa-trash" ></i>
-                </a>
-            </td>
+                <td *ngIf="!isExporting">
+                    <a title="Modifier" (click)="goToEditMass(mass.days_id)"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center">
+                        <i class="fa fa-edit" ></i>
+                    </a>
+                    
+                    <a (click)="deleteMassDay(mass.days_id)" title="Supprimer le jour de messe et ses heures" class="btn btn-sm btn-danger d-inline-flex align-items-center">
+                        <i class="fa fa-trash" ></i>
+                    </a>
+                </td>
             
             </tr>
         <!-- End of Item -->

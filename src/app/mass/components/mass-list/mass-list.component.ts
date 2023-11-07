@@ -38,4 +38,5 @@ export class MassListComponent implements OnInit{
           });
           this.maxDate = maxDate!.toISOString().substring(0, 10);
     }
+    
 }

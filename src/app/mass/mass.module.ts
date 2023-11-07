@@ -30,6 +30,9 @@ import { BasketResolver } from './resolvers/basket.resolver';
 import { BilanComponent } from './components/bilan/bilan.component';
 import { AddMassDiscountComponent } from './components/add-mass-discount/add-mass-discount.component';
 import { DiscountMassListComponent } from './components/discount-mass-list/discount-mass-list.component';
+import { DiscountListComponent } from './components/discount-list/discount-list.component';
+import { DiscountListResolver } from './resolvers/discount-list.resolver';
+import { DiscountListNeuvResolver } from './resolvers/discount-list-neuv.resolver';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -45,10 +48,16 @@ const reportMassRequest = {
 const massAnonymousRequestResolver = {massAnonymousRequestResolver: MassAnonymousRequestResolver};
 const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAnonymousRequestResolver};
 const basketResolver = {basketResolver: BasketResolver};
+const discountListResolver = {
+  discountListResolver: DiscountListResolver,
+};
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
   {path: 'ajouter-messes', component: AddMassComponent, resolve: listMassTimeResolver},
+
   {path: 'modifier-messes/:id', component: EditMassComponent, resolve: massDayByIdResolvers},
+  {path: 'modifier-promo:id', component: AddMassDiscountComponent},
+
   {path: 'ajouter-heure-messe', component: AddMassTimeComponent},
   {path: 'liste-des-heures-de-messes', component: MassTimeListComponent, resolve: listMassTimeResolver},
   {path: 'modifier-heures-messes/:id', component: EditMassTimeComponent, resolve: massTimeByIdResolvers},
@@ -57,7 +66,7 @@ const massRoutes: Routes = [
   {path: 'corbeille-messe', component: ListBasketMassComponent, resolve: basketResolver},
   {path: 'bilan-messe', component: ReportMassComponent, resolve: reportMassRequest},
   {path: 'promotion', component: AddMassDiscountComponent},
-  {path: 'liste-promotion', component: DiscountMassListComponent},
+  {path: 'liste-promotion', component: DiscountListComponent, resolve: discountListResolver},
 ];
 
 @NgModule({
@@ -80,6 +89,7 @@ const massRoutes: Routes = [
     BilanComponent,
     AddMassDiscountComponent,
     DiscountMassListComponent,
+    DiscountListComponent,
   ],
   imports: [
     CommonModule,

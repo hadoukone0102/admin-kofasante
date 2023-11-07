@@ -1,0 +1,25 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Messe"
+        theTitle="Liste des messes"
+        theContent="Consultez la liste des messes">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card border-0 shadow mb-4">
+        <div *ngIf="discount$ | async as discount" class="card-body">
+
+            <app-discount-mass-list
+                [massActive]="massActive"
+                [massDiscount]="discount"
+                [massDiscountneuv]="massDiscountNeuw"
+            ></app-discount-mass-list>
+            
+        </div>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

@@ -102,6 +102,20 @@ export interface discount {
   montant: string
   active: number
 }
+
+export interface promotion {
+  status: string
+  status_code: number
+  status_message: string
+  promo:DiscountPromo[]
+}
+ export interface DiscountPromo{
+  id: number
+  libelle: string
+  montant: string
+  active: number
+ }
+ 
   // child
     export interface DiscountElements {
       id: boolean
@@ -111,7 +125,6 @@ export interface discount {
     }
 
     export interface DiscountUpdate{
-      id:number
       libelle: string
       montant: string
       active: number

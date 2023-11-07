@@ -65,7 +65,10 @@ export class CoreService {
 
   goToMassList(){this.router.navigate(['/messes/liste']);}
   goToAddMass(){this.router.navigate(['/messes/ajouter-messes']);}
+  
   goToEditMass(id: number){this.router.navigate(['/messes/modifier-messes', id]);}
+  goToEditDiscount(id: number){this.router.navigate(['/modifier-promotion', id]);}
+
   goToAddMassTime(){this.router.navigate(['/messes/ajouter-heure-messe']);}
   goToMassTimeList(){this.router.navigate(['/liste-des-heures-de-messes']);}
   goToEditMassTime(id: number){this.router.navigate(['/modifier-heures-messes', id]);}

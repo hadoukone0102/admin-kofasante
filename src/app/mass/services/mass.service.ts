@@ -180,11 +180,64 @@ export class MassService {
     );
   }
 
-  updatePromotionStatus(data: DiscountUpdate, id:number): Observable<discount> {
-    return this.http.put<discount>(`${environment.apiUrlMass}/promos-defunct/update/${id}`, data).pipe(
+  // updatePromotionStatus(data: DiscountUpdate, id:number): Observable<discount> {
+  //   return this.http.put<discount>(`${environment.apiUrlMass}/promos-defunct/update/`, data).pipe(
+  //     catchError((error) => this.coreService.handleError(error)),
+  //   );
+  // }
+
+  updatePromotionStatus(data: DiscountUpdate): Observable<SetMassTimeResponseModel>{
+    return this.http.put<SetMassTimeResponseModel>(`${environment.apiUrlMass}/promos-defunct/update`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+  
+  updatePromotionNeuvStatus(data: DiscountUpdate): Observable<SetMassTimeResponseModel>{
+    return this.http.put<SetMassTimeResponseModel>(`${environment.apiUrlMass}/promos-defunct/update/neuv`, data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
 
+  updatePromotionTrenStatus(data: DiscountUpdate): Observable<SetMassTimeResponseModel>{
+    return this.http.put<SetMassTimeResponseModel>(`${environment.apiUrlMass}/promos-defunct/update/tren`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+    /**
+   * Get the masses list
+   * @date 9/10/2023 - 6:31:26 PM
+   *
+   * @returns {Observable<discount>}
+   */
+    getDiscountList(): Observable<discount>{
+      return this.http.get<discount>(`${environment.apiUrlMass}/promos-defunct`).pipe(
+        catchError((error) => this.coreService.handleError(error)),
+      );
+    }
+
+
+    /**
+   * Get the masses list
+   * @date 9/10/2023 - 6:31:26 PM
+   *
+   * @returns {Observable<discount>}
+   */
+    getDiscountListNeuv(): Observable<discount>{
+      return this.http.get<discount>(`${environment.apiUrlMass}/promos-defunct/neuv`).pipe(
+        catchError((error) => this.coreService.handleError(error)),
+      );
+    }
+
+    /**
+   * Get the masses list
+   * @date 9/10/2023 - 6:31:26 PM
+   *
+   * @returns {Observable<discount>}
+   */
+    getDiscountListTren(): Observable<discount>{
+      return this.http.get<discount>(`${environment.apiUrlMass}/promos-defunct/tren`).pipe(
+        catchError((error) => this.coreService.handleError(error)),
+      );
+    }
 
 }

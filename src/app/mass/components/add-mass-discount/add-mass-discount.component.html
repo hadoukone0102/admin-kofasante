@@ -7,207 +7,226 @@
         theTitle="Ajouter des promotions"
         theContent="Ajouter un mois de promotion">
     </app-page-title>
-    <!-- Content -->
-    <div class="card card-body border-0 shadow mb-4">
-        <h2 class="h5 mb-4"></h2>
-        <form  class="mt-4">
-            <!-- Form -->
-           
-            <div class="col-12">
-                <span for="libelle">Date de promotion:</span>
-                <h2></h2>
-            </div>
-            <div  class="form-group row mb-4">
-                    <div class="col-sm-6">
-                        <label for="libelle">Date de début</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" id="startDate" required
-                                name="startDate"
-                            >
-                        </div>  
-                        
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="libelle">Date de fin</label>
-                        <div class="input-group">
-                            <input type="date" class="form-control" id="endDdate" required
-                                name="endDate"
-                                
-                            >
-                        </div>  
-                    </div>
+
+    <div class="card border-0 shadow mb-4">
+        <!-- Content -->
+        <div  class="table-responsive m-3">
+            <table  class="table table-centered table-nowrap mb-0 rounded">
+            <thead class="thead-light">
+            <tr>
+                <th class="border-0 rounded-start">N°</th>
+                <th class="border-0 rounded-start">Type de Messe</th>
+                <th class="border-0">Libellé</th>
+                <th class="border-0">Montant</th>
+                <th class="border-0">Promotion</th>
+                <th  class="border-0">Actions</th>
+            </tr>
+
+          <tbody >
+              <tr>
+                  <td>{{result1.id}}</td>
+                  <td>Quotidienne</td>
+                  <td>{{ result1.libelle}}</td>
+                  <td>{{ result1.montant }}F cfa</td>
+                  <td>
+                      <p *ngIf="result1.active === 1" style="color: rgb(0, 95, 0);">Activer</p>
+                      <p *ngIf="result1.active !== 1" style="color: rgb(138, 2, 2);">Désactiver</p>
+                  </td>
+                  <td>
+                      <a title="Modifiez la promotion"  class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#quotidienne">
+                          <i class="fa fa-edit" ></i>
+                      </a>
+                  </td>
+              </tr>
+              <tr>
+                    <td>{{result.id}}</td>
+                    <td>Neuvaine</td>
+                    <td>{{ result.libelle}}</td>
+                    <td>{{ result.montant }}F cfa</td>
+                    <td>
+                        <p *ngIf="result.active === 1" style="color: rgb(0, 95, 0);">Activer</p>
+                        <p *ngIf="result.active !== 1" style="color: rgb(138, 2, 2);">Désactiver</p>
+                    </td>
+                    <td>
+                        <a title="Modifiez la promotion"  class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#Neuvaine">
+                            <i class="fa fa-edit" ></i>
+                        </a>
+                    </td>
+              </tr>
+              <tr>
+                  <td>{{trentaine.id}}</td>
+                  <td>Trentaine</td>
+                  <td>{{trentaine.libelle}}</td>
+                  <td>{{trentaine.montant}}F cfa</td>
+                  <td>
+                    <p *ngIf="trentaine.active === 1" style="color: rgb(0, 95, 0);">Activer</p>
+                    <p *ngIf="trentaine.active !== 1" style="color: rgb(138, 2, 2);">Désactiver</p>
+                  </td>
+                  <td>
+                        <a title="Modifiez la promotion"  class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#trentaine">
+                            <i class="fa fa-edit" ></i>
+                        </a>
+                  </td>
+              </tr> 
                 
-            </div>  
+          <!-- End of Item -->
+          </tbody>
+          </table>
 
-            <div class="col-12 mb-4">
-                <div class="row">
-                  <div class="col-sm-6 mb-1 mb-sm-0">
-                    <label for="role">Listes des libellés</label>
-                    <select class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example"
-                           >
-                      <option value="" disabled>Selectionnez un libellé</option>
-                      <option value=""></option>
-                      <option value="action de grace">Action de grace</option>
-                      <option value="defunt">Défunts</option>
-                      <option value="autres">Autres</option>
-                      <!-- Ajoutez d'autres options ici si nécessaire -->
-                    </select>
-                    <!-- <div >
-                        <small class="text-danger">Aucune heure n'a été sélectionnée</small>
-                    </div>
-                    <div>
-                        <small class="text-danger">Cette heure a déjà été selectionnée</small>
-                    </div> -->
-                  </div>
-                  <!-- DISPLAY TIMES LIST -->
-                  <div class="col-sm-6 mb-1 mb-sm-0">
-                    <label for="role">Listes des libellés</label>
-                    <div class="mb-2">
-                        <span></span>
-                        <button  type="button" class="btn btn-paypal ms-2">Modifier</button>
-                    </div>
-                    <!-- Buttons -->
-                    <div class="col-sm-6 mt-2">
-                        <div class="row g-2">
-                            <div class="col-3 d-flex align-items-end me-3">
-                                <button type="button" class="btn btn-paypal" title="Ajouter une heure"
-                                ><i class="fa fa-plus"></i>
-                            </button>
-                            </div>
-                            <div class="col-3 d-flex align-items-end">
-                                <button type="button" class="btn btn-danger" title="Supprimer une heure"
-                                ><i class="fa fa-minus"></i></button>
-                            </div>
-                            
-                        </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- QUESTE TYPE -->
-              <div class="col-12 mb-4">
-                <div class="row">
-                    <div class="col-sm-6 mb-1 mb-sm-0">
-   
-                            <label for="libelle">Montants de la promotion</label>
-                            <div class="input-group">
-                                <input type="number" class="form-control" id="price" required
-                                placeholder="example 1000f"
-                                    name="price"   
-                                >
-                            </div>  
-                        <!-- <div >
-                            <small class="text-danger">Aucun type de quête n'a été sélectionné</small>
-                        </div>
-                        <div >
-                            <small class="text-danger">Ce type de quête a déjà été sélectionné</small>
-                        </div> -->
-                      </div>
-
-                      <!-- DISPLAY QUEST TYPE -->
-                      <div class="col-sm-6 mb-1 mb-sm-0">
-                        <label for="role">Montants</label>
-                        <div  class="mb-2">
-                            <span></span>
-                            <button type="button" class="btn btn-paypal ms-2">Modifier</button>
-                        </div>
-                        <!-- Buttons -->
-                        <div class="col-sm-6 mt-2">
-                            <div class="row g-2">
-                                <div class="col-3 d-flex align-items-end me-3">
-                                    <button type="button" class="btn btn-paypal" title="Ajouter une heure"
-                                    ><i class="fa fa-plus"></i>
-                                </button>
-                                </div>
-                                <div class="col-3 d-flex align-items-end">
-                                    <button type="button" class="btn btn-danger" title="Supprimer une heure"
-                                    ><i class="fa fa-minus"></i></button>
-                                </div>
-                                
-                            </div>
-                        </div>
-                      </div>
-                </div>
-              </div>
-              
-
-                
-                  <!-- DAYS -->
-                  <div  class="col-12 mb-4">
-                    <div class="row mt-2">
-                        <label class="col-12">Jours concernés</label>
-                      <div class="col form-check">
-                        <input value="lundi" class="form-check-input" type="checkbox" id="monday" name="monday"
-                        >
-                        <label class="form-check-label" for="monday">
-                          Lundi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="mardi" class="form-check-input" type="checkbox" id="tuesday" name="tuesday"
-                        
-                        >
-                        <label class="form-check-label" for="tuesday">
-                          Mardi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="mercredi" class="form-check-input" type="checkbox" id="wednesday" name="wednesday"
-                      
-                        >
-                        <label class="form-check-label" for="wednesday">
-                          Mercredi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="jeudi" class="form-check-input" type="checkbox" id="thursday" name="thursday"
-                       
-                        >
-                        <label class="form-check-label" for="thursday">
-                          Jeudi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="vendredi" class="form-check-input" type="checkbox" id="friday" name="friday"
-                       
-                        >
-                        <label class="form-check-label" for="friday">
-                          Vendredi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="samedi" class="form-check-input" type="checkbox" id="saturday" name="saturday"
-                      
-                        >
-                        <label class="form-check-label" for="saturday">
-                          Samedi
-                        </label>
-                    </div>
-                      <div class="col form-check">
-                        <input value="dimanche" class="form-check-input" type="checkbox" id="sunday" name="sunday"
-                        
-                        >
-                        <label class="form-check-label" for="sunday">
-                          Dimanche
-                        </label>
-                    </div>
-                  </div>
-                  </div>
-              
-            
-            <div class="d-flex mt-3">
-                <button type="submit" class="btn btn-gray-800"
-                >Ajouter</button>
-                <!-- Spinner -->
-                <!-- <div class="d-flex align-items-center ms-3">
-                    <app-spinner></app-spinner>
-                </div> -->
-                <!-- End spinner -->
-            </div>
-        </form>
+      
+        </div>
+        <!-- Content -->
     </div>
-    <!-- End content -->
+
+ <!-- Modal -->
+ <div class="modal fade" id="quotidienne" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-red" id="exampleModalLabel">Alert</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p>
+              Vous essayez d'activer la promotion pour les demandes <br> de messe Quotidienne
+          </p>
+          <form (ngSubmit)="onSubmit1()" #editDonationType="ngForm">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Libellé</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="libelle"
+                  [(ngModel)]="changeDiscountQuoti.libelle"
+                  >
+              </div>
+
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Montant</label>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="price"
+                  [(ngModel)]="changeDiscountQuoti.montant"
+                  >
+              </div>
+
+              <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                   style="height: 2rem;width: 5rem;"
+                   name="chooses"
+                   [(ngModel)]="changeDiscountQuoti.active"
+                   >
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Modifier</button>
+              </div>
+              
+          </form>
+      </div>
+
+  </div>
+  </div>
+</div>
+<!-- End content -->
+
+ <!-- Modal -->
+ <div class="modal fade" id="Neuvaine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-red" id="exampleModalLabel">Alert</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p>
+              Vous essayez d'activer la promotion pour les demandes <br> de messe Quotidienne
+          </p>
+          <form (ngSubmit)="onSubmit2()" #editDonationType="ngForm">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Libellé</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="libelle"
+                  [(ngModel)]="changeDiscountNeuv.libelle"
+                  >
+              </div>
+
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Montant</label>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="price"
+                  [(ngModel)]="changeDiscountNeuv.montant"
+                  >
+              </div>
+
+              <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                   style="height: 2rem;width: 5rem;"
+                   name="chooses"
+                   [(ngModel)]="changeDiscountNeuv.active"
+                   >
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Modifier</button>
+              </div>
+              
+          </form>
+      </div>
+
+  </div>
+  </div>
+</div>
+<!-- End content -->
+
+ <!-- Modal -->
+ <div class="modal fade" id="trentaine" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+  <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title text-red" id="exampleModalLabel">Alert</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <p>
+              Vous essayez d'activer la promotion pour les demandes <br> de messe Quotidienne
+          </p>
+          <form (ngSubmit)="onSubmit3()" #editDonationType="ngForm">
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Libellé</label>
+                  <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="libelle"
+                  [(ngModel)]="changeDiscountTren.libelle"
+                  >
+              </div>
+
+              <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Montant</label>
+                  <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                  name="price"
+                  [(ngModel)]="changeDiscountTren.montant"
+                  >
+              </div>
+
+              <div class="form-check form-switch mb-2">
+                  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+                   style="height: 2rem;width: 5rem;"
+                   name="chooses"
+                   [(ngModel)]="changeDiscountTren.active"
+                   >
+              </div>
+
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Modifier</button>
+              </div>
+              
+          </form>
+      </div>
+
+  </div>
+  </div>
+</div>
+<!-- End content -->
 
     <app-footer></app-footer>
 </main>
