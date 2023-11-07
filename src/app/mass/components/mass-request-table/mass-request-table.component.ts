@@ -539,7 +539,7 @@ MasquerList(){
 
 handleDataColumnFromChild(dataColumn: FormDonationColumn) {
   this.formDonationColumn = dataColumn;
-  console.log(this.formDonationColumn);
+  // console.log(this.formDonationColumn);
 }
  
   /**
@@ -560,12 +560,12 @@ showAnonymous(){
     prenomDon: true,
     contactDon: true,
     payeurDon: true,
-    paysDon: false,
+    paysDon: true,
     villeDon: true,
     transactionId: true,
     dateDon: true,
     intention: true,
-    templateER:false,
+    templateER:true,
   }
 }
 showNoAnonymous(){
@@ -586,7 +586,7 @@ showNoAnonymous(){
     transactionId: true,
     dateDon: true,
     intention: true,
-    templateER:false,
+    templateER:true,
   }
 }
 

@@ -6,6 +6,7 @@ import { DataDonationInfo } from '../models/donationInfo.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAdminInfo } from '../models/admin-info.model';
 import { MassRequestInfoModel } from '../models/mass-request-info.model';
+import { MassReport } from 'src/app/mass/models/mass-report-model.model';
 
 @Injectable()
 export class DashboardService {
@@ -32,6 +33,12 @@ export class DashboardService {
 
   getMassRequestInfo(): Observable<MassRequestInfoModel>{
     return this.http.get<MassRequestInfoModel>(`${environment.apiUrlMass}/requestmesse/total `).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getAccumulationMassNOSearch(): Observable<MassReport>{
+    return this.http.get<MassReport>(`${environment.MassReport}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

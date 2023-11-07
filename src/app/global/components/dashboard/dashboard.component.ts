@@ -8,6 +8,8 @@ import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 import { MassRequestInfoModel } from '../../models/mass-request-info.model';
+import { MassReport } from 'src/app/mass/models/mass-report-model.model';
+import { MassRequestService } from 'src/app/mass/services/mass-request.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,13 +26,17 @@ export class DashboardComponent implements OnInit{
   adminInfo!: DataAdminInfo;
 
   massRequestInfo!: MassRequestInfoModel;
+  accumulation!: MassReport;
 
   adminType!: string|null;
 
   rolesForDonation!: string[];
   rolesForAdmin!: string[];
   
-  constructor(private route: ActivatedRoute, private coreService: CoreService) { }
+  constructor(
+    private route: ActivatedRoute, private coreService: CoreService,
+    private massService: MassRequestService, 
+  ) { }
 
   ngOnInit(): void {
     this.donationInfo$ = this.route.data.pipe(
@@ -46,8 +52,10 @@ export class DashboardComponent implements OnInit{
     this.adminInfo$.subscribe((data) => this.adminInfo = data);
 
     this.route.data.pipe(map(data => data['massRequestInfo'])).subscribe(
-      (data) => this.massRequestInfo = data
+      (data) => this.accumulation = data
     );
+    
+    
 
     this.adminType = sessionStorage.getItem('type');
     //roles initialization
@@ -88,4 +96,6 @@ export class DashboardComponent implements OnInit{
   goToAdmin(){
     this.coreService.goToAdmin();
   }
+  goToReportMass(){this.coreService.goToReportMass();}
+  goToQuest(){this.coreService.goToQuest();}
 }

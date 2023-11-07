@@ -11,7 +11,7 @@ export class NoAnonymousMassRequestListComponent {
   messe$!: Observable<MassRequest>;
   type!: string;
   maxDate!: string;
-  valeur!:boolean;
+  value!:boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -19,7 +19,7 @@ export class NoAnonymousMassRequestListComponent {
 
   ngOnInit():void{
     this.type="noAnonymous";
-    this.valeur = true;
+    this.value = true;
       this.messe$ = this.route.data.pipe(
         map(data =>data['massNoAnonymousRequestResolver']),
       );
