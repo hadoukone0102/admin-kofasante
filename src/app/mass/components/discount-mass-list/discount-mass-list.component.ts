@@ -10,24 +10,14 @@ import { Observable } from 'rxjs';
   styleUrls: ['./discount-mass-list.component.css']
 })
 export class DiscountMassListComponent {
-  // discount!: discount;
-  // id!:number;
-  // discountUpdate!: DiscountUpdate;
-  // chekcboxValue!: boolean;
-  // errorMessage!: string;
-  // formData!: DiscountUpdate;
-  // formDataSet!: DiscountUpdate;
-
-  // massTimeByIdModel!: discount;
-
-  // isSubmitting: boolean = false;
-  // formHasError: boolean = false;
 
   @Input() massDiscount!:discount;
+  @Input() massDiscountNeuvaine!:discount;
+
   @Input() massDiscountneuv!:Observable<discount>;
   @Input() massActive!: string;
   result!:discount;
-  resulttren!:Observable<discount>;
+  resultNeuvaine!:discount;
   changeDiscount!:DiscountUpdate;
 
   constructor(
@@ -38,8 +28,9 @@ export class DiscountMassListComponent {
   ngOnInit(): void{
 
     this.result = this.massDiscount
-    this.resulttren = this.massDiscountneuv
-    console.log(this.resulttren);
+    this.resultNeuvaine = this.massDiscountNeuvaine
+    console.log(this.massDiscountNeuvaine);
+    console.log(this.massDiscount);
     this.changeDiscount={
       libelle:this.result.libelle,
       montant:this.result.montant,

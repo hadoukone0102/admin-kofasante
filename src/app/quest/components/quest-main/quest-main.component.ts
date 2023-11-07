@@ -75,8 +75,6 @@ constructor(
 ngOnInit():void{
   this.ShowSheckData();
   this.questResult = this.questListParent.quettes;
-  console.log(this.questResult);
-  // console.log(this.questListParent);
 }
 
  /**

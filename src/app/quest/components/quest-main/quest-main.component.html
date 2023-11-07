@@ -64,7 +64,7 @@
             <th [ngClass]="{'d-none': !formQuestColumn.amountQuest}" class="border-0">Montants</th>
         </thead>
         <tbody >
-            <tr *ngFor="let quetes of questResult; let i= index" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @linePaginateAnimation>
+            <tr *ngFor="let quetes of questResult; let i= index" @linePaginateAnimation>
                 <td *ngIf="formQuestColumn.number">{{i+1}}</td>
                 <td  *ngIf="formQuestColumn.days">{{quetes.days | date:'dd/MM/yyyy'}}</td>
                 <td  *ngIf="formQuestColumn.name_days">{{quetes.name_days}}</td>

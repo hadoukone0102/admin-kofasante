@@ -95,6 +95,7 @@ export class SidebarComponent implements OnInit{
   goToReportMass(){this.coreService.goToReportMass();}
   gotToDiscount(){this.coreService.gotToDiscount();}
   gotToDiscountList(){this.coreService.gotToDiscountList();}
+
   
   // ~~~~~~~~~~~~ //TODO - Quest ~~~~~~~~~~~ //
   goToQuestTypeList(){this.coreService.goToQuestTypeList();}

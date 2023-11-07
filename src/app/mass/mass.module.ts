@@ -27,12 +27,12 @@ import { MassAnonymousRequestResolver } from './resolvers/mass-anonymous-request
 import { MassNoAnonymousRequestResolver } from './resolvers/mass-no-anonymous-request.resolver';
 import { ExportMassReqResolver } from './resolvers/export-mass-req.resolver';
 import { BasketResolver } from './resolvers/basket.resolver';
-import { BilanComponent } from './components/bilan/bilan.component';
 import { AddMassDiscountComponent } from './components/add-mass-discount/add-mass-discount.component';
 import { DiscountMassListComponent } from './components/discount-mass-list/discount-mass-list.component';
 import { DiscountListComponent } from './components/discount-list/discount-list.component';
 import { DiscountListResolver } from './resolvers/discount-list.resolver';
 import { DiscountListNeuvResolver } from './resolvers/discount-list-neuv.resolver';
+import { MassNeuvResolver } from './resolvers/promotion/mass-neuv.resolver';
 
 
 const listMassTimeResolver = {listMassTimeResolver: MassTimeListResolver};
@@ -50,6 +50,7 @@ const massNoAnonymousRequestResolver = {massNoAnonymousRequestResolver: MassNoAn
 const basketResolver = {basketResolver: BasketResolver};
 const discountListResolver = {
   discountListResolver: DiscountListResolver,
+  massNeuvResolver: MassNeuvResolver,
 };
 const massRoutes: Routes = [
   {path: 'liste', component: MassListComponent, resolve: listMassResolvers},
@@ -86,7 +87,6 @@ const massRoutes: Routes = [
     ListBasketMassComponent,
     ReportMassComponent,
     MassModalColumnComponent,
-    BilanComponent,
     AddMassDiscountComponent,
     DiscountMassListComponent,
     DiscountListComponent,

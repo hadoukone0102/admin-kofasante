@@ -10,7 +10,6 @@ import { Observable, map } from 'rxjs';
 })
 export class DiscountListComponent {
   discount$!:Observable<discount>;
-  massDiscountNeuw!:Observable<discount>;
   massDiscount!: discount;
   massActive!: string;
 
@@ -24,10 +23,6 @@ export class DiscountListComponent {
       map(data =>data['discountListResolver']),
     );
     
-    this.massDiscountNeuw =this.route.data.pipe(
-      map(data =>data['discountListNeuvResolver'])
-    );
-
   }
 
 }
