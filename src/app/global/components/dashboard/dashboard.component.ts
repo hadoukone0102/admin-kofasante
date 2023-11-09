@@ -8,7 +8,7 @@ import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
 import { MassRequestInfoModel } from '../../models/mass-request-info.model';
-import { MassReport } from 'src/app/mass/models/mass-report-model.model';
+import { MassReport, questReport } from 'src/app/mass/models/mass-report-model.model';
 import { MassRequestService } from 'src/app/mass/services/mass-request.service';
 
 @Component({
@@ -27,6 +27,7 @@ export class DashboardComponent implements OnInit{
 
   massRequestInfo!: MassRequestInfoModel;
   accumulation!: MassReport;
+  reportQuest!: questReport;
 
   adminType!: string|null;
 
@@ -54,8 +55,10 @@ export class DashboardComponent implements OnInit{
     this.route.data.pipe(map(data => data['massRequestInfo'])).subscribe(
       (data) => this.accumulation = data
     );
-    
-    
+
+    this.route.data.pipe(map(data =>data['reportQuestResolver'])).subscribe(
+      (data)=>this.reportQuest = data
+    )
 
     this.adminType = sessionStorage.getItem('type');
     //roles initialization

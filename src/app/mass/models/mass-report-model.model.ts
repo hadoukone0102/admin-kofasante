@@ -10,6 +10,15 @@ export interface MassReport {
     cumul_prix_messes_nonanonymes: number
   }
   
+export  interface questReport{
+    status: string;
+    status_code: number;
+    status_message: string;
+    last_page: number;
+    total_quette: number;
+    cumul_montant: number;
+}
+
 // ~~~~~~~~~~~~~~~~Model for all mass request ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 export interface AllMassRequest {
