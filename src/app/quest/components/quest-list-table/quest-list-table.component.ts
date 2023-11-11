@@ -174,6 +174,7 @@ showPageWhere(pageIndex: number){
   
   this.questTest$.subscribe((data) => {
     this.questList = data.MassesWithQuests;
+    this.questResult = data.MassesWithQuests
     this.questListParent =  data;
     this.checkAndApplyDisabled(data);
   });

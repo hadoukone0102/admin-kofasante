@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import jsPDF from 'jspdf';
 import * as XLSX from 'xlsx';
 import autoTable from 'jspdf-autotable';
-import { Observable, Subject, debounceTime, switchMap } from 'rxjs';
+import { Observable, Subject, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { FilterMassData } from 'src/app/mass/models/filter-model.model';
 import { environment } from 'src/environments/environment';
 import { QuestOriginal, QuestOriginalChild, FormQuestColumn, Quest, Quette, Child } from '../../models/quest-type.model';
@@ -151,7 +151,7 @@ goToNext(){
 showPageWhere(pageIndex: number){
   this.newPage= this.questListParent.current_page + pageIndex;
 
-  if(this.listType === "simpl"){
+  if(this.listType === "all"){
     this.questTest$ =  this.questService.getQuestLits(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
   }
   else if(this.listType === "basket")
@@ -164,11 +164,11 @@ showPageWhere(pageIndex: number){
   
   this.questTest$.subscribe((data) => {
     this.questList = data.quettes;
+    this.questResult = data.quettes
     this.questListParent =  data;
     this.checkAndApplyDisabled(data);
   });
 }
-
 
  setSelectedRequest(messe_id: number, days: string, total_Quest:string) {
   this.messe_id = messe_id;
@@ -284,22 +284,22 @@ MasquerList(){
   // this.hideExportationButton();
   this.sendDataToParent();
   this.isRefreshing = true;
-  if (this.listType === "all") {//Anonymous
+  if (this.listType === "all") {//all list quest
     this.searchTerms.next(this.searchBarValue);
     this.quest$ = this.searchTerms.pipe(
       debounceTime(300),
       switchMap((term) => this.questService.getQuestLits('1',term, this.dateStartValue, this.dateEndValue))
     );
   }
-  // else if(this.listType === "noAnonymous") //non-anonymous 
-  // {
-  //   this.searchTerms.next(this.searchBarValue);
-  //     this.messe$ = this.searchTerms.pipe(
-  //       debounceTime(300),
-  //       distinctUntilChanged(),
-  //       switchMap((term) => this.massRequestService.getMassNoAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
-  //     );
-  // }
+  else if(this.listType === "basket") //basket
+  {
+    this.searchTerms.next(this.searchBarValue);
+      this.quest$ = this.searchTerms.pipe(
+        debounceTime(300),
+        distinctUntilChanged(),
+        switchMap((term) => this.questService.getBasketQuest('1',term, this.dateStartValue, this.dateEndValue))
+      );
+  }
   // else if(this.listType === "all")
   // { 
   //   this.searchTerms.next(this.searchBarValue);

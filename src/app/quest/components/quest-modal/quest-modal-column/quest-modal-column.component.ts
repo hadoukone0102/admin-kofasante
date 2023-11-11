@@ -32,9 +32,12 @@ export class QuestModalColumnComponent {
    * @param {string} type
    */
   enabledAndInitialiseColumnOfType(type: string){
-    if(type === "all"){
+    if(type === "basket"){
       this.showAllQuest();
+    }else if(type ==="all"){
+      this.showAllQuest()
     }
+
   }
 
   /**

@@ -222,7 +222,7 @@ isRefreshing!: boolean;
     {
       this.messeTest$ = this.massRequestService.getAllMassGeneral(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
-    else{//failed (Corbeille)
+    else{
       this.messeTest$ = this.massRequestService.getBasketMassWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
     

@@ -16,7 +16,7 @@ export class QuestBasketComponent {
   ){}
 
   ngOnInit(){
-    this.type ='all';
+    this.type ='basket';
     this.quest$ = this.route.data.pipe(
       map(data=>data['basketQuestResolver'])
     );
