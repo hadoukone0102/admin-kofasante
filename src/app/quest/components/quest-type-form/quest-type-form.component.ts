@@ -65,6 +65,8 @@ export class QuestTypeFormComponent implements OnInit{
         this.formDataSet.labelQt = this.formData.labelQt;
         this.questService.updateQuestType(this.formDataSet).subscribe(
           (data)=> {
+            console.log("The message: "+data.message);
+            
             this.isSubmitting = false;
             if(data.success){
               this.coreService.goToQuestTypeList();

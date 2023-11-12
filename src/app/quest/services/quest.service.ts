@@ -22,7 +22,7 @@ export class QuestService {
     }
 
     getQuestTypeById(id: number): Observable<QuestTypeByIdModel>{
-      return this.http.put<QuestTypeByIdModel>(`${environment.apiUrlMass}/QuesType/show/${id}`,"").pipe(
+      return this.http.get<QuestTypeByIdModel>(`${environment.apiUrlMass}/QuesType/show/${id}`).pipe(
         catchError((error) => this.coreService.handleError(error)),
       );
     }
@@ -34,7 +34,7 @@ export class QuestService {
     }
     
     updateQuestType(data: SetQuesTypeModel): Observable<SetQuesTypeResponseModel>{
-      return this.http.post<SetQuesTypeResponseModel>(`${environment.apiUrlMass}/QuesType/updata`, data).pipe(
+      return this.http.post<SetQuesTypeResponseModel>(`${environment.apiUrlMass}/QuesType/updata/${data.id}`, data).pipe(
         catchError((error) => this.coreService.handleError(error)),
       );
     }
