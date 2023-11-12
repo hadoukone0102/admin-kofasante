@@ -51,6 +51,12 @@ const routes: Routes = [
       roles: environment.allRoles_Without_HeadOfCatechesis
     }
   }, 
+  {path: 'catechese', loadChildren: () => import('./catechesis/catechesis.module').then(m => m.CatechesisModule), 
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.allRoles
+    }
+  }, 
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers, 
     canActivate: [AuthGuard, AccessGuard],
     data:{
