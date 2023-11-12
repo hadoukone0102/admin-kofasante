@@ -45,9 +45,6 @@ export class QuestService {
       );
     }
 
-
-    //ajouter par kone
-
     /**
      * @date 19/10/23 16:26
      * @returns data for quest
