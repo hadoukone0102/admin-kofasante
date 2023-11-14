@@ -33,7 +33,7 @@ import { topToBottomAnimation } from './core/animations/animations';
     }
     .loader::after,
     .loader::before {
-      content: '';  
+      content: ''; 
       box-sizing: border-box;
       position: absolute;
       left: 0;
