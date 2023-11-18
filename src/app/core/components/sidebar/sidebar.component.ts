@@ -14,7 +14,8 @@ export class SidebarComponent implements OnInit{
 
   rolesForDonation!: string[];
   rolesForAdmin!: string[];
-  
+  allRight!:string[];
+
   constructor(
     private coreService: CoreService,
     private authService: AuthService
@@ -27,6 +28,7 @@ export class SidebarComponent implements OnInit{
     //roles initialization
     this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
     this.rolesForAdmin = environment.superAdmins;
+    this.allRight = environment.allRight;
   }
 
   /**
@@ -50,6 +52,16 @@ export class SidebarComponent implements OnInit{
    */
   isAuthorizedForAdmin(){
     if(this.rolesForAdmin.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
+  }
+  /**
+   * type for allright
+   * @returns {boolean}
+   */
+  isAuthorizedForSecretaire(){
+    if(this.allRight.includes(this.adminType ?? '')){
       return true;
     }
     return false;
@@ -104,4 +116,10 @@ export class SidebarComponent implements OnInit{
   goToQuest(){this.coreService.goToQuest();}
   goToReportQuestList(){this.coreService.goToReportQuestList();}
   goToBasketQuest(){this.coreService.goToBasketQuest();}
+
+  // ~~~~~~~~~~~~~~~~~~~ // TODO - Catehe ~~~~~~~~~~~~~~~~~~~ //
+
+  goToAddPastoralYears(){this.coreService.goToAddPastoralYears();}
+
+
 }

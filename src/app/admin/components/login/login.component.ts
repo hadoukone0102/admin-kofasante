@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit{
     this.isLogged = true;
 
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyDev;
+    this.siteKey = environment.captchaKeyProd;
     this.theme ="light"
     this.tokenCaptcha = null;
 }
@@ -116,7 +116,7 @@ togglePasswordVisibility() {
 
   /**
    * Get the reponse of captcha
-   * @date 5/22/2023 - 6:59:56 PM
+   * @date 5/22/2023 - 6:59:56 PMdata
    *
    * @param {string} [$response=""]
    */

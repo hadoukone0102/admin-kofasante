@@ -10,7 +10,7 @@
     <!-- Content -->
     <div class="row">
       
-      <a *ngIf="isAuthorizedForDonation()" (click)="goToReportDonation()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
+      <a *ngIf="isAuthorizedForSecretaire()" (click)="goToReportDonation()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
         <div class="card border-0 shadow">
           <div class="card-body">
             <div class="row d-block d-xl-flex align-items-center">
@@ -64,7 +64,7 @@
         </div>
       </a>
       
-      <a *ngIf="isAuthorizedForAdmin()" (click)="goToReportMass()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
+      <a *ngIf="isAuthorizedForSecretaire()" (click)="goToReportMass()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
         <div class="card border-0 shadow">
           <div class="card-body">
             <div class="row d-block d-xl-flex align-items-center">
@@ -91,7 +91,7 @@
         </div>
       </a>
 
-      <a *ngIf="isAuthorizedForAdmin()" (click)="goToQuest()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
+      <a *ngIf="isAuthorizedForSecretaire()" (click)="goToQuest()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
         <div class="card border-0 shadow">
           <div class="card-body">
             <div class="row d-block d-xl-flex align-items-center">

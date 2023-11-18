@@ -33,6 +33,7 @@ export class DashboardComponent implements OnInit{
 
   rolesForDonation!: string[];
   rolesForAdmin!: string[];
+  allRight!:string[];
   
   constructor(
     private route: ActivatedRoute, private coreService: CoreService,
@@ -64,6 +65,7 @@ export class DashboardComponent implements OnInit{
     //roles initialization
     this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
     this.rolesForAdmin = environment.superAdmins;
+    this.allRight = environment.allRight;
   }
 
   /**
@@ -92,13 +94,17 @@ export class DashboardComponent implements OnInit{
     return false;
   }
 
-  goToReportDonation(){
-    this.coreService.goToReportDonation();
+  isAuthorizedForSecretaire(){
+    if(this.allRight.includes(this.adminType ?? '')){
+      return true;
+    }
+    return false;
   }
 
-  goToAdmin(){
-    this.coreService.goToAdmin();
-  }
+  // routes
+
+  goToReportDonation(){ this.coreService.goToReportDonation();}
+  goToAdmin(){ this.coreService.goToAdmin();}
   goToReportMass(){this.coreService.goToReportMass();}
   goToQuest(){this.coreService.goToQuest();}
 }

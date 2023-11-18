@@ -87,6 +87,11 @@ export class CoreService {
   goToQuest(){this.router.navigate(['/quetes/quest'])}
   goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
   goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
+
+  // ~~~~~~~~~~~~~~~~~~~ // TODO  - QUEST ~~~~~~~~~~~~~~~~ //
+  goToAddPastoralYears(){this.router.navigate(['/catechese'])}
+
+
   // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
   
   goToPageError(){this.router.navigate(['/erreur']);}
