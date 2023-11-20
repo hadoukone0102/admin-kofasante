@@ -74,7 +74,7 @@ export class DashboardComponent implements OnInit{
    *
    * @returns {boolean}
    */
-  isAuthorizedForDonation(): boolean{
+  isAuthorizedForFirstGroup(): boolean{
     if(this.rolesForDonation.includes(this.adminType ?? '')){
       return true;
     }

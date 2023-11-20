@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit{
    *
    * @returns {boolean}
    */
-  isAuthorizedForDonation(): boolean{
+  isAuthorizedForFirstGroup(): boolean{
     if(this.rolesForDonation.includes(this.adminType ?? '')){
       return true;
     }
