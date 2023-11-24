@@ -48,7 +48,7 @@ export class CoreService {
   goToForgotPassowrd(){this.router.navigate(['/mot-de-passe-oublie']);} 
   goToConfirmCodeSms(){this.router.navigate(['/confirmer-code-sms']);} 
   goToResetPassword(){this.router.navigate(['/reinitialiser-mot-de-passe']);} 
-
+  
   // ~~~~~~~~~~~~~~~ //TODO - DONATION ~~~~~~~~~~~~~~ //
 
   goToDonationAnonymous(){this.router.navigate(['/dons/anonyme']);}
@@ -88,13 +88,16 @@ export class CoreService {
   goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
   goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
 
-  // ~~~~~~~~~~~~~~~~~~~ // TODO  - QUEST ~~~~~~~~~~~~~~~~ //
+  // ~~~~~~~~~~~~~~~~~~~ // TODO  - CATEHECHISIS ~~~~~~~~~~~~~~~~ //
   goToAddPastoralYears(){this.router.navigate(['/catechese'])}
+  goToAddPastoralYearsListe(){this.router.navigate(['/liste-annee-pastorale']);}
+  goToListeOfCatechesis(){this.router.navigate(['/liste-cathechumenes'])}
+  goToListeOfCatechesisYoung(){this.router.navigate(['/liste-catechumenes-jeunes']);}
+  goToListeOfCatechesisAdult(){this.router.navigate(['/liste-catechumenes-adultes'])}
 
 
-  // ~~~~~~~~~~~ //TODO - PAGE ~~~~~~~~~~ //
-  
-  goToPageError(){this.router.navigate(['/erreur']);}
+  // ~~~~~~~~~~~~~~~~~~~ // TODO  - Pages ~~~~~~~~~~~~~~~~ //
+  goToPageError(){this.router.navigate([('/erreur')]);}
   goToPageNotFound(){this.router.navigate(['/page-introuvable']);} 
   goToLockedPage(){this.router.navigate(['/page-verrouillee']);}
 }

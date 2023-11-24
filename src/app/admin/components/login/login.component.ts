@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit{
     this.isLogged = true;
 
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyProd;
+    this.siteKey = environment.captchaKeyDev;
     this.theme ="light"
     this.tokenCaptcha = null;
 }

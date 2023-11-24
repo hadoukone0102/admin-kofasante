@@ -26,6 +26,8 @@ export class MassService {
    * @returns {Observable<MassTimeModel>}
    * 
    */
+
+
   getMassesTimesList(): Observable<MassTimeModel>{
     return this.http.get<MassTimeModel>(`${environment.apiUrlMass}/time/all`).pipe(
       catchError((error) => this.coreService.handleError(error)),
@@ -40,6 +42,8 @@ export class MassService {
    *
    * @returns {Observable<MassModel>}
    */
+
+
   getMassesList(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = ""): Observable<MassModel>{
     let requestUrl = `search=${search}&startDate=${dateStart}&page=${page}`
     if(dateEnd != ""){
@@ -55,6 +59,7 @@ export class MassService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
+  
   
   getMassDayById(id: number): Observable<DataSetMassModel>{
     return this.http.get<DataSetMassModel>(`${environment.apiUrlMass}/messes-days/${id}`).pipe(

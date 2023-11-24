@@ -120,6 +120,8 @@ export class SidebarComponent implements OnInit{
   // ~~~~~~~~~~~~~~~~~~~ // TODO - Catehe ~~~~~~~~~~~~~~~~~~~ //
 
   goToAddPastoralYears(){this.coreService.goToAddPastoralYears();}
-
-
+  goToAddPastoralYearsListe(){this.coreService.goToAddPastoralYearsListe();}
+  goToListeOfCatechesis(){this.coreService.goToListeOfCatechesis();}
+  goToListeOfCatechesisYoung(){this.coreService.goToListeOfCatechesisYoung();}
+  goToListeOfCatechesisAdult(){this.coreService.goToListeOfCatechesisAdult();}
 }
