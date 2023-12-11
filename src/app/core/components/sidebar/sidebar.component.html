@@ -49,9 +49,9 @@
     data-bs-toggle="collapse" data-bs-target="#submenu-donation">
     <span>
       <span class="sidebar-icon">
-        <i class="fa fa-heart"></i>
+        <i class="fa fa-stethoscope" aria-hidden="true"></i>
        </span>
-      <span class="sidebar-text">Dons</span>
+      <span class="sidebar-text">Media tech</span>
     </span>
     <span>
   </span>
@@ -64,7 +64,7 @@
     <ul class="flex-column nav">
       <li class="nav-item">
         <a (click)="goToDonationAnonymous()" class="nav-link ">
-          <span class="sidebar-text">Anonymes</span>
+          <span class="sidebar-text">Astuces & conseils</span>
         </a>
       </li>
 
@@ -75,12 +75,12 @@
     <ul class="flex-column nav">
       <li class="nav-item ">
         <a (click)="goToDonationNoAnonymousPerso()" class="nav-link">
-          <span class="sidebar-text">Personel</span>
+          <span class="sidebar-text">Listes</span>
         </a>
       </li>
     </ul>
   </div>
-  <div class="multi-level collapse "
+  <!-- <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
@@ -89,8 +89,8 @@
         </a>
       </li>
     </ul>
-  </div>
-  <div class="multi-level collapse "
+  </div> -->
+  <!-- <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
@@ -99,8 +99,8 @@
         </a>
       </li>
     </ul>
-  </div>
-  <div class="multi-level collapse "
+  </div> -->
+  <!-- <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
@@ -109,8 +109,8 @@
         </a>
       </li>
     </ul>
-  </div>
-  <div class="multi-level collapse "
+  </div> -->
+  <!-- <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
@@ -119,8 +119,8 @@
         </a>
       </li>
     </ul>
-  </div>
-  <div class="multi-level collapse "
+  </div> -->
+  <!-- <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
@@ -129,410 +129,12 @@
         </a>
       </li>
     </ul>
-  </div>
+  </div> -->
 </li>
 <!--=====================================================-->
 <!--=================== //TODO - MASS ===================-->
 <!--=====================================================-->
 
-<li *ngIf="isAuthorizedForSecretaire()" class="nav-item">
-  <span
-    class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-    data-bs-toggle="collapse" data-bs-target="#submenu-mass">
-    <span>
-      <span class="sidebar-icon">
-        <i class="fa fa-church"></i>
-       </span>
-      <span class="sidebar-text">Messes</span>
-
-    </span>
-    <span class="link-arrow">
-      <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-    </span>
-  </span>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToMassList()" class="nav-link">
-          <span class="sidebar-text">Liste </span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddMass()" class="nav-link">
-          <span class="sidebar-text">Ajouter</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToNoAnonymousMassRequest()" class="nav-link">
-          <span class="sidebar-text">Demandes de messes</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToReportMass()" class="nav-link">
-          <span class="sidebar-text">Bilan</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="gotToDiscount()" class="nav-link">
-          <span class="sidebar-text">Listes des Promotion</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-  <!-- <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="gotToDiscountList()" class="nav-link">
-          <span class="sidebar-text">Listes Promotion</span>
-        </a>
-      </li>
-    </ul>
-  </div> -->
-
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToBasketMass()" class="nav-link">
-          <span class="sidebar-text">Corbeille</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToMassTimeList()" class="nav-link">
-          <span class="sidebar-text">Liste des heures</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-mass" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddMassTime()" class="nav-link">
-          <span class="sidebar-text">Ajouter une heure</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</li>
-
-<!--=====================================================-->
-<!--================== //TODO - QUEST ===================-->
-<!--=====================================================-->
-<li *ngIf="isAuthorizedForFirstGroup()" class="nav-item">
-  <span
-    class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-    data-bs-toggle="collapse" data-bs-target="#submenu-quest">
-    <span>
-      <span class="sidebar-icon">
-        <i class="fa fa-donate"></i>
-       </span>
-      <span class="sidebar-text">Quêtes</span>
-
-    </span>
-    <span class="link-arrow">
-      <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-    </span>
-  </span>
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToQuestTypeList()" class="nav-link">
-          <span class="sidebar-text">Types de quêtes </span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddQuestType()" class="nav-link">
-          <small class="sidebar-text">Ajouter un type de quête</small>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToQuestList()" class="nav-link">
-          <span class="sidebar-text">Liste des Quêtes</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-<!-- le second api qui affiche les quêtes en fonction des messes !-->
-
-  <!-- <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToQuest()" class="nav-link">
-          <span class="sidebar-text">Bilan</span>
-        </a>
-      </li>
-    </ul>
-  </div> -->
-
-<!-- le second api qui affiche les quêtes en fonction des messes !-->
-
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToQuest()" class="nav-link">
-          <span class="sidebar-text">Bilan</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div class="multi-level collapse "
-    role="list" id="submenu-quest" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToBasketQuest()" class="nav-link">
-          <span class="sidebar-text">Corbeille</span>
-        </a>
-      </li>
-    </ul>
-  </div>
-</li>
-<!-- =====================================================-->
-<!--=================== // TODO CATECHESIS ============-->
-<!--=====================================================-->
-
-<li *ngIf="isAuthorizedForSecretaire()" class="nav-item">
-  <span
-    class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-    data-bs-toggle="collapse" data-bs-target="#catechesis">
-      <span>
-        <span class="sidebar-icon">
-          <i class="fa fa-book" aria-hidden="true"></i>
-          </span>
-        <span class="sidebar-text">Catéchèse</span>
-      </span>
-      <span class="link-arrow">
-        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-      </span>
-  </span>
-
-    <!-- pastoral -->
-  <div *ngIf="isAuthorizedForSecretaire()" class="multi-level collapse"
-        role="list" id="catechesis" aria-expanded="false">
-      <ul class="flex-column nav">
-
-        <li class="nav-item">
-          <span
-            class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-            data-bs-toggle="collapse" data-bs-target="#Pastorale">
-            <span>
-                <span class="sidebar-icon">
-                  <svg class="icon icon-sm" fill="currentColor" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 600 512"><path d="M351.2 4.8c3.2-2 6.6-3.3 10-4.1c4.7-1 9.6-.9 14.1 .1c7.7 1.8 14.8 6.5 19.4 13.6L514.6 194.2c8.8 13.1 13.4 28.6 13.4 44.4v73.5c0 6.9 4.4 13 10.9 15.2l79.2 26.4C631.2 358 640 370.2 640 384v96c0 9.9-4.6 19.3-12.5 25.4s-18.1 8.1-27.7 5.5L431 465.9c-56-14.9-95-65.7-95-123.7V224c0-17.7 14.3-32 32-32s32 14.3 32 32v80c0 8.8 7.2 16 16 16s16-7.2 16-16V219.1c0-7-1.8-13.8-5.3-19.8L340.3 48.1c-1.7-3-2.9-6.1-3.6-9.3c-1-4.7-1-9.6 .1-14.1c1.9-8 6.8-15.2 14.3-19.9zm-62.4 0c7.5 4.6 12.4 11.9 14.3 19.9c1.1 4.6 1.2 9.4 .1 14.1c-.7 3.2-1.9 6.3-3.6 9.3L213.3 199.3c-3.5 6-5.3 12.9-5.3 19.8V304c0 8.8 7.2 16 16 16s16-7.2 16-16V224c0-17.7 14.3-32 32-32s32 14.3 32 32V342.3c0 58-39 108.7-95 123.7l-168.7 45c-9.6 2.6-19.9 .5-27.7-5.5S0 490 0 480V384c0-13.8 8.8-26 21.9-30.4l79.2-26.4c6.5-2.2 10.9-8.3 10.9-15.2V238.5c0-15.8 4.7-31.2 13.4-44.4L245.2 14.5c4.6-7.1 11.7-11.8 19.4-13.6c4.6-1.1 9.4-1.2 14.1-.1c3.5 .8 6.9 2.1 10 4.1z"/></svg>              </span>
-                <span class="sidebar-text">Pastorale 2024</span>
-                </span>
-                <span class="link-arrow">
-                  <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                </span>
-            </span>
-
-
-          <!-- content for pastoral years -->
-          <!-- catechesis-->
-            <div class="multi-level collapse ms-3 "
-                role="list" id="Pastorale" aria-expanded="false">
-                <ul class="flex-column nav">
-                  <li class="nav-item ">
-
-                    <span
-                        class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-                        data-bs-toggle="collapse" data-bs-target="#Cathechumenes">
-                      <span>
-                          <!-- <span class="sidebar-icon">
-                            <i class="fa fa-book" aria-hidden="true"></i>
-                          </span>  -->
-                        <span class="sidebar-text">Cathechumenes </span>
-                        </span>
-                      <span class="link-arrow">
-                        <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                      </span>
-                    </span>
-
-                    <div class="multi-level collapse ms-4"
-                      role="list" id="Cathechumenes" aria-expanded="false">
-                      <ul class="flex-column nav">
-                        <li class="nav-item ">
-                          <a (click)="goToListeOfCatechesis()" class="nav-link">
-                            <span class="sidebar-text">Catéch Enfants</span>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-
-                    <div class="multi-level collapse ms-4"
-                    role="list" id="Cathechumenes" aria-expanded="false">
-                    <ul class="flex-column nav">
-                      <li class="nav-item ">
-                        <a (click)="goToListeOfCatechesisYoung()" class="nav-link">
-                          <span class="sidebar-text">Catéch Jeunes</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div class="multi-level collapse ms-4"
-                    role="list" id="Cathechumenes" aria-expanded="false">
-                    <ul class="flex-column nav">
-                      <li class="nav-item ">
-                        <a (click)="goToListeOfCatechesisAdult()" class="nav-link">
-                          <span class="sidebar-text"> Catéch Adultes</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-
-                  </li>
-                </ul>
-            </div>
-          <!--catechesis-->
-
-          <!-- Note of catechesis-->
-          <div class="multi-level collapse ms-3"
-              role="list" id="Pastorale" aria-expanded="false">
-              <ul class="flex-column nav">
-                <li class="nav-item ">
-
-                  <span
-                      class="nav-link  collapsed  d-flex justify-content-between align-items-center"
-                      data-bs-toggle="collapse" data-bs-target="#NoteOperations">
-                    <span>
-                        <span class="sidebar-icon">
-                          <i class="fa fa-hand-peace-o" aria-hidden="true"></i>
-
-                        </span>
-                      <span class="sidebar-text">Gestion notes </span>
-                      </span>
-                    <span class="link-arrow">
-                      <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                    </span>
-                  </span>
-
-                  <div class="multi-level collapse ms-4"
-                    role="list" id="NoteOperations" aria-expanded="false">
-                    <ul class="flex-column nav">
-                      <li class="nav-item ">
-                        <a (click)="goToListeOfCatechesis()" class="nav-link">
-                          <span class="sidebar-text">Enfants</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div class="multi-level collapse ms-4"
-                    role="list" id="NoteOperations" aria-expanded="false">
-                    <ul class="flex-column nav">
-                      <li class="nav-item ">
-                        <a (click)="goToListeOfCatechesis()" class="nav-link">
-                          <span class="sidebar-text">Jeunes</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div class="multi-level collapse ms-4"
-                    role="list" id="NoteOperations" aria-expanded="false">
-                    <ul class="flex-column nav">
-                      <li class="nav-item ">
-                        <a (click)="goToListeOfCatechesis()" class="nav-link">
-                          <span class="sidebar-text">Adultes</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-
-                </li>
-              </ul>
-          </div>
-          <!-- Note of catechesis-->
-
-        </li>
-      </ul>
-  </div>
-    <!-- pastoral -->
-
-  <!-- ======================= Pastorale years ==============================-->
-
-  <!-- for create pastoral years-->
-  <div class="multi-level collapse "
-    role="list" id="catechesis" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddPastoralYears()" class="nav-link">
-          <span class="sidebar-text">Créer Année Pastorale </span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <!-- for create pastoral years-->
-
-  <!-- for links pastoral years-->
-  <div class="multi-level collapse "
-    role="list" id="catechesis" aria-expanded="false">
-    <ul class="flex-column nav">
-      <li class="nav-item ">
-        <a (click)="goToAddPastoralYearsListe()" class="nav-link">
-          <span class="sidebar-text">Listes Année Pastorale </span>
-        </a>
-      </li>
-    </ul>
-  </div>
-  <!-- for links pastoral years-->
-
-  <!-- ======================= Pastorale years ==============================-->
-
-
-</li>
-
-<!-- ==================================================-->
-<!--=================== // TODO CATECHESIS ============-->
-<!--=====================================================-->
-
-<!--=====================================================-->
-<!--================== //TODO - ADMIN ===================-->
-<!--=====================================================-->
 <li class="nav-item ">
     <a (click)="goToProfile()" class="nav-link">
       <span class="sidebar-icon">

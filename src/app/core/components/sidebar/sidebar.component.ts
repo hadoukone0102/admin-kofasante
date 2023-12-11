@@ -43,7 +43,7 @@ export class SidebarComponent implements OnInit{
     }
     return false;
   }
-  
+
   /**
    * Returns true if the connected administrator is authorized to access the admin menu
    * @date 5/17/2023 - 4:10:47 PM
@@ -96,32 +96,6 @@ export class SidebarComponent implements OnInit{
       this.authService.logout();
   }
 
-  // ~~~~~~~~~~~~ //TODO - Mass ~~~~~~~~~~~~ //
 
-  goToAddMass(){this.coreService.goToAddMass();}
-  goToMassList(){this.coreService.goToMassList();}
-  goToAddMassTime(){this.coreService.goToAddMassTime();}
-  goToMassTimeList(){this.coreService.goToMassTimeList();}
-  goToNoAnonymousMassRequest(){this.coreService.goToNoAnonymousMassRequest();}
-  goToBasketMass(){this.coreService.goToBasketMass();}
-  goToReportMass(){this.coreService.goToReportMass();}
-  gotToDiscount(){this.coreService.gotToDiscount();}
-  gotToDiscountList(){this.coreService.gotToDiscountList();}
 
-  
-  // ~~~~~~~~~~~~ //TODO - Quest ~~~~~~~~~~~ //
-  goToQuestTypeList(){this.coreService.goToQuestTypeList();}
-  goToAddQuestType(){this.coreService.goToAddQuestType();}
-  goToQuestList(){this.coreService.goToQuestList();}
-  goToQuest(){this.coreService.goToQuest();}
-  goToReportQuestList(){this.coreService.goToReportQuestList();}
-  goToBasketQuest(){this.coreService.goToBasketQuest();}
-
-  // ~~~~~~~~~~~~~~~~~~~ // TODO - Catehe ~~~~~~~~~~~~~~~~~~~ //
-
-  goToAddPastoralYears(){this.coreService.goToAddPastoralYears();}
-  goToAddPastoralYearsListe(){this.coreService.goToAddPastoralYearsListe();}
-  goToListeOfCatechesis(){this.coreService.goToListeOfCatechesis();}
-  goToListeOfCatechesisYoung(){this.coreService.goToListeOfCatechesisYoung();}
-  goToListeOfCatechesisAdult(){this.coreService.goToListeOfCatechesisAdult();}
 }

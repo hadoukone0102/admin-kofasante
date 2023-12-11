@@ -8,18 +8,16 @@ import { DashboardService } from './services/dashboard.service';
 import { AdminInfoResolver } from './resolvers/admin-info.resolver';
 import { GLOBAL_RESOLVERS, environment } from 'src/environments/environment';
 import { AuthGuard } from '../admin/guards/auth.guard';
-import { MassRequestResolver } from './resolvers/mass-request.resolver';
-import { ReportQuestResolver } from './resolvers/report-quest.resolver';
+
 
 const listDashboardResolvers = {...{
   dashboard: DashboardResolver,
   adminInfo: AdminInfoResolver,
-  massRequestInfo: MassRequestResolver,
-  reportQuestResolver: ReportQuestResolver,
+
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent, resolve: listDashboardResolvers, 
+  {path: '', component: DashboardComponent, resolve: listDashboardResolvers,
     canActivate: [AuthGuard],
     data: {
       roles: environment.allRoles

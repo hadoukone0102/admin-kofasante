@@ -7,9 +7,7 @@ import { style, transition, trigger,animate } from '@angular/animations';
 import { zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
-import { MassRequestInfoModel } from '../../models/mass-request-info.model';
-import { MassReport, questReport } from 'src/app/mass/models/mass-report-model.model';
-import { MassRequestService } from 'src/app/mass/services/mass-request.service';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -25,41 +23,31 @@ export class DashboardComponent implements OnInit{
   adminInfo$!: Observable<DataAdminInfo>;
   adminInfo!: DataAdminInfo;
 
-  massRequestInfo!: MassRequestInfoModel;
-  accumulation!: MassReport;
-  reportQuest!: questReport;
+
 
   adminType!: string|null;
 
   rolesForDonation!: string[];
   rolesForAdmin!: string[];
   allRight!:string[];
-  
+
   constructor(
     private route: ActivatedRoute, private coreService: CoreService,
-    private massService: MassRequestService, 
   ) { }
 
   ngOnInit(): void {
     this.donationInfo$ = this.route.data.pipe(
       map(data => data['dashboard']),
     );
-    
+
     this.donationInfo$.subscribe((data) => this.donationInfo = data);
-    
+
     this.adminInfo$ = this.route.data.pipe(
       map(data => data['adminInfo']),
     );
-    
+
     this.adminInfo$.subscribe((data) => this.adminInfo = data);
 
-    this.route.data.pipe(map(data => data['massRequestInfo'])).subscribe(
-      (data) => this.accumulation = data
-    );
-
-    this.route.data.pipe(map(data =>data['reportQuestResolver'])).subscribe(
-      (data)=>this.reportQuest = data
-    )
 
     this.adminType = sessionStorage.getItem('type');
     //roles initialization
@@ -80,7 +68,7 @@ export class DashboardComponent implements OnInit{
     }
     return false;
   }
-  
+
   /**
    * Returns true if the connected administrator is authorized to access the admin menu
    * @date 5/17/2023 - 4:10:47 PM
@@ -106,5 +94,5 @@ export class DashboardComponent implements OnInit{
   goToReportDonation(){ this.coreService.goToReportDonation();}
   goToAdmin(){ this.coreService.goToAdmin();}
   goToReportMass(){this.coreService.goToReportMass();}
-  goToQuest(){this.coreService.goToQuest();}
+
 }

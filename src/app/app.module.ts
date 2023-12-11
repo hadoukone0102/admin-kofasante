@@ -11,8 +11,7 @@ import { PagesModule } from './pages/pages.module';
 import { GlobalModule } from './global/global.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
-import { MassModule } from './mass/mass.module';
-import { CatechesisModule } from './catechesis/catechesis.module';
+
 
 @NgModule({
   declarations: [
@@ -22,8 +21,6 @@ import { CatechesisModule } from './catechesis/catechesis.module';
     BrowserModule,
     FormsModule,
     DonationModule,
-    MassModule,
-    CatechesisModule,
     CoreModule,
     AdminModule,
     PagesModule,

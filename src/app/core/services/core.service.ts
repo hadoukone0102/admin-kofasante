@@ -23,7 +23,7 @@ export class CoreService {
       this.goToPageNotFound();
       return throwError('Page introvalble: '+ error);
     }
-    
+
     this.goToPageError();//else redirect to page error
     return throwError('Une erreur est survenue la récupération des données: '+ error);
   }
@@ -44,11 +44,11 @@ export class CoreService {
   goToAddAdmin(){this.router.navigate(['/admin/ajouter']);}
   goToEditAdmin(id: string){this.router.navigate(['/admin/modifier-un-administrateur', id]);}
   goToDisabledAccount(){this.router.navigate(['/admin/comptes-inactifs']);}
-  goToLogin(){this.router.navigate(['/login']);} 
-  goToForgotPassowrd(){this.router.navigate(['/mot-de-passe-oublie']);} 
-  goToConfirmCodeSms(){this.router.navigate(['/confirmer-code-sms']);} 
-  goToResetPassword(){this.router.navigate(['/reinitialiser-mot-de-passe']);} 
-  
+  goToLogin(){this.router.navigate(['/login']);}
+  goToForgotPassowrd(){this.router.navigate(['/mot-de-passe-oublie']);}
+  goToConfirmCodeSms(){this.router.navigate(['/confirmer-code-sms']);}
+  goToResetPassword(){this.router.navigate(['/reinitialiser-mot-de-passe']);}
+
   // ~~~~~~~~~~~~~~~ //TODO - DONATION ~~~~~~~~~~~~~~ //
 
   goToDonationAnonymous(){this.router.navigate(['/dons/anonyme']);}
@@ -65,7 +65,7 @@ export class CoreService {
 
   goToMassList(){this.router.navigate(['/messes/liste']);}
   goToAddMass(){this.router.navigate(['/messes/ajouter-messes']);}
-  
+
   goToEditMass(id: number){this.router.navigate(['/messes/modifier-messes', id]);}
   goToEditDiscount(id: number){this.router.navigate(['/modifier-promotion', id]);}
 
@@ -78,26 +78,10 @@ export class CoreService {
   goToReportMass(){this.router.navigate(['/bilan-messe'])}
   gotToDiscount(){this.router.navigate(['/promotion'])};
   gotToDiscountList(){this.router.navigate(['/liste-promotion']);}
-  
-  // ~~~~~~~~~~~~ //TODO - QUEST ~~~~~~~~~~~ //
-  goToQuestTypeList(){this.router.navigate(['/quetes/liste']);}
-  goToEditQuestType(id: number){this.router.navigate(['/quetes/modifier-type-quete', id]);}
-  goToAddQuestType(){this.router.navigate(['/quetes/ajouter-type-quete']);}
-  goToQuestList(){this.router.navigate(['/quetes/list-quete']);}
-  goToQuest(){this.router.navigate(['/quetes/quest'])}
-  goToReportQuestList(){this.router.navigate(['/quetes/bilan'])}
-  goToBasketQuest(){this.router.navigate(['/quetes/corbeille']);}
-
-  // ~~~~~~~~~~~~~~~~~~~ // TODO  - CATEHECHISIS ~~~~~~~~~~~~~~~~ //
-  goToAddPastoralYears(){this.router.navigate(['/catechese'])}
-  goToAddPastoralYearsListe(){this.router.navigate(['/liste-annee-pastorale']);}
-  goToListeOfCatechesis(){this.router.navigate(['/liste-cathechumenes'])}
-  goToListeOfCatechesisYoung(){this.router.navigate(['/liste-catechumenes-jeunes']);}
-  goToListeOfCatechesisAdult(){this.router.navigate(['/liste-catechumenes-adultes'])}
 
 
   // ~~~~~~~~~~~~~~~~~~~ // TODO  - Pages ~~~~~~~~~~~~~~~~ //
   goToPageError(){this.router.navigate([('/erreur')]);}
-  goToPageNotFound(){this.router.navigate(['/page-introuvable']);} 
+  goToPageNotFound(){this.router.navigate(['/page-introuvable']);}
   goToLockedPage(){this.router.navigate(['/page-verrouillee']);}
 }

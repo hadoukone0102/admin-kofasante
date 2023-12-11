@@ -44,7 +44,7 @@ export const  environment = {
 
 /**
  * POSSIBLES ROLES
- * 
+ *
  * Curé
  * Vicaire
  * Secrétaire
