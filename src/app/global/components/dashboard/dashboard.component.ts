@@ -36,23 +36,23 @@ export class DashboardComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.donationInfo$ = this.route.data.pipe(
-      map(data => data['dashboard']),
-    );
+    // this.donationInfo$ = this.route.data.pipe(
+    //   map(data => data['dashboard']),
+    // );
 
-    this.donationInfo$.subscribe((data) => this.donationInfo = data);
+    //this.donationInfo$.subscribe((data) => this.donationInfo = data);
 
-    this.adminInfo$ = this.route.data.pipe(
-      map(data => data['adminInfo']),
-    );
+    // this.adminInfo$ = this.route.data.pipe(
+    //   map(data => data['adminInfo']),
+    // );
 
-    this.adminInfo$.subscribe((data) => this.adminInfo = data);
+    //this.adminInfo$.subscribe((data) => this.adminInfo = data);
 
 
     this.adminType = sessionStorage.getItem('type');
     //roles initialization
-    this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
-    this.rolesForAdmin = environment.superAdmins;
+    this.rolesForDonation = environment.allRolesMediaKofa
+    this.rolesForAdmin = environment.super;
     this.allRight = environment.allRight;
   }
 

@@ -15,9 +15,9 @@
                     <div class="col-12 mb-3">
                         <div>
                             <label for="firstName">Nom</label>
-                            <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Entrez votre nom" 
+                            <input class="form-control" id="firstName" name="firstName" type="text" placeholder="Entrez votre nom"
                             pattern="^[a-zA-Z0-9àéèç ]{1,50}$"
-                            [(ngModel)]="admin.nomAdmin"
+                            [(ngModel)]="admin.nom"
                             #theFirstName="ngModel"
                             required>
                         </div>
@@ -27,14 +27,14 @@
                         <div class="text-danger"
                             [hidden]="!theFirstName.errors?.['pattern'] || theFirstName.pristine">
                             <small>Entrez uniquement des lettres et des chiffres </small>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div>
                             <label for="lastName">Prénom</label>
-                            <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Entrez votre prénom" 
+                            <input class="form-control" id="lastName" name="lastName" type="text" placeholder="Entrez votre prénom"
                             pattern="^[a-zA-Z0-9àéèç ]{1,50}$"
-                            [(ngModel)]="admin.prenomAdmin"
+                            [(ngModel)]="admin.prenom"
                             #theLastName="ngModel"
                             required="">
                         </div>
@@ -44,29 +44,15 @@
                         <div class="text-danger"
                         [hidden]="!theLastName.errors?.['pattern'] || theLastName.pristine">
                              <small>Entrez uniquement des lettres et des chiffres </small>
-                        </div> 
+                        </div>
                     </div>
-                    <div class="col-sm-4 mb-4">
-                        <label for="role">Indicatif</label>
-                        <select  class="form-select w-100 mb-0" id="role" 
-                            name="state" aria-label="State select example"
-                            
-                            #theCountryCode
-                            (click) = "onClickContryCode(theCountryCode.value)"
-                        >
-                             <!-- <option value='+225' selected>+25a5</option> -->
-                             <option *ngFor="let country of countries.pays"  value="{{country.ITU_T_Telephone_Code}}" [selected]="country.ITU_T_Telephone_Code === '+225'">
-                                {{country.ISO_3166_1_2_Letter_Code+"("+ country.ITU_T_Telephone_Code + ")"}}
-                              </option>
-                            
-                        </select>
-                    </div>
+
                     <div class="col-sm-8 mb-3">
                         <div>
                             <label for="contact">Contact</label>
-                            <input class="form-control" id="contact" name="contact" type="text" placeholder="Entrez votre numéros mobile" 
+                            <input class="form-control" id="contact" name="contact" type="text" placeholder="Entrez votre numéros mobile"
                             pattern="^[0-9]+$"
-                            [(ngModel)]="contact"
+                            [(ngModel)]="admin.contact"
                             #theContact="ngModel"
                             (keyup)="disabledContactExists()"
                             onkeypress="return event.charCode >= 48 && event.charCode<= 57"
@@ -80,15 +66,15 @@
                         </div>
                         <div class="text-danger"
                             [hidden]="!theContact.errors?.['pattern'] || theContact.pristine">
-                            <small>Entrez des chiffres</small> 
-                        </div> 
+                            <small>Entrez des chiffres</small>
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div>
                             <label for="password">Mot de passe</label>
-                            <input class="form-control" id="password"  name="password" type="password" placeholder="Entrez votre mot de passe" 
+                            <input class="form-control" id="password"  name="password" type="password" placeholder="Entrez votre mot de passe"
                             pattern="^.{8,}$"
-                            [(ngModel)]="admin.mdpAdmin"
+                            [(ngModel)]="admin.mot_de_passe"
                             #thePassword="ngModel"
                             (change)="onClickConfirmPassword()"
                             (keyup)="onClickConfirmPassword()"
@@ -100,45 +86,42 @@
                         <div class="text-danger"
                         [hidden]="!thePassword.errors?.['pattern'] || thePassword.pristine">
                            <small>Entrez au moins 8 caractères</small>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <div>
                             <label for="confirmPassword">Confirmez le mot de passe</label>
-                            <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirmez votre mot de passe" 
+                            <input class="form-control" id="confirmPassword" name="confirmPassword" type="password" placeholder="Confirmez votre mot de passe"
                             [(ngModel)]="confirmPassword"
                             #theConfirmPassword="ngModel"
                             (keyup)="onClickConfirmPassword()"
                             (change)="onClickConfirmPassword()"
                             required="">
                         </div>
-                        
+
                         <div *ngIf="!pwdIsConfirmed" class="text-danger">
                             <small>Les deux mots de passe ne correspondent pas</small>
-                        </div> 
+                        </div>
                     </div>
                     <div class="col-12 mb-3">
                         <label for="role">Type</label>
-                        <select [(ngModel)]="admin.id_typeadmin" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
-                            <!-- <option selected="">Sélectionnez le rôle de l'administrateur</option> -->
-                            <option *ngFor="let type of listAdminTypes.typeadministrateurs" 
-                            value="{{type.id}}"
+                        <select [(ngModel)]="admin.type" class="form-select w-100 mb-0" id="role" name="state" aria-label="State select example">
+                            <option >Sélectionnez le rôle de l'administrateur</option>
+                            <option *ngFor="let type of listAdminTypes.type"
+                            value="{{type.nom}}"
                             >
-                            {{type.libelleType}}
+                            {{type.nom}}
                         </option>
-                            <!-- <option value="1" selected>Curé</option> -->
-                            <!-- <option value="2">Sécrétaire</option> -->
-                            <!-- <option value="3">Responsable de catéchèse</option> -->
-                            <!-- <option value="4">Président du conseil paroissiale</option> -->
+
                         </select>
                     </div>
                 </div>
-        
+
                 <div class="mt-3 d-flex">
                     <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit"
                          [disabled]="addAdminForm.invalid|| !pwdIsConfirmed"
                         >Ajouter</button>
-                    
+
                         <!-- Spinner -->
                         <div class=" ms-3 d-flex align-items-center justify-content-center" *ngIf="isSubmitting">
                             <app-spinner></app-spinner>

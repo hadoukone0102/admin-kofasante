@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataDon, Don } from '../../models/don.model';
+import { DataDon, Don } from '../../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map, tap } from 'rxjs';
 
@@ -22,6 +22,6 @@ export class ListAnonymousComponent implements OnInit{
     this.donations$ = this.route.data.pipe(
       map(data => data['listAnonymous']),
     );
-    
+
   }
 }

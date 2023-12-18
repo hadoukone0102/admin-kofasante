@@ -5,7 +5,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Datalogin } from '../models/login.model';
-import { DataResultLogin } from '../models/result-login.model';
+import { AdminLog, DataResultLogin, Datalogins } from '../models/result-login.model';
 import { DataResultForgotPassword } from '../models/result-forgot-password.model';
 import { DataForgotPassword } from '../models/forgot-password.model';
 import { DataConfirmCode, DataResultConfirmCode } from '../models/confirm-code.model';
@@ -27,8 +27,8 @@ export class AuthService {
    * @param {Datalogin} dataLogin
    * @returns {Observable<DataResultLogin>}
    */
-  login(dataLogin: Datalogin): Observable<DataResultLogin>{
-    return this.http.post<DataResultLogin>(`${environment.apiUrlAdmin}/login`, dataLogin).pipe(
+  login(dataLogin: Datalogins): Observable<AdminLog>{
+    return this.http.post<AdminLog>(`${environment.apiUrlAdminKofa}/admin-login`, dataLogin).pipe(
       catchError((error) => this.coreService.handleError(error)),
       );
     }
@@ -36,11 +36,11 @@ export class AuthService {
     getToken(): string|null {
       return sessionStorage.getItem('token');
     }
-    
+
     getTypeOfAdminLogged(): string|null {
       return sessionStorage.getItem('type');
     }
-    
+
     getContactOfAdminLogged(): string|null {
       return sessionStorage.getItem('contact');
     }
@@ -96,7 +96,7 @@ export class AuthService {
   }
 
   /**
-   * Reset administrator password 
+   * Reset administrator password
    * @date 5/17/2023 - 4:28:43 PM
    *
    * @param {DataResetPassword} newPassword
@@ -122,5 +122,5 @@ export class AuthService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-  
+
 }

@@ -14,7 +14,7 @@ export class ModalFormDonationTypeComponent implements OnInit, OnChanges{
 
   isSubmitting: boolean = false;
   donationTypeExists: boolean = false;
-  
+
 
   constructor(private donationService: DonationService){}
 
@@ -38,7 +38,7 @@ export class ModalFormDonationTypeComponent implements OnInit, OnChanges{
     this.donationService.addDonationType(this.donationTypeForm).subscribe(
       (data) => {
         this.isSubmitting = false;
-        
+
         if (data.success === true){
           this.donationTypeExists = false;
           // this.coreService.goToAdmin();
@@ -47,6 +47,6 @@ export class ModalFormDonationTypeComponent implements OnInit, OnChanges{
         }
       }
     );
-   
+
   }
 }

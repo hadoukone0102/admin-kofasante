@@ -25,30 +25,38 @@ const listProfileResolvers = {...GLOBAL_RESOLVERS};
  * Président du conseil paroissiale
  */
 
+/**
+ * ROLES POSSIBLES
+ *
+ * Super
+ * Admin
+ * Specialiste
+ */
+
 const routes: Routes = [
   {path: 'dashboard', loadChildren: () => import('./global/global.module').then(m => m.GlobalModule),
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: environment.allRoles
+      roles: environment.allRolesKofa
     }
   },
   {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule),
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: environment.allRoles_Without_HeadOfCatechesis
+      roles: environment.allRolesMediaKofa
     }
   },
 
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers,
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: environment.allRoles
+      roles: environment.allRolesKofa
     }
   },
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
     canActivate: [AuthGuard, AccessGuard],
     data:{
-      roles: environment.superAdmins
+      roles: environment.super
     },
   },
   {path: 'mot-de-passe-oublie', component: ForgotPasswordComponent, resolve: {countryCode: CountryCodeResolver}},

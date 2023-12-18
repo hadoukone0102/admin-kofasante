@@ -10,6 +10,38 @@ export interface Admin {
   codeConfirmAdmin: any
 }
 
+/**
+ * kofasante mobile
+ */
+export interface sendDatasForAddAdmin{
+  nom:string
+  prenom:string
+  contact:string
+  mot_de_passe:string
+  type:string
+}
+
+export interface ListAdmin{
+  status:number
+  message:string
+  type:Admins[]
+}
+
+export interface Admins{
+  id:number
+  nom:string
+  prenom:string
+  contact:string
+  mot_de_passe:string
+  type:string
+  created_at:string
+  updated_at:string
+}
+
+/**
+ * kofasante mobile
+ */
+
 export interface DataAdmin {
     status_code: number
     error: boolean
@@ -40,10 +72,8 @@ export interface DataAdmin {
   }
 
   export interface DataAdminResultAdd {
-    success: boolean
-    status_code: number
+    status: number
     message: string
-    // administrateurs: AdminResultAdd
   }
   //FIN ADD
 
@@ -54,7 +84,7 @@ export interface DataAdmin {
     message: string
     errorslist: Errorslist
   }
-  
+
   export interface Errorslist {
     contactAdmin: string[]
   }
@@ -64,12 +94,11 @@ export interface DataAdmin {
   export interface DataDeleteAdmin {
     message: string
   }
-  
-  
-  
-  
-  
 
-  
- 
-  
+
+
+
+
+
+
+

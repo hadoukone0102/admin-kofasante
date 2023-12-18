@@ -17,10 +17,10 @@ const listDashboardResolvers = {...{
   }, ...GLOBAL_RESOLVERS};
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent, resolve: listDashboardResolvers,
+  {path: '', component: DashboardComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: environment.allRoles
+      roles: environment.allRolesKofa
     }
   },
 ];

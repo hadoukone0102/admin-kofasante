@@ -6,13 +6,13 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AdminService } from '../services/admin.service';
-import { DataAdmin } from '../models/admin.model';
+import { DataAdmin, ListAdmin } from '../models/admin.model';
 
 @Injectable()
-export class ListAdminsResolver implements Resolve<DataAdmin> {
+export class ListAdminsResolver implements Resolve<ListAdmin> {
   constructor(private adminService: AdminService){}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataAdmin> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<ListAdmin> {
     return this.adminService.getAdmins();
   }
 }

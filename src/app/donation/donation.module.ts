@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { DonationTableComponent } from './components/donation-table/donation-table.component';
+import { DonationTableComponent } from './components/kofasante/donation-table/donation-table.component';
 import { SharedModule } from '../shared/shared.module';
 import { DonationService } from './services/donation.service';
-import { ListAnonymousComponent } from './components/list-anonymous/list-anonymous.component';
-import { ListNoAnonymousPersoComponent } from './components/list-no-anonymous-perso/list-no-anonymous-perso.component';
-import { ListNoAnonymousOrgaComponent } from './components/list-no-anonymous-orga/list-no-anonymous-orga.component';
+import { ListAnonymousComponent } from './components/kofasante/list-anonymous/list-anonymous.component';
+import { ListNoAnonymousPersoComponent } from './components/kofasante/list-no-anonymous-perso/list-no-anonymous-perso.component';
+import { ListNoAnonymousOrgaComponent } from './components/kofasante/list-no-anonymous-orga/list-no-anonymous-orga.component';
 import { ListAnonymousResolver } from './resolvers/list-anonymous.resolver';
 import { ListNoAnonymousPersoResolver } from './resolvers/list-no-anonymous-perso.resolver';
 import { ListNoAnonymousOrgaResolver } from './resolvers/list-no-anonymous-orga.resolver';
@@ -26,6 +26,9 @@ import { ModalAddDonationTypeComponent } from './components/modal-add-donation-t
 import { DonationTypeByIdResolver } from './resolvers/donation-type-by-id.resolver';
 import { DisabledDonationTypeComponent } from './components/disabled-donation-type/disabled-donation-type.component';
 import { DisabledDonationTypeResolver } from './resolvers/disabled-donation-type.resolver';
+import { AddAsctuceComponent } from './components/kofasante/add-asctuce/add-asctuce.component';
+import { ListeAsctuceKofasanteComponent } from './components/kofasante/liste-asctuce-kofasante/liste-asctuce-kofasante.component';
+import { ListeDemandesComponent } from './components/kofasante/liste-demandes/liste-demandes.component';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
@@ -44,7 +47,7 @@ const donationRoutes: Routes = [
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
   {path: 'bilan-don', component: ReportDonationComponent, resolve:listReportResolvers},
   {path: 'corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
-  
+
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
   {path: 'modifier-type-don/:id', component: EditDonationTypeComponent, resolve:editDonationTypeResolvers},
   {path: 'type-don-inactif', component: DisabledDonationTypeComponent, resolve:disabledDonationTypeResolvers},
@@ -65,12 +68,16 @@ const donationRoutes: Routes = [
     DonationTypeTableComponent,
     ModalFormDonationTypeComponent,
     ModalAddDonationTypeComponent,
-    DisabledDonationTypeComponent
+    DisabledDonationTypeComponent,
+    AddAsctuceComponent,
+    ListeAsctuceKofasanteComponent,
+    ListeDemandesComponent,
+
   ],
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(donationRoutes)  
+    RouterModule.forChild(donationRoutes)
   ],
   providers:[
     DonationService, //Est en lazy load, sera chargé que si le module don est chargé

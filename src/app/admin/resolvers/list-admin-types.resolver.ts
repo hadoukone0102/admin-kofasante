@@ -6,13 +6,13 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AdminService } from '../services/admin.service';
-import { DataAdminType } from '../models/admin-type.model';
+import { DataAdminType, typeAdmin } from '../models/admin-type.model';
 
 @Injectable()
-export class ListAdminTypesResolver implements Resolve<DataAdminType> {
+export class ListAdminTypesResolver implements Resolve<typeAdmin> {
   constructor(private adminService: AdminService){}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataAdminType> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<typeAdmin> {
     return this.adminService.getAdminTypes();
   }
 }

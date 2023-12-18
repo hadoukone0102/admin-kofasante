@@ -3,13 +3,13 @@
 <main class="content">
     <app-header></app-header>
     <app-page-title
-        theModule="Dons"
-        theTitle="Liste des dons anonymes"
-        theContent="Consultez la liste des dons anonymes">
+        theModule="Utilisateurs"
+        theTitle="Liste des Utilisateurs de kofasante"
+        theContent="Consultez la liste des Utilisateurs">
     </app-page-title>
     <!-- Content -->
     <div *ngIf="donations$ | async as donations">
-        <app-donation-table listType="anonymous"
+        <app-donation-table listType="noAnonymousOrga"
             [donationListParent]="donations">
 
         </app-donation-table>

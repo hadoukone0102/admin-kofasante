@@ -1,39 +1,39 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
-import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd } from '../../models/admin.model';
+import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, sendDatasForAddAdmin } from '../../models/admin.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { DataCountry } from '../../models/country-code.model';
-import { DataAdminType } from '../../models/admin-type.model';
+import { DataAdminType, typeAdmin } from '../../models/admin-type.model';
 
 @Component({
   selector: 'app-add-admin',
   templateUrl: './add-admin.component.html'
-})      
+})
 export class AddAdminComponent implements OnInit {
   countries$!: Observable<DataCountry>;
   countries!: DataCountry;
   countryCode!: string;
   contact!: string;
 
-  admin!: DataAdminAdd;
+  admin!: sendDatasForAddAdmin;
 
-  listAdminTypes!: DataAdminType;
+  listAdminTypes!: typeAdmin;
 
   password!: string;
   confirmPassword!: string;
 
   pwdIsConfirmed!: boolean;
   contactExists!: boolean;
-  
+
   resultAdd!: DataAdminResultAdd|DataAmdinErrorAdd;
   // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
   isSubmitting!: boolean;
 
   // ~~~~~~~~~~~~~~~~ Select ~~~~~~~~~~~~~~~ //
   isSelected: boolean = false;
-  
+
   constructor(
     private adminService: AdminService,
     private coreService: CoreService,
@@ -44,27 +44,19 @@ export class AddAdminComponent implements OnInit {
     this.countryCode = '+225';
     this.pwdIsConfirmed = true;
     this.isSubmitting = false;
-    
+
     this.admin = {
-      nomAdmin: '',
-      prenomAdmin: '',
-      contactAdmin: '',
-      mdpAdmin: '',
-      id_typeadmin: '2',
-      id_Eglise: '1'
+      nom: '',
+      prenom: '',
+      contact: '',
+      mot_de_passe: '',
+      type: '',
     };
 
     this.resultAdd = {
-      success: true,
-      status_code: 200,
+      status: 1,
       message: "",
     };
-    
-    //Get countries list from resolver
-    this.countries$ = this.route.data.pipe(
-      map(data => data['countryCode'])
-    );
-    this.countries$.subscribe(data => this.countries = data);
 
     //Get admin type list from resolver
     this.route.data.pipe(
@@ -72,6 +64,7 @@ export class AddAdminComponent implements OnInit {
     ).subscribe(
       data => {
         this.listAdminTypes = data;
+        console.log(this.listAdminTypes);
       }
     );
   }
@@ -80,23 +73,25 @@ export class AddAdminComponent implements OnInit {
    * Add admin in database
    * @date 5/17/2023 - 2:51:27 PM
    */
-  onSubmit(){ 
+
+  onSubmit(){
     this.isSubmitting = true;
     this.contactExists =false;
-    this.admin.contactAdmin = this.countryCode + this.contact;
-    
+    console.log(this.admin);
     this.adminService.addAdmin(this.admin).subscribe(
       (admin) => {
         this.isSubmitting = false;
         this.resultAdd = admin;
-        if (admin.success === true){
+        if (admin.message){
           this.contactExists = false;
           this.coreService.goToAdmin();
         }else{
           this.contactExists =true;
         }
       },
+
       (error)=> console.log("Une erreur est survenu:: "+error)
+
       );
   }
 
@@ -105,7 +100,7 @@ export class AddAdminComponent implements OnInit {
    * @date 5/17/2023 - 2:54:07 PM
    */
   onClickConfirmPassword(){
-    if(this.admin.mdpAdmin != this.confirmPassword){
+    if(this.admin.mot_de_passe != this.confirmPassword){
       this.pwdIsConfirmed = false;
     }
     else{

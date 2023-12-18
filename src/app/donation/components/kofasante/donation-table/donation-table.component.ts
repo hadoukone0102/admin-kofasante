@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
-import { DataDon, Don } from '../../models/don.model';
-import { DonationService } from '../../services/donation.service';
+import { DataDon, Don } from '../../../models/don.model';
+import { DonationService } from '../../../services/donation.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import * as XLSX from 'xlsx';
 import { environment } from 'src/environments/environment';
 import { linePaginateAnimation,  } from 'src/app/core/animations/animations';
 import { DataFilter } from 'src/app/core/models/filter-model';
-import { FormDonationColumn } from '../../models/form-donation-column.model';
+import { FormDonationColumn } from '../../../models/form-donation-column.model';
 
 @Component({
   selector: 'app-donation-table',
@@ -16,16 +16,16 @@ import { FormDonationColumn } from '../../models/form-donation-column.model';
   animations:[
     linePaginateAnimation
   ]
-  
+
 })
 export class DonationTableComponent implements OnInit{
-  
+
   // ~~~~~~~~~~ Donation variables ~~~~~~~~~ //
   donations$!: Observable<DataDon>;
   donationTest$!: Observable<DataDon>;
   donationListTest!: Array<Don>;
   donationList!: Array<Don>;
-  
+
   // ~~~~~~~~~~ Decorated variables ~~~~~~~~~ //
   @Input() donationListParent!: DataDon;
   @Input() listType!: string; //ano ? perso ? orga ? all ? failed
@@ -51,7 +51,7 @@ export class DonationTableComponent implements OnInit{
   isFirstPage!: string;
   isLastPage!: string;
   newPage!: number;
-  
+
   // ~~~~~~~~~~~ Print variables ~~~~~~~~~~~ //
   styleString: string ='';
   isExporting!: boolean;
@@ -68,26 +68,26 @@ export class DonationTableComponent implements OnInit{
 
   // ~~~~~~~~~~ Columns valriabled ~~~~~~~~~ //
   formDonationColumn!: FormDonationColumn;
-  
+
   constructor(
     private donationService: DonationService,
     ) {}
 
   ngOnInit(): void {
     //Show correct table for donnation
-    this.showTableOfType(this.listType); 
-    
+    this.showTableOfType(this.listType);
+
     this.donationList = this.donationListParent.dons;
-    this.checkAndApplyDisabled(this.donationListParent); 
+    this.checkAndApplyDisabled(this.donationListParent);
 
     // ~~~ search variables initialization ~~~ //
     this.dateEndValue = environment.todayDate;
     this.dateStartValue = environment.dateStartForSearch;
     this.dateIsCorrect = true;
-    
+
     this.sendDataToParent();
     this.search(); //to make work the first (change) after loading page
-    
+
     // ~~~~ Print variables Initialization ~~~ //
     this.isExporting = false;
     this.pdfOrientation ='p';
@@ -108,11 +108,11 @@ export class DonationTableComponent implements OnInit{
    */
   exportToPDF() {
     let doc = new jsPDF({ orientation: this.pdfOrientation }); // Create a new instance of jsPDF with the specified orientation
-    
+
     let titleSize = 20; // Set the size of the title text
     let textWidth = doc.getStringUnitWidth(this.pdfTitle) * titleSize / doc.internal.scaleFactor; // Calculate the width of the title text in the document
     let margin = (doc.internal.pageSize.width - textWidth) / 2;  // Calculate the margin to center the title horizontally
-    
+
     // ~~~~~~~~~~~~~~~~ HEADER ~~~~~~~~~~~~~~~ //
     let logoImg = new Image();
     logoImg.src = 'assets/images/logo.png';
@@ -123,7 +123,7 @@ export class DonationTableComponent implements OnInit{
     let textYPosition = yPosition + (imageHeight / 2) + (titleSize / 4); // Y position of the title text
 
     doc.addImage(logoImg, 'PNG', xPosition, yPosition, imageWidth, imageHeight);
-  
+
     doc.setFontSize(30);
     doc.setFont('Roboto', 'bold');
     doc.text("Eglise Mukasa", margin, textYPosition); // Add the title to the document at the calculated position
@@ -150,7 +150,7 @@ export class DonationTableComponent implements OnInit{
     //Funciton to add footer to each page
     function addFooter() {
       let pageCount = doc.getNumberOfPages();
-    
+
       for (let i = 1; i <= pageCount; i++) {
         doc.setPage(i);
         doc.setFontSize(footerFontSize);
@@ -160,7 +160,7 @@ export class DonationTableComponent implements OnInit{
         pageNumber++;
       }
     }
-    addFooter(); 
+    addFooter();
     // ~~~~~~~~~~~~~~ END FOOTER ~~~~~~~~~~~~~ //
 
     doc.save(this.pdfFileName);// Save the generated PDF file with the specified file name
@@ -174,12 +174,12 @@ export class DonationTableComponent implements OnInit{
        /* pass here the table id */
        let element = document.getElementById('exportTable');
        const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
-    
+
        /* generate workbook and add the worksheet */
        const wb: XLSX.WorkBook = XLSX.utils.book_new();
        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    
-       /* save to file */  
+
+       /* save to file */
        XLSX.writeFile(wb, this.excelFileName);
   }
 
@@ -211,7 +211,7 @@ export class DonationTableComponent implements OnInit{
   goToPrevious(){
     this.showPageWhere(-1);
   }
-  
+
   /**
    * Go to next page of table
    * @date 5/17/2023 - 12:52:23 PM
@@ -232,12 +232,12 @@ export class DonationTableComponent implements OnInit{
     this.search();
     this.sendDataToParent();//send data to report for update accumulations
   }
-  
+
   handleDataColumnFromChild(dataColumn: FormDonationColumn) {
    this.formDonationColumn = dataColumn ;
    console.log(this.formDonationColumn);
   }
- 
+
   resetFilter(){
     this.searchBarValue = '';
     this.dateStartValue = environment.dateStartForSearch;
@@ -249,7 +249,7 @@ export class DonationTableComponent implements OnInit{
   // ====================================================== //
   // ============= //ANCHOR - Child Fonctions ============= //
   // ====================================================== //
-   
+
    /**
     * Show all data matching filter criteria without pagination for exportation
     * @date 5/17/2023 - 12:42:01 PM
@@ -266,7 +266,7 @@ export class DonationTableComponent implements OnInit{
       total_dons: 0,
       dons: []
     }
-    
+
     if(this.listType === "anonymous"){
       this.donationTest$ =  this.donationService.getAllDonationsAnonymousWhere(this.searchBarValue, this.dateStartValue, this.dateEndValue);
       this.pdfOrientation = 'portrait';
@@ -318,7 +318,7 @@ export class DonationTableComponent implements OnInit{
     this.isRefreshing = true;
     if (this.listType === "anonymous") {//Anonymous
       this.searchTerms.next(this.searchBarValue);
-  
+
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
         switchMap((term) => this.donationService.getDonationsAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
@@ -336,7 +336,7 @@ export class DonationTableComponent implements OnInit{
     else if(this.listType === "noAnonymousOrga")//non-anonymous orga
     {
       this.searchTerms.next(this.searchBarValue);
-    
+
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
         distinctUntilChanged(),
@@ -344,7 +344,7 @@ export class DonationTableComponent implements OnInit{
       );
     }
     else if(this.listType === "all")
-    { 
+    {
 
       this.searchTerms.next(this.searchBarValue);
       this.donations$ = this.searchTerms.pipe(
@@ -352,11 +352,11 @@ export class DonationTableComponent implements OnInit{
         distinctUntilChanged(),
         switchMap((term) => this.donationService.getDonationsWhere('1',term, this.dateStartValue, this.dateEndValue))
       );
-      
+
     }
     else{//failed
       this.searchTerms.next(this.searchBarValue);
-    
+
       this.donations$ = this.searchTerms.pipe(
         debounceTime(300),
         distinctUntilChanged(),
@@ -400,7 +400,7 @@ export class DonationTableComponent implements OnInit{
     else{//failed (Corbeille)
       this.donationTest$ = this.donationService.getDonationsFailedWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
-    
+
     this.donationTest$.subscribe((data) => {
       this.donationList = data.dons;
       this.donationListParent =  data;
@@ -409,7 +409,7 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
-   * Disable or enable the buttons to go to the next or previous page 
+   * Disable or enable the buttons to go to the next or previous page
    * depending on the current and last page
    * @date 5/17/2023 - 1:00:43 PM
    *
@@ -419,7 +419,7 @@ export class DonationTableComponent implements OnInit{
     //NOTE - "1" means that it should be disabled and "..." that it should be enabled
     if((donationListParenta.current_page === 1) && (donationListParenta.current_page != donationListParenta.last_page)){
       //("1/...")
-      
+
       this.isFirstPage = "disabled";
       this.isLastPage = "";
     }else{
@@ -480,7 +480,7 @@ export class DonationTableComponent implements OnInit{
   }
 
   /**
-   * Allows to display only columns for the list of non-anonymous donatitons made 
+   * Allows to display only columns for the list of non-anonymous donatitons made
    * on a personal basis
    * @date 5/17/2023 - 12:58:07 PM
    */

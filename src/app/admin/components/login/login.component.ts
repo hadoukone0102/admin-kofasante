@@ -6,7 +6,7 @@ import { Observable, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Datalogin } from '../../models/login.model';
 import { AuthService } from '../../services/auth.service';
-import { DataResultLogin } from '../../models/result-login.model';
+import { AdminLog, DataResultLogin, Datalogins } from '../../models/result-login.model';
 import * as intlTelInput from 'intl-tel-input';
 import { environment } from 'src/environments/environment';
 // import myModule from '../../../../assets/js/mod'
@@ -25,8 +25,8 @@ export class LoginComponent implements OnInit{
   password!: string;
   countryCode!: string;
 
-  dataLogin!: Datalogin;
-  credentials!: DataResultLogin;
+  dataLogin!: Datalogins;
+  credentials!: AdminLog;
 
   contactIsEmpty!: boolean;
   passwordIsEmpty!: boolean;
@@ -77,9 +77,8 @@ export class LoginComponent implements OnInit{
     this.isSubmitting = false;
 
     this.dataLogin={
-      contactAdmin:"",
-      mdpAdmin: "",
-      remember: false
+      contact:"",
+      mot_de_passe: ""
     }
     this.contact = '';
     this.password = '';
@@ -95,15 +94,15 @@ export class LoginComponent implements OnInit{
 }
 
 showConsole(val: string){
-  
+
   // console.log("keyup the new mama: "+val);
-  
+
 }
 
 showConsoleChange(val: string){
-  
+
   // console.log("change the new mama: "+val);
-  
+
 }
 
 /**
@@ -139,16 +138,15 @@ togglePasswordVisibility() {
   onSubmit(){
     this.isSubmitting =true;
     this.isLogged = true;
-    this.dataLogin.contactAdmin = this.iti.getNumber();
+    //this.dataLogin.contactAdmin = this.iti.getNumber();
     this.authService.login(this.dataLogin).subscribe(
       (data) => {
-        if(data.access_token && data.auth){
-          sessionStorage.setItem('contact', data.administrateur.contactAdmin);
-          sessionStorage.setItem('firstName', data.administrateur.nomAdmin);
-          sessionStorage.setItem('lastName', data.administrateur.prenomAdmin);
-          sessionStorage.setItem('type', data.administrateur.id_typeadmin);
-          sessionStorage.setItem('token', data.access_token);
-
+        if(data.user_token){
+          sessionStorage.setItem('contact', data.user.contact);
+          sessionStorage.setItem('firstName', data.user.nom);
+          sessionStorage.setItem('lastName', data.user.prenom);
+          sessionStorage.setItem('type', data.user.type);
+          sessionStorage.setItem('token', data.user_token);
           this.isSubmitting =false;
           this.coreService.goToDashboard();
         }else{

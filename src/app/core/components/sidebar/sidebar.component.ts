@@ -26,9 +26,9 @@ export class SidebarComponent implements OnInit{
     this.adminLastName = sessionStorage.getItem('lastName');
     this.adminType = sessionStorage.getItem('type');
     //roles initialization
-    this.rolesForDonation = environment.allRoles_Without_HeadOfCatechesis
-    this.rolesForAdmin = environment.superAdmins;
-    this.allRight = environment.allRight;
+    this.rolesForDonation = environment.allRolesMediaKofa
+    this.rolesForAdmin = environment.super;
+    this.allRight = environment.allRolesKofa;
   }
 
   /**
@@ -95,7 +95,6 @@ export class SidebarComponent implements OnInit{
     if(confirm("Etes Vous sûr de vouloir vous déconnecter ?"))
       this.authService.logout();
   }
-
 
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, DataDeleteAdmin } from '../models/admin.model';
+import { DataAdmin, DataAdminAdd, DataAdminResultAdd, DataAmdinErrorAdd, DataDeleteAdmin, ListAdmin, sendDatasForAddAdmin } from '../models/admin.model';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -10,7 +10,7 @@ import { DataResultSetTypeAndContactAdmin, DataSetTypeAndContactAdmin } from '..
 import { DataDisabledAccount } from '../models/disabled-account-admin.model';
 import { DataAdminByid } from '../models/admin-by-id.model';
 import { DataEnabledAccount } from '../models/enabled-account-admin.model';
-import { DataAdminType } from '../models/admin-type.model';
+import { DataAdminType, typeAdmin } from '../models/admin-type.model';
 
 @Injectable()
 export class AdminService {
@@ -28,14 +28,14 @@ export class AdminService {
    * Get the admin list from API
    * @date 5/17/2023 - 2:01:34 PM
    *
-   * @returns {Observable<DataAdmin>}
+   * @returns {Observable<ListAdmin>}
    */
-  getAdmins(): Observable<DataAdmin>{
-    return this.http.get<DataAdmin>(`${environment.apiUrlAdmin}/afficher`).pipe(
+  getAdmins(): Observable<ListAdmin>{
+    return this.http.get<ListAdmin>(`${environment.apiUrlAdminKofa}/admin-get`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-  
+
   /**
    * Get the list of disabled accounts
    * @date 5/17/2023 - 2:03:13 PM
@@ -47,15 +47,15 @@ export class AdminService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-  
+
   /**
    * Get the list of administrator types
    * @date 5/17/2023 - 2:03:34 PM
    *
    * @returns {Observable<DataAdminType>}
    */
-  getAdminTypes(): Observable<DataAdminType>{
-    return this.http.get<DataAdminType>(`${environment.apiUrlAdmin}/typesAdmin`).pipe(
+  getAdminTypes(): Observable<typeAdmin>{
+    return this.http.get<typeAdmin>(`${environment.apiUrlAdminKofa}/type-get`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
@@ -84,23 +84,23 @@ export class AdminService {
    * @param {DataAdminAdd} Admin
    * @returns {Observable<DataAdminResultAdd|DataAmdinErrorAdd>}
    */
-  addAdmin(Admin: DataAdminAdd): Observable<DataAdminResultAdd|DataAmdinErrorAdd>{
+  addAdmin(Admin: sendDatasForAddAdmin): Observable<DataAdminResultAdd|DataAmdinErrorAdd>{
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-type': 'application/json' })
     };
-    return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdmin}/register`, Admin, httpOptions).pipe(
+    return this.http.post<DataAdminResultAdd|DataAmdinErrorAdd>(`${environment.apiUrlAdminKofa}/admin-register`, Admin, httpOptions).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }
 
-  
+
 
   // ====================================================== //
   // ================== //ANCHOR - UPDATE ================= //
   // ====================================================== //
 
   /**
-   * Update the first name and the last name of an administrator 
+   * Update the first name and the last name of an administrator
    * @date 5/17/2023 - 2:07:34 PM
    *
    * @param {DataProfileInfo} Admin
@@ -130,7 +130,7 @@ export class AdminService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-  
+
   /**
    * Update the type and the phone number of an administrator
    * @date 5/17/2023 - 2:10:09 PM
@@ -163,7 +163,7 @@ export class AdminService {
       catchError((error) => this.coreService.handleError(error)),
       );
   }
-  
+
   /**
    * Enabled an administrator account
    * @date 5/17/2023 - 2:12:20 PM
@@ -190,7 +190,7 @@ export class AdminService {
   isPriest(){
     const type = sessionStorage.getItem('type');
     if (type === 'Curé') {
-      return true;  
+      return true;
     }
     return false;
   }
@@ -204,7 +204,7 @@ export class AdminService {
   isSecretary(){
     const type = sessionStorage.getItem('type');
     if (type === 'Secrétaire') {
-      return true;  
+      return true;
     }
     return false;
   }
@@ -218,7 +218,7 @@ export class AdminService {
   isFinancier(){
     const type = sessionStorage.getItem('type');
     if (type === 'Financier') {
-      return true;  
+      return true;
     }
     return false;
   }
@@ -232,11 +232,11 @@ export class AdminService {
   isPresidentParishCouncil(){
     const type = sessionStorage.getItem('type');
     if (type === 'Responsable de catéchèse') {
-      return true;  
+      return true;
     }
     return false;
   }
-  
+
   /**
    * Return true if the administrator logged is a head of catechesis
    * @date 5/17/2023 - 2:14:41 PM
@@ -246,7 +246,7 @@ export class AdminService {
   isHeadOfCatechesis(){
     const type = sessionStorage.getItem('type');
     if (type === 'Président du conseil paroissiale') {
-      return true;  
+      return true;
     }
     return false;
   }

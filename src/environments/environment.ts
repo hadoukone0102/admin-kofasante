@@ -27,6 +27,18 @@ export const  environment = {
     dateStartForSearch: new Date(2023, 0, 1).toISOString().substring(0, 10),
     todayDate: new Date().toISOString().substring(0, 10),// format AAAA-MM-JJ
 
+    /**
+     * ´´´´´´´´´´´´´´´´´´´´´´´´ KOFASANTE APPLICATION MOBILE ````````````````````````````
+     */
+    apiUrlAdminKofa: 'http://localhost:8000/api',
+    allRolesKofa: ['Super','Admin','Specialiste'],
+    super : ['Super'],
+    allRolesMediaKofa: ['Super','Admin','Specialiste'],
+
+    /**
+     * ´´´´´´´´´´´´´´´´´´´´´´´´ KOFASANTE APPLICATION MOBILE ````````````````````````````
+     */
+
     // ~~~~~~~~~~~~~~~~ ROLES ~~~~~~~~~~~~~~~~ //
     allRoles: ['Curé', 'Vicaire', 'Secrétaire', 'Financier', 'Responsable de catéchèse', 'Président du conseil paroissiale'],
     allRoles_Without_HeadOfCatechesis: ['Curé', 'Vicaire', 'Secrétaire', 'Financier', 'Président du conseil paroissiale'],

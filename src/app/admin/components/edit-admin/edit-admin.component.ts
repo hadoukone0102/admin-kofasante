@@ -27,14 +27,14 @@ export class EditAdminComponent implements OnInit{
   // ~~~~~~~~~~~~~~~ Spinner ~~~~~~~~~~~~~~~ //
   isSubmitting!: boolean;
 
-  
+
 
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
     private coreService: CoreService
   ){}
-  
+
   ngOnInit(): void {
     this.isSubmitting = false;
     this.contactExists =false;
@@ -45,7 +45,7 @@ export class EditAdminComponent implements OnInit{
     ).subscribe(
       data => {
         this.admin = data;
-        
+
         this.typeAdmin = {
           id: +this.admin.administrateur.id,
           newcontactAdmin: this.admin.administrateur.contactAdmin,
@@ -62,10 +62,9 @@ export class EditAdminComponent implements OnInit{
       }
     );
 
-   
+
   }
 
-  
 
   /**
    * Update type and phone number of specified administrator

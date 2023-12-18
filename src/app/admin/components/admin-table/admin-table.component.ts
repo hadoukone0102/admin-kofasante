@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { DataAdmin } from '../../models/admin.model';
+import { DataAdmin, ListAdmin } from '../../models/admin.model';
 import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { CoreService } from 'src/app/core/services/core.service';
@@ -16,8 +16,8 @@ import { lineTableAnimation } from 'src/app/core/animations/animations';
 export class AdminTableComponent implements OnInit{
   @Input() listType!: string;
 
-  @Input() admins$!: Observable<DataAdmin>;
-  admins!: DataAdmin;
+  @Input() admins$!: Observable<ListAdmin>;
+  admins!: ListAdmin;
 
   @Input()  disabledAccounts$!: Observable<DataDisabledAccount>;
   disabledAccounts!: DataDisabledAccount;
@@ -49,7 +49,7 @@ export class AdminTableComponent implements OnInit{
 trackByAdminId(index: number, admin: any): number {
   return admin.id; // Remplacez "id" par la propriété unique de votre administrateur
 }
-  
+
 // Méthode trackBy pour identifier chaque administrateur par son id unique
 trackByDisabledAccountId(index: number, disabledAccount: any): number {
   return disabledAccount.id; // Remplacez "id" par la propriété unique de votre administrateur
@@ -83,7 +83,7 @@ trackByDisabledAccountId(index: number, disabledAccount: any): number {
           data => this.admins = data,
           error => console.log("Une erreur s'est produite: "+error)
         );
-      } 
+      }
       );
     }
   }
@@ -102,7 +102,7 @@ trackByDisabledAccountId(index: number, disabledAccount: any): number {
           data => this.disabledAccounts = data,
           error => console.log("Une erreur s'est produite: "+error)
         );
-      } 
+      }
       );
     }
   }

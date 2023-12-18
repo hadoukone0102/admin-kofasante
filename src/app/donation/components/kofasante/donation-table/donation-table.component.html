@@ -1,7 +1,7 @@
 <div class="card border-0 shadow mb-4 ">
     <div class="card-body">
-        
-        
+
+
         <div class="row mb-4">
             <div class="mb-2 col-8 col-sm-4 btn-group">
                 <button class="btn btn-github d-inline-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modal-form-filter">
@@ -33,9 +33,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" (click)="exportToPDF()">PDF</a></li>
                   <li><a class="dropdown-item" (click)="exportToExel()">EXCEL</a></li>
-                  <!-- <li><a class="dropdown-item" (click)="exportToCSV()">CSV</a></li> -->
-                  <!-- <li><hr class="dropdown-divider"></li> -->
-                  <!-- <li><a class="dropdown-item" href="#">Separated link</a></li> -->
+
                 </ul>
             </div>
 
@@ -61,67 +59,30 @@
             <!-- <h1 >COol</h1> -->
         <thead class="thead-light">
             <tr id="tata">
-            <th class="border-0 rounded-start {{formDonationColumn.number ? '':'d-none'}}">N°</th>
-            <th class="border-0 {{formDonationColumn.montantDon ? '':'d-none'}} ">Montant</th>
-            <th class="border-0 {{formDonationColumn.typeDon ? '':'d-none'}}">Type</th>
-            <th *ngIf="!isAnonymous && isOrganisation" class="border-0 {{formDonationColumn.organisationDon ? '':'d-none'}}">Organisation</th>
-            <th class="border-0 {{formDonationColumn.dateDon ? '':'d-none'}}">Date</th>
-            <th *ngIf="!isAnonymous" class="border-0 {{formDonationColumn.nomDon ? '':'d-none'}}">Nom</th>
-            <th *ngIf="!isAnonymous" class="border-0 {{formDonationColumn.prenomDon? '':'d-none'}}">Prénom</th>
-            <th *ngIf="!isAnonymous" class="border-0 rounded-end {{formDonationColumn.contactDon? '':'d-none'}}">Contact</th>
-            <th class="border-0 rounded-end {{formDonationColumn.payeurDon? '':'d-none'}}">Payeur</th>
-            <th *ngIf="!isAnonymous" class="border-0 rounded-end {{formDonationColumn.civiliteDon? '':'d-none'}}">Civilité</th>
-            <th *ngIf="!isAnonymous" class="border-0 rounded-end {{formDonationColumn.villeDon? '':'d-none'}}">Ville</th>
-            <th *ngIf="!isAnonymous" class="border-0 rounded-end {{formDonationColumn.paysDon? '':'d-none'}}">Pays</th>
-            <th class="border-0 rounded-end {{formDonationColumn.transactionId ? '':'d-none'}}">Id de transaction</th>
+            <th class="border-0 rounded-start">N°</th>
+            <th class="border-0" >Nom </th>
+            <th class="border-0">Prenom </th>
+            <th class="border-0">Contact</th>
+            <th class="border-0" >E-mail </th>
+            <th class="border-0">Abonnement </th>
+            <th class="border-0">Actions</th>
         </tr>
         </thead>
-    <tbody *ngIf="donationListParent.status == 'success'">
-        <!-- Item -->
-            <tr  *ngFor="let donation of donationList; let a = index" @linePaginateAnimation class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}}">
-                <!-- {{incrementI()}} -->
-                <td class="{{formDonationColumn.number ? '':'d-none'}}">
-                    <a class="{{donation.estAnonyme | donationTypeColor:donation.estOrganisation:listType}} fw-bold">{{a+1}}</a> 
-                </td>
-                <td  class="{{formDonationColumn.montantDon ? '':'d-none'}} fw-bold d-flex align-items-center">
-                    {{donation.montantDon}}
-                </td>
-                <td class="{{formDonationColumn.typeDon ? '':'d-none'}}">
-                    {{donation.typeDon ?? donation.autreTypeDon ?? ""}}
-                </td>
-                <td *ngIf="!isAnonymous && isOrganisation" class="{{formDonationColumn.organisationDon ? '':'d-none'}}">
-                    {{donation.organisationDon}}
-                </td>
-                <td class="{{formDonationColumn.dateDon ? '':'d-none'}}">
-                    {{donation.created_at | date:"dd/MM/yyyy"}}
-                </td>
-            <td *ngIf="!isAnonymous" class="{{formDonationColumn.nomDon ? '':'d-none'}}">
-                {{donation.nomDon}}
-            </td>
-            <td *ngIf="!isAnonymous" class="{{formDonationColumn.prenomDon ? '':'d-none'}}" >
-                {{donation.prenomDon}}
-            </td>
-            <td *ngIf="!isAnonymous" class="{{formDonationColumn.contactDon? '':'d-none'}}">
-                {{donation.contactDon}}
-            </td>
-            <td class="{{formDonationColumn.payeurDon ? '':'d-none'}}">
-                {{donation.payeurDon}}
-            </td>
-            <td *ngIf="!isAnonymous" class="{{formDonationColumn.civiliteDon ? '':'d-none'}}">
-                {{donation.civiliteDon}}
-            </td>
-            <td *ngIf="!isAnonymous" class="{{formDonationColumn.villeDon? '':'d-none'}}">
-                {{donation.villeDon}}
-            </td>
-            <td *ngIf="!isAnonymous"ngClass="{{formDonationColumn.paysDon? '':'d-none'}}">
-                {{donation.paysDon}}
-            </td>
-            <td class="{{formDonationColumn.transactionId ? '':'d-none'}}">
-                {{donation.transactionId}}
-            </td>
-            </tr>
-<!-- End of Item -->
-</tbody>
+    <tbody >
+        <tr>
+          <td>1</td>
+          <td>Kone</td>
+          <td>Développeur</td>
+          <td>0595640996</td>
+          <td>kone@gmail.com</td>
+          <td>non</td>
+          <td>
+            <a title="Modifiez ce type de don" class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
+                <i class="fa fa-edit" ></i>
+            </a>
+          </td>
+        </tr>
+    </tbody>
 </table>
     </div>
 
@@ -170,5 +131,5 @@
    [listType]="listType"
    (formDonationColumnToParent) = "handleDataColumnFromChild($event)"
    ></app-modal-select-column>
-      
+
 </div>

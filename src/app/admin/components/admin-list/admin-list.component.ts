@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
-import { DataAdmin } from '../../models/admin.model';
+import { DataAdmin, ListAdmin } from '../../models/admin.model';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../../services/admin.service';
 
@@ -9,8 +9,8 @@ import { AdminService } from '../../services/admin.service';
   templateUrl: './admin-list.component.html'
 })
 export class AdminListComponent {
-  admins$!: Observable<DataAdmin>;
-  admins!: DataAdmin;
+  admins$!: Observable<ListAdmin>;
+  admins!: ListAdmin;
 
   searchTerms =  new Subject<String>();
   searchBarValue: string = "";
