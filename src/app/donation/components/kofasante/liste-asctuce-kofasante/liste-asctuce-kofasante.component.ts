@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { ListeMedia } from 'src/app/donation/models/don.model';
 
 @Component({
   selector: 'app-liste-asctuce-kofasante',
@@ -7,9 +9,16 @@ import { Component } from '@angular/core';
 })
 export class ListeAsctuceKofasanteComponent {
 
+  @Input() media!:ListeMedia;
 
-  exportToPDF(){}
-  exportToExel(){}
-  export(){}
-  resetFilter(){}
+  constructor(){}
+
+  ngOnInit():void{
+    //console.log(this.media);
+  }
+
+  resetFilter() {
+    location.reload();
+  }
+
 }

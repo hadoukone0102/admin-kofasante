@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { DataDon } from '../../../models/don.model';
+import { DataDon, ListeMedia } from '../../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
@@ -9,7 +9,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   templateUrl: './list-no-anonymous-perso.component.html'
 })
 export class ListNoAnonymousPersoComponent {
-  donations$!: Observable<DataDon>;
+  media$!: Observable<ListeMedia>;
 
   constructor(
     private route: ActivatedRoute,
@@ -21,7 +21,7 @@ export class ListNoAnonymousPersoComponent {
    * @date 5/17/2023 - 1:56:18 PM
    */
   ngOnInit(): void {
-    this.donations$ = this.route.data.pipe(
+    this.media$ = this.route.data.pipe(
       map(data => data['listNoAnonymousPerso'])
     );
   }

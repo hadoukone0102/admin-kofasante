@@ -59,16 +59,6 @@ export class ReportDonationComponent implements OnInit{
     }
   }
 
-
-  /**
-   * Get the list of non-anonymous donation made on a personal basis
-   * @date 6/5/2023 - 1:46:28 PM
-   */
-  showNoAnonymousPersoList(){
-    this.type = "noAnonymousPerso";
-    this.donations$ = this.donationService.getDonationsNoAnonymousPersoWhere();
-  }
-
   /**
    * Get the list of non-anonymous donation made by organisation
    * @date 6/5/2023 - 1:51:26 PM

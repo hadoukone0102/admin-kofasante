@@ -9,10 +9,11 @@
     </app-page-title>
     <!-- Content -->
     <div class="card m-2">
-      <div class="card-body">
+      <div *ngIf="media$ | async as media" class="card-body">
 
-        <app-liste-asctuce-kofasante>
-
+        <app-liste-asctuce-kofasante
+          [media]="media"
+        >
         </app-liste-asctuce-kofasante>
 
       </div>

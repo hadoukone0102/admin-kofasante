@@ -27,6 +27,24 @@ export interface Successmessage{
   message:string
 }
 
+export interface ListeMedia {
+  status: number
+  message: string
+  pub: Pub[]
+}
+
+export interface Pub {
+  id: number
+  id_admin: number
+  titre: string
+  categorie: string
+  media?: string
+  desc: string
+  created_at: string
+  updated_at: string
+}
+
+
 /**
  * kofasante categorie type
  */
