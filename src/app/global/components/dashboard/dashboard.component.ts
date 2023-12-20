@@ -50,7 +50,6 @@ export class DashboardComponent implements OnInit{
 
 
     this.adminType = sessionStorage.getItem('type');
-    //roles initialization
     this.rolesForDonation = environment.allRolesMediaKofa
     this.rolesForAdmin = environment.super;
     this.allRight = environment.allRight;

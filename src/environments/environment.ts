@@ -30,7 +30,8 @@ export const  environment = {
     /**
      * ´´´´´´´´´´´´´´´´´´´´´´´´ KOFASANTE APPLICATION MOBILE ````````````````````````````
      */
-    apiUrlAdminKofa: 'http://localhost:8000/api',
+    //apiUrlAdminKofa: 'http://localhost:8000/api',
+    apiUrlAdminKofa:'https://app.kofasante.com/api',
     allRolesKofa: ['Super','Admin','Specialiste'],
     super : ['Super'],
     allRolesMediaKofa: ['Super','Admin','Specialiste'],

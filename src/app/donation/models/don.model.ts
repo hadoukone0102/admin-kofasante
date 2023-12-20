@@ -1,3 +1,36 @@
+/**
+ * kofasante categorie type
+ */
+
+export interface categorie{
+  status:number
+  message:string
+  type:Catego[]
+}
+
+export interface Catego{
+  id:number
+  nom:string
+  created_at:string
+  updated_at:string
+}
+
+export interface MediaSend{
+  titre:string
+  categorie:string
+  media:string
+  desc:string
+}
+
+export interface Successmessage{
+  status:number
+  message:string
+}
+
+/**
+ * kofasante categorie type
+ */
+
 export class Don {
     id!: number
     typeDon!: string
@@ -30,4 +63,3 @@ export class DataDon {
     dons!: Don[]
   }
 
-  

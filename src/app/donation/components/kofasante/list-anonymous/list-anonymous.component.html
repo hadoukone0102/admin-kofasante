@@ -9,9 +9,10 @@
     </app-page-title>
     <!-- Content -->
     <div class="card">
-     <div class="card-body">
-        <app-add-asctuce>
-
+     <div *ngIf="categorie$ |async as categorie" class="card-body">
+        <app-add-asctuce
+        [categorie]="categorie"
+        >
         </app-add-asctuce>
      </div>
     </div>

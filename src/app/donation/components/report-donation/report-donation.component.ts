@@ -38,7 +38,7 @@ export class ReportDonationComponent implements OnInit{
     );
 
     const now = new Date();
-    this.todayDate = now.toISOString().substring(0, 10); 
+    this.todayDate = now.toISOString().substring(0, 10);
     this.dateEndValue = this.todayDate;
     this.dateStartValue = this.todayDate;
 
@@ -59,14 +59,6 @@ export class ReportDonationComponent implements OnInit{
     }
   }
 
-  /**
-   * Get anonymous donation list
-   * @date 6/5/2023 - 1:45:03 PM
-   */
-  showAnonymousList(){
-    this.type = "anonymous";
-    this.donations$ = this.donationService.getDonationsAnonymousWhere();
-  }
 
   /**
    * Get the list of non-anonymous donation made on a personal basis
@@ -85,7 +77,7 @@ export class ReportDonationComponent implements OnInit{
     this.type = "noAnonymousOrga";
     this.donations$ = this.donationService.getDonationsNoAnonymousOrgaWhere();
   }
-  
+
   /**
    * Get the list of all donation
    * @date 6/5/2023 - 1:52:28 PM
@@ -140,5 +132,5 @@ export class ReportDonationComponent implements OnInit{
   }
 
 
-  
+
 }

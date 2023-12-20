@@ -1,36 +1,49 @@
 <div class="card border-0 shadow mb-4 ">
   <div class="m-3">
-    <form action="">
-
-     <div class="d-flex align-items-center justify-content-between">
-        <div class="m-3 form-control">
-          <label for="exampleFormControlInput1" class="form-label">Titre <span style="color: red;">*</span></label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="le titre de l'annonce">
-        </div>
-
-        <div class="m-3 form-control">
-          <label for="exampleFormControlInput1" class="form-label">Signé</label>
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="qui fait la publication ?">
-        </div>
-     </div>
-
-     <div class="d-flex align-items-center justify-content-between">
-      <div class="m-3 form-control">
-        <label for="exampleFormControlInput1" class="form-label">Image ou Video <span style="color: red;">*</span></label>
-        <input type="file" class="form-control" id="exampleFormControlInput1" placeholder="le titre de l'annonce">
-      </div>
-
-   </div>
-
-      <div class="mb-3">
-        <label for="exampleFormControlTextarea1" class="form-label">Description de l'asctuce <span style="color: red;">*</span></label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
+    <form (ngSubmit)="publishMedia()" #pub="ngForm" enctype="multipart/form-data">
 
       <div class="m-3">
-        <button type="submit" class="m-1 btn btn-danger">Annuler</button>
-        <button type="submit" class="btn btn-github">Publié Maintenant</button>
+        <label for="exampleFormControlInput1" class="form-label">Titre <span style="color: red;">*</span></label>
+        <input type="text" name="titre" [(ngModel)]="MediaSend.titre" class="form-control" id="exampleFormControlInput1" placeholder="le titre de l'annonce">
       </div>
+
+     <div class=" m-3">
+      <label for="role">Categories de publication <span style="color: red;">*</span> </label>
+      <select class="form-select w-100 mb-0" id="role" name="state" [(ngModel)]="MediaSend.categorie" aria-label="State select example">
+          <option >Selectionnez une categorie de publication</option>
+          <option *ngFor="let cate of categorie.type" value="{{ cate.nom }}">{{ cate.nom }}</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Description<span style="color: red;">*</span></label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" name="desc" [(ngModel)]="MediaSend.desc" rows="3"></textarea>
+    </div>
+
+    <div class="m-3 ">
+      <label for="exampleFormControlInput1" class="form-label">Image ou Video </label>
+      <input type="file" (change)="OnChangesFiles($event)" class="form-control" id="exampleFormControlInput1" name="media" placeholder="le titre de l'annonce">
+    </div>
+
+    <div class="m-3">
+       <!--spinner-->
+       <div *ngIf="showSpinner" class="spinner-grow" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+       <!--spinner-->
+      <button type="submit" class="btn btn-github" [disabled]="!MediaSend.desc || !MediaSend.titre || !MediaSend.categorie">Publié Maintenant</button>
+    </div>
+     <!--success-->
+    <div *ngIf="showmessage" class="alert alert-success" role="alert">
+      Publication enregistrée avec succès !
+    </div>
+     <!--success-->
+
+      <!--danger-->
+    <div *ngIf="showmessageDanger" class="alert alert-danger" role="alert">
+      Publication échoué !
+    </div>
+      <!--danger-->
 
     </form>
   </div>

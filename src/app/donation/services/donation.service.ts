@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon } from '../models/don.model';
+import { DataDon, MediaSend, Successmessage, categorie } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -23,6 +23,30 @@ export class DonationService {
   // =================== //ANCHOR - GET =================== //
   // ====================================================== //
 
+
+  getAllCategorieTypes(): Observable<categorie>{
+    return this.http.get<categorie>(`${environment.apiUrlAdminKofa}/categorie/get`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+   // ====================================================== //
+  // =================== //ANCHOR - ADD =================== //
+  // ====================================================== //
+
+  addPublication(data: MediaSend): Observable<Successmessage>{
+    return this.http.post<Successmessage>(`${environment.apiUrlAdminKofa}/media`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+
+  // ====================================================== //
+  // ================== //ANCHOR - UPDATE ================= //
+  // ====================================================== //
+
+
+
   /**
    * Get the cumulative price and donations number for a periode
    * @date 5/17/2023 - 9:12:20 AM
@@ -37,7 +61,7 @@ export class DonationService {
       catchError((error) => this.coreService.handleError(error)),
     );
   }
-  
+
   /**
    * Get the list of donation types
    * @date 6/5/2023 - 5:18:11 PM
@@ -67,7 +91,7 @@ export class DonationService {
   // ====================================================== //
 
     /**
-     * Get the donation list matching  the filter criteria. 
+     * Get the donation list matching  the filter criteria.
      * It uses pagination system (25 lines per page)
      * @date 5/17/2023 - 8:27:41 AM
      *
@@ -82,23 +106,7 @@ export class DonationService {
         catchError((error) => this.coreService.handleError(error)),
       );
     }
-    
-  /**
-   * Get the list of anonymous donations matching  the filter criteria
-   * It uses pagination system (25 lines per page)
-   * @date 5/17/2023 - 8:48:20 AM
-   *
-   * @param {string} [page='1']
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataDon>}
-   */
-  getDonationsAnonymousWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/anonymes?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
-      catchError((error) => this.coreService.handleError(error))
-    );
-  }
+
 
   /**
    * Get the list of non-anonymous donation made on a personal basis matching
@@ -134,7 +142,7 @@ export class DonationService {
       catchError((error) => this.coreService.handleError(error))
     );
   }
-  
+
   /**
    * Get list of failed donation transactions
    * It uses pagination system (25 lines per page)
@@ -186,7 +194,7 @@ export class DonationService {
   }
 
    /**
-   * Get the full list of non-anonymous donations made on a personal basis 
+   * Get the full list of non-anonymous donations made on a personal basis
    * matching the filter criteria
    * @date 5/17/2023 - 9:04:19 AM
    *
@@ -247,7 +255,7 @@ export class DonationService {
       catchError((error) => this.coreService.handleError(error)),
       );
   }
-  
+
   deleteDonationType(id: String): Observable<ActionDonationTypeResponseModel>{
     return this.http.delete<ActionDonationTypeResponseModel>(`${environment.apiUrlDon}/dons/types/delete/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),

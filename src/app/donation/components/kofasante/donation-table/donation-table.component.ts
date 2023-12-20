@@ -316,15 +316,8 @@ export class DonationTableComponent implements OnInit{
     this.hideExportationButton();
     this.sendDataToParent();
     this.isRefreshing = true;
-    if (this.listType === "anonymous") {//Anonymous
-      this.searchTerms.next(this.searchBarValue);
 
-      this.donations$ = this.searchTerms.pipe(
-        debounceTime(300),
-        switchMap((term) => this.donationService.getDonationsAnonymousWhere('1',term, this.dateStartValue, this.dateEndValue))
-      );
-    }
-    else if(this.listType === "noAnonymousPerso") //non-anonymous perso
+    if(this.listType === "noAnonymousPerso") //non-anonymous perso
     {
       this.searchTerms.next(this.searchBarValue);
         this.donations$ = this.searchTerms.pipe(
@@ -382,10 +375,7 @@ export class DonationTableComponent implements OnInit{
   showPageWhere(pageIndex: number){
     this.newPage= this.donationListParent.current_page + pageIndex;
 
-    if(this.listType === "anonymous"){
-      this.donationTest$ =  this.donationService.getDonationsAnonymousWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
-    }
-    else if(this.listType === "noAnonymousPerso")
+    if(this.listType === "noAnonymousPerso")
     {
       this.donationTest$ =  this.donationService.getDonationsNoAnonymousPersoWhere(this.newPage.toString(), this.searchBarValue, this.dateStartValue, this.dateEndValue)
     }
