@@ -59,14 +59,6 @@ export class ReportDonationComponent implements OnInit{
     }
   }
 
-  /**
-   * Get the list of non-anonymous donation made by organisation
-   * @date 6/5/2023 - 1:51:26 PM
-   */
-  showNoAnonymousOrgaList(){
-    this.type = "noAnonymousOrga";
-    this.donations$ = this.donationService.getDonationsNoAnonymousOrgaWhere();
-  }
 
   /**
    * Get the list of all donation

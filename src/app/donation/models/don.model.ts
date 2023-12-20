@@ -44,6 +44,24 @@ export interface Pub {
   updated_at: string
 }
 
+export interface KofaUser {
+  status: number
+  message: string
+  type: Type[]
+}
+
+export interface Type {
+  id: number
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  mot_de_passe: string
+  role: string
+  remember_token: any
+  created_at: string
+  updated_at: string
+}
 
 /**
  * kofasante categorie type

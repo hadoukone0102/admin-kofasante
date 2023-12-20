@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { DataDon } from '../../../models/don.model';
+import { DataDon, KofaUser } from '../../../models/don.model';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationService } from 'src/app/core/services/notification.service';
 
@@ -9,7 +9,7 @@ import { NotificationService } from 'src/app/core/services/notification.service'
   templateUrl: './list-no-anonymous-orga.component.html'
 })
 export class ListNoAnonymousOrgaComponent {
-  donations$!: Observable<DataDon>;
+  donations$!: Observable<KofaUser>;
 
   constructor(
     private route: ActivatedRoute,

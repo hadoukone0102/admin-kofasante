@@ -10,8 +10,7 @@
     <!-- Content -->
     <div *ngIf="donations$ | async as donations">
         <app-donation-table listType="failed"
-            [donationListParent]="donations">
-    
+          >
         </app-donation-table>
     </div>
     <!-- End content -->

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon, ListeMedia, MediaSend, Successmessage, categorie } from '../models/don.model';
+import { DataDon, KofaUser, ListeMedia, MediaSend, Successmessage, categorie } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -35,6 +35,13 @@ export class DonationService {
       catchError((error) => this.coreService.handleError(error))
     );
   }
+
+  getlistuserKofa(): Observable<KofaUser>{
+    return this.http.get<KofaUser>(`${environment.apiUrlAdminKofa}/all-user`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
    // ====================================================== //
   // =================== //ANCHOR - ADD =================== //
   // ====================================================== //
@@ -113,22 +120,7 @@ export class DonationService {
     }
 
 
-  /**
-   * Get the list of non-anonymous donation made by organizations matching the filter criteria
-   * It uses pagination system (25 lines per page)
-   * @date 5/17/2023 - 9:10:55 AM
-   *
-   * @param {string} [page='1']
-   * @param {string} search
-   * @param {string} dateStart
-   * @param {string} dateEnd
-   * @returns {Observable<DataDon>}
-   */
-  getDonationsNoAnonymousOrgaWhere(page: string = '1', search: String ='', dateStart: string = environment.dateStartForSearch, dateEnd: string = environment.todayDate): Observable<DataDon>{
-    return this.http.get<DataDon>(`${environment.apiUrlDon}/dons/non-anonymes/orga?search=${search}&&startDate=${dateStart}&&endDate=${dateEnd}&page=${page}`).pipe(
-      catchError((error) => this.coreService.handleError(error))
-    );
-  }
+
 
   /**
    * Get list of failed donation transactions
