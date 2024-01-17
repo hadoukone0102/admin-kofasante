@@ -1,6 +1,22 @@
 export interface DocumentPage {
   message: string
+  data: Data
+}
+
+export interface Data {
+  current_page: number
   data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
 }
 
 export interface Daum {
@@ -21,14 +37,37 @@ export interface Daum {
   updated_at: string
 }
 
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
+
 // renseigner
 
 export interface RenseignerPage {
   message: string
-  data: RenseigneDaum[]
+  data: Data
 }
 
-export interface RenseigneDaum {
+export interface Data {
+  current_page: number
+  data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
+}
+
+export interface Daum {
   id: number
   nom: string
   prenom: string
@@ -41,14 +80,37 @@ export interface RenseigneDaum {
   updated_at: string
 }
 
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
 // medecine en ligne
+
 
 export interface Medecine {
   message: string
-  data: MedecineDaum[]
+  data: Data
 }
 
-export interface MedecineDaum {
+export interface Data {
+  current_page: number
+  data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
+}
+
+export interface Daum {
   id: number
   nom: string
   prenom: string
@@ -65,14 +127,37 @@ export interface MedecineDaum {
   updated_at: string
 }
 
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
+
 // visites
 
 export interface Visites {
   message: string
-  data: VisitesDaum[]
+  data: Data
 }
 
-export interface VisitesDaum {
+export interface Data {
+  current_page: number
+  data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
+}
+
+export interface Daum {
   id: number
   nom: string
   prenom: string
@@ -87,15 +172,38 @@ export interface VisitesDaum {
   updated_at: string
 }
 
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
+
 
 // abonnement
 
 export interface AbonnementPage {
   message: string
-  data: AbonnementDaum[]
+  data: Data
 }
 
-export interface AbonnementDaum {
+export interface Data {
+  current_page: number
+  data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: string
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
+}
+
+export interface Daum {
   id: number
   nom: string
   prenom: string
@@ -111,6 +219,13 @@ export interface AbonnementDaum {
   created_at: string
   updated_at: string
 }
+
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
 
 export interface Prix {
   data : Prixsecnd []

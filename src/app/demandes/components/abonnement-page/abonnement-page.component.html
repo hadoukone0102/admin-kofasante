@@ -28,7 +28,7 @@
                   </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let param of  Setting.data ;let i=index" @linePaginateAnimation>
+              <tr *ngFor="let param of  Setting.data.data;let i=index" @linePaginateAnimation>
                 <td>{{ i+1 }}</td>
                 <td>{{ param.nom }}</td>
                 <td>{{ param.prenom }}</td>
@@ -43,11 +43,31 @@
               </tr>
             </tbody>
           </table>
-
-        </div>
+          <div >
+            <div *ngIf=" Setting.data.last_page != 0 && Setting.data.last_page != undefined && Setting.data.last_page != -1" class="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+              <p>
+                  Affichage de {{Setting.data.current_page}}/{{Setting.data.last_page}} pages
+              </p>
+              <nav  aria-label="Page navigation example">
+                  <ul class="pagination">
+                      <li class="page-item {{isFirstPage}}">
+                      <a (click)="goToPrevious()" class="page-link" aria-label="Previous">
+                          <span aria-hidden="true">&laquo;</span>
+                      </a>
+                      </li>
+                      <li class="page-item"><a class="page-link">{{Setting.data.current_page}}</a></li>
+                      <li  class="page-item {{isLastPage}}">
+                      <a (click)="goToNext()" class="page-link"  aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                      </a>
+                      </li>
+                  </ul>
+              </nav>
+              </div>
+          </div>
     </div>
     <!-- End content -->
-
+    </div>
     <app-footer></app-footer>
 </main>
 
