@@ -1,0 +1,94 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="Demande"
+        theTitle="Demande de Renseignement"
+        theContent="Liste des Demande de Renseignement">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card card-body border-0 shadow mb-4">
+        <h2 class="h5 mb-4"></h2>
+        <div class="table-responsive">
+          <table id="exportTable" class="table table-centered table-nowrap mb-0 rounded">
+            <thead class="thead-light">
+                  <tr>
+                    <th class="border-0 rounded-start">N°</th>
+                    <th class="border-0">Services</th>
+                    <th class="border-0">Type de Services</th>
+                    <th class="border-0">Montants</th>
+                    <th class="border-0">Dates</th>
+                    <th class="border-0 rounded-end">Action</th>
+                  </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let param of  Setting.data; let i=index" (click)="selectedRow(param)" @linePaginateAnimation >
+                <td>{{ i+1 }}</td>
+                <td>{{ param.service }}</td>
+                <td>{{ param.type_service }}</td>
+                <td>{{ param.prix }}</td>
+                <td>{{ param.created_at }}</td>
+                <td>
+                  <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#pastoral">
+                    <i class="fa fa-edit"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+  <!-- Modal -->
+  <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-black" id="exampleModalLabel">Alert</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+          <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Service : {{ selectedItem.types }}</label>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Type Service : {{ selectedItem.typeService }}</label>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Montant : {{ selectedItem.price }} F cfa</label>
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Prix : </label>
+              <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="{{ selectedItem.price }}" name="price"  [(ngModel)]="update.prix">
+            </div>
+
+            <div class="modal-footer">
+              <!-- Spinner -->
+              <div *ngIf="good" class="text-center">
+                <div class=" ms-3 d-flex align-items-center justify-content-center">
+                    <app-spinner></app-spinner>
+                </div>
+              </div>
+              <!-- End spinner -->
+              <button type="submit" class="btn btn-primary" [disabled]="!update.prix">Modifier</button>
+            </div>
+          </form>
+        </div>
+      </div>
+  </div>
+    <!-- Modal -->
+
+      </div>
+      </div>
+  </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>
+

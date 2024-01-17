@@ -88,6 +88,7 @@ export class SidebarComponent implements OnInit{
 
   goTodocuments(){this.coreService.goTodocuments();}
   goToVisites(){this.coreService.goToVisites();}
+  goToPrice(){this.coreService.goToPrice();}
   goToMedecine(){this.coreService.goToMedecine();}
   goToInformation(){this.coreService.goToInformation();}
   goToAbonnement(){this.coreService.goToAbonnement();}

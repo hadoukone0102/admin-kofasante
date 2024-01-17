@@ -112,3 +112,31 @@ export interface AbonnementDaum {
   updated_at: string
 }
 
+export interface Prix {
+  data : Prixsecnd []
+}
+
+export interface Prixsecnd {
+  id: number
+  service: string
+  type_service: string
+  prix: string
+  created_at: string
+  updated_at: string
+}
+
+export interface SendPrix {
+  prix : number
+}
+
+export interface Success {
+  message:string
+  data : Prixsecnd
+}
+
+export interface ElementPage {
+  id: number,
+  types: string,
+  typeService: string,
+  price: number,
+}
