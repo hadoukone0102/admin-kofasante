@@ -79,6 +79,13 @@ export class CoreService {
   gotToDiscount(){this.router.navigate(['/promotion'])};
   gotToDiscountList(){this.router.navigate(['/liste-promotion']);}
 
+    // ~~~~~~~~~~~~~~~~~~~ // TODO  - demandes ~~~~~~~~~~~~~~~~ //
+  goTodocuments(){this.router.navigate(['/demande/documents'])}
+  goToVisites(){this.router.navigate(['/demande/visites'])}
+  goToMedecine(){this.router.navigate(['/demande/medecine'])}
+  goToInformation(){this.router.navigate(['/demande/info'])}
+  goToAbonnement(){this.router.navigate(['/demande/abonnement']);}
+    // ~~~~~~~~~~~~~~~~~~~ // TODO  - demandes ~~~~~~~~~~~~~~~~ //
 
   // ~~~~~~~~~~~~~~~~~~~ // TODO  - Pages ~~~~~~~~~~~~~~~~ //
   goToPageError(){this.router.navigate([('/erreur')]);}

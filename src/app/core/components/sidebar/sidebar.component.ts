@@ -84,7 +84,14 @@ export class SidebarComponent implements OnInit{
   goToAddDonationType(){this.coreService.goToAddDonationType();}
   goToBasketDonation(){this.coreService.goToBasketDonation()}
 
-  // ~~~~~~~~~~~~ //TODO - Admin ~~~~~~~~~~~ //
+  // ~~~~~~~~~~~~ //TODO - demande ~~~~~~~~~~~ //
+
+  goTodocuments(){this.coreService.goTodocuments();}
+  goToVisites(){this.coreService.goToVisites();}
+  goToMedecine(){this.coreService.goToMedecine();}
+  goToInformation(){this.coreService.goToInformation();}
+  goToAbonnement(){this.coreService.goToAbonnement();}
+  // ~~~~~~~~~~~~ //TODO - demande ~~~~~~~~~~~ //
 
   goToProfile(){this.coreService.goToProfile();}
   goToAdmin(){this.coreService.goToAdmin();}

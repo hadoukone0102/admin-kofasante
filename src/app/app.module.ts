@@ -11,6 +11,7 @@ import { PagesModule } from './pages/pages.module';
 import { GlobalModule } from './global/global.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
+import { DemandesModule } from './demandes/demandes.module';
 
 
 @NgModule({
@@ -27,6 +28,8 @@ import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor
     GlobalModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    DemandesModule,
+
   ],
   providers: [TokenInterceptorProvider],//All time enabled
   bootstrap: [AppComponent]

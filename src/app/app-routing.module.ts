@@ -46,7 +46,12 @@ const routes: Routes = [
       roles: environment.allRolesMediaKofa
     }
   },
-
+  {path: 'demande', loadChildren: () => import('./demandes/demandes.module').then(m => m.DemandesModule),
+  canActivate: [AuthGuard, AccessGuard],
+  data:{
+    roles: environment.allRolesMediaKofa
+  }
+  },
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers,
     canActivate: [AuthGuard, AccessGuard],
     data:{
