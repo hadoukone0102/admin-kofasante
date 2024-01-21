@@ -25,6 +25,8 @@ export class VisitesPageComponent {
      // ~~~~~~~~~~ Opinion variables ~~~~~~~~~ //
   messe$!: Observable<Visites>;
   messeTest$!: Observable<Visites>;
+   // data for modal
+   dataElement!:any
 
   constructor(
     private AnnonceService : DemandeService,
@@ -41,6 +43,18 @@ export class VisitesPageComponent {
         this.Setting = data;
       }
     );
+
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      services:'',
+      typeServices:'',
+      couts:0,
+      details:''
+    }
+
   }
 
   checkAndApplyDisabled(data: Visites){
@@ -103,5 +117,23 @@ export class VisitesPageComponent {
     });
 
   }
+  // for madal page
+
+  checkElements(data:any){
+    this.dataElement ={
+      nom:data.nom,
+      prenom:data.prenom,
+      contact:data.contact,
+      email:data.email,
+      services:data.services,
+      typeServices:data.typeServices,
+      couts:data.couts,
+      details:data.details
+    }
+
+  }
+
+  onSubmit(){}
+
 
 }

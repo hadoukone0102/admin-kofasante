@@ -25,6 +25,8 @@ export class AbonnementPageComponent {
      // ~~~~~~~~~~ Opinion variables ~~~~~~~~~ //
   messe$!: Observable<AbonnementPage>;
   messeTest$!: Observable<AbonnementPage>;
+  // data for modal
+  dataElement!:any
 
   constructor(
     private AnnonceService : DemandeService,
@@ -41,6 +43,19 @@ export class AbonnementPageComponent {
         this.Setting = data;
       }
     );
+
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      forfait:'',
+      nombreVisite:'',
+      services:'',
+      typeServices:'',
+      couts:0,
+      details:''
+    }
   }
 
   checkAndApplyDisabled(data: AbonnementPage){
@@ -104,5 +119,25 @@ export class AbonnementPageComponent {
     });
 
   }
+
+    // for madal page
+    checkElements(data:any){
+      this.dataElement ={
+        nom:data.nom,
+        prenom:data.prenom,
+        contact:data.contact,
+        email:data.email,
+        forfait:data.forfait,
+        nombreVisite:data.nombreVisite,
+        services:data.services,
+        typeServices:data.typeServices,
+        couts:data.couts,
+        details:data.details
+      }
+      console.log(this.dataElement);
+
+    }
+
+    onSubmit(){}
 
 }

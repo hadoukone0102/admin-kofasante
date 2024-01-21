@@ -15,16 +15,17 @@
             <thead class="thead-light">
                   <tr>
                     <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Nom</th>
-                    <th class="border-0">Prenom</th>
-                    <th class="border-0">E-mail</th>
-                    <th class="border-0">Contact</th>
-                    <th class="border-0">Consultant</th>
-                    <th class="border-0">Type Consultant</th>
-                    <th class="border-0">Date tôt</th>
-                    <th class="border-0">Date tard</th>
-                    <th class="border-0">Montants</th>
+                    <th >Nom</th>
+                    <th >Prenom</th>
+                    <th >E-mail</th>
+                    <th >Contact</th>
+                    <th >Consultant</th>
+                    <th >Type Consultant</th>
+                    <th >Date tôt</th>
+                    <th >Date tard</th>
+                    <!-- <th >Montants</th> -->
                     <th class="border-0 rounded-end">Details</th>
+                    <th class="border-0 rounded-end">Actions</th>
                   </tr>
             </thead>
             <tbody>
@@ -38,8 +39,14 @@
                 <td>{{ param.tyeConsultation }}</td>
                 <td>{{ param.dateTot }}</td>
                 <td>{{ param.dateTard }}</td>
-                <td>{{ param.couts }}</td>
+                <!-- <td>{{ param.couts }}</td> -->
                 <td>{{ param.details }}</td>
+                <td>
+                  <a title="Modifier" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                    data-bs-toggle="modal" data-bs-target="#pastoral">
+                    <i class="fa fa-edit"></i>
+                 </a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -66,8 +73,74 @@
               </div>
           </div>
 
+    <!-- Modal -->
+      <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-black" id="exampleModalLabel">Facture</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h3 class="text-center">information personnel</h3>
+                <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
+
+                  <div class="m-2 d-flex align-items-center justify-content-between">
+                    <label for="exampleInputEmail1" class="form-label">Nom : {{ dataElement.nom }}</label>
+                    <label for="exampleInputEmail1" class="form-label">Prenom : {{ dataElement.prenom }}</label>
+                  </div>
+
+                  <div class="m-2 d-flex align-items-center justify-content-between">
+                    <label for="exampleInputEmail1" class="form-label">Contact : {{ dataElement.contact }}</label>
+                    <label for="exampleInputEmail1" class="form-label">E-mail : {{ dataElement.email }}</label>
+                  </div>
+
+                  <div class="m-2 d-flex align-items-center justify-content-between">
+                    <label for="exampleInputEmail1" class="form-label">Consultant : {{ dataElement.consultant }}</label>
+                    <label for="exampleInputEmail1" class="form-label">Type de Consultant : {{ dataElement.tyeConsultation }}</label>
+                  </div>
+
+                  <div class="m-2 d-flex align-items-center justify-content-between">
+                    <label for="exampleInputEmail1" class="form-label">Date Tôt : {{ dataElement.dateTot }}</label>
+                    <label for="exampleInputEmail1" class="form-label">Date Tard : {{ dataElement.dateTard }}</label>
+                  </div>
+
+                  <div class="m-2 d-flex align-items-center justify-content-between">
+                    <label for="exampleInputEmail1" class="form-label">Details: {{ dataElement.details }}</label>
+                  </div>
+
+                  <div class="m-2">
+                      <label for="exampleInputEmail1" class="form-label">Montants</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        required
+                        name="description"
+                      />
+                  </div>
+
+
+                  <div class="modal-footer">
+                    <!-- Spinner -->
+                    <div *ngIf="good" class="text-center">
+                      <div class=" ms-3 d-flex align-items-center justify-content-center">
+                          <app-spinner></app-spinner>
+                      </div>
+                    </div>
+                    <!-- End spinner -->
+
+                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">
+                      Fermer
+                    </button>
+
+                    <button type="submit" class="btn btn-primary" >Envoyer Facture</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
+    <!-- Modal -->
+      </div>
     <!-- End content -->
 
     <app-footer></app-footer>

@@ -26,7 +26,8 @@ export class MedecinePageComponent {
      // ~~~~~~~~~~ Opinion variables ~~~~~~~~~ //
   messe$!: Observable<Medecine>;
   messeTest$!: Observable<Medecine>;
-
+   // data for modal
+   dataElement!:any
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -42,6 +43,20 @@ export class MedecinePageComponent {
         this.Setting = data;
       }
     );
+
+
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      rdv:'',
+      dateRdv:'',
+      typeServices:'',
+      consultVar:'',
+      couts:0,
+      details:''
+    }
   }
 
   checkAndApplyDisabled(data: Medecine){
@@ -106,5 +121,23 @@ export class MedecinePageComponent {
 
   }
 
+    // for madal page
+
+    checkElements(data:any){
+      this.dataElement ={
+        nom:data.nom,
+        prenom:data.prenom,
+        contact:data.contact,
+        email:data.email,
+        consultant:data.consultant,
+        tyeConsultation:data.tyeConsultation,
+        dateTot:data.dateTot,
+        dateTard:data.dateTard,
+        couts:data.couts,
+        details:data.details
+      }
+    }
+
+    onSubmit(){}
 
 }

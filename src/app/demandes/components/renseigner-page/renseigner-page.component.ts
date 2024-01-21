@@ -25,6 +25,8 @@ export class RenseignerPageComponent {
      // ~~~~~~~~~~ Opinion variables ~~~~~~~~~ //
   messe$!: Observable<RenseignerPage>;
   messeTest$!: Observable<RenseignerPage>;
+    // data for modal
+    dataElement!:any
 
   constructor(
     private AnnonceService : DemandeService,
@@ -41,6 +43,16 @@ export class RenseignerPageComponent {
         this.Setting = data;
       }
     );
+
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      couts:0,
+      details:''
+    }
+
   }
 
   checkAndApplyDisabled(data: RenseignerPage){
@@ -103,6 +115,27 @@ export class RenseignerPageComponent {
     });
 
   }
+
+
+  // for madal page
+
+  checkElements(data:any){
+    this.dataElement ={
+      nom:data.nom,
+      prenom:data.prenom,
+      contact:data.contact,
+      email:data.email,
+      rdv:data.rdv,
+      dateRdv:data.dateRdv,
+      typeServices:data.typeServices,
+      consultVar:data.consultVar,
+      couts:data.couts,
+      details:data.details
+    }
+
+  }
+
+  onSubmit(){}
 
 
 }

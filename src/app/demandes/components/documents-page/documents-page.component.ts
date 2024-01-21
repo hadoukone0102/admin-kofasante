@@ -26,6 +26,8 @@ export class DocumentsPageComponent {
      // ~~~~~~~~~~ Opinion variables ~~~~~~~~~ //
   messe$!: Observable<DocumentPage>;
   messeTest$!: Observable<DocumentPage>;
+  // data for modal
+  dataElement!:any
 
   constructor(
     private AnnonceService : DemandeService,
@@ -42,6 +44,19 @@ export class DocumentsPageComponent {
         this.Setting = data;
       }
     );
+
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      rdv:'',
+      dateRdv:'',
+      typeServices:'',
+      consultVar:'',
+      couts:0,
+      details:''
+    }
   }
 
   checkAndApplyDisabled(data: DocumentPage){
@@ -106,5 +121,24 @@ export class DocumentsPageComponent {
 
   }
 
+  // for madal page
+
+  checkElements(data:any){
+    this.dataElement ={
+      nom:data.nom,
+      prenom:data.prenom,
+      contact:data.contact,
+      email:data.email,
+      rdv:data.rdv,
+      dateRdv:data.dateRdv,
+      typeServices:data.typeServices,
+      consultVar:data.consultVar,
+      couts:data.couts,
+      details:data.details
+    }
+
+  }
+
+  onSubmit(){}
 
 }
