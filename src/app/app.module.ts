@@ -12,6 +12,7 @@ import { GlobalModule } from './global/global.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
 import { DemandesModule } from './demandes/demandes.module';
+import { FacturationModule } from './facturation/facturation.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { DemandesModule } from './demandes/demandes.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     DemandesModule,
+    FacturationModule,
 
   ],
   providers: [TokenInterceptorProvider],//All time enabled

@@ -4,6 +4,7 @@ import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animatio
 import { DocumentPage } from '../../models/demande.model';
 import { Observable, map } from 'rxjs';
 import { DemandeService } from '../../services/demande.service';
+import { documentsFacture } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-documents-page',
@@ -28,7 +29,8 @@ export class DocumentsPageComponent {
   messeTest$!: Observable<DocumentPage>;
   // data for modal
   dataElement!:any
-
+  documentsFacture!:documentsFacture;
+  montants!:any;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -56,6 +58,23 @@ export class DocumentsPageComponent {
       consultVar:'',
       couts:0,
       details:''
+    }
+
+    this.documentsFacture ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      type:'document',
+      rdv:'',
+      dateRdv:'',
+      autreTypeDocs:'',
+      autreTypeRDV:'',
+      couts:0,
+      details:''
+    }
+    this.montants={
+      couts:0
     }
   }
 
@@ -137,8 +156,34 @@ export class DocumentsPageComponent {
       details:data.details
     }
 
+    this.documentsFacture ={
+      nom:this.dataElement.nom,
+      prenom:this.dataElement.prenom,
+      contact:this.dataElement.contact,
+      email:this.dataElement.email,
+      type:'document',
+      rdv:this.dataElement.rdv,
+      dateRdv:this.dataElement.dateRdv,
+      autreTypeDocs:this.dataElement.typeServices,
+      autreTypeRDV:this.dataElement.consultVar,
+      couts:this.dataElement.couts,
+      details:this.dataElement.details
+    }
+
   }
 
-  onSubmit(){}
+  onSubmit(){
+    this.good=true;
+    this.documentsFacture.couts = this.montants.couts;
+    this.AnnonceService.SendFacture(this.documentsFacture).subscribe(
+      (data)=>{
+        this.good = false
+        console.log(data);
+      },(Error)=>{
+        this.good = false
+        console.log(Error);
+      }
+    )
+  }
 
 }

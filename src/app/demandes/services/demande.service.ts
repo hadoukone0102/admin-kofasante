@@ -4,6 +4,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, catchError } from 'rxjs';
 import { AbonnementPage, DocumentPage, Medecine, Prix, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
 import { environment } from 'src/environments/environment';
+import { documentsFacture } from 'src/app/facturation/models/facture.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -84,6 +85,12 @@ export class DemandeService {
 
   UpdatePrice(id:number,data:SendPrix):Observable<Success>{
     return this.http.put<Success>(`${environment.apiUrlAdminKofa}/services/${id}`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  SendFacture(data:documentsFacture):Observable<Success>{
+    return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     )
   }

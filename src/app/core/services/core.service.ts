@@ -86,6 +86,7 @@ export class CoreService {
   goToMedecine(){this.router.navigate(['/demande/medecine'])}
   goToInformation(){this.router.navigate(['/demande/info'])}
   goToAbonnement(){this.router.navigate(['/demande/abonnement']);}
+  goToFactures(){this.router.navigate(['/facture/liste-facture'])}
     // ~~~~~~~~~~~~~~~~~~~ // TODO  - demandes ~~~~~~~~~~~~~~~~ //
 
   // ~~~~~~~~~~~~~~~~~~~ // TODO  - Pages ~~~~~~~~~~~~~~~~ //

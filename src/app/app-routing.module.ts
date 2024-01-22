@@ -52,6 +52,12 @@ const routes: Routes = [
     roles: environment.allRolesMediaKofa
   }
   },
+  {path: 'facture', loadChildren: () => import('./facturation/facturation.module').then(m => m.FacturationModule),
+  canActivate: [AuthGuard, AccessGuard],
+  data:{
+    roles: environment.allRolesMediaKofa
+  }
+  },
   {path: 'profil', component: ProfileComponent, resolve: listProfileResolvers,
     canActivate: [AuthGuard, AccessGuard],
     data:{
