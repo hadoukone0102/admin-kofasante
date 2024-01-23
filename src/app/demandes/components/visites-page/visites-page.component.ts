@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { Visites } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
+import { VisiteFacture } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-visites-page',
@@ -27,7 +28,8 @@ export class VisitesPageComponent {
   messeTest$!: Observable<Visites>;
    // data for modal
    dataElement!:any
-
+   VisiteFacture!:VisiteFacture;
+   montants!:any;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -53,6 +55,22 @@ export class VisitesPageComponent {
       typeServices:'',
       couts:0,
       details:''
+    }
+
+    this.VisiteFacture ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      type:'visite',
+      services:'',
+      typeServices:'',
+      couts:0,
+      details:''
+    }
+
+    this.montants ={
+      couts:0
     }
 
   }
@@ -131,9 +149,33 @@ export class VisitesPageComponent {
       details:data.details
     }
 
+    this.VisiteFacture ={
+      nom:this.dataElement.nom,
+      prenom:this.dataElement.prenom,
+      contact:this.dataElement.contact,
+      email:this.dataElement.email,
+      type:'visite',
+      services:this.dataElement.services,
+      typeServices:this.dataElement.typeServices,
+      couts:this.dataElement.couts,
+      details:this.dataElement.details
+    }
+
   }
 
-  onSubmit(){}
+  onSubmit(){
+    this.good=true;
+    this.VisiteFacture.couts = this.montants.couts;
+    this.AnnonceService.SendVisites(this.VisiteFacture).subscribe(
+      (data)=>{
+        this.good = false
+        console.log(data);
+      },(Error)=>{
+        this.good = false
+        console.log(Error);
+      }
+    )
+  }
 
 
 }

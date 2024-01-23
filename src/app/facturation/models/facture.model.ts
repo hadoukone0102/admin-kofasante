@@ -65,3 +65,53 @@ export interface documentsFacture{
   dateRdv?: string
   details: string
 }
+
+export interface VisiteFacture{
+  nom: string
+  prenom: string
+  contact: string
+  email: string
+  type: string
+  couts: number
+  services?: string
+  typeServices?: string
+  details: string
+}
+
+export interface RenseignerFacture{
+  nom: string
+  prenom: string
+  contact: string
+  email: string
+  type: string
+  couts: number
+  details: string
+}
+
+export interface MedecineFacture{
+  nom: string
+  prenom: string
+  contact: string
+  email: string
+  type: string
+  couts: number
+  consultant: any
+  tyeConsultation: any
+  dateTot: any
+  dateTard: any
+  details: string
+}
+
+export interface AbonnementFacture{
+  nom: string
+  prenom: string
+  contact: string
+  email: string
+  type: string
+  couts: number
+  services?: string
+  typeServices?: string
+  forfait?: string
+  nombreVisite?: string
+  details: string
+}

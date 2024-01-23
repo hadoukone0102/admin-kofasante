@@ -24,7 +24,7 @@
                     <th >Date tôt</th>
                     <th >Date tard</th>
                     <!-- <th >Montants</th> -->
-                    <th class="border-0 rounded-end">Details</th>
+                    <th>Details</th>
                     <th class="border-0 rounded-end">Actions</th>
                   </tr>
             </thead>
@@ -113,10 +113,10 @@
                       <label for="exampleInputEmail1" class="form-label">Montants</label>
                       <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         required
-                        name="description"
+                        name="couts"
+                        [(ngModel)]="montants.couts"
                       />
                   </div>
-
 
                   <div class="modal-footer">
                     <!-- Spinner -->
@@ -127,7 +127,7 @@
                     </div>
                     <!-- End spinner -->
 
-                    <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">
                       Fermer
                     </button>
 

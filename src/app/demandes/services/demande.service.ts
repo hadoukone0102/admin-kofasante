@@ -4,7 +4,7 @@ import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, catchError } from 'rxjs';
 import { AbonnementPage, DocumentPage, Medecine, Prix, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
 import { environment } from 'src/environments/environment';
-import { documentsFacture } from 'src/app/facturation/models/facture.model';
+import { AbonnementFacture, MedecineFacture, RenseignerFacture, VisiteFacture, documentsFacture } from 'src/app/facturation/models/facture.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -90,6 +90,30 @@ export class DemandeService {
   }
 
   SendFacture(data:documentsFacture):Observable<Success>{
+    return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  SendAbonnement(data:AbonnementFacture):Observable<Success>{
+    return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  SendMedecine(data:MedecineFacture):Observable<Success>{
+    return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  SendVisites(data:VisiteFacture):Observable<Success>{
+    return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    )
+  }
+
+  SendRenseigner(data:RenseignerFacture):Observable<Success>{
     return this.http.post<Success>(`${environment.apiUrlAdminKofa}/Facture`,data).pipe(
       catchError((error) => this.coreService.handleError(error)),
     )

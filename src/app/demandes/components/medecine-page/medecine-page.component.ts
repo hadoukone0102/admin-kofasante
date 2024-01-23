@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Medecine } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
+import { MedecineFacture } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-medecine-page',
@@ -28,6 +29,9 @@ export class MedecinePageComponent {
   messeTest$!: Observable<Medecine>;
    // data for modal
    dataElement!:any
+   MedecineFacture!:MedecineFacture;
+   montants!:any;
+
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -57,6 +61,25 @@ export class MedecinePageComponent {
       couts:0,
       details:''
     }
+
+    this.MedecineFacture ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      type:'medecine',
+      consultant:'',
+      tyeConsultation:'',
+      dateTot:'',
+      dateTard:'',
+      couts:0,
+      details:''
+    }
+
+    this.montants={
+      couts:0
+    }
+
   }
 
   checkAndApplyDisabled(data: Medecine){
@@ -136,8 +159,34 @@ export class MedecinePageComponent {
         couts:data.couts,
         details:data.details
       }
+
+      this.MedecineFacture = {
+        nom:this.dataElement.nom,
+        prenom:this.dataElement.prenom,
+        contact:this.dataElement.contact,
+        email:this.dataElement.email,
+        type:'medecine',
+        consultant:this.dataElement.consultant,
+        tyeConsultation:this.dataElement.tyeConsultation,
+        dateTot:this.dataElement.dateTot,
+        dateTard:this.dataElement.dateTard,
+        couts:this.dataElement.couts,
+        details:this.dataElement.details
+      }
     }
 
-    onSubmit(){}
+    onSubmit(){
+      this.good=true;
+      this.MedecineFacture.couts = this.montants.couts;
+      this.AnnonceService.SendMedecine(this.MedecineFacture).subscribe(
+        (data)=>{
+          this.good = false
+          console.log(data);
+        },(Error)=>{
+          this.good = false
+          console.log(Error);
+        }
+      )
+    }
 
 }

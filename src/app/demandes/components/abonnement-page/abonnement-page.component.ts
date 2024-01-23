@@ -1,9 +1,11 @@
+import { CoreService } from './../../../core/services/core.service';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { AbonnementPage } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
+import { AbonnementFacture } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-abonnement-page',
@@ -27,10 +29,12 @@ export class AbonnementPageComponent {
   messeTest$!: Observable<AbonnementPage>;
   // data for modal
   dataElement!:any
-
+  AbonnementFacture!:AbonnementFacture;
+  montants!:any;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
+    private CoreService: CoreService,
   ){}
 
   ngOnInit():void{
@@ -55,6 +59,9 @@ export class AbonnementPageComponent {
       typeServices:'',
       couts:0,
       details:''
+    }
+    this.montants ={
+      couts:this.dataElement.couts
     }
   }
 
@@ -134,10 +141,35 @@ export class AbonnementPageComponent {
         couts:data.couts,
         details:data.details
       }
-      console.log(this.dataElement);
+
+      this.AbonnementFacture ={
+        nom:this.dataElement.nom,
+        prenom:this.dataElement.prenom,
+        contact:this.dataElement.contact,
+        email:this.dataElement.email,
+        type:'abonnement',
+        forfait:this.dataElement.forfait,
+        nombreVisite:this.dataElement.nombreVisite,
+        services:this.dataElement.services,
+        typeServices:this.dataElement.typeServices,
+        couts:this.dataElement.couts,
+        details:this.dataElement.details
+      }
 
     }
 
-    onSubmit(){}
+    onSubmit(){
+      this.good=true;
+      this.AbonnementFacture.couts = this.montants.couts;
+      this.AnnonceService.SendAbonnement(this.AbonnementFacture).subscribe(
+        (data)=>{
+          this.good = false
+          this.CoreService.goToFactures();
+        },(Error)=>{
+          this.good = false
+          console.log(Error);
+        }
+      )
+    }
 
 }

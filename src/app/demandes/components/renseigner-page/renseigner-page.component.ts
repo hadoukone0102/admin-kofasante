@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { DemandeService } from '../../services/demande.service';
+import { RenseignerFacture } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-renseigner-page',
@@ -27,6 +28,8 @@ export class RenseignerPageComponent {
   messeTest$!: Observable<RenseignerPage>;
     // data for modal
     dataElement!:any
+    RenseignerFacture!:RenseignerFacture;
+    montants!:any;
 
   constructor(
     private AnnonceService : DemandeService,
@@ -51,6 +54,19 @@ export class RenseignerPageComponent {
       email:'',
       couts:0,
       details:''
+    }
+
+    this.RenseignerFacture ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      type:'renseigner',
+      couts:0,
+      details:''
+    }
+    this.montants={
+      couts:0
     }
 
   }
@@ -133,9 +149,32 @@ export class RenseignerPageComponent {
       details:data.details
     }
 
+    this.RenseignerFacture ={
+      nom:this.dataElement.nom,
+      prenom:this.dataElement.prenom,
+      contact:this.dataElement.contact,
+      email:this.dataElement.email,
+      type:'renseigner',
+      couts:this.dataElement.couts,
+      details:this.dataElement.details
+    }
+
   }
 
-  onSubmit(){}
+  onSubmit(){
+    this.good=true;
+    this.RenseignerFacture.couts = this.montants.couts;
+    this.AnnonceService.SendRenseigner(this.RenseignerFacture).subscribe(
+      (data)=>{
+        this.good = false
+        console.log(data);
+      },(Error)=>{
+        this.good = false
+        console.log(Error);
+      }
+    )
+  }
+
 
 
 }

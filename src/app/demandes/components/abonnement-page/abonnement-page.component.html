@@ -4,8 +4,8 @@
     <app-header></app-header>
     <app-page-title
         theModule="Demande"
-        theTitle="Demande de Consultation en ligne"
-        theContent="Liste des Demande de Consultation en ligne">
+        theTitle="Demande d'Abonnement à un Forfait"
+        theContent="Liste des Demande">
     </app-page-title>
     <!-- Content -->
     <div class="card card-body border-0 shadow mb-4">
@@ -112,10 +112,10 @@
                   <label for="exampleInputEmail1" class="form-label">Montants</label>
                   <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                     required
-                    name="description"
+                    name="couts"
+                    [(ngModel)]="montants.couts"
                   />
               </div>
-
 
               <div class="modal-footer">
                 <!-- Spinner -->
@@ -126,7 +126,7 @@
                 </div>
                 <!-- End spinner -->
 
-                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">
                   Fermer
                 </button>
 
@@ -137,7 +137,6 @@
         </div>
       </div>
       <!-- Modal -->
-
 
         </div>
       </div>
