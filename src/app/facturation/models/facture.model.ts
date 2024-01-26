@@ -25,6 +25,7 @@ export interface Daum {
   prenom: string
   contact: string
   email: string
+  status:boolean
   details: string
   type: string
   couts: number
@@ -58,6 +59,7 @@ export interface documentsFacture{
   email: string
   type: string
   couts: number
+  status:boolean
   document?: string
   autreTypeDocs: any
   rdv?: string
@@ -73,6 +75,7 @@ export interface VisiteFacture{
   email: string
   type: string
   couts: number
+  status:boolean
   services?: string
   typeServices?: string
   details: string
@@ -85,6 +88,7 @@ export interface RenseignerFacture{
   email: string
   type: string
   couts: number
+  status:boolean
   details: string
 }
 
@@ -95,6 +99,7 @@ export interface MedecineFacture{
   email: string
   type: string
   couts: number
+  status:boolean
   consultant: any
   tyeConsultation: any
   dateTot: any
@@ -109,9 +114,14 @@ export interface AbonnementFacture{
   email: string
   type: string
   couts: number
+  status:boolean
   services?: string
   typeServices?: string
   forfait?: string
   nombreVisite?: string
   details: string
+}
+
+export interface update {
+  status:boolean
 }

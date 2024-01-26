@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { DemandeService } from '../../services/demande.service';
-import { RenseignerFacture } from 'src/app/facturation/models/facture.model';
+import { RenseignerFacture, update } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-renseigner-page',
@@ -30,7 +30,7 @@ export class RenseignerPageComponent {
     dataElement!:any
     RenseignerFacture!:RenseignerFacture;
     montants!:any;
-
+    update!:update;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -61,12 +61,17 @@ export class RenseignerPageComponent {
       prenom:'',
       contact:'',
       email:'',
-      type:'renseigner',
+      type:'renseignement',
       couts:0,
-      details:''
+      details:'',
+      status:false,
     }
     this.montants={
       couts:0
+    }
+
+    this.update={
+      status:false
     }
 
   }
@@ -137,6 +142,7 @@ export class RenseignerPageComponent {
 
   checkElements(data:any){
     this.dataElement ={
+      id:data.id,
       nom:data.nom,
       prenom:data.prenom,
       contact:data.contact,
@@ -154,7 +160,8 @@ export class RenseignerPageComponent {
       prenom:this.dataElement.prenom,
       contact:this.dataElement.contact,
       email:this.dataElement.email,
-      type:'renseigner',
+      type:'Renseignement',
+      status:false,
       couts:this.dataElement.couts,
       details:this.dataElement.details
     }
@@ -166,7 +173,15 @@ export class RenseignerPageComponent {
     this.RenseignerFacture.couts = this.montants.couts;
     this.AnnonceService.SendRenseigner(this.RenseignerFacture).subscribe(
       (data)=>{
-        this.good = false
+        this.AnnonceService.getrenseignerPageUpdate(this.dataElement.id,this.update).subscribe((datas)=>{
+          this.AnnonceService.getrenseignerPage().subscribe((succes)=>{
+            this.Setting = succes;
+            this.good = false
+          })
+          console.log(datas);
+        },(Error)=>{
+          console.log('update =>',Error);
+        })
         console.log(data);
       },(Error)=>{
         this.good = false

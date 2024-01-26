@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 import { AbonnementPage } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
-import { AbonnementFacture } from 'src/app/facturation/models/facture.model';
+import { AbonnementFacture, update } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-abonnement-page',
@@ -31,6 +31,7 @@ export class AbonnementPageComponent {
   dataElement!:any
   AbonnementFacture!:AbonnementFacture;
   montants!:any;
+  update!:update;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -62,6 +63,9 @@ export class AbonnementPageComponent {
     }
     this.montants ={
       couts:this.dataElement.couts
+    }
+    this.update={
+      status:false
     }
   }
 
@@ -130,6 +134,7 @@ export class AbonnementPageComponent {
     // for madal page
     checkElements(data:any){
       this.dataElement ={
+        id:data.id,
         nom:data.nom,
         prenom:data.prenom,
         contact:data.contact,
@@ -148,6 +153,7 @@ export class AbonnementPageComponent {
         contact:this.dataElement.contact,
         email:this.dataElement.email,
         type:'abonnement',
+        status:false,
         forfait:this.dataElement.forfait,
         nombreVisite:this.dataElement.nombreVisite,
         services:this.dataElement.services,
@@ -163,8 +169,16 @@ export class AbonnementPageComponent {
       this.AbonnementFacture.couts = this.montants.couts;
       this.AnnonceService.SendAbonnement(this.AbonnementFacture).subscribe(
         (data)=>{
-          this.good = false
-          this.CoreService.goToFactures();
+          this.AnnonceService.getAbonnementPageUpdate(this.dataElement.id,this.update).subscribe((datas)=>{
+            this.AnnonceService.getAbonnementPage().subscribe((succes)=>{
+              this.Setting = succes;
+              this.good = false
+            })
+            console.log(datas);
+          },(Error)=>{
+            console.log('update =>',Error);
+          })
+          //this.CoreService.goToFactures();
         },(Error)=>{
           this.good = false
           console.log(Error);

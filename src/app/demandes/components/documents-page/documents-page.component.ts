@@ -4,7 +4,7 @@ import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animatio
 import { DocumentPage } from '../../models/demande.model';
 import { Observable, map } from 'rxjs';
 import { DemandeService } from '../../services/demande.service';
-import { documentsFacture } from 'src/app/facturation/models/facture.model';
+import { documentsFacture, update } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-documents-page',
@@ -31,6 +31,7 @@ export class DocumentsPageComponent {
   dataElement!:any
   documentsFacture!:documentsFacture;
   montants!:any;
+  update!:update;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -71,10 +72,14 @@ export class DocumentsPageComponent {
       autreTypeDocs:'',
       autreTypeRDV:'',
       couts:0,
-      details:''
+      details:'',
+      status:false,
     }
     this.montants={
       couts:0
+    }
+    this.update={
+      status:false
     }
   }
 
@@ -144,6 +149,7 @@ export class DocumentsPageComponent {
 
   checkElements(data:any){
     this.dataElement ={
+      id:data.id,
       nom:data.nom,
       prenom:data.prenom,
       contact:data.contact,
@@ -162,6 +168,7 @@ export class DocumentsPageComponent {
       contact:this.dataElement.contact,
       email:this.dataElement.email,
       type:'document',
+      status:false,
       rdv:this.dataElement.rdv,
       dateRdv:this.dataElement.dateRdv,
       autreTypeDocs:this.dataElement.typeServices,
@@ -177,7 +184,15 @@ export class DocumentsPageComponent {
     this.documentsFacture.couts = this.montants.couts;
     this.AnnonceService.SendFacture(this.documentsFacture).subscribe(
       (data)=>{
-        this.good = false
+        this.AnnonceService.getDocumentsPageUpdate(this.dataElement.id,this.update).subscribe((datas)=>{
+          this.AnnonceService.getDocumentsPage().subscribe((succes)=>{
+            this.Setting = succes;
+            this.good = false
+          })
+          console.log(datas);
+        },(Error)=>{
+          console.log('update =>',Error);
+        })
         console.log(data);
       },(Error)=>{
         this.good = false

@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Medecine } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
-import { MedecineFacture } from 'src/app/facturation/models/facture.model';
+import { MedecineFacture, update } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-medecine-page',
@@ -31,7 +31,7 @@ export class MedecinePageComponent {
    dataElement!:any
    MedecineFacture!:MedecineFacture;
    montants!:any;
-
+   update!:update;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -73,11 +73,16 @@ export class MedecinePageComponent {
       dateTot:'',
       dateTard:'',
       couts:0,
-      details:''
+      details:'',
+      status:false,
     }
 
     this.montants={
       couts:0
+    }
+
+    this.update={
+      status:false
     }
 
   }
@@ -148,6 +153,7 @@ export class MedecinePageComponent {
 
     checkElements(data:any){
       this.dataElement ={
+        id:data.id,
         nom:data.nom,
         prenom:data.prenom,
         contact:data.contact,
@@ -165,7 +171,8 @@ export class MedecinePageComponent {
         prenom:this.dataElement.prenom,
         contact:this.dataElement.contact,
         email:this.dataElement.email,
-        type:'medecine',
+        type:'Consultation',
+        status:false,
         consultant:this.dataElement.consultant,
         tyeConsultation:this.dataElement.tyeConsultation,
         dateTot:this.dataElement.dateTot,
@@ -180,6 +187,15 @@ export class MedecinePageComponent {
       this.MedecineFacture.couts = this.montants.couts;
       this.AnnonceService.SendMedecine(this.MedecineFacture).subscribe(
         (data)=>{
+          this.AnnonceService.getMedecinePageUpdate(this.dataElement.id,this.update).subscribe((datas)=>{
+            this.AnnonceService.getMedecinePage().subscribe((succes)=>{
+              this.Setting = succes;
+              this.good = false
+            })
+            console.log(datas);
+          },(Error)=>{
+            console.log('update =>',Error);
+          })
           this.good = false
           console.log(data);
         },(Error)=>{

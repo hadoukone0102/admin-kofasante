@@ -25,6 +25,7 @@
                     <th >Forfait</th>
                     <th >Nombre V</th>
                     <th >Montants</th>
+                    <th >Status</th>
                     <th>Details</th>
                   </tr>
             </thead>
@@ -41,6 +42,8 @@
                 <td>{{ param.forfait }}</td>
                 <td>{{ param.nombreVisite }}</td>
                 <td>{{ param.couts }}</td>
+                <td *ngIf="param.status == true" class="green">Payé</td>
+                <td *ngIf="param.status != true" class="red">Non Payé</td>
                 <td>{{ param.details }}</td>
 
               </tr>

@@ -4,7 +4,7 @@ import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { Visites } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
-import { VisiteFacture } from 'src/app/facturation/models/facture.model';
+import { VisiteFacture, update } from 'src/app/facturation/models/facture.model';
 
 @Component({
   selector: 'app-visites-page',
@@ -30,6 +30,7 @@ export class VisitesPageComponent {
    dataElement!:any
    VisiteFacture!:VisiteFacture;
    montants!:any;
+   update!:update;
   constructor(
     private AnnonceService : DemandeService,
     private route: ActivatedRoute,
@@ -66,11 +67,16 @@ export class VisitesPageComponent {
       services:'',
       typeServices:'',
       couts:0,
-      details:''
+      details:'',
+      status:false,
     }
 
     this.montants ={
       couts:0
+    }
+
+    this.update={
+      status:false
     }
 
   }
@@ -155,6 +161,7 @@ export class VisitesPageComponent {
       contact:this.dataElement.contact,
       email:this.dataElement.email,
       type:'visite',
+      status:false,
       services:this.dataElement.services,
       typeServices:this.dataElement.typeServices,
       couts:this.dataElement.couts,
@@ -168,7 +175,15 @@ export class VisitesPageComponent {
     this.VisiteFacture.couts = this.montants.couts;
     this.AnnonceService.SendVisites(this.VisiteFacture).subscribe(
       (data)=>{
-        this.good = false
+        this.AnnonceService.getVisitePageUpdate(this.dataElement.id,this.update).subscribe((datas)=>{
+          this.AnnonceService.getVisitePage().subscribe((succes)=>{
+            this.Setting = succes;
+            this.good = false
+          })
+          console.log(datas);
+        },(Error)=>{
+          console.log('update =>',Error);
+        })
         console.log(data);
       },(Error)=>{
         this.good = false

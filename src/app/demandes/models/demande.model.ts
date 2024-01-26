@@ -209,6 +209,7 @@ export interface Daum {
   prenom: string
   contact: string
   email: string
+  status:boolean
   forfait: string
   nombreVisite: string
   services: string
