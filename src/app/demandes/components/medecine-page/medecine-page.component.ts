@@ -163,7 +163,8 @@ export class MedecinePageComponent {
         dateTot:data.dateTot,
         dateTard:data.dateTard,
         couts:data.couts,
-        details:data.details
+        details:data.details,
+        status:data.status
       }
 
       this.MedecineFacture = {
@@ -179,6 +180,10 @@ export class MedecinePageComponent {
         dateTard:this.dataElement.dateTard,
         couts:this.dataElement.couts,
         details:this.dataElement.details
+      }
+
+      this.update={
+        status:this.dataElement.status
       }
     }
 

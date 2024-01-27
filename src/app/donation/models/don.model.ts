@@ -2,6 +2,8 @@
  * kofasante categorie type
  */
 
+import { Time } from "@angular/common"
+
 export interface categorie{
   status:number
   message:string
@@ -61,6 +63,17 @@ export interface Type {
   remember_token: any
   created_at: string
   updated_at: string
+}
+
+export interface Rappel {
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  titre: string
+  date: string
+  heure: string
+  jour:string
 }
 
 /**

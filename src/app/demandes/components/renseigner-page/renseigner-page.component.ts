@@ -152,7 +152,8 @@ export class RenseignerPageComponent {
       typeServices:data.typeServices,
       consultVar:data.consultVar,
       couts:data.couts,
-      details:data.details
+      details:data.details,
+      status:data.status
     }
 
     this.RenseignerFacture ={
@@ -164,6 +165,10 @@ export class RenseignerPageComponent {
       status:false,
       couts:this.dataElement.couts,
       details:this.dataElement.details
+    }
+
+    this.update={
+      status:this.dataElement.status
     }
 
   }

@@ -144,7 +144,8 @@ export class AbonnementPageComponent {
         services:data.services,
         typeServices:data.typeServices,
         couts:data.couts,
-        details:data.details
+        details:data.details,
+        status:data.status
       }
 
       this.AbonnementFacture ={
@@ -160,6 +161,10 @@ export class AbonnementPageComponent {
         typeServices:this.dataElement.typeServices,
         couts:this.dataElement.couts,
         details:this.dataElement.details
+      }
+
+      this.update={
+        status:this.dataElement.status
       }
 
     }

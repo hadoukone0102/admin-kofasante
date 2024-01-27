@@ -159,7 +159,8 @@ export class DocumentsPageComponent {
       typeServices:data.typeServices,
       consultVar:data.consultVar,
       couts:data.couts,
-      details:data.details
+      details:data.details,
+      status:data.status
     }
 
     this.documentsFacture ={
@@ -175,6 +176,10 @@ export class DocumentsPageComponent {
       autreTypeRDV:this.dataElement.consultVar,
       couts:this.dataElement.couts,
       details:this.dataElement.details
+    }
+
+    this.update={
+      status:this.dataElement.status
     }
 
   }

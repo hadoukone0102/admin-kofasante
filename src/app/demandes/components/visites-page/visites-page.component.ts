@@ -152,7 +152,8 @@ export class VisitesPageComponent {
       services:data.services,
       typeServices:data.typeServices,
       couts:data.couts,
-      details:data.details
+      details:data.details,
+      status:data.status
     }
 
     this.VisiteFacture ={
@@ -168,6 +169,9 @@ export class VisitesPageComponent {
       details:this.dataElement.details
     }
 
+    this.update={
+      status:this.dataElement.status
+    }
   }
 
   onSubmit(){

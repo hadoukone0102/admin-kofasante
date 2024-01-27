@@ -25,7 +25,7 @@
                   </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let param of  Setting.data.data;let i=index" @linePaginateAnimation>
+              <tr *ngFor="let param of  Setting.data.data;let i=index" @linePaginateAnimation (click)="checkElements(param)">
                 <td>{{ i+1 }}</td>
                 <td>{{ param.nom }}</td>
                 <td>{{ param.prenom }}</td>
@@ -35,7 +35,7 @@
                 <td *ngIf="param.status != true" class="red">En attente</td>
                 <td>{{ param.details }}</td>
                 <td>
-                  <a title="Modifier" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                  <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
                     data-bs-toggle="modal" data-bs-target="#pastoral">
                     <i class="fa fa-edit"></i>
                  </a>

@@ -24,26 +24,104 @@
             <th class="border-0">Prenom </th>
             <th class="border-0">Contact</th>
             <th class="border-0" >E-mail </th>
-            <th class="border-0">Abonnement </th>
             <th class="border-0">Actions</th>
         </tr>
         </thead>
-    <tbody >
-        <tr *ngFor="let user of donationListParent.type; let i= index">
-          <td>{{ i+1 }}</td>
-          <td>{{ user.nom }}</td>
-          <td>{{ user.prenom }}</td>
-          <td>{{ user.contact }}</td>
-          <td>{{ user.email }}</td>
-          <td>non</td>
-          <td>
-            <a title="Modifiez ce type de don" class="ms-2 btn btn-sm btn-success d-inline-flex align-items-center">
-                <i class="fa fa-edit" ></i>
-            </a>
-          </td>
-        </tr>
-    </tbody>
-</table>
+        <tbody >
+            <tr *ngFor="let user of donationListParent.type; let i= index" (click)="checkElements(user)">
+              <td>{{ i+1 }}</td>
+              <td>{{ user.nom }}</td>
+              <td>{{ user.prenom }}</td>
+              <td>{{ user.contact }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                  data-bs-toggle="modal" data-bs-target="#pastoral">
+                  <i class="fa fa-edit"></i>
+               </a>
+              </td>
+            </tr>
+        </tbody>
+      </table>
+
+           <!-- Modal -->
+           <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                  <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title text-black" id="exampleModalLabel">Facture</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <h3 class="text-center">Enregistrer un rappel pour {{ dataElement.nom }}</h3>
+                          <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
+
+                            <div class="m-2 d-flex align-items-center justify-content-between">
+                              <label for="exampleInputEmail1" class="form-label">Nom : {{ dataElement.nom }}</label>
+                              <label for="exampleInputEmail1" class="form-label">Prenom : {{ dataElement.prenom }}</label>
+                            </div>
+
+                            <div class="m-2 d-flex align-items-center justify-content-between">
+                              <label for="exampleInputEmail1" class="form-label">Contact: {{ dataElement.contact }}</label>
+                              <label for="exampleInputEmail1" class="form-label">E-mail : {{ dataElement.email }}</label>
+                            </div>
+
+                            <div class="m-2">
+                                <label for="exampleInputEmail1" class="form-label">Titre du rappel</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                  required
+                                  name="titre"
+                                [(ngModel)]="Rappel.titre"
+                                />
+                            </div>
+
+                            <div class="m-2">
+                              <label for="exampleInputEmail1" class="form-label">Date du rappel</label>
+                              <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                required
+                                name="date"
+                                [(ngModel)]="Rappel.date"
+                              />
+                           </div>
+
+                           <div class="m-2">
+                            <label for="exampleInputEmail1" class="form-label">heur du rappel</label>
+                            <input type="time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                              required
+                              name="heur"
+                                [(ngModel)]="Rappel.heure"
+                            />
+                          </div>
+
+                           <div class="m-2">
+                            <label for="exampleInputEmail1" class="form-label">Jour</label>
+                            <select class="form-select" aria-label="Default select example" name="jour"
+                            [(ngModel)]="Rappel.jour">
+                              <option selected>...</option>
+                              <option value="0">Par defaut</option>
+                              <option value="1">Un jour Avant</option>
+                              <option value="2">Deux jours Avant</option>
+                              <option value="3">Trois jours Avant</option>
+                            </select>
+                          </div>
+
+                            <div class="modal-footer">
+                              <!-- Spinner -->
+                              <div *ngIf="good" class="text-center">
+                                <div class=" ms-3 d-flex align-items-center justify-content-center">
+                                    <app-spinner></app-spinner>
+                                </div>
+                              </div>
+                              <!-- End spinner -->
+
+                              <button type="submit" class="btn btn-primary" >Enregistrer rappel</button>
+                            </div>
+                          </form>
+                        </div>
+                  </div>
+            </div>
+          </div>
+        <!-- Modal -->
     </div>
 
 </div>

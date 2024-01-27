@@ -10,15 +10,47 @@ import { ListeMedia } from 'src/app/donation/models/don.model';
 export class ListeAsctuceKofasanteComponent {
 
   @Input() media!:ListeMedia;
-
+  dataElement!:any
+  good!:boolean;
+  Rappel!:any;
   constructor(){}
 
   ngOnInit():void{
-    //console.log(this.media);
+    this.dataElement ={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+    }
+
+
+    this.Rappel={
+      nom:'',
+      prenom:'',
+      contact:'',
+      email:'',
+      titre:'',
+      date: '',
+      heure: '',
+      jour:''
+    }
   }
 
   resetFilter() {
     location.reload();
   }
 
+  checkElements(data:any){
+    this.dataElement ={
+      id:data.id,
+      nom:data.nom,
+      prenom:data.prenom,
+      contact:data.contact,
+      email:data.email,
+    }
+  }
+
+  onSubmit(){
+
+  }
 }
