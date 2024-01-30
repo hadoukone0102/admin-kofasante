@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon, KofaUser, ListeMedia, MediaSend, Successmessage, categorie } from '../models/don.model';
+import { DataDon, KofaUser, ListeMedia, MediaSend, Rappel, Successmessage, categorie, rappelSucces } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -38,6 +38,12 @@ export class DonationService {
 
   getlistuserKofa(): Observable<KofaUser>{
     return this.http.get<KofaUser>(`${environment.apiUrlAdminKofa}/all-user`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  SendRappelForKofaUser(data:Rappel): Observable<rappelSucces>{
+    return this.http.post<rappelSucces>(`${environment.apiUrlAdminKofa}/rappels`,data).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }

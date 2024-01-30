@@ -44,9 +44,9 @@ export class DonationTableComponent implements OnInit{
       contact:'',
       email:'',
       titre:'',
-      date: '',
-      heure: '',
-      jour:''
+      minutes: 30,
+      heure: 8,
+      jour:0
     }
   }
 
@@ -63,12 +63,21 @@ export class DonationTableComponent implements OnInit{
       email:data.email,
     }
   }
-
+  message!:string;
   onSubmit(){
+    this.good = true;
     this.Rappel.nom =this.dataElement.nom,
     this.Rappel.prenom =this.dataElement.prenom,
     this.Rappel.contact =this.dataElement.contact,
     this.Rappel.email =this.dataElement.email,
     console.log(this.Rappel);
+    this.donationService.SendRappelForKofaUser(this.Rappel).subscribe(
+      (data)=>{
+          this.message = data.message;
+        this.good = false;
+      },(Error)=>{
+        console.log(Error);
+      }
+    )
   }
 }

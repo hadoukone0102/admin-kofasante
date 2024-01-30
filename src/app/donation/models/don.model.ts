@@ -71,9 +71,13 @@ export interface Rappel {
   email: string
   contact: string
   titre: string
-  date: string
-  heure: string
-  jour:string
+  minutes: number
+  heure: number
+  jour:number
+}
+
+export interface rappelSucces{
+  message:string
 }
 
 /**

@@ -76,20 +76,20 @@
                             </div>
 
                             <div class="m-2">
-                              <label for="exampleInputEmail1" class="form-label">Date du rappel</label>
-                              <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                              <label for="exampleInputEmail1" class="form-label">Heure du rappel</label>
+                              <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                                 required
                                 name="date"
-                                [(ngModel)]="Rappel.date"
+                                [(ngModel)]="Rappel.heure"
                               />
                            </div>
 
                            <div class="m-2">
-                            <label for="exampleInputEmail1" class="form-label">heur du rappel</label>
-                            <input type="time" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                            <label for="exampleInputEmail1" class="form-label">Minutes</label>
+                            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                               required
                               name="heur"
-                                [(ngModel)]="Rappel.heure"
+                                [(ngModel)]="Rappel.minutes"
                             />
                           </div>
 
@@ -99,9 +99,8 @@
                             [(ngModel)]="Rappel.jour">
                               <option selected>...</option>
                               <option value="0">Par defaut</option>
-                              <option value="1">Un jour Avant</option>
-                              <option value="2">Deux jours Avant</option>
-                              <option value="3">Trois jours Avant</option>
+                              <option value="1">Une heure Avant</option>
+                              <option value="2">Deux heures Avant</option>
                             </select>
                           </div>
 
@@ -113,7 +112,7 @@
                                 </div>
                               </div>
                               <!-- End spinner -->
-
+                              <div *ngIf="message">{{ message }}</div>
                               <button type="submit" class="btn btn-primary" >Enregistrer rappel</button>
                             </div>
                           </form>
