@@ -12,6 +12,7 @@
           </div>
       </div>
 
+      <div *ngIf="showSuccessMessage" class="alert alert-success">Publication Supprimer avec succès</div>
       <!-- / Search form -->
   <div class="table-responsive">
       <table id="exportTable" class="table-fill table table-centered table-nowrap mb-0 rounded">
@@ -34,74 +35,14 @@
           <td>{{ media.media }}</td>
           <td>{{ media.created_at }}</td>
           <td>
-            <a title="Désactivez ce type" class="me-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
-              <i class="fa fa-ban" ></i>
-            </a>
-            <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
-              data-bs-toggle="modal" data-bs-target="#pastoral">
-            <i class="fa fa-edit"></i>
+            <a title="Désactivez ce type" (click)="DeleteMedia(media.id)" class="me-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
+              <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
           </td>
         </tr>
       </tbody>
     </table>
 
-      <!-- Modal -->
-      <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-              <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title text-black" id="exampleModalLabel">Facture</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <h3 class="text-center">Modifier Publication</h3>
-                      <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
-
-                        <div class="m-2">
-                            <label for="exampleInputEmail1" class="form-label">Titre</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                              required
-                              name="titre"
-                            [(ngModel)]="Rappel.titre"
-                            />
-                        </div>
-
-                        <div class="m-2">
-                          <label for="exampleInputEmail1" class="form-label">Descriptions</label>
-                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            required
-                            name="date"
-                            [(ngModel)]="Rappel.date"
-                          />
-                       </div>
-
-                       <div class="m-2">
-                        <label for="exampleInputEmail1" class="form-label">Medias</label>
-                        <input type="file" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                          required
-                          name="heur"
-                            [(ngModel)]="Rappel.heure"
-                        />
-                      </div>
-
-                        <div class="modal-footer">
-                          <!-- Spinner -->
-                          <div *ngIf="good" class="text-center">
-                            <div class=" ms-3 d-flex align-items-center justify-content-center">
-                                <app-spinner></app-spinner>
-                            </div>
-                          </div>
-                          <!-- End spinner -->
-
-                          <button type="submit" class="btn btn-primary" >Enregistrer rappel</button>
-                        </div>
-                      </form>
-                    </div>
-              </div>
-        </div>
-      </div>
-    <!-- Modal -->
   </div>
 
 </div>

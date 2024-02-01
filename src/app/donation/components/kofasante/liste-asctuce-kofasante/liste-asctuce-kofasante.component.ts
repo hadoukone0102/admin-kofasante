@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { ListeMedia } from 'src/app/donation/models/don.model';
+import { DonationService } from 'src/app/donation/services/donation.service';
 
 @Component({
   selector: 'app-liste-asctuce-kofasante',
@@ -13,7 +14,10 @@ export class ListeAsctuceKofasanteComponent {
   dataElement!:any
   good!:boolean;
   Rappel!:any;
-  constructor(){}
+  showSuccessMessage:boolean=false;
+  constructor( private services : DonationService){
+
+  }
 
   ngOnInit():void{
     this.dataElement ={
@@ -50,7 +54,21 @@ export class ListeAsctuceKofasanteComponent {
     }
   }
 
-  onSubmit(){
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment supprimer cette publication ?");
 
-  }
+    if (userConfirmed) {
+        console.log(id);
+        this.services.DeleteMedias(id).subscribe(
+            (data) => {
+                console.log(data);
+                this.showSuccessMessage = true;
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+}
+
 }

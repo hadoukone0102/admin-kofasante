@@ -72,6 +72,12 @@ export class DonationService {
     );
   }
 
+  DeleteMedias(id:string | number): Observable<LectureListe>{
+    return this.http.delete<LectureListe>(`${environment.apiUrlAdminKofa}/media-delete/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
    // ====================================================== //
   // =================== //ANCHOR - ADD =================== //
   // ====================================================== //
