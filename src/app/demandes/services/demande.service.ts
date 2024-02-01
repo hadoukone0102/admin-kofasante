@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, catchError } from 'rxjs';
-import { AbonnementPage, DocumentPage, Medecine, Prix, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
+import { AbonnementPage, DocumentPage, Medecine, Prix, RapportsModels, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
 import { environment } from 'src/environments/environment';
 import { AbonnementFacture, MedecineFacture, RenseignerFacture, VisiteFacture, documentsFacture, update } from 'src/app/facturation/models/facture.model';
 @Injectable({
@@ -106,8 +106,8 @@ export class DemandeService {
     );
   }
 
-  getPricePage(): Observable<Prix>{
-    return this.http.get<Prix>(`${environment.apiUrlAdminKofa}/services`).pipe(
+  getPricePage(): Observable<RapportsModels>{
+    return this.http.get<RapportsModels>(`${environment.apiUrlAdminKofa}/Rapports`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

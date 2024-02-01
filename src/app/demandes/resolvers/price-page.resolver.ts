@@ -5,17 +5,17 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Prix, RenseignerPage } from '../models/demande.model';
+import { Prix, RapportsModels, RenseignerPage } from '../models/demande.model';
 import { DemandeService } from '../services/demande.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PricePageResolver implements Resolve<Prix> {
+export class PricePageResolver implements Resolve<RapportsModels> {
   constructor(
     private demandeService: DemandeService
   ){}
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Prix> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<RapportsModels> {
     return this.demandeService.getPricePage();
   }
 }

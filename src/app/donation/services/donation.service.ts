@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { DataDon, KofaUser, ListeMedia, MediaSend, Rappel, Successmessage, categorie, rappelSucces } from '../models/don.model';
+import { Analysis, DataDon, KofaUser, Lecture, LectureListe, ListeMedia, MediaSend, Rappel, Rapport, Successmessage, categorie, rappelSucces, success } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -44,6 +44,30 @@ export class DonationService {
 
   SendRappelForKofaUser(data:Rappel): Observable<rappelSucces>{
     return this.http.post<rappelSucces>(`${environment.apiUrlAdminKofa}/rappels`,data).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  getListDataForAnalysis(): Observable<Analysis>{
+    return this.http.get<Analysis>(`${environment.apiUrlAdminKofa}/analyse`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  sendRapports(data:Rapport): Observable<success>{
+    return this.http.post<success>(`${environment.apiUrlAdminKofa}/Rapports`,data).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  sendLecture(data:Lecture): Observable<success>{
+    return this.http.post<success>(`${environment.apiUrlAdminKofa}/lecture`,data).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  getListAnalysis(): Observable<LectureListe>{
+    return this.http.get<LectureListe>(`${environment.apiUrlAdminKofa}/lecture`).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }

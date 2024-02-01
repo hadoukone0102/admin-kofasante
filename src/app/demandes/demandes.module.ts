@@ -14,6 +14,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { PricePageComponent } from './components/price-page/price-page.component';
 import { PricePageResolver } from './resolvers/price-page.resolver';
+import { ListAnalyseComponent } from '../donation/components/kofasante/list-analyse/list-analyse.component';
+import { ListAnalyseResolver } from '../donation/resolvers/list-analyse.resolver';
 
 const abonnementPageResolver = {AbonnementPageResolver:AbonnementPageResolver};
 const documentsPageResolver = {DocumentsPageResolver:DocumentsPageResolver};
@@ -21,13 +23,16 @@ const medecinePageResolver = {MedecinePageResolver:MedecinePageResolver};
 const renseignerPageResolver = {RenseignerPageResolver:RenseignerPageResolver};
 const visitesPageResolver = {VisitesPageResolver:VisitesPageResolver};
 const pricePageResolver = {PricePageResolver:PricePageResolver}
+const listAnalyseResolver = {ListAnalyseResolver:ListAnalyseResolver};
+
 const demandeRoutes: Routes = [
   {path:'documents',component:DocumentsPageComponent,resolve:documentsPageResolver},
   {path:'visites',component:VisitesPageComponent,resolve:visitesPageResolver},
   {path:'medecine',component:MedecinePageComponent,resolve:medecinePageResolver},
   {path:'info',component:RenseignerPageComponent,resolve:renseignerPageResolver},
   {path:'abonnement',component:AbonnementPageComponent,resolve:abonnementPageResolver},
-  {path:'prix',component:PricePageComponent,resolve:pricePageResolver}
+  {path:'prix',component:PricePageComponent,resolve:pricePageResolver},
+  {path:'analyse',component:ListAnalyseComponent,resolve:listAnalyseResolver},
 
 ];
 @NgModule({

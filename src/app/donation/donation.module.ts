@@ -29,12 +29,13 @@ import { DisabledDonationTypeResolver } from './resolvers/disabled-donation-type
 import { AddAsctuceComponent } from './components/kofasante/add-asctuce/add-asctuce.component';
 import { ListeAsctuceKofasanteComponent } from './components/kofasante/liste-asctuce-kofasante/liste-asctuce-kofasante.component';
 import { ListeDemandesComponent } from './components/kofasante/liste-demandes/liste-demandes.component';
+import { ListAnalyseComponent } from './components/kofasante/list-analyse/list-analyse.component';
 
 const listAnoResolvers = {...{listAnonymous: ListAnonymousResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoPersoResolvers = {...{listNoAnonymousPerso: ListNoAnonymousPersoResolver}, ...GLOBAL_RESOLVERS};
 const listNoAnoOrgaResolvers = {...{listNoAnonymousOrga: ListNoAnonymousOrgaResolver}, ...GLOBAL_RESOLVERS};
 const listBasketResolvers = {...{listBasketDonation: ListBasketDonationResolver}, ...GLOBAL_RESOLVERS};
-const listReportResolvers = {...{listAll: ListAllResolver}, ...GLOBAL_RESOLVERS};
+const listAllResolver = {ListAllResolver:ListAllResolver};
 
 const listDonationTypeResolvers = {...{listDonationType: ListDonationTypeResolver}, ...GLOBAL_RESOLVERS};
 const editDonationTypeResolvers = {...{donationTypeById: DonationTypeByIdResolver}, ...GLOBAL_RESOLVERS};
@@ -45,7 +46,7 @@ const donationRoutes: Routes = [
   {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
   {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
   {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
-  {path: 'bilan-don', component: ReportDonationComponent, resolve:listReportResolvers},
+  {path: 'bilan-don', component: ReportDonationComponent, resolve:listAllResolver},
   {path: 'corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
 
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},
@@ -72,6 +73,7 @@ const donationRoutes: Routes = [
     AddAsctuceComponent,
     ListeAsctuceKofasanteComponent,
     ListeDemandesComponent,
+    ListAnalyseComponent,
 
   ],
   imports: [

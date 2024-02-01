@@ -6,13 +6,13 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DonationService } from '../services/donation.service';
-import { DataDon } from '../models/don.model';
+import { Analysis, DataDon } from '../models/don.model';
 
 @Injectable()
-export class ListAllResolver implements Resolve<DataDon> {
+export class ListAllResolver implements Resolve<Analysis> {
   constructor(private donationService: DonationService){}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDon> {
-    return this.donationService.getDonationsWhere();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Analysis> {
+    return this.donationService.getListDataForAnalysis();
   }
 }

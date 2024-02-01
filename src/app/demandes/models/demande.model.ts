@@ -228,6 +228,25 @@ export interface Link {
 }
 
 
+export interface RapportsModels {
+  message: string
+  data: Daum[]
+}
+
+export interface Daum {
+  id: number
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  nomAdmin: string
+  titre: string
+  desc: string
+  created_at: string
+  updated_at: string
+}
+
+
 export interface Prix {
   data : Prixsecnd []
 }

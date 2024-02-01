@@ -125,3 +125,21 @@ export interface AbonnementFacture{
 export interface update {
   status:boolean
 }
+
+export interface Paiements {
+  message: string
+  data: Daum[]
+}
+
+export interface Daum {
+  id: number
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  status: boolean
+  montants: number
+  type: string
+  created_at: string
+  updated_at: string
+}

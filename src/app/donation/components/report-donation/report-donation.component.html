@@ -10,9 +10,10 @@
     <!-- Content -->
 
     <!-- Donation table -->
-    <div>
-        <app-liste-demandes>
-
+    <div *ngIf=" donations$ |async as donations">
+        <app-liste-demandes
+          [Analysis]="donations"
+        >
         </app-liste-demandes>
     </div>
     <!-- End Donation table -->

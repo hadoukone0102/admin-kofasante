@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
-import { ElementPage, Prix, RenseignerPage, SendPrix } from '../../models/demande.model';
+import { Daum, ElementPage, Prix, RapportsModels, RenseignerPage, SendPrix } from '../../models/demande.model';
 import { DemandeService } from '../../services/demande.service';
 
 @Component({
@@ -16,8 +16,8 @@ import { DemandeService } from '../../services/demande.service';
 })
 export class PricePageComponent {
   good!:boolean;
-  Settings$!: Observable<Prix>;
-  Setting!: Prix;
+  Settings$!: Observable<RapportsModels>;
+  Setting!: Array<Daum>;
    // ~~~~~~~~~~~~~~~~~~~~ Paginator~~~~~~~~~~~~~~~~~~~~~~~~ //
    isFirstPage!: string;
    isLastPage!: string;
@@ -42,7 +42,7 @@ export class PricePageComponent {
 
     this.Settings$.subscribe(
       data => {
-        this.Setting = data;
+        this.Setting = data.data;
         console.log(this.Setting);
       }
     );
@@ -81,7 +81,7 @@ export class PricePageComponent {
     (Response)=>{
       this.AnnonceService.getPricePage().subscribe(
         (data)=>{
-          this.Setting = data;
+          this.Setting = data.data;
           this.good = false;
         }
       )

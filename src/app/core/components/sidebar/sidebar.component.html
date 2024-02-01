@@ -90,27 +90,38 @@
       </li>
     </ul>
   </div>
-  <!-- <div class="multi-level collapse "
+  <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
         <a (click)="goToReportDonation()" class="nav-link">
-          <span class="sidebar-text">Liste de Demandes</span>
+          <span class="sidebar-text">Analyse et Rapport</span>
         </a>
       </li>
     </ul>
-  </div> -->
-  <!--
+  </div>
+
   <div class="multi-level collapse "
     role="list" id="submenu-donation" aria-expanded="false">
     <ul class="flex-column nav">
       <li class="nav-item ">
         <a (click)="goToPrice()" class="nav-link">
-          <span class="sidebar-text">Prix</span>
+          <span class="sidebar-text">Liste des Rapports</span>
         </a>
       </li>
     </ul>
-  </div> -->
+  </div>
+
+  <div class="multi-level collapse "
+    role="list" id="submenu-donation" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToAnalysis()" class="nav-link">
+          <span class="sidebar-text">Liste des Analyses</span>
+        </a>
+      </li>
+    </ul>
+</div>
 
  </li>
 <!--=====================================================-->
@@ -219,6 +230,17 @@
       <li class="nav-item ">
         <a (click)="goToFactures()" class="nav-link">
           <span class="sidebar-text">Liste Factures</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="multi-level collapse "
+    role="list" id="submenu-facture" aria-expanded="false">
+    <ul class="flex-column nav">
+      <li class="nav-item ">
+        <a (click)="goToPaiements()" class="nav-link">
+          <span class="sidebar-text">Paiements</span>
         </a>
       </li>
     </ul>

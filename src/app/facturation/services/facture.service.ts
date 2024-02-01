@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import { CoreService } from 'src/app/core/services/core.service';
 import { environment } from 'src/environments/environment';
-import { Facture } from '../models/facture.model';
+import { Facture, Paiements } from '../models/facture.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +22,12 @@ export class FactureService {
 
   getListFacturePaginate(page: string ="1"): Observable<Facture>{
     return this.http.get<Facture>(`${environment.apiUrlAdminKofa}/Facture/liste?page=${page}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getListFacturePaiement(): Observable<Paiements>{
+    return this.http.get<Paiements>(`${environment.apiUrlAdminKofa}/paiement`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

@@ -4,16 +4,21 @@ import { FacturePagesComponent } from './components/facture-pages/facture-pages.
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule, Routes } from '@angular/router';
 import { FacturePagesResolver } from './resolvers/facture-pages.resolver';
+import { KofaPaiementComponent } from './components/kofa-paiement/kofa-paiement.component';
+import { KofaPaiementResolver } from './resolvers/kofa-paiement.resolver';
 
 const facturePagesResolver = {FacturePagesResolver:FacturePagesResolver};
+const kofaPaiementResolver = {KofaPaiementResolver:KofaPaiementResolver};
 
 const FactureRoutes: Routes = [
-  {path:'liste-facture',component:FacturePagesComponent,resolve:facturePagesResolver}
+  {path:'liste-facture',component:FacturePagesComponent,resolve:facturePagesResolver},
+  {path: 'paiement',component:KofaPaiementComponent,resolve:kofaPaiementResolver},
 ];
 
 @NgModule({
   declarations: [
-    FacturePagesComponent
+    FacturePagesComponent,
+    KofaPaiementComponent
   ],
   imports: [
     CommonModule,

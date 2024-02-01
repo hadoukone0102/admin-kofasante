@@ -80,6 +80,67 @@ export interface rappelSucces{
   message:string
 }
 
+
+export interface Analysis {
+  message: string
+  data: Daum[]
+}
+
+export interface Daum {
+  id: number
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  type:string
+  droite: string
+  gauche: string
+  poids: string
+  taille: string
+  glycemie: string
+  created_at: string
+  updated_at: string
+}
+
+export interface Rapport {
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  titre: string
+  nomAdmin: string
+  desc: string
+}
+
+export interface Lecture {
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  nomAdmin: string
+  desc: string
+}
+export interface success {
+  message: string
+}
+
+export interface LectureListe {
+  message: string
+  data: Daum[]
+}
+
+export interface Daum {
+  id: number
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  nomAdmin: string
+  desc: string
+  created_at: string
+  updated_at: string
+}
+
 /**
  * kofasante categorie type
  */

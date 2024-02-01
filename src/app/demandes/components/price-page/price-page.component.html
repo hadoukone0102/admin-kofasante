@@ -15,26 +15,25 @@
             <thead class="thead-light">
                   <tr>
                     <th class="border-0 rounded-start">N°</th>
-                    <th class="border-0">Services</th>
-                    <th class="border-0">Type de Services</th>
-                    <th class="border-0">Montants</th>
-                    <th class="border-0">Dates</th>
-                    <th class="border-0 rounded-end">Action</th>
+                    <th class="border-0" >Nom </th>
+                    <th class="border-0">Prenom </th>
+                    <th class="border-0">Contact</th>
+                    <th class="border-0" >E-mail </th>
+                    <th class="border-0" >Nom Admin </th>
+                    <th class="border-0" >Titre </th>
+                    <th class="border-0" >Description </th>
                   </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let param of  Setting.data; let i=index" (click)="selectedRow(param)" @linePaginateAnimation >
+              <tr *ngFor="let param of  Setting; let i=index" (click)="selectedRow(param)" @linePaginateAnimation >
                 <td>{{ i+1 }}</td>
-                <td>{{ param.service }}</td>
-                <td>{{ param.type_service }}</td>
-                <td>{{ param.prix }}</td>
-                <td>{{ param.created_at }}</td>
-                <td>
-                  <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#pastoral">
-                    <i class="fa fa-edit"></i>
-                  </a>
-                </td>
+                <td>{{ param.nom }}</td>
+                <td>{{ param.prenom }}</td>
+                <td>{{ param.contact }}</td>
+                <td>{{ param.email }}</td>
+                <td>{{ param.nomAdmin }}</td>
+                <td>{{ param.titre }}</td>
+                <td>{{ param.desc }}</td>
               </tr>
             </tbody>
           </table>
