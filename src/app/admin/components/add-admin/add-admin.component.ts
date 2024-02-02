@@ -73,7 +73,8 @@ export class AddAdminComponent implements OnInit {
    * Add admin in database
    * @date 5/17/2023 - 2:51:27 PM
    */
-
+  showMessage:boolean=false;
+  message!:string;
   onSubmit(){
     this.isSubmitting = true;
     this.contactExists =false;
@@ -82,6 +83,8 @@ export class AddAdminComponent implements OnInit {
       (admin) => {
         this.isSubmitting = false;
         this.resultAdd = admin;
+        this.showMessage=true;
+        this.message = admin.message;
         if (admin.message){
           this.contactExists = false;
           this.coreService.goToAdmin();

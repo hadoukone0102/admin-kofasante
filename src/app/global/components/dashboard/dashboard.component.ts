@@ -46,22 +46,7 @@ export class DashboardComponent implements OnInit{
         this.bilan = data;
       }
     );
-    console.log(this.bilan);
-
-    // this.donationInfo$ = this.route.data.pipe(
-    //   map(data => data['dashboard']),
-    // );
-
-    // this.donationInfo$.subscribe((data) =>
-    // this.donationInfo = data
-    // );
-    //console.log(this.donationInfo);
-
-    // this.adminInfo$ = this.route.data.pipe(
-    //   map(data => data['adminInfo']),
-    // );
-
-    //this.adminInfo$.subscribe((data) => this.adminInfo = data);
+    // console.log(this.bilan);
 
 
     this.adminType = sessionStorage.getItem('type');
@@ -109,5 +94,10 @@ export class DashboardComponent implements OnInit{
   goToAdmin(){ this.coreService.goToAdmin();}
   goToReportMass(){this.coreService.goToReportMass();}
   goToDonationNoAnonymousPerso(){this.coreService.goToDonationNoAnonymousPerso();}
+  goTodocuments(){this.coreService.goTodocuments();}
+  goToVisites(){this.coreService.goToVisites();}
+  goToMedecine(){this.coreService.goToMedecine();}
+  goToAbonnement(){this.coreService.goToAbonnement();}
+  goToInformation(){this.coreService.goToInformation();}
 
 }

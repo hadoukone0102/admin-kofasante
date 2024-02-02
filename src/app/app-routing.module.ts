@@ -40,7 +40,7 @@ const routes: Routes = [
       roles: environment.allRolesKofa
     }
   },
-  {path: 'dons', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule),
+  {path: 'Kofasante', loadChildren: () => import('./donation/donation.module').then(m => m.DonationModule),
     canActivate: [AuthGuard, AccessGuard],
     data:{
       roles: environment.allRolesMediaKofa

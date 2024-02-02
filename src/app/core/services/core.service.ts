@@ -51,15 +51,15 @@ export class CoreService {
 
   // ~~~~~~~~~~~~~~~ //TODO - DONATION ~~~~~~~~~~~~~~ //
 
-  goToDonationAnonymous(){this.router.navigate(['/dons/anonyme']);}
-  goToDonationNoAnonymousPerso(){this.router.navigate(['/dons/non-anonyme/personel']);}
-  goToDonationNoAnonymousOrga(){this.router.navigate(['/dons/non-anonyme/organisation']);}
-  goToReportDonation(){this.router.navigate(['/dons/bilan-don']);}
-  goToBasketDonation(){this.router.navigate(['/dons/corbeille-don']);}
-  goToListDonationType(){this.router.navigate(['/dons/type-don']);}
+  goToDonationAnonymous(){this.router.navigate(['/Kofasante/anonyme']);}
+  goToDonationNoAnonymousPerso(){this.router.navigate(['/Kofasante/non-anonyme/personel']);}
+  goToDonationNoAnonymousOrga(){this.router.navigate(['/Kofasante/non-anonyme/organisation']);}
+  goToReportDonation(){this.router.navigate(['/Kofasante/bilan-don']);}
+  goToBasketDonation(){this.router.navigate(['/Kofasante/corbeille-don']);}
+  goToListDonationType(){this.router.navigate(['/Kofasante/type-don']);}
   goToListDisabledDonationType(){this.router.navigate(['/dons/type-don-inactif']);}
-  goToAddDonationType(){this.router.navigate(['/dons/ajouter-don']);}
-  goToEditDonationType(id: number){this.router.navigate(['/dons/modifier-type-don', id]);}
+  goToAddDonationType(){this.router.navigate(['/Kofasante/ajouter-don']);}
+  goToEditDonationType(id: number){this.router.navigate(['/Kofasante/modifier-type-don', id]);}
 
   // ~~~~~~~~~~~~ //TODO - MASS ~~~~~~~~~~~~ //
 

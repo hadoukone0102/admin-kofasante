@@ -10,6 +10,7 @@
         <!-- Content -->
         <div class="card card-body border-0 shadow mb-4">
             <h2 class="h5 mb-4"></h2>
+            <div *ngIf="showMessage" class="alert-alert-success">{{ message }}</div>
             <form (ngSubmit)="onSubmit()" #addAdminForm="ngForm">
                 <div class="row">
                     <div class="col-12 mb-3">
@@ -61,8 +62,8 @@
                         <div *ngIf="theContact.touched && theContact.errors?.['required']">
                             <small class="text-danger">Entrez votre contact</small>
                         </div>
-                        <div *ngIf="contactExists">
-                            <small class="text-danger">Ce numéros existe déjà!</small>
+                        <div *ngIf="showMessage">
+                            <small class="text-danger">{{ message }}</small>
                         </div>
                         <div class="text-danger"
                             [hidden]="!theContact.errors?.['pattern'] || theContact.pristine">
