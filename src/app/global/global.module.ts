@@ -10,14 +10,10 @@ import { GLOBAL_RESOLVERS, environment } from 'src/environments/environment';
 import { AuthGuard } from '../admin/guards/auth.guard';
 
 
-const listDashboardResolvers = {...{
-  dashboard: DashboardResolver,
-  adminInfo: AdminInfoResolver,
-
-  }, ...GLOBAL_RESOLVERS};
+const listDashboardResolvers = { DashboardResolver: DashboardResolver };
 
 const globalRoutes: Routes = [
-  {path: '', component: DashboardComponent,
+  {path: '', component: DashboardComponent,resolve:listDashboardResolvers,
     canActivate: [AuthGuard],
     data: {
       roles: environment.allRolesKofa

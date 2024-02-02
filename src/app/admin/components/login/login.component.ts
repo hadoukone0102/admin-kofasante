@@ -14,7 +14,6 @@ import { environment } from 'src/environments/environment';
 // declare function showConsole():any ;
 // declare function checkout():any;
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

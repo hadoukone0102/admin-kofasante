@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { DataDonationInfo } from '../../models/donationInfo.model';
+import { Bilan, DataDonationInfo } from '../../models/donationInfo.model';
 import { ActivatedRoute } from '@angular/router';
 import { DataAdminInfo } from '../../models/admin-info.model';
 import { style, transition, trigger,animate } from '@angular/animations';
@@ -17,8 +17,8 @@ import { CoreService } from 'src/app/core/services/core.service';
   ]
 })
 export class DashboardComponent implements OnInit{
-  donationInfo$!: Observable<DataDonationInfo>;
-  donationInfo!: DataDonationInfo;
+  donationInfo$!: Observable<Bilan>;
+  bilan!: Bilan;
 
   adminInfo$!: Observable<DataAdminInfo>;
   adminInfo!: DataAdminInfo;
@@ -36,11 +36,26 @@ export class DashboardComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
+
+    this.donationInfo$ = this.route.data.pipe(
+      map(data => data['DashboardResolver'])
+    );
+
+    this.donationInfo$.subscribe(
+      data => {
+        this.bilan = data;
+      }
+    );
+    console.log(this.bilan);
+
     // this.donationInfo$ = this.route.data.pipe(
     //   map(data => data['dashboard']),
     // );
 
-    //this.donationInfo$.subscribe((data) => this.donationInfo = data);
+    // this.donationInfo$.subscribe((data) =>
+    // this.donationInfo = data
+    // );
+    //console.log(this.donationInfo);
 
     // this.adminInfo$ = this.route.data.pipe(
     //   map(data => data['adminInfo']),
@@ -93,5 +108,6 @@ export class DashboardComponent implements OnInit{
   goToReportDonation(){ this.coreService.goToReportDonation();}
   goToAdmin(){ this.coreService.goToAdmin();}
   goToReportMass(){this.coreService.goToReportMass();}
+  goToDonationNoAnonymousPerso(){this.coreService.goToDonationNoAnonymousPerso();}
 
 }

@@ -6,13 +6,13 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DashboardService } from '../services/dashboard.service';
-import { DataDonationInfo } from '../models/donationInfo.model';
+import { Bilan, DataDonationInfo } from '../models/donationInfo.model';
 
 @Injectable()
-export class DashboardResolver implements Resolve<DataDonationInfo> {
+export class DashboardResolver implements Resolve<Bilan> {
   constructor(private dashboardService: DashboardService){}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<DataDonationInfo> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Bilan> {
     return this.dashboardService.getDonationInfo();
   }
 }
