@@ -54,7 +54,6 @@ export class LoginComponent implements OnInit{
   inputTel!: HTMLInputElement;
   iti!: intlTelInput.Plugin;
 
-
   constructor(
     private coreService: CoreService,
     private authService: AuthService

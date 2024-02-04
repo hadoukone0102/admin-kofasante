@@ -20,7 +20,7 @@ export const  environment = {
     massReportForExport : 'https://messe-api.eglise-mukasa.ci/api/requestmesse/bigAll',
 
     // ~~~~~~~~~~~~~~~ CAPTCHA ~~~~~~~~~~~~~~~ //
-    captchaKeyProd: "6LdUhyYmAAAAAKGkicX9V3mmCts-chMSxUOmZZU3",
+    captchaKeyProd: "6Le4AGUpAAAAABHN3yGJy4QC9DJissUGJb1mIGwU",
     captchaKeyDev: "6LeFkyAmAAAAABw-gLHgeGGT-r19igGGMw4zsizw",
 
     // ~~~~~~~~~~ DATE FOR SEARCHING ~~~~~~~~~ //

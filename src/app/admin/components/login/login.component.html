@@ -66,7 +66,7 @@
                         </div>
                         <!-- End Captcha -->
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-gray-800" [disabled]="loginForm.invalid">Se connecter</button>
+                            <button type="submit" class="btn btn-gray-800" [disabled]="loginForm.invalid || !tokenCaptcha">Se connecter</button>
                         </div>
                         <!---->
                     </form>
