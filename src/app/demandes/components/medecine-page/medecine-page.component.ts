@@ -210,4 +210,23 @@ export class MedecinePageComponent {
       )
     }
 
+    DeleteMedia(id: string | number) {
+      const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+      if (userConfirmed) {
+          this.AnnonceService.getMedecinePageDelete(id).subscribe(
+              (data) => {
+                this.AnnonceService.getMedecinePage().subscribe(
+                  (data)=>{
+                    this.Setting = data;
+                    this.good = false;
+                  }
+                )
+              },
+              (error) => {
+                  console.log(error);
+              }
+          );
+      }
+  }
+
 }

@@ -206,4 +206,24 @@ export class DocumentsPageComponent {
     )
   }
 
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+    if (userConfirmed) {
+        this.AnnonceService.getDocumentsPageDelete(id).subscribe(
+            (data) => {
+              this.AnnonceService.getDocumentsPage().subscribe(
+                (data)=>{
+                  this.Setting = data;
+                  this.good = false;
+                }
+              )
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+}
+
+
 }

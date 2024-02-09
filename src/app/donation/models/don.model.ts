@@ -102,6 +102,16 @@ export interface Daum {
   updated_at: string
 }
 
+export interface AnaUser{
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  nomAdmin: string
+  desc:string
+}
+
+
 export interface Rapport {
   nom: string
   prenom: string

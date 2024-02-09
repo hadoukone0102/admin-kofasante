@@ -145,6 +145,7 @@ export class VisitesPageComponent {
 
   checkElements(data:any){
     this.dataElement ={
+      id:data.id,
       nom:data.nom,
       prenom:data.prenom,
       contact:data.contact,
@@ -196,5 +197,23 @@ export class VisitesPageComponent {
     )
   }
 
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+    if (userConfirmed) {
+        this.AnnonceService.getVisitePageDelete(id).subscribe(
+            (data) => {
+              this.AnnonceService.getVisitePage().subscribe(
+                (data)=>{
+                  this.Setting = data;
+                  this.good = false;
+                }
+              )
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+}
 
 }

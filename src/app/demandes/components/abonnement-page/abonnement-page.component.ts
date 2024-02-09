@@ -191,4 +191,22 @@ export class AbonnementPageComponent {
       )
     }
 
+    DeleteMedia(id: string | number) {
+      const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+      if (userConfirmed) {
+          this.AnnonceService.getAbonnementPageDelete(id).subscribe(
+              (data) => {
+                this.AnnonceService.getAbonnementPage().subscribe(
+                  (data)=>{
+                    this.Setting = data;
+                    this.good = false;
+                  }
+                )
+              },
+              (error) => {
+                  console.log(error);
+              }
+          );
+      }
+  }
 }

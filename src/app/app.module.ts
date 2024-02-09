@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, importProvidersFrom } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor';
 import { DemandesModule } from './demandes/demandes.module';
 import { FacturationModule } from './facturation/facturation.module';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -33,7 +34,16 @@ import { FacturationModule } from './facturation/facturation.module';
     FacturationModule,
 
   ],
-  providers: [TokenInterceptorProvider],//All time enabled
+  providers: [
+    importProvidersFrom(HttpClientModule),
+    importProvidersFrom(
+        HttpClientXsrfModule.withOptions({
+        cookieName: 'My-Xsrf-Cookie',
+        headerName: 'My-Xsrf-Header',
+      })
+    ),
+    TokenInterceptorProvider
+  ],//All time enabled
   bootstrap: [AppComponent]
 })
 export class AppModule { }

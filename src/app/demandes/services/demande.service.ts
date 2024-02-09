@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CoreService } from 'src/app/core/services/core.service';
 import { Observable, catchError } from 'rxjs';
-import { AbonnementPage, DocumentPage, Medecine, Prix, RapportsModels, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
+import { AbonnementPage, DocumentPage, Medecine, Prix, RapporUser, RapportsModels, RenseignerPage, SendPrix, Success, Visites } from '../models/demande.model';
 import { environment } from 'src/environments/environment';
 import { AbonnementFacture, MedecineFacture, RenseignerFacture, VisiteFacture, documentsFacture, update } from 'src/app/facturation/models/facture.model';
 @Injectable({
@@ -106,8 +106,59 @@ export class DemandeService {
     );
   }
 
+  /**
+   * for delete request
+   */
+
+  getrenseignerPageDelete(id:string | number): Observable<RenseignerPage>{
+    return this.http.delete<RenseignerPage>(`${environment.apiUrlAdminKofa}/renseigner/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getDocumentsPageDelete(id:string | number): Observable<DocumentPage>{
+    return this.http.delete<DocumentPage>(`${environment.apiUrlAdminKofa}/document/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getMedecinePageDelete(id:string | number): Observable<Medecine>{
+    return this.http.delete<Medecine>(`${environment.apiUrlAdminKofa}/medecine/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getAbonnementPageDelete(id:string | number): Observable<AbonnementPage>{
+    return this.http.delete<AbonnementPage>(`${environment.apiUrlAdminKofa}/abonnement/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getVisitePageDelete(id:string | number): Observable<Visites>{
+    return this.http.delete<Visites>(`${environment.apiUrlAdminKofa}/visite/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  /**
+ * for delete request
+ */
+
+
   getPricePage(): Observable<RapportsModels>{
     return this.http.get<RapportsModels>(`${environment.apiUrlAdminKofa}/Rapports`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getUpadteRapport(id:string,data:RapporUser): Observable<RapportsModels>{
+    return this.http.put<RapportsModels>(`${environment.apiUrlAdminKofa}/Rapports/${id}`,data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
+  getDeleteRapport(id:string|number): Observable<RapportsModels>{
+    return this.http.delete<RapportsModels>(`${environment.apiUrlAdminKofa}/Rapports/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
   }

@@ -10,10 +10,11 @@ import { AdminLog, DataResultLogin, Datalogins } from '../../models/result-login
 import * as intlTelInput from 'intl-tel-input';
 import { environment } from 'src/environments/environment';
 // import myModule from '../../../../assets/js/mod'
+import axios from 'axios';
 
 // declare function showConsole():any ;
 // declare function checkout():any;
-
+axios.defaults.withCredentials = true
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -86,7 +87,7 @@ export class LoginComponent implements OnInit{
     this.isLogged = true;
 
     // ~~~~~~~~~~~~~~~ Captcha ~~~~~~~~~~~~~~~ //
-    this.siteKey = environment.captchaKeyDev;
+    this.siteKey = environment.captchaKeyProd;
     this.theme ="light"
     this.tokenCaptcha = null;
 }

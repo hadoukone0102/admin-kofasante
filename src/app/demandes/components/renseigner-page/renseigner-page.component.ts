@@ -195,6 +195,23 @@ export class RenseignerPageComponent {
     )
   }
 
-
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+    if (userConfirmed) {
+        this.AnnonceService.getrenseignerPageDelete(id).subscribe(
+            (data) => {
+              this.AnnonceService.getrenseignerPage().subscribe(
+                (data)=>{
+                  this.Setting = data;
+                  this.good = false;
+                }
+              )
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+}
 
 }

@@ -275,3 +275,13 @@ export interface ElementPage {
   typeService: string,
   price: number,
 }
+
+export interface RapporUser{
+  nom: string
+  prenom: string
+  email: string
+  contact: string
+  nomAdmin: string
+  titre:string
+  desc:string
+}

@@ -1,9 +1,10 @@
+import { Data } from './../../facturation/models/facture.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Analysis, DataDon, KofaUser, Lecture, LectureListe, ListeMedia, MediaSend, Rappel, Rapport, Successmessage, categorie, rappelSucces, success } from '../models/don.model';
+import { AnaUser, Analysis, DataDon, KofaUser, Lecture, LectureListe, ListeMedia, MediaSend, Rappel, Rapport, Successmessage, categorie, rappelSucces, success } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -54,6 +55,7 @@ export class DonationService {
     );
   }
 
+
   sendRapports(data:Rapport): Observable<success>{
     return this.http.post<success>(`${environment.apiUrlAdminKofa}/Rapports`,data).pipe(
       catchError((error) => this.coreService.handleError(error))
@@ -68,6 +70,18 @@ export class DonationService {
 
   getListAnalysis(): Observable<LectureListe>{
     return this.http.get<LectureListe>(`${environment.apiUrlAdminKofa}/lecture`).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  getListDataForAnalysisUpdate(id:string,Data:AnaUser): Observable<Analysis>{
+    return this.http.put<Analysis>(`${environment.apiUrlAdminKofa}/lecture/${id}`,Data).pipe(
+      catchError((error) => this.coreService.handleError(error))
+    );
+  }
+
+  getListDataForAnalysisDelete(id:string|number): Observable<Analysis>{
+    return this.http.delete<Analysis>(`${environment.apiUrlAdminKofa}/lecture/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }
