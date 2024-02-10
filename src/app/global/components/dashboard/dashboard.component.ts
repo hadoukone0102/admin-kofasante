@@ -91,7 +91,8 @@ export class DashboardComponent implements OnInit{
   // routes
 
   goToReportDonation(){ this.coreService.goToReportDonation();}
-  goToAdmin(){ this.coreService.goToAdmin();}
+  goToDonationNoAnonymousOrga(){this.coreService.goToDonationNoAnonymousOrga();}
+  goToAdmin(){this.coreService.goToAdmin();}
   goToReportMass(){this.coreService.goToReportMass();}
   goToDonationNoAnonymousPerso(){this.coreService.goToDonationNoAnonymousPerso();}
   goTodocuments(){this.coreService.goTodocuments();}

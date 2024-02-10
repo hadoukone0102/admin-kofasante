@@ -28,13 +28,18 @@
         </tr>
         </thead>
         <tbody >
-            <tr *ngFor="let user of donationListParent.type; let i= index" (click)="checkElements(user)">
+            <tr *ngFor="let user of donationListParent.type; let i= index" (click)="checkElements(user)" @linePaginateAnimation>
               <td>{{ i+1 }}</td>
               <td>{{ user.nom }}</td>
               <td>{{ user.prenom }}</td>
               <td>{{ user.contact }}</td>
               <td>{{ user.email }}</td>
               <td>
+
+                <a title="Supprimer le rapport" (click)="DeleteMedia(user.id)" class="me-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+
                 <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
                   data-bs-toggle="modal" data-bs-target="#pastoral">
                   <i class="fa fa-edit"></i>

@@ -43,11 +43,19 @@ export class DonationService {
     );
   }
 
+  getDeleteUser(id:string|number): Observable<KofaUser>{
+    return this.http.delete<KofaUser>(`${environment.apiUrlAdminKofa}/delete-user/${id}`).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
+
   SendRappelForKofaUser(data:Rappel): Observable<rappelSucces>{
     return this.http.post<rappelSucces>(`${environment.apiUrlAdminKofa}/rappels`,data).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }
+
+
 
   getListDataForAnalysis(): Observable<Analysis>{
     return this.http.get<Analysis>(`${environment.apiUrlAdminKofa}/analyse`).pipe(

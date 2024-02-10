@@ -51,10 +51,10 @@ export class CoreService {
 
   // ~~~~~~~~~~~~~~~ //TODO - DONATION ~~~~~~~~~~~~~~ //
 
-  goToDonationAnonymous(){this.router.navigate(['/Kofasante/anonyme']);}
-  goToDonationNoAnonymousPerso(){this.router.navigate(['/Kofasante/non-anonyme/personel']);}
-  goToDonationNoAnonymousOrga(){this.router.navigate(['/Kofasante/non-anonyme/organisation']);}
-  goToReportDonation(){this.router.navigate(['/Kofasante/bilan-don']);}
+  goToDonationAnonymous(){this.router.navigate(['/Kofasante/add-pub']);}
+  goToDonationNoAnonymousPerso(){this.router.navigate(['/Kofasante/publications']);}
+  goToDonationNoAnonymousOrga(){this.router.navigate(['/Kofasante/utilisateurs']);}
+  goToReportDonation(){this.router.navigate(['/Kofasante/analyse']);}
   goToBasketDonation(){this.router.navigate(['/Kofasante/corbeille-don']);}
   goToListDonationType(){this.router.navigate(['/Kofasante/type-don']);}
   goToListDisabledDonationType(){this.router.navigate(['/dons/type-don-inactif']);}
@@ -82,8 +82,8 @@ export class CoreService {
     // ~~~~~~~~~~~~~~~~~~~ // TODO  - demandes ~~~~~~~~~~~~~~~~ //
   goTodocuments(){this.router.navigate(['/demande/documents'])}
   goToVisites(){this.router.navigate(['/demande/visites'])}
-  goToPrice(){this.router.navigate(['/demande/prix'])}
-  goToAnalysis(){this.router.navigate(['/demande/analyse']);}
+  goToPrice(){this.router.navigate(['/demande/rapports'])}
+  goToAnalysis(){this.router.navigate(['/demande/liste-analyse']);}
   goToMedecine(){this.router.navigate(['/demande/medecine'])}
   goToInformation(){this.router.navigate(['/demande/info'])}
   goToAbonnement(){this.router.navigate(['/demande/abonnement']);}

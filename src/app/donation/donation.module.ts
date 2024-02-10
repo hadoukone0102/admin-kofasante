@@ -43,10 +43,10 @@ const disabledDonationTypeResolvers = {...{disabledDonationType: DisabledDonatio
 
 
 const donationRoutes: Routes = [
-  {path: 'anonyme', component: ListAnonymousComponent, resolve: listAnoResolvers},
-  {path: 'non-anonyme/personel', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
-  {path: 'non-anonyme/organisation', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
-  {path: 'bilan-don', component: ReportDonationComponent, resolve:listAllResolver},
+  {path: 'add-pub', component: ListAnonymousComponent, resolve: listAnoResolvers},
+  {path: 'publications', component: ListNoAnonymousPersoComponent, resolve: listNoAnoPersoResolvers},
+  {path: 'utilisateurs', component: ListNoAnonymousOrgaComponent, resolve:listNoAnoOrgaResolvers},
+  {path: 'analyse', component: ReportDonationComponent, resolve:listAllResolver},
   {path: 'corbeille-don', component: ListBasketDonationComponent, resolve:listBasketResolvers},
 
   {path: 'type-don', component: ListDonationTypeComponent, resolve:listDonationTypeResolvers},

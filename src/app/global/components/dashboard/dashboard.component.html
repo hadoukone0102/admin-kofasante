@@ -10,7 +10,7 @@
     <!-- Content -->
     <div class="row">
 
-      <a *ngIf="isAuthorizedForFirstGroup()" (click)="goToReportDonation()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
+      <a *ngIf="isAuthorizedForFirstGroup()" (click)="goToDonationNoAnonymousOrga()" class="col-12 col-sm-4 col-xl-4 mb-4" @zoomEnterAnimation>
         <div class="card border-0 shadow">
           <div class="card-body">
             <div class="row d-block d-xl-flex align-items-center">
@@ -19,7 +19,7 @@
                   <i class="fa fa-heart"></i>
                 </div>
                 <div class="d-sm-none">
-                  <h2 class="h5">Utilisateur</h2>
+                  <h2 class="h5">Utilisateurs</h2>
                   <h3 class="fw-extrabold mb-1">{{this.bilan.user}}</h3>
                 </div>
               </div>

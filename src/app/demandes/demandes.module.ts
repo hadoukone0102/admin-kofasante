@@ -31,8 +31,8 @@ const demandeRoutes: Routes = [
   {path:'medecine',component:MedecinePageComponent,resolve:medecinePageResolver},
   {path:'info',component:RenseignerPageComponent,resolve:renseignerPageResolver},
   {path:'abonnement',component:AbonnementPageComponent,resolve:abonnementPageResolver},
-  {path:'prix',component:PricePageComponent,resolve:pricePageResolver},
-  {path:'analyse',component:ListAnalyseComponent,resolve:listAnalyseResolver},
+  {path:'rapports',component:PricePageComponent,resolve:pricePageResolver},
+  {path:'liste-analyse',component:ListAnalyseComponent,resolve:listAnalyseResolver},
 
 ];
 @NgModule({

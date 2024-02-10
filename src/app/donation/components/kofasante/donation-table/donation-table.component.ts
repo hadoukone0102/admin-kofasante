@@ -80,4 +80,24 @@ export class DonationTableComponent implements OnInit{
       }
     )
   }
+
+
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment supprimer ce rapport ?");
+    if (userConfirmed) {
+        this.donationService.getDeleteUser(id).subscribe(
+            (data) => {
+              this.donationService.getlistuserKofa().subscribe(
+                (data)=>{
+                  this.donationListParent = data;
+                  this.good = false;
+                }
+              )
+            },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+}
 }
