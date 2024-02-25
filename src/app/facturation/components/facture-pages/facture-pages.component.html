@@ -5,7 +5,7 @@
     <app-page-title
         theModule="Facturation"
         theTitle="Facture des clients"
-        theContent="Liste des Facture">
+        theContent="Liste des Factures">
     </app-page-title>
     <!-- Content -->
     <div class="card card-body border-0 shadow mb-4">
@@ -27,6 +27,7 @@
                     <th >Montants</th>
                     <th >Status</th>
                     <th>Details</th>
+                    <th class="border-0 rounded-end">Actions</th>
                   </tr>
             </thead>
             <tbody>
@@ -45,7 +46,11 @@
                 <td *ngIf="param.status == true" class="green">Payé</td>
                 <td *ngIf="param.status != true" class="red">Non Payé</td>
                 <td>{{ param.details }}</td>
-
+                <td>
+                    <a title="supprimer la factures" (click)="DeleteMedia(param.id)" class="text-center btn btn-sm btn-secondary d-inline-flex align-items-center">
+                      <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a>
+                </td>
               </tr>
             </tbody>
           </table>

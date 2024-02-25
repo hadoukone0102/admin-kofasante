@@ -4,8 +4,8 @@
     <app-header></app-header>
     <app-page-title
         theModule="Demande"
-        theTitle="Demande d'Abonnement à un Forfait"
-        theContent="Liste des Demande">
+        theTitle="Demande d'abonnement a un Forfait"
+        theContent="Liste des Demandes">
     </app-page-title>
     <!-- Content -->
     <div class="card card-body border-0 shadow mb-4">
@@ -23,6 +23,7 @@
                     <th >Nombre de visite</th>
                     <th >Services</th>
                     <th >Type Services</th>
+                    <th>Autres</th>
                     <th >Status</th>
                     <th>Details</th>
                     <th class="border-0 rounded-end">Actions</th>
@@ -39,7 +40,8 @@
                 <td>{{ param.nombreVisite }}</td>
                 <td>{{ param.services }}</td>
                 <td>{{ param.typeServices }}</td>
-                <td *ngIf="param.status == true" class="green">Activer</td>
+                <td>{{ param.autre }}</td>
+                <td *ngIf="param.status == true" class="green">déjà envoyée</td>
                 <td *ngIf="param.status != true" class="red">En attente</td>
                 <td>{{ param.details }}</td>
                 <td>
@@ -47,10 +49,12 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
 
-                  <a title="Envoyer Facture" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#pastoral">
-                    <i class="fa fa-edit"></i>
-                 </a>
+                  <ng-container *ngIf="param.status != true">
+                    <a title="Envoyer Facture" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                      data-bs-toggle="modal" data-bs-target="#pastoral">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                </ng-container>
                 </td>
               </tr>
             </tbody>

@@ -34,7 +34,6 @@ export class KofaPaiementComponent {
     this.Settings$.subscribe(
       data => {
         this.Setting = data.data;
-        console.log(this.Setting);
       }
     );
 

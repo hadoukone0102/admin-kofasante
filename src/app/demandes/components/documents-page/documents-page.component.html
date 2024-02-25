@@ -4,8 +4,8 @@
     <app-header></app-header>
     <app-page-title
         theModule="Demande"
-        theTitle="Demande de Document Medicaux"
-        theContent="Liste Demande de Document Medicaux">
+        theTitle="Demande de Documents Medicaux"
+        theContent="Liste Demande de Documents Medicaux">
     </app-page-title>
     <!-- Content -->
     <div class="card card-body border-0 shadow mb-4">
@@ -20,6 +20,7 @@
                     <th>E-mail</th>
                     <th>Contact</th>
                     <th>RDV</th>
+                    <th>Autres type RDV</th>
                     <th>Date RDV</th>
                     <th>Type service</th>
                     <th >Status</th>
@@ -35,9 +36,10 @@
                 <td>{{ param.email }}</td>
                 <td>{{ param.contact }}</td>
                 <td>{{ param.rdv }}</td>
+                <td>{{ param.consultVar }}</td>
                 <td>{{ param.dateRdv }}</td>
                 <td>{{ param.typeServices }}</td>
-                <td *ngIf="param.status == true" class="green">Activer</td>
+                <td *ngIf="param.status == true" class="green">déjà envoyée</td>
                 <td *ngIf="param.status != true" class="red">En attente</td>
                 <td>{{ param.details }}</td>
                 <td>
@@ -45,10 +47,12 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
 
-                  <a title="Envoyer Facture" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#pastoral">
-                    <i class="fa fa-edit"></i>
-                 </a>
+                  <ng-container *ngIf="param.status != true">
+                    <a title="Envoyer Facture" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                      data-bs-toggle="modal" data-bs-target="#pastoral">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                </ng-container>
                 </td>
               </tr>
             </tbody>
@@ -87,6 +91,7 @@
           </div>
           <div class="modal-body">
             <h3 class="text-center">information personnel</h3>
+            <!-- <div *ngIf="message" class="alert-success">{{ message }}</div> -->
             <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
 
               <div class="m-2 d-flex align-items-center justify-content-between">

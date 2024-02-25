@@ -24,6 +24,10 @@ export interface MediaSend{
   desc:string
 }
 
+export interface MediaUpdate{
+  desc:string
+}
+
 export interface Successmessage{
   status:number
   message:string

@@ -123,6 +123,7 @@ export interface Daum {
   details: string
   type: string
   couts: number
+  autre?:string
   created_at: string
   updated_at: string
 }
@@ -168,6 +169,7 @@ export interface Daum {
   details: string
   type: string
   couts: number
+  autre?:string
   created_at: string
   updated_at: string
 }
@@ -217,6 +219,7 @@ export interface Daum {
   details: string
   type: string
   couts: number
+  autre?:string
   created_at: string
   updated_at: string
 }

@@ -35,6 +35,10 @@
             <a title="Désactivez ce type" (click)="DeleteMedia(media.id)" class="me-2 btn btn-sm btn-secondary d-inline-flex align-items-center">
               <i class="fa fa-trash" aria-hidden="true"></i>
             </a>
+            <a title="Envoyer Facture" (click)="checkElements(media)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+            data-bs-toggle="modal" data-bs-target="#pastoral">
+            <i class="fa fa-edit"></i>
+         </a>
           </td>
           <td>{{ media.media }}</td>
           <td>{{ media.created_at }}</td>
@@ -42,6 +46,47 @@
         </tr>
       </tbody>
     </table>
+
+
+      <!-- Modal -->
+      <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+              <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-black" id="exampleModalLabel">media</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div *ngIf="message" class="alert btn-success">{{ message }}</div>
+                      <h3 class="text-center">Publications</h3>
+                      <form (ngSubmit)="onSubmit()" #editDonationType="ngForm">
+
+                        <div class="m-2 d-flex align-items-center justify-content-between">
+                          <label for="exampleInputEmail1" class="form-label">Titre de la Publication : {{ dataElement.titre }}</label>
+                        </div>
+
+                        <label for="floatingTextarea2">Contenue de la Publication</label>
+                        <div class="form-floating">
+                          <textarea class="form-control" [(ngModel)]="MediaUpdate.desc" name="desc" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
+
+                        <div class="modal-footer">
+                          <!-- Spinner -->
+                          <div *ngIf="good" class="text-center">
+                            <div class=" ms-3 d-flex align-items-center justify-content-center">
+                                <app-spinner></app-spinner>
+                            </div>
+                          </div>
+                          <!-- End spinner -->
+
+                          <button type="submit" class="btn btn-primary" >Envoyer Facture</button>
+                        </div>
+                      </form>
+                    </div>
+              </div>
+        </div>
+      </div>
+  <!-- Modal -->
 
   </div>
 

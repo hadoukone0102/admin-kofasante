@@ -128,6 +128,8 @@ export class DemandeService {
     );
   }
 
+
+
   getAbonnementPageDelete(id:string | number): Observable<AbonnementPage>{
     return this.http.delete<AbonnementPage>(`${environment.apiUrlAdminKofa}/abonnement/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),

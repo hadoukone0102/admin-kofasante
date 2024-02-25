@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ListeMedia } from 'src/app/donation/models/don.model';
+import { ListeMedia, MediaUpdate } from 'src/app/donation/models/don.model';
 import { DonationService } from 'src/app/donation/services/donation.service';
 
 @Component({
@@ -14,7 +14,9 @@ export class ListeAsctuceKofasanteComponent {
   dataElement!:any
   good!:boolean;
   Rappel!:any;
+  MediaUpdate!:MediaUpdate;
   showSuccessMessage:boolean=false;
+  message!:string;
   constructor( private services : DonationService){
 
   }
@@ -24,7 +26,8 @@ export class ListeAsctuceKofasanteComponent {
       nom:'',
       prenom:'',
       contact:'',
-      email:'',
+      desc:'',
+      titre:'',
     }
 
 
@@ -38,6 +41,9 @@ export class ListeAsctuceKofasanteComponent {
       heure: '',
       jour:''
     }
+    this.MediaUpdate ={
+      desc:''
+    }
   }
 
   resetFilter() {
@@ -50,7 +56,11 @@ export class ListeAsctuceKofasanteComponent {
       nom:data.nom,
       prenom:data.prenom,
       contact:data.contact,
-      email:data.email,
+      desc:data.desc,
+      titre:data.titre
+    }
+    this.MediaUpdate ={
+      desc:this.dataElement.desc
     }
   }
 
@@ -69,6 +79,19 @@ export class ListeAsctuceKofasanteComponent {
             }
         );
     }
+}
+
+onSubmit(){
+  this.good = true;
+  this.services.updatePublication(this.MediaUpdate,this.dataElement.id).subscribe(
+    (data)=>{
+      this.message = data.message;
+      this.good = false;
+    },(Error)=>{
+      console.log(Error);
+      this.good = false;
+    }
+  )
 }
 
 }

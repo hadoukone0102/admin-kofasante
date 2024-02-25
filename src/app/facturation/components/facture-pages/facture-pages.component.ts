@@ -39,7 +39,6 @@ export class FacturePagesComponent {
     }
   );
 
-  console.log(this.Setting);
  }
 
 
@@ -104,6 +103,25 @@ export class FacturePagesComponent {
 
   }
 
+
+  DeleteMedia(id: string | number) {
+    const userConfirmed = window.confirm("Voulez-vous vraiment annuler cette demande ?");
+    if (userConfirmed) {
+        this.AnnonceService.getFactureDelete(id).subscribe(
+            (data) => {
+              this.AnnonceService.getListFacture().subscribe(
+                (data)=>{
+                  this.Setting = data;
+                  this.good = false;
+                }
+              )
+            },
+            (error) => {
+                console.log(error);
+          }
+      );
+  }
+}
 
 
 }

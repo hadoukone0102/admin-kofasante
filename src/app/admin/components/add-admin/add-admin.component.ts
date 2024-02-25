@@ -64,7 +64,6 @@ export class AddAdminComponent implements OnInit {
     ).subscribe(
       data => {
         this.listAdminTypes = data;
-        console.log(this.listAdminTypes);
       }
     );
   }

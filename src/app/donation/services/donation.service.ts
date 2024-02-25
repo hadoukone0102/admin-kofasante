@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { AnaUser, Analysis, DataDon, KofaUser, Lecture, LectureListe, ListeMedia, MediaSend, Rappel, Rapport, Successmessage, categorie, rappelSucces, success } from '../models/don.model';
+import { AnaUser, Analysis, DataDon, KofaUser, Lecture, LectureListe, ListeMedia, MediaSend, MediaUpdate, Rappel, Rapport, Successmessage, categorie, rappelSucces, success } from '../models/don.model';
 import { CoreService } from 'src/app/core/services/core.service';
 import { DataAccumulation } from '../models/accumulation.model';
 import { ActionDonationTypeResponseModel, AddDontationTypeModel, AddDontationTypeResponseModel, DonationTypeByIdModel, DonationTypeData, DonationTypeModel, SetDonationTypeResponseModel } from '../models/donation-type.model';
@@ -110,6 +110,11 @@ export class DonationService {
     );
   }
 
+  updatePublication(data: MediaUpdate,id:string): Observable<Successmessage>{
+    return this.http.put<Successmessage>(`${environment.apiUrlAdminKofa}/media-update/${id}`, data).pipe(
+      catchError((error) => this.coreService.handleError(error)),
+    );
+  }
 
   // ====================================================== //
   // ================== //ANCHOR - UPDATE ================= //

@@ -31,7 +31,7 @@
                 <td>{{ param.prenom }}</td>
                 <td>{{ param.email }}</td>
                 <td>{{ param.contact }}</td>
-                <td *ngIf="param.status == true" class="green">Activer</td>
+                <td *ngIf="param.status == true" class="green">déjà envoyée</td>
                 <td *ngIf="param.status != true" class="red">En attente</td>
                 <td>{{ param.details }}</td>
                 <td>
@@ -39,10 +39,12 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                   </a>
 
-                  <a title="Envoyer Facture"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
-                    data-bs-toggle="modal" data-bs-target="#pastoral">
-                    <i class="fa fa-edit"></i>
-                 </a>
+                  <ng-container *ngIf="param.status != true">
+                    <a title="Envoyer Facture" (click)="checkElements(param)" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                      data-bs-toggle="modal" data-bs-target="#pastoral">
+                      <i class="fa fa-edit"></i>
+                    </a>
+                </ng-container>
                 </td>
               </tr>
             </tbody>
