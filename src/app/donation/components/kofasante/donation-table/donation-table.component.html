@@ -40,14 +40,86 @@
                   <i class="fa fa-trash" aria-hidden="true"></i>
                 </a>
 
-                <a title="Modifier"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+                <a title="Rappel"  class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
                   data-bs-toggle="modal" data-bs-target="#pastoral">
                   <i class="fa fa-edit"></i>
                </a>
+
+               <a title="Ajouter un rapport"  class="me-2 btn btn-sm btn-primary d-inline-flex align-items-center"
+                data-bs-toggle="modal" data-bs-target="#rapport">
+                <i class="fa fa-edit"></i>
+               </a>
+
               </td>
             </tr>
         </tbody>
       </table>
+
+
+       <!-- Modal -->
+  <div class="modal fade" id="rapport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+          <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title text-black" id="exampleModalLabel">Facture</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <h3 class="text-center">Rapport Medical</h3>
+                  <div *ngIf="showSuccessMessage" class="alert alert-success">Rapport Enregistrer avec succès</div>
+                  <form (ngSubmit)="onSubmit2()" #editDonationType="ngForm">
+
+                    <div class="m-2 d-flex align-items-center justify-content-between">
+                      <label for="exampleInputEmail1" class="form-label">Nom : {{ dataElement.nom }}</label>
+                      <label for="exampleInputEmail1" class="form-label">Prenom : {{ dataElement.prenom }}</label>
+                    </div>
+
+                    <div class="m-2 d-flex align-items-center justify-content-between">
+                      <label for="exampleInputEmail1" class="form-label">Contact: {{ dataElement.contact }}</label>
+                      <label for="exampleInputEmail1" class="form-label">E-mail : {{ dataElement.email }}</label>
+                    </div>
+
+                    <div class="m-2">
+                      <label for="exampleInputEmail1" class="form-label">Qui Saisir le rapport :</label>
+                      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        required
+                        name="nomAdmin"
+                        [(ngModel)]="Rapport.nomAdmin"
+                      />
+                    </div>
+
+                    <div class="m-2">
+                        <label for="exampleInputEmail1" class="form-label">Titre :</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                          required
+                          name="titre"
+                          [(ngModel)]="Rapport.titre"
+                        />
+                    </div>
+
+                    <label for="exampleInputEmail1" class="form-label">Contenue du Rapport :</label>
+                    <div class="form-floating">
+                      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="desc" [(ngModel)]="Rapport.desc"></textarea>
+                      <label for="floatingTextarea2">Rapport...</label>
+                    </div>
+
+                    <div class="modal-footer">
+                      <!-- Spinner -->
+                      <div *ngIf="good" class="text-center">
+                        <div class=" ms-3 d-flex align-items-center justify-content-center">
+                            <app-spinner></app-spinner>
+                        </div>
+                      </div>
+                      <!-- End spinner -->
+
+                      <button type="submit" class="btn btn-primary" >Envoyer le Rapport</button>
+                    </div>
+                  </form>
+                </div>
+          </div>
+    </div>
+  </div>
+<!-- Modal -->
 
            <!-- Modal -->
            <div class="modal fade" id="pastoral" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

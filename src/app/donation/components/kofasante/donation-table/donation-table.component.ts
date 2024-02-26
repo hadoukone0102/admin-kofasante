@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subject, debounceTime, distinctUntilChanged, map, switchMap, takeWhile } from 'rxjs';
-import { DataDon, Don, KofaUser, Rappel } from '../../../models/don.model';
+import { DataDon, Don, KofaUser, Lecture, Rappel, Rapport } from '../../../models/don.model';
 import { DonationService } from '../../../services/donation.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
@@ -26,8 +26,12 @@ export class DonationTableComponent implements OnInit{
   dataElement!:any
   good!:boolean;
   Rappel!:Rappel;
+  showSuccessMessage:boolean=false;
+  Rapport!:Rapport;
+  Lecture!:Lecture;
   constructor(
     private donationService: DonationService,
+    private DonationService:DonationService,
     ) {}
 
   ngOnInit(): void {
@@ -48,6 +52,26 @@ export class DonationTableComponent implements OnInit{
       heure: 8,
       jour:0
     }
+
+    this.Rapport ={
+      nom: '',
+      prenom: "",
+      email: "",
+      contact: "",
+      titre: "",
+      nomAdmin: "",
+      desc: "",
+    }
+
+    this.Lecture ={
+      nom: '',
+      prenom: "",
+      email: "",
+      contact: "",
+      nomAdmin: "",
+      desc: "",
+    }
+
   }
 
   resetFilter(){
@@ -76,6 +100,26 @@ export class DonationTableComponent implements OnInit{
           this.message = data.message;
         this.good = false;
       },(Error)=>{
+        console.log(Error);
+      }
+    )
+  }
+
+  onSubmit2(){
+    this.good = true;
+    this.Rapport.nom = this.dataElement.nom;
+    this.Rapport.prenom = this.dataElement.prenom;
+    this.Rapport.contact = this.dataElement.contact;
+    this.Rapport.email = this.dataElement.email;
+    this.DonationService.sendRapports(this.Rapport).subscribe(
+      (data)=>{
+        console.log(data);
+        this.DonationService.getListDataForAnalysis().subscribe((data)=>{
+          this.good = false;
+          this.showSuccessMessage=true;
+        })
+      },(Error)=>{
+        this.good = false;
         console.log(Error);
       }
     )
