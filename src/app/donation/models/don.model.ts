@@ -138,12 +138,12 @@ export interface Daum {
   sexe: string
   age: string
   type: string
-  taille: string
-  poids: string
-  systolique: string
-  diastolique: string
+  taille: any
+  poids: any
+  systolique: any
+  diastolique: any
   valeurGly: any
-  valeurTemp: string
+  valeurTemp: any
   condition: any
   unite: any
   interpretation: string
