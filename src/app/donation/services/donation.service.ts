@@ -43,7 +43,7 @@ export class DonationService {
     );
   }
 
-  getDeleteUser(id:string|number): Observable<KofaUser>{
+  getDeleteUser(id:string | number): Observable<KofaUser>{
     return this.http.delete<KofaUser>(`${environment.apiUrlAdminKofa}/delete-user/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error)),
     );
@@ -89,7 +89,7 @@ export class DonationService {
   }
 
   getListDataForAnalysisDelete(id:string|number): Observable<Analysis>{
-    return this.http.delete<Analysis>(`${environment.apiUrlAdminKofa}/lecture/${id}`).pipe(
+    return this.http.delete<Analysis>(`${environment.apiUrlAdminKofa}/Bilan/Rapport/del/${id}`).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }
@@ -121,7 +121,6 @@ export class DonationService {
   // ====================================================== //
 
 
-
   /**
    * Get the cumulative price and donations number for a periode
    * @date 5/17/2023 - 9:12:20 AM
@@ -143,6 +142,7 @@ export class DonationService {
    *
    * @returns {Observable<DonationTypeModel>}
    */
+
   getListDonationType(): Observable<DonationTypeModel>{
     return this.http.get<DonationTypeModel>(`${environment.apiUrlDon}/dons/types`).pipe(
       catchError((error) => this.coreService.handleError(error)),
