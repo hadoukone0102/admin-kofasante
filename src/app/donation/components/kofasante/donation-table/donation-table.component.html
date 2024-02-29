@@ -24,6 +24,8 @@
             <th class="border-0">Prenom </th>
             <th class="border-0">Contact</th>
             <th class="border-0" >E-mail </th>
+            <th>Sexe</th>
+            <th>Âge</th>
             <th class="border-0">Actions</th>
         </tr>
         </thead>
@@ -34,6 +36,8 @@
               <td>{{ user.prenom }}</td>
               <td>{{ user.contact }}</td>
               <td>{{ user.email }}</td>
+              <td>{{ user.sexe }}</td>
+              <td>{{ user.age }}</td>
               <td>
 
                 <a title="Supprimer le rapport" (click)="DeleteMedia(user.id)" class="me-2 btn btn-sm btn-secondary d-inline-flex align-items-center">

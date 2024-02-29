@@ -58,7 +58,7 @@ export class DonationService {
 
 
   getListDataForAnalysis(): Observable<Analysis>{
-    return this.http.get<Analysis>(`${environment.apiUrlAdminKofa}/analyse`).pipe(
+    return this.http.get<Analysis>(`${environment.apiUrlAdminKofa}/Bilan/liste`).pipe(
       catchError((error) => this.coreService.handleError(error))
     );
   }

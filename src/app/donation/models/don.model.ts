@@ -63,6 +63,8 @@ export interface Type {
   email: string
   contact: string
   mot_de_passe: string
+  sexe?:string
+  age?:string
   role: string
   remember_token: any
   created_at: string
@@ -85,26 +87,77 @@ export interface rappelSucces{
 }
 
 
+// export interface Analysis {
+//   message: string
+//   data: Daum[]
+// }
+
+// export interface Daum {
+//   id: number
+//   nom: string
+//   prenom: string
+//   email: string
+//   contact: string
+//   type:string
+//   droite: string
+//   gauche: string
+//   poids: string
+//   taille: string
+//   glycemie: string
+//   created_at: string
+//   updated_at: string
+// }
+
 export interface Analysis {
   message: string
+  data: Data
+}
+
+export interface Data {
+  current_page: number
   data: Daum[]
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: Link[]
+  next_page_url: any
+  path: string
+  per_page: number
+  prev_page_url: any
+  to: number
+  total: number
 }
 
 export interface Daum {
   id: number
   nom: string
   prenom: string
-  email: string
   contact: string
-  type:string
-  droite: string
-  gauche: string
-  poids: string
+  email: string
+  sexe: string
+  age: string
+  type: string
   taille: string
-  glycemie: string
+  poids: string
+  systolique: string
+  diastolique: string
+  valeurGly: any
+  valeurTemp: string
+  condition: any
+  unite: any
+  interpretation: string
+  conseil: string
   created_at: string
   updated_at: string
 }
+
+export interface Link {
+  url?: string
+  label: string
+  active: boolean
+}
+
 
 export interface AnaUser{
   nom: string

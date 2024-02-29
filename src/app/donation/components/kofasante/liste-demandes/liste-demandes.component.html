@@ -23,37 +23,49 @@
           <th class="border-0">Prenom </th>
           <th class="border-0">Contact</th>
           <th class="border-0" >E-mail </th>
+          <th class="border-0" >sexe </th>
+          <th class="border-0" >Âge</th>
           <th class="border-0">Type de Donnée </th>
           <th class="border-0">Poids </th>
-          <th class="border-0">Bras Droite </th>
-          <th class="border-0">Bras Gauche</th>
           <th class="border-0">Taille</th>
-          <th class="border-0">Glycemie</th>
+          <th class="border-0">Tension Artérielle </th>
+          <th class="border-0">Température</th>
+          <th class="border-0">conditon de mesure</th>
+          <th class="border-0">Valeurs</th>
+          <th class="border-0">Unité de mesure</th>
+          <th class="border-0">Interpretation</th>
+          <th class="border-0">Conseils</th>
           <th class="border-0">Actions</th>
       </tr>
       </thead>
   <tbody >
-      <tr *ngFor="let analyse of Analysis.data; let i = index" (click)="checkElements(analyse)" @linePaginateAnimation>
+      <tr *ngFor="let analyse of Analysis.data.data; let i = index" (click)="checkElements(analyse)" @linePaginateAnimation>
         <td>{{ i+1 }}</td>
         <td>{{ analyse.nom }}</td>
         <td>{{ analyse.prenom }}</td>
         <td>{{ analyse.contact }}</td>
         <td>{{ analyse.email }}</td>
+        <td>{{ analyse.sexe }}</td>
+        <td>{{ analyse.age }}</td>
         <td>{{ analyse.type }}</td>
         <td>{{ analyse.poids }}kg</td>
-        <td>{{ analyse.droite }}mmHg</td>
-        <td>{{ analyse.gauche }}mmHg</td>
-        <td>{{ analyse.taille }}cm</td>
-        <td>{{ analyse.glycemie }}g/l- mg/dl</td>
+        <td>{{ analyse.taille }}m</td>
+        <td>{{ analyse.systolique }}/{{ analyse.diastolique }}</td>
+        <td>{{ analyse.valeurTemp }}C°</td>
+        <td>{{ analyse.condition }}</td>
+        <td>{{ analyse.valeurGly }}</td>
+        <td>{{ analyse.unite }}</td>
+        <td>{{ analyse.interpretation }}</td>
+        <td>{{ analyse.conseil }}</td>
         <td>
               <a title="Ajouter un rapport"  class="me-2 btn btn-sm btn-primary d-inline-flex align-items-center"
                 data-bs-toggle="modal" data-bs-target="#rapport">
                 <i class="fa fa-edit"></i>
               </a>
-              <a title="Analysé les données" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
+              <!-- <a title="Analysé les données" class="me-2 btn btn-sm btn-success d-inline-flex align-items-center"
                 data-bs-toggle="modal" data-bs-target="#analyse">
                 <i class="fa fa-edit"></i>
-              </a>
+              </a> -->
         </td>
       </tr>
   </tbody>
