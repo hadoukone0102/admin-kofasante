@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { linePaginateAnimation, zoomEnterAnimation } from 'src/app/core/animations/animations';
 import { RapporUser } from 'src/app/demandes/models/demande.model';
-import { AnaUser, Daum, LectureListe } from 'src/app/donation/models/don.model';
+import { AnaUser, Daum, Daums, LectureListe } from 'src/app/donation/models/don.model';
 import { DonationService } from 'src/app/donation/services/donation.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class ListAnalyseComponent {
 
   good!:boolean;
   Settings$!: Observable<LectureListe>;
-  Setting!: Array<Daum>;
+  Setting!: Array<Daums>;
 
   selectedItem!:any;
   RapporUser!:AnaUser;

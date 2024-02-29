@@ -39,7 +39,7 @@
       </tr>
       </thead>
   <tbody >
-      <tr *ngFor="let analyse of Analysis.data.data; let i = index" (click)="checkElements(analyse)" @linePaginateAnimation>
+      <tr *ngFor="let analyse of Analysis.data; let i = index" (click)="checkElements(analyse)" @linePaginateAnimation>
         <td>{{ i+1 }}</td>
         <td>{{ analyse.nom }}</td>
         <td>{{ analyse.prenom }}</td>
@@ -51,7 +51,7 @@
         <td>{{ analyse.poids }}kg</td>
         <td>{{ analyse.taille }}m</td>
         <td>{{ analyse.systolique }}/{{ analyse.diastolique }}</td>
-        <td>{{ analyse.valeurTemp }}C°</td>
+        <td>{{ analyse.valeurTemp }}°C</td>
         <td>{{ analyse.condition }}</td>
         <td>{{ analyse.valeurGly }}</td>
         <td>{{ analyse.unite }}</td>

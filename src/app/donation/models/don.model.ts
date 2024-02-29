@@ -110,23 +110,7 @@ export interface rappelSucces{
 
 export interface Analysis {
   message: string
-  data: Data
-}
-
-export interface Data {
-  current_page: number
   data: Daum[]
-  first_page_url: string
-  from: number
-  last_page: number
-  last_page_url: string
-  links: Link[]
-  next_page_url: any
-  path: string
-  per_page: number
-  prev_page_url: any
-  to: number
-  total: number
 }
 
 export interface Daum {
@@ -150,12 +134,6 @@ export interface Daum {
   conseil: string
   created_at: string
   updated_at: string
-}
-
-export interface Link {
-  url?: string
-  label: string
-  active: boolean
 }
 
 
@@ -193,17 +171,19 @@ export interface success {
 
 export interface LectureListe {
   message: string
-  data: Daum[]
+  data: Daums[]
 }
 
-export interface Daum {
+export interface Daums {
   id: number
   nom: string
   prenom: string
-  email: string
   contact: string
-  nomAdmin: string
+  email: string
+  sexe: any
+  age: any
   desc: string
+  conseil: string
   created_at: string
   updated_at: string
 }
