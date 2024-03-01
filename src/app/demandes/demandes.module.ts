@@ -32,7 +32,7 @@ const demandeRoutes: Routes = [
   {path:'info',component:RenseignerPageComponent,resolve:renseignerPageResolver},
   {path:'abonnement',component:AbonnementPageComponent,resolve:abonnementPageResolver},
   {path:'rapports',component:PricePageComponent,resolve:pricePageResolver},
-  {path:'liste-analyse',component:ListAnalyseComponent,resolve:listAnalyseResolver},
+  {path:'liste-rapp',component:ListAnalyseComponent,resolve:listAnalyseResolver},
 
 ];
 @NgModule({

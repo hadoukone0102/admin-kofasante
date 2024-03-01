@@ -83,7 +83,7 @@ export class CoreService {
   goTodocuments(){this.router.navigate(['/demande/documents'])}
   goToVisites(){this.router.navigate(['/demande/visites'])}
   goToPrice(){this.router.navigate(['/demande/rapports'])}
-  goToAnalysis(){this.router.navigate(['/demande/liste-analyse']);}
+  goToAnalysis(){this.router.navigate(['/demande/liste-rapp']);}
   goToMedecine(){this.router.navigate(['/demande/medecine'])}
   goToInformation(){this.router.navigate(['/demande/info'])}
   goToAbonnement(){this.router.navigate(['/demande/abonnement']);}
