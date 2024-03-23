@@ -91,6 +91,12 @@ export class CoreService {
   goToPaiements(){this.router.navigate(['/facture/paiement'])}
     // ~~~~~~~~~~~~~~~~~~~ // TODO  - demandes ~~~~~~~~~~~~~~~~ //
 
+// ~~~~~~~~~~~~~~~~~~~ // TODO  - type ~~~~~~~~~~~~~~~~ //
+  goTodoAddType(){this.router.navigate(['/types/ajouter-type'])}
+  goTodoShowListeTypeMed(){this.router.navigate(['/types/liste-type-med'])}
+  goTodoShowListeTypeDoc(){this.router.navigate(['/types/liste-type-doc'])}
+// ~~~~~~~~~~~~~~~~~~~ // TODO  - type ~~~~~~~~~~~~~~~~ //
+
   // ~~~~~~~~~~~~~~~~~~~ // TODO  - Pages ~~~~~~~~~~~~~~~~ //
   goToPageError(){this.router.navigate([('/erreur')]);}
   goToPageNotFound(){this.router.navigate(['/page-introuvable']);}

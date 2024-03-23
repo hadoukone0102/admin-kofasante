@@ -64,7 +64,14 @@ const routes: Routes = [
       roles: environment.allRolesKofa
     }
   },
+
   {path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+    canActivate: [AuthGuard, AccessGuard],
+    data:{
+      roles: environment.super
+    },
+  },
+  {path: 'types', loadChildren: () => import('./types/types.module').then(m => m.TypesModule),
     canActivate: [AuthGuard, AccessGuard],
     data:{
       roles: environment.super

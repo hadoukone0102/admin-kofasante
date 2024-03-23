@@ -1,0 +1,73 @@
+<app-toggle-header></app-toggle-header>
+<app-sidebar></app-sidebar>
+<main class="content">
+    <app-header></app-header>
+    <app-page-title
+        theModule="KoFaSante"
+        theTitle=" ajouter un Type"
+        theContent="kofa-mobile">
+    </app-page-title>
+    <!-- Content -->
+    <div class="card">
+     <div class="card-body">
+        <!-- LE FORMULAIRE -->
+        <div class="card border-0 shadow mb-4 ">
+          <div class="m-3">
+            <form (ngSubmit)="AjouterUnType()" #pub="ngForm" enctype="multipart/form-data">
+
+
+              <div class=" m-3">
+                <label for="role">Services <span style="color: red;">*</span> </label>
+                <select class="form-select w-100 mb-0" id="role" name="state" [(ngModel)]="MediaSend.service" aria-label="State select example">
+                    <option value="">Selectionnez un service</option>
+                    <option value="Médecine">Medecine</option>
+                    <option value="Document">Document</option>
+                </select>
+              </div>
+
+             <div class=" m-3">
+              <label for="role">Dans quelle Catégorie souhaitez-vous ajouter un type<span style="color: red;">*</span> </label>
+              <select class="form-select w-100 mb-0" id="role" name="state" [(ngModel)]="MediaSend.type_service" aria-label="State select example">
+                  <option value="">Selectionnez une categorie</option>
+                  <option value="type_consult">Choisir le type de consultation (med)</option>
+                  <option value="type_consult">Vous devrez accepter une consultation physique et/ou en ligne pour l'obtention du certificat.(doc)</option>
+                  <option value="type_doc">Quel document voulez-vous ? (doc)</option>
+                  <option value="personnel">Qui souhaitez-vous consulter ? (med)</option>
+              </select>
+            </div>
+
+            <div class="m-3">
+              <label for="exampleFormControlInput1" class="form-label">Titre <span style="color: red;">*</span></label>
+              <input type="text" name="titre" [(ngModel)]="MediaSend.desc" class="form-control" id="exampleFormControlInput1" placeholder="titre du type">
+            </div>
+
+            <div class="m-3">
+               <!--spinner-->
+               <div *ngIf="showSpinner" class="spinner-grow" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+               <!--spinner-->
+              <button type="submit" class="btn btn-github" [disabled]="!MediaSend.desc || !MediaSend.service || !MediaSend.type_service">Enrégistrer</button>
+            </div>
+             <!--success-->
+            <div *ngIf="showmessage" class="alert alert-success" role="alert">
+           {{ message1 }}
+            </div>
+             <!--success-->
+
+              <!--danger-->
+            <div *ngIf="showmessageDanger" class="alert alert-danger" role="alert">
+               {{ message2 }}
+            </div>
+              <!--danger-->
+
+            </form>
+          </div>
+        </div>
+        <!--  LE FORMULAIRE -->
+     </div>
+    </div>
+    <!-- End content -->
+
+    <app-footer></app-footer>
+</main>

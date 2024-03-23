@@ -14,6 +14,7 @@ import { TokenInterceptorProvider } from './admin/interceptors/token.interceptor
 import { DemandesModule } from './demandes/demandes.module';
 import { FacturationModule } from './facturation/facturation.module';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { TypesModule } from './types/types.module';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
     BrowserAnimationsModule,
     DemandesModule,
     FacturationModule,
-
+    TypesModule,
   ],
   providers: [
     importProvidersFrom(HttpClientModule),

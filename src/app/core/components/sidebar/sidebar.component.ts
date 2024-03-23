@@ -97,6 +97,13 @@ export class SidebarComponent implements OnInit{
   goToPaiements(){this.coreService.goToPaiements();}
   // ~~~~~~~~~~~~ //TODO - demande ~~~~~~~~~~~ //
 
+  // ~~~~~~~~~~~~~  // TODO - types ~~~~~~~~~~ //
+  goTodoAddType(){this.coreService.goTodoAddType();}
+  goTodoShowListeTypeMed(){this.coreService.goTodoShowListeTypeMed();}
+  goTodoShowListeTypeDoc(){this.coreService.goTodoShowListeTypeDoc();}
+
+  // ~~~~~~~~~~~~~  // TODO - types ~~~~~~~~~~ //
+
   goToProfile(){this.coreService.goToProfile();}
   goToAdmin(){this.coreService.goToAdmin();}
   goToDisabledAccount(){this.coreService.goToDisabledAccount();}
