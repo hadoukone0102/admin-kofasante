@@ -124,6 +124,7 @@ export interface Daum {
   type: string
   couts: number
   autre?:string
+  typeServe?:string
   created_at: string
   updated_at: string
 }

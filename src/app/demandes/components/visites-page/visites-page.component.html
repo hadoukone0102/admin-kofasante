@@ -20,8 +20,9 @@
                     <th >E-mail</th>
                     <th >Contact</th>
                     <th >Services</th>
-                    <th>Type Services</th>
                     <th>Autres</th>
+                    <th>Type Services</th>
+                    <th>Autres Type de Service</th>
                     <th>Status</th>
                     <th >Details</th>
                     <th class="border-0 rounded-end">Actions</th>
@@ -35,8 +36,9 @@
                 <td>{{ param.email }}</td>
                 <td>{{ param.contact }}</td>
                 <td>{{ param.services }}</td>
-                <td>{{ param.typeServices }}</td>
                 <td>{{ param.autre }}</td>
+                <td>{{ param.typeServices }}</td>
+                <td>{{ param.typeServe }}</td>
                 <td *ngIf="param.status == true" class="green">déjà envoyée</td>
                 <td *ngIf="param.status != true" class="red">En attente</td>
                 <td>{{ param.details }}</td>
