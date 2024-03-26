@@ -44,6 +44,7 @@ export class AddAsctuceComponent {
           this.formData.append('titre', this.MediaSend.titre);
           this.formData.append('categorie', this.MediaSend.categorie);
           this.formData.append('desc', this.MediaSend.desc);
+          this.formData.append('type', "image");
         } else if (file.type.startsWith('video/')) {
           // Traitement pour les vidéos
           this.formData = new FormData();
@@ -51,6 +52,7 @@ export class AddAsctuceComponent {
           this.formData.append('titre', this.MediaSend.titre);
           this.formData.append('categorie', this.MediaSend.categorie);
           this.formData.append('desc', this.MediaSend.desc);
+          this.formData.append('type', "video");
         } else {
           this.showmessageDanger = true;
         }
@@ -77,6 +79,7 @@ export class AddAsctuceComponent {
       this.formData.append('titre', this.MediaSend.titre);
       this.formData.append('categorie', this.MediaSend.categorie);
       this.formData.append('desc', this.MediaSend.desc);
+      this.formData.append('type', "aucun");
 
       this.http.post('https://app.kofasante.com/api/media', this.formData).subscribe(
         (res: any) => {

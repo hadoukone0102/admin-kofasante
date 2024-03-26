@@ -95,7 +95,6 @@ export class LoginComponent implements OnInit{
 showConsole(val: string){
 
   // console.log("keyup the new mama: "+val);
-
 }
 
 showConsoleChange(val: string){
